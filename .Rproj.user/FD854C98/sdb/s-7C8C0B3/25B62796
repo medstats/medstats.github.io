@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "<!DOCTYPE html>\n    <html>\n       <head>\n    <title>Mean Calculator</title>\n\n\t<script src=\"site_libs/jquery.min.js\"></script>\n<script src=\"site_libs/ocpu.js\"></script>\n\n   \n     </head>\n     <body>\n    <h1>ttest Calculator</h1>\n\t <script>\n\t\n\t\n\t\n$(\"#submitbutton\").click(function()\n\n        {\n\t\tocpu.seturl(\"public.opencpu.org/ocpu/library/stats/R\")\n            // user inputs\n           //  var height =  document.getElementById(\"height\").value.split(\"/n\").map(Number);\n\t\t\t\n\t\t\t var area1 = document.getElementById(\"group1\");             \n    var lines1 = area1.value.replace(/\\r\\n/g,\"\\n\").split(\"\\n\");\n\tvar array1 = lines1.map(Number);\n\t// var mean = jStat.mean(array1);\n\t\n\tvar area2 = document.getElementById(\"group2\");             \n    var lines2 = area2.value.replace(/\\r\\n/g,\"\\n\").split(\"\\n\");\n\tvar array2 = lines2.map(Number);\n\t\n\t\n    \n    var req = ocpu.call(\"t.test\",{\n        x : array1,\n        y : array2\n    }, function(session){\n      //retrieve session console (stdout) async\n      session.getConsole(function(outtxt){\n          $(\"code\").text(outtxt);\n      });\n    });\n\n    //optional\n    req.fail(function(){\n        alert(\"R returned an error: \" + req.responseText); \n    });\n\n\n\n\t\n\t// http://stackoverflow.com/questions/4437916/how-to-convert-all-elements-in-an-array-to-integer-in-javascript\n            \n            //Display result of calculation\n           \n\t\t\t\n\n         \n        \n    </script>\n\t\n    <p>Enter Numbers in group 1: <textarea  id=\"group1\"> </textarea></p>\n\t<p>Enter Numbers in group 2: <textarea  id=\"group2\"> </textarea></p>\n\t\n    \n    <button id=\"submitbutton\">Run T-TEST</button> <br>\n\n     <pre> <code> </code> </pre>\n\n    \n\n    \n     </body>\n\n    </html>\n\n",
+    "created" : 1485426665789.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2119657487",
+    "id" : "25B62796",
+    "lastKnownWriteTime" : 1485427748,
+    "last_content_update" : 1485427748100,
+    "path" : "~/Rprojects/website2/ttest.html",
+    "project_path" : "ttest.html",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "html"
+}
