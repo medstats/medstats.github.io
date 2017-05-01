@@ -332,17 +332,17 @@ write_log(z)
 
  <h1 style="color:red" > Bayesian Interpretation of Clinical Trials and A/B tests </h1>
  
- <p>  Enter Failure rate(Events) in Control Group: <input ="text"  id="c1"> </p>
+ <p>  Enter Failure rate(Events) in Control Group: <input ="text" placeholder="50"  id="c1"> </p>
  
- <p>Enter Success rate(Non-Events,Conversion Rate) in control Group: <input ="text"  id="d1"></p>
+ <p>Enter Success rate(Non-Events,Conversion Rate) in control Group: <input ="text" placeholder="50"  id="d1"></p>
 
-<p>Enter Failure rate(Events) in Test Group: <input ="text"  id="a1"></p>
- <p>Enter Success rate(Non-events,Conversion Rate) in Test Group: <input ="text"  id="b1"></p>
+<p>Enter Failure rate(Events) in Test Group: <input ="text" placeholder="25"  id="a1"></p>
+ <p>Enter Success rate(Non-events,Conversion Rate) in Test Group: <input ="text" placeholder="75"  id="b1"></p>
  
- <p>Enter Minimum clinically important difference(expected risk reduction in percent) <input ="text"  id="mcid"></p>
-<p>Enter Threshold of difference <input ="text"  id="del"></p>
- <p>Enter upper limit of Range of practical equivalence(ROPE): <input ="text"  id="rope1"></p>
- <p>Enter lower limit of Range of practical equivalence(ROPE): <input ="text"  id="rope2"></p>
+ <p>Enter Minimum clinically important difference(expected risk reduction in percent) <input ="text" placeholder="15"  id="mcid"></p>
+<p>Enter Threshold of difference <input ="text" placeholder="12"  id="del"></p>
+ <p>Enter upper limit of Range of practical equivalence(ROPE): <input ="text" placeholder="2.5"  id="rope1"></p>
+ <p>Enter lower limit of Range of practical equivalence(ROPE): <input ="text" placeholder="-2.5"  id="rope2"></p>
  
  
 	<input type="button" value="Calculate Bayesian Interpretation" id = "calc">
