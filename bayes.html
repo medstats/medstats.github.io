@@ -151,6 +151,24 @@ var better = jStat.normal.cdf(0,xpost,sdpost)
 
 var Nullprob    =  Math.abs(jStat.normal.cdf(r1or,xpost,sdpost) -  jStat.normal.cdf(r2or,xpost,sdpost) )
 
+var orpost = Math.exp(xpost).toFixed(3)
+var orpostlo = Math.exp(xpost -1.96*sdpost).toFixed(3)
+var orposthi = Math.exp(xpost +1.96*sdpost).toFixed(3)
+
+var rrpost = orpost/((1-p) +p*orpost)
+var rrpostlo = orpostlo/((1-p) +p*orpostlo)
+var rrposthi = orpostlo/((1-p) +p*orposthi)
+
+var rdpost  = p*(1-rrpost)
+var rdpostlo  = p*(1-rrpostlo)
+var rdposthi  = p*(1-rrposthi)
+
+
+
+
+
+
+
 
 var summary = "This prior assumes that in general clinical studies have  mean odds ratio of " + Math.exp(xpr).toFixed(3) + " with lower and higher 95% credible limits of odds ratio from " +  Math.exp(xpr -1.96*sdpr).toFixed(3) + " to " +  Math.exp(xpr+ 1.96*sdpr).toFixed(3) + " respectively  " 
 
@@ -164,9 +182,11 @@ var custom1 = " . The probability that treatment causes  specified " + del + " %
 var custom2 = " .The probability that treatment effect lies between "+ rope1 + " and " +rope2 +" percent reduction is " +(Nullprob*100).toFixed(3)+ " percent"
 
 
+var  rr = "The mean relative risk is " + rrpost + " The 95% credible interval for relative risk is from " +rrpostlo+ " to " +rrposthi+"."
 
+var  rd = "The mean absolute risk difference  is " + rdpost + " The 95% credible interval for absolute risk difference is from " +rdpostlo+ " to " +rdposthi+"."
 
-var sun = summary + summary1 + summary2 + custom1 + custom2 
+var sun = summary + summary1 + summary2 + custom1 + custom2 + rr + rd
 
 sun
 
