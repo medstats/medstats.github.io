@@ -159,9 +159,9 @@ var rrpost = orpost/((1-p) +p*orpost).toFixed(3)
 var rrpostlo = orpostlo/((1-p) +p*orpostlo).toFixed(3)
 var rrposthi = orposthi/((1-p) +p*orposthi).toFixed(3)
 
-var rdpost  = p*(1-rrpost).toFixed(3)
-var rdpostlo  = p*(1-rrpostlo).toFixed(3)
-var rdposthi  = p*(1-rrposthi).toFixed(3)
+var rdpost  = (10000*p*(1-rrpost)).toFixed(3)
+var rdpostlo  = (10000*p*(1-rrpostlo)).toFixed(3)
+var rdposthi  = (10000*p*(1-rrposthi)).toFixed(3)
 
 
 
