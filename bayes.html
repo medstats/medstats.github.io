@@ -181,16 +181,16 @@ var study = "In the Frequentist Interpretation,The odds ratio is " + ((a1*d1)/(b
 
 
 
-var wip1 = "Let us do Bayesian sensitivity analysis by informative priors .In this bayesian analysis, we use conjugate priors albeit robust cauchy priors perform better with prior information and current experiment conflict. Coming to first weak informative prior . This prior has location of zero and scale of 0.75. It is recommended by Gelman and pedroza et al. for odds ratio in particular. " +  priortopost(xpr=0,sdpr=0.7,xe,sde,p,del,rope1,rope2)
+var wip1 = "Let us do Bayesian sensitivity analysis by informative priors .In this bayesian analysis, we use conjugate priors albeit robust cauchy priors perform better with prior information and current experiment conflict. Coming to first weak informative prior . This prior has location of zero and scale of 1. It is recommended by Gelman and pedroza et al. for odds ratio in particular. " +  priortopost(xpr=0,sdpr=1,xe,sde,p,del,rope1,rope2)
 
 var wip2 = " Coming to second weak informative prior .It is a less vague version of first weakly informative prior with location of log odds ratio at 0 and scale at 0.35 recommended by spieghalter et al. " +  priortopost(xpr=0,sdpr=0.35,xe,sde,p,del,rope1,rope2)
 
 
-var enthusiasticprior = ". Now let us examine enthusiastic prior!  Enthusiastic prior assumes a mean odds ratio of "+Math.exp(mcidor).toFixed(3)+" corresponding to " + mcid + " percent risk reduction and minimal(2.5%) chance of zero effect corresponding to odds ratio  1 ." +  priortopost(xpr=mcidor,sdpr=mcidorse,xe,sde,p,del,rope1,rope2)
+var enthusiasticprior = ". Now let us examine enthusiastic prior!  Enthusiastic prior is a highly informed prior representing clinician's belief which assumes a mean odds ratio of "+Math.exp(mcidor).toFixed(3)+" corresponding to " + mcid + " percent risk reduction(equivalent to prespecified  clinically signifiant risk reduction) and minimal(2.5%) chance of zero effect corresponding to odds ratio  1 ." +  priortopost(xpr=mcidor,sdpr=mcidorse,xe,sde,p,del,rope1,rope2)
 
 
 
-var skepticalprior = " Coming to skeptical prior,Skeptical prior assumes a mean odds ratio of "+Math.exp(0)+" corresponding to no risk reduction with minimal(2.5%) chance  of risk reduction exceeding " +mcid+ " percent "+  priortopost(xpr=0,sdpr=mcidorse,xe,sde,p,del,rope1,rope2)
+var skepticalprior = " Coming to skeptical prior,Skeptical prior assumes a mean odds ratio of "+Math.exp(0)+" corresponding to no risk reduction with minimal(2.5%) chance  of risk reduction exceeding " +mcid+ " percent(minimal prespecified clinically significant risk reduction.This may be thought as belief of a sceptical regulator. "+  priortopost(xpr=0,sdpr=mcidorse,xe,sde,p,del,rope1,rope2)
 
 
 var finalsummary = study+wip1+wip2+enthusiasticprior+skepticalprior
@@ -339,7 +339,7 @@ write_log(z)
 <p>Enter Failure rate(Events) in Test Group: <input ="text"  id="a1"></p>
  <p>Enter Success rate(Non-events,Conversion Rate) in Test Group: <input ="text"  id="b1"></p>
  
- <p>Enter Minimum clinically important difference <input ="text"  id="mcid"></p>
+ <p>Enter Minimum clinically important difference(expected risk reduction in percent) <input ="text"  id="mcid"></p>
 <p>Enter Threshold of difference <input ="text"  id="del"></p>
  <p>Enter upper limit of Range of practical equivalence(ROPE): <input ="text"  id="rope1"></p>
  <p>Enter lower limit of Range of practical equivalence(ROPE): <input ="text"  id="rope2"></p>
