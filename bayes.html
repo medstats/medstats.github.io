@@ -52,15 +52,18 @@ write_log("\n") ;
 write_log("\n") ;
 
     var a1 = parseFloat($('#a1').val());
-	var b1 = parseFloat($('#b1').val());
+	var t1 = parseFloat($('#b1').val());
 	var c1 = parseFloat($('#c1').val());
-    var d1 = parseFloat($('#d1').val());
+    var t2 = parseFloat($('#d1').val());
 
     var del = parseFloat($('#del').val());
     var rope1 = parseFloat($('#rope1').val());
     var rope2 = parseFloat($('#rope2').val());
     var mcid = parseFloat($('#mcid').val());
-	var p = c1/(c1+d1)
+	var p = c1/t2
+	
+	var b1 = t1-a1
+	var d2 = t2-c1
 
 //p
 
@@ -352,12 +355,12 @@ write_log(z)
 
  <h1 style="color:red" > Bayesian Interpretation of Clinical Trials and A/B tests </h1>
  
- <p>  Enter Failure rate(Events) in Control Group: <input ="text" placeholder="50"  id="c1"> </p>
+ <p>  Enter Total number of patients in Control Group: <input ="text" placeholder="50"  id="c1"> </p>
  
  <p>Enter Success rate(Non-Events,Conversion Rate) in control Group: <input ="text" placeholder="50"  id="d1"></p>
 
 <p>Enter Failure rate(Events) in Test Group: <input ="text" placeholder="25"  id="a1"></p>
- <p>Enter Success rate(Non-events,Conversion Rate) in Test Group: <input ="text" placeholder="75"  id="b1"></p>
+ <p>Enter Total number of patients in Test Group: <input ="text" placeholder="75"  id="b1"></p>
  
  <p>Enter Minimum clinically important difference(expected risk reduction in percent) <input ="text" placeholder="15"  id="mcid"></p>
 <p>Enter Threshold of difference <input ="text" placeholder="12"  id="del"></p>
