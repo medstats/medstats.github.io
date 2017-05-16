@@ -296,15 +296,22 @@ var q = z-x
 
 var phi = 1-jStat.normal.cdf(q,mean=0,sd=1)
 
+var p1 = 100*phi
+
 
 
 var q1 = -z-x
 
 var plo = jStat.normal.cdf(q1,mean=0,sd=1)
 
-var power = phi+plo
+var p2 = 100*plo
 
-var typeS = plo/power
+
+
+var power = (p1+p2)/100
+
+var typeS = p2/power
+
 
 
 
@@ -359,7 +366,7 @@ var exaggeration = jStat.mean(estimatex2)/A
     
 //
 
-var summary = "For a hypothetical true effect size of " + A + " retrieved from external or historical  data, and standard error of " + s + " retrieved from the current,study , an unbiased estimate will have " +100*phi.toFixed(3) + " percent chance of being statistically significantly in the correct direction than of being statistically significant and in the wrong direction ( " +  100*plo.toFixed(3) + " percent ). Conditional on the estimate being statistically significant, there is a " +100*typeS.toFixed(3) + " percent chance it will be in the wrong direction (the Type S error rate) and,  the estimated effect is expected to be " + exaggeration.toFixed(3) + " times higher than the true effect (the exaggeration factor) also called as Type M error .The power of current study to detect this hypothetical true effect size is " + 100*power.toFixed(3) + " percent."
+var summary = "For a hypothetical true effect size of " + A + " retrieved from external or historical  data, and standard error of " + s + " retrieved from the current,study , an unbiased estimate will have " +p1.toFixed(3) + " percent chance of being statistically significantly in the correct direction than of being statistically significant and in the wrong direction ( " +  p2.toFixed(3) + " percent ). Conditional on the estimate being statistically significant, there is a " +typeS.toFixed(3) + " percent chance it will be in the wrong direction (the Type S error rate) and,  the estimated effect is expected to be " + exaggeration.toFixed(3) + " times higher than the true effect (the exaggeration factor) also called as Type M error .The power of current study to detect this hypothetical true effect size is " + 100*power.toFixed(3) + " percent."
 
 document.getElementById("output").innerText = summary;
 
