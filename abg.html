@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title> Arterial Blood Gas Interpretation</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<script src="site_libs/jstat.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Anupam Singh</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="about.html">
+    <span class="fa fa-user"></span>
+     
+    About
+  </a>
+</li>
+<li>
+  <a href="https://anupamsingh81.github.io/blog/">
+    <span class="fa fa-rss"></span>
+     
+    Blog
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bars"></span>
+     
+    Miscellaneous
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://www.researchgate.net/profile/Anupam_Singh9">My Research gate profile</a>
+    </li>
+    <li>
+      <a href="https://www.researchgate.net/publication/289519661_Comparison_of_ICH_score_and_other_Machine_algorithms_for_prediction_of_mortality_in_Intracranial_hemorrhage">Machine learning in prediction of outcome in intracranial hemorrhage</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:anupampom@gmail.com">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact me
+  </a>
+</li>
+<li>
+  <a href="https://github.com/anupamsingh81">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/anupampom">
+    <span class="fa fa-twitter"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://stackoverflow.com/users/4954115/anupam?tab=profile">
+    <span class="fa fa-stack-overflow"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore" style="color:blue" >ABG Interpreter</h1>
+<br>
+
+</div>
+
+ <p>Enter pH: <input ="text"  id="pH" placeholder="7.28" ></p>
+ <p>Enter pO2: <input ="text"  id="pO2" placeholder="58" ></p>
+ 
+ <p>Enter FiO2  <input ="text"  id="FiO2" placeholder="50"> </p>
+ 
+ <p>Enter pCO2: <input ="text"  id="pCO2" placeholder="24" ></p>
+ <p>Enter Bicarbonate: <input ="text"  id="hco3" placeholder="16" ></p>
+ <p>Enter Sodium: <input ="text"  id="na" placeholder="145" ></p>
+ <p>Enter Chlorine: <input ="text"  id="cl" placeholder="103" ></p>
+ 
+ <p> Enter Albumin: <input ="text"  id="albumin" placeholder="3.4" ></p>
+ 
+ 
+ 
+	<p>Enter Time of illness :    
+	<label><input type="radio" name="time" value="acute">Acute</label> 
+        <label><input type="radio" name="time" value="chronic">Chronic</label></p>
+	<input type="button" value="ABG Interpret" id = "calc">
+	<input type="button" value="reset" id="reset"  >
+    
+	
+ 
+
+<textarea id="log" style= "width: 100%; height: 250px; " ></textarea>
+
+</div>
+
+<script>
+
+$(document).ready(function(){ 
+function write_log(s) {
+       $("#log").val($("#log").val() + s)
+      $("#log").scrollTop($("#log")[0].scrollHeight);
+    }
+	
+$(".reset").bind("click", function() {
+  $("input[type=text], textarea").val("");
+});
+
+
+$("#reset").on("click", function(){
+$('#pH').val('');
+$('#pO2').val('');
+$('#FiO2').val('');
+$('#pCO2').val('');
+$('#na').val('');
+$('#cl').val('');
+$('#hco3').val('');
+$('#albumin').val('');
+$('#time').val('');
+$('#log').val('');
+
+})
+
+//function computelog() {
+
+$("#calc").on("click", function(){
+var PH_NORMAL = 7.4;
+var PH_NORMAL_DELTA = 0.01;  // Acceptable deviation from normal
+var PCO2_NORMAL = 40;
+var PCO2_NORMAL_DELTA = 2;
+var HCO3_NORMAL = 24;
+var HCO3_NORMAL_DELTA = 2;
+var ANION_GAP_NORMAL = 12;
+var ANION_GAP_NORMAL_DELTA = 2;
+var DELTA_DELTA_GAP_NORMAL_DELTA = 6;
+var ALBUMIN_NORMAL = 4.0;
+
+var ANION_GAP_ALBUMIN_CORRECTION = 2.5;
+
+var EXPECTED_DELTA_PH_PER_PCO2_ACUTE = -0.008;
+var EXPECTED_DELTA_PH_PER_PCO2_CHRONIC = -0.004;
+
+var EXPECTED_DELTA_HCO3_PER_PCO2_ACIDOSIS_ACUTE = 0.1;
+var EXPECTED_DELTA_HCO3_PER_PCO2_ACIDOSIS_CHRONIC = 0.4;
+var EXPECTED_DELTA_HCO3_PER_PCO2_ALKALOSIS_ACUTE = 0.2;
+var EXPECTED_DELTA_HCO3_PER_PCO2_ALKALOSIS_CHRONIC = 0.4;
+
+var EXPECTED_PCO2_HCO3_COMPENSATION_DIFF = 15;
+
+var summary = '';
+var msg = '';
+var gap = '';
+var logic = '';
+
+write_log("\n") ;
+
+
+	write_log('Welcome to ABG Assistant coded by Anupam K Singh, MD '+"\n") ;
+write_log("\n") ;
+
+    var pH = parseFloat($('#pH').val());
+	var pO2 = parseFloat($('#pO2').val());
+	var FiO2 = parseFloat($('#FiO2').val());
+    var pCO2 = parseFloat($('#pCO2').val());
+
+    var na = parseFloat($('#na').val());
+    var cl = parseFloat($('#cl').val());
+    var hco3 = parseFloat($('#hco3').val());
+    var albumin = parseFloat($('#albumin').val());
+	var time = $("input[name='time']:checked").val();
+	//var time = $('#time').val();
+var HH = - Math.log10(24*pCO2/hco3*Math.pow(10,-9));
+var HH1 = Math.round(HH)
+
+var PAO2 = FiO2*7 - 1.25*pCO2
+var gradient = PAO2 - pO2
+var pfratio = (pO2/FiO2)*100
+
+write_log('The alveolar arterial gradient is :('+gradient.toFixed(2)+')' + "\n") ;
+write_log('The PF Ratio is :('+pfratio.toFixed(2)+')' + "\n") ;
+
+
+
+if ( Math.abs(pH-HH) <= PH_NORMAL_DELTA )
+    {
+        write_log('pH calculated by machine ('+ pH +') consistent with value calculated by Henderson equation ('+ HH.toFixed(3) +'):'+ "\n");
+}
+else
+{
+        write_log('pH calculated by machine ('+ pH +') inconsistent with value calculated by Henderson equation ('+ HH +'):'+ "\n");
+}
+
+
+	 if ( Math.abs(pH-PH_NORMAL) <= PH_NORMAL_DELTA )
+    {
+        write_log('pH within normal range of expected ('+ PH_NORMAL +'):'+ "\n");
+        write_log('No primary acid-base disorder, or a mixed disorder'+ "\n");
+    }
+    else if ( pH < PH_NORMAL )
+    {
+        write_log('Acidemia when pH ('+ pH +') less than expected ('+ PH_NORMAL +')'+ "\n" );
+        if ( pCO2 > PCO2_NORMAL )
+        {
+            analyzeRespiratoryAcidosis( pH, pCO2, na, cl, hco3, albumin );
+        }
+        else
+        {
+            analyzeMetabolicAcidosis( pH, pCO2, na, cl, hco3, albumin );
+        }
+    }
+    else // ( pH > PH_NORMAL )
+    {
+        write_log('Alkalemia when pH ('+ pH +') greater than expected: ('+ PH_NORMAL +')'+ "\n" );
+        if ( pCO2 < PCO2_NORMAL )
+        {
+            analyzeRespiratoryAlkalosis( pH, pCO2, na, cl, hco3, albumin );
+        }
+        else
+        {
+            analyzeMetabolicAlkalosis( pH, pCO2, na, cl, hco3, albumin );
+        }
+    }
+
+
+function analyzeRespiratoryAcidosis( pH, pCO2, na, cl, hco3, albumin )
+{
+    write_log('[Respiratory Acidosis] when pCO2 ('+ pCO2 +') > expected ('+ PCO2_NORMAL +')'+ "\n");
+    var pHexpected = PH_NORMAL;
+    var expectedHCO3 = HCO3_NORMAL;
+    if ( time == 'acute')
+    {
+        summary += 'Primary Respiratory Acidosis, Acute, with: ';
+        write_log('[Acute respiratory acidosis] =>'+ "\n");
+        write_log('Expect metabolic compensation when pH ('+ (EXPECTED_DELTA_PH_PER_PCO2_ACUTE*10) +') per +10 pCO2'+ "\n");
+        write_log('Expect metabolic compensation when HCO3 (+'+ (EXPECTED_DELTA_HCO3_PER_PCO2_ACIDOSIS_ACUTE*10) +') per +10 pCO2'+ "\n");
+
+        pHexpected += (pCO2-PCO2_NORMAL) * EXPECTED_DELTA_PH_PER_PCO2_ACUTE;
+        expectedHCO3 += (pCO2-PCO2_NORMAL) * EXPECTED_DELTA_HCO3_PER_PCO2_ACIDOSIS_ACUTE;
+    }
+    else
+    {
+        summary += 'Primary Respiratory Acidosis, Chronic, with: ';
+        write_log('[Chronic respiratory acidosis] =>');
+        write_log('Expect metabolic compensation when pH ('+ (EXPECTED_DELTA_PH_PER_PCO2_CHRONIC*10) +') per +10 pCO2'+ "\n");
+        write_log('Expect metabolic compensation when HCO3 (+'+ (EXPECTED_DELTA_HCO3_PER_PCO2_ACIDOSIS_CHRONIC*10) +') per +10 pCO2'+ "\n");
+
+        pHexpected += (pCO2-PCO2_NORMAL) * EXPECTED_DELTA_PH_PER_PCO2_CHRONIC;
+        expectedHCO3 += (pCO2-PCO2_NORMAL) * EXPECTED_DELTA_HCO3_PER_PCO2_ACIDOSIS_CHRONIC;
+    }
+
+    write_log('Expected pH ('+ pHexpected +' +/- '+ PH_NORMAL_DELTA +'), actual pH ('+ pH +') =>'+ "\n");
+    write_log('Expected HCO3 ('+expectedHCO3+'), actual HCO3 ('+ hco3 +') =>'+ "\n");
+    if ( Math.abs(expectedHCO3-hco3) <= HCO3_NORMAL_DELTA)
+    {
+        summary += 'Appropriately Compensated by Metabolic Alkalosis';
+        write_log('Appropriately [compensated respiratory acidosis]'+ "\n");
+    }
+    else if ( expectedHCO3 >  hco3)
+    {
+        summary += 'Secondary Metabolic Acidosis';
+        write_log('[Secondary metabolic acidosis]'+ "\n");
+        analyzeAnionGapAcidosis( pH, pCO2, na, cl, hco3, albumin );
+    }
+    else // ( hco3 > expectedHCO3 )
+    {
+        summary += 'Secondary Metabolic Alkalosis';
+        write_log('[Secondary metabolic alkalosis]'+ "\n");
+    }
+
+
+}
+
+function analyzeRespiratoryAlkalosis( pH, pCO2, na, cl, hco3, albumin )
+{
+    write_log('[Respiratory Alkalosis] when pCO2 ('+ pCO2 +') < expected ('+ PCO2_NORMAL +')'+ "\n");
+
+    var pHexpected = PH_NORMAL;
+    var expectedHCO3 = HCO3_NORMAL;
+    if (time == 'acute' )
+    {
+        summary += 'Primary Respiratory Alkalosis, Acute, with: ';
+        write_log('[Acute respiratory alkalosis] =>'+ "\n");
+        write_log('Expect metabolic compensation when pH ('+ (EXPECTED_DELTA_PH_PER_PCO2_ACUTE*10) +') per +10 pCO2'+ "\n");
+        write_log('Expect metabolic compensation when HCO3 (-'+ (EXPECTED_DELTA_HCO3_PER_PCO2_ALKALOSIS_ACUTE*10) +') per -10 pCO2'+ "\n");
+
+        pHexpected += (pCO2-PCO2_NORMAL) * EXPECTED_DELTA_PH_PER_PCO2_ACUTE;
+        expectedHCO3 += (pCO2-PCO2_NORMAL) * EXPECTED_DELTA_HCO3_PER_PCO2_ALKALOSIS_ACUTE;
+    }
+    else
+    {
+        summary += 'Primary Respiratory Alkalosis, Chronic, with: ';
+        write_log('[Chronic respiratory alkalosis] =>'+ "\n");
+        write_log('Expect metabolic compensation when pH ('+ (EXPECTED_DELTA_PH_PER_PCO2_CHRONIC*10) +') per +10 pCO2'+ "\n");
+        write_log('Expect metabolic compensation when HCO3 (-'+ (EXPECTED_DELTA_HCO3_PER_PCO2_ALKALOSIS_CHRONIC*10) +') per -10 pCO2'+ "\n");
+
+        pHexpected += (pCO2-PCO2_NORMAL) * EXPECTED_DELTA_PH_PER_PCO2_CHRONIC;
+        expectedHCO3 += (pCO2-PCO2_NORMAL) * EXPECTED_DELTA_HCO3_PER_PCO2_ALKALOSIS_CHRONIC;
+    }
+
+    write_log('Expected pH ('+ pHexpected +' +/- '+ PH_NORMAL_DELTA +'), actual pH ('+ pH +') =>'+ "\n");
+    write_log('Expected HCO3 ('+expectedHCO3+'), actual HCO3 ('+ hco3 +') =>'+ "\n");
+    if ( Math.abs(expectedHCO3-hco3) <= HCO3_NORMAL_DELTA )
+    {
+        summary += 'Appropriately Compensated by Metabolic Acidosis';
+        write_log('Appropriately [compensated respiratory alkalosis]'+ "\n");
+    }
+    else if ( expectedHCO3 >  hco3 )
+    {
+        summary += 'Secondary Metabolic Acidosis';
+        write_log('[Secondary metabolic acidosis]'+ "\n");
+        analyzeAnionGapAcidosis( pH, pCO2, na, cl, hco3, albumin );
+    }
+    else // ( hco3 > expectedHCO3 )
+    {
+        summary += 'Secondary Metabolic Alkalosis';
+        write_log('[Secondary metabolic alkalosis]'+ "\n");
+    }
+
+
+}
+
+
+function analyzeMetabolicAcidosis( pH, pCO2, na, cl, hco3, albumin )
+{
+    summary += 'Primary Metabolic Acidosis, with: ';
+    write_log('[Metabolic Acidosis] when pCO2 ('+ pCO2 +') < expected ('+ PCO2_NORMAL +')'+ "\n");
+    write_log('Expect respiratory compensation when pCO2 = HCO3 +'+EXPECTED_PCO2_HCO3_COMPENSATION_DIFF+ "\n");
+
+    var pCO2expected = hco3 + EXPECTED_PCO2_HCO3_COMPENSATION_DIFF;
+    write_log('Expected pCO2 ('+ pCO2expected +' +/- '+ PCO2_NORMAL_DELTA +'), actual pCO2 ('+ pCO2 +') =>'+ "\n");
+    if ( Math.abs(pCO2expected-pCO2) <= PCO2_NORMAL_DELTA )
+    {
+        summary += 'Appropriately Compensated by Respiratory Alkalosis';
+        write_log('Appropriately [compensated metabolic acidosis]'+ "\n");
+    }
+    else if ( pCO2 < pCO2expected )
+    {
+        summary += 'Secondary Respiratory Alkalosis';
+        write_log('[Secondary respiratory alkalosis]'+ "\n");
+    }
+    else // ( pCO2 > pCO2expected )
+    {
+        summary += 'Secondary Respiratory Acidosis';
+        write_log('[Secondary respiratory acidosis]'+ "\n");
+    }
+
+
+    analyzeAnionGapAcidosis( pH, pCO2, na, cl, hco3, albumin );
+}
+
+function analyzeMetabolicAlkalosis( pH, pCO2, na, cl, hco3, albumin )
+{
+    summary += 'Primary Metabolic Alkalosis, with: ';
+    write_log('[Metabolic Alkalosis] when pCO2 ('+ pCO2 +') > expected ('+ PCO2_NORMAL +')'+ "\n");
+    write_log('Expect respiratory compensation when pCO2 = HCO3 +'+EXPECTED_PCO2_HCO3_COMPENSATION_DIFF+ "\n");
+
+    var pCO2expected = hco3 + EXPECTED_PCO2_HCO3_COMPENSATION_DIFF;
+    write_log('Expected pCO2 ('+ pCO2expected +' +/- '+ PCO2_NORMAL_DELTA +'), actual pCO2 ('+ pCO2 +') =>'+ "\n");
+    if ( Math.abs(pCO2expected-pCO2) <= PCO2_NORMAL_DELTA )
+    {
+        summary += 'Appropriately Compensated by Respiratory Acidosis';
+        write_log('Appropriately [compensated metabolic alkalosis]'+ "\n");
+    }
+    else if ( pCO2 < pCO2expected )
+    {
+        summary += 'Secondary Respiratory Alkalosis';
+        write_log('[Secondary respiratory alkalosis]'+ "\n");
+    }
+    else // ( pCO2 > pCO2expected )
+    {
+        summary += 'Secondary Respiratory Acidosis';
+        write_log('[Secondary respiratory acidosis]'+ "\n");
+    }
+
+
+}
+
+/**
+ * Further analysis for metabolic acidosis to assess anion gap or not
+ */
+function analyzeAnionGapAcidosis( pH, pCO2, na, cl, hco3, albumin )
+{
+    var anionGap = na-cl-hco3;
+	//var deltaratio = Math.abs(anionGap - ANION_GAP_NORMAL)/ Math.abs(hco3 - HCO3_NORMAL)
+    write_log('Anion Gap = Na - Cl - HCO3 = '+ na +' - '+ cl +' - '+ hco3 +' = '+ anionGap+ "\n" );
+
+    if ( albumin < ALBUMIN_NORMAL )
+    {
+        anionGap = anionGap + ANION_GAP_ALBUMIN_CORRECTION * (ALBUMIN_NORMAL - albumin);
+        write_log('Hypo-albuminemia (lack of natural serum anion): '+ albumin+ "\n" );
+        write_log('Corrected AG = AG + '+ANION_GAP_ALBUMIN_CORRECTION+'*('+ALBUMIN_NORMAL+' - albumin) = '+ anionGap+ "\n" );
+    }
+
+    write_log('Expected ('+ ANION_GAP_NORMAL +' +/- '+ ANION_GAP_NORMAL_DELTA +') vs. actual ('+ anionGap +')'+ "\n" );
+
+    if ( Math.abs(anionGap-ANION_GAP_NORMAL) <= ANION_GAP_NORMAL_DELTA )
+    {
+        gap += 'This is a Non-Gap Metabolic Acidosis.';
+        write_log('[Non-gap metabolic acidosis]'+ "\n" );
+    }
+    else if ( anionGap > ANION_GAP_NORMAL )
+    {
+        gap += 'This is an Anion Gap Metabolic Acidosis.';
+        write_log('[Anion gap metabolic acidosis]'+ "\n" );
+
+        analyzeDeltaDeltaGap( pH, pCO2, na, cl, hco3, albumin, anionGap );
+    }
+    else // ( anionGap < ANION_GAP_NORMAL )
+    {
+        write_log('???Gap is too small.  Probably additional metabolic alkalosis???'+ "\n");
+    }
+
+
+}
+
+function analyzeDeltaDeltaGap(pH, pCO2, na, cl, hco3, albumin, anionGap )
+{
+    write_log('Delta-delta gap check'+ "\n");
+    write_log('Expect delta HCO3 -1 for every +1 delta anion gap'+ "\n");
+    var deltaAnionGap = anionGap - ANION_GAP_NORMAL;
+	var deltaBicarbonate = hco3 - HCO3_NORMAL ;
+	var deltaratio = Math.abs(deltaAnionGap/deltaBicarbonate)
+    var expectedHCO3 = HCO3_NORMAL - deltaAnionGap;
+    write_log('Delta Anion Gap ('+ anionGap +' - '+ ANION_GAP_NORMAL +') = '+ deltaAnionGap+ "\n");
+    write_log('Expected HCO3 ('+HCO3_NORMAL+' - '+deltaAnionGap+') = ('+ expectedHCO3 +' +/- '+DELTA_DELTA_GAP_NORMAL_DELTA+') vs. actual ('+ hco3 +')'+ "\n");
+    write_log('Delta-delta ratio is'+ deltaratio+"\n");
+    if ( Math.abs(hco3-expectedHCO3) <= DELTA_DELTA_GAP_NORMAL_DELTA )
+    {
+        write_log('[Pure anion gap metabolic acidosis]'+ "\n");
+    }
+    else if ( hco3 < expectedHCO3 )
+    {
+        summary += ' and Additional Non-Gap Metabolic Acidosis';
+        write_log('[Additional non-gap metabolic acidosis]'+ "\n" );
+    }
+    else // ( hco3 > expectedHCO3 )
+    {
+        summary += ' and Additional Metabolic Alkalosis';
+        write_log('[Additional metabolic alkalosis]'+ "\n" );
+    }
+
+
+}
+write_log("\n")
+//write_log("<b>"summary"</b>");
+
+write_log("\n")
+
+write_log( "CONCLUSION")
+
+write_log(summary);
+	})
+	})
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+name: "Anupam Singh"
+output_dir: "."
+navbar:
+  title: "Anupam Singh"
+  type: inverse
+  left:
+    - text: "About"
+      icon: fa-user 
+      href: about.html
+    - text: "Blog"
+      icon: fa-rss
+      href: https://anupamsingh81.github.io/blog/
+    - text: "Miscellaneous"
+      icon: fa-bars
+      menu:
+        - text: "My Research gate profile"
+          href: https://www.researchgate.net/profile/Anupam_Singh9
+        - text: "Machine learning in prediction of outcome in intracranial hemorrhage"
+          href: https://www.researchgate.net/publication/289519661_Comparison_of_ICH_score_and_other_Machine_algorithms_for_prediction_of_mortality_in_Intracranial_hemorrhage
+  right:
+    - text: "Contact me"
+      icon: fa-envelope-o
+      href: "mailto:anupampom@gmail.com"
+    - text: "GitHub"
+      icon: fa-github
+      href: https://github.com/anupamsingh81/anupamsingh.github.io
+    - icon: fa-twitter
+      href: https://twitter.com/anupampom
+    - icon: fa-stack-overflow
+      href: http://stackoverflow.com/users/6103040/anupampom
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    
