@@ -428,9 +428,9 @@ var rrpost = orpost/((1-p) +p*orpost).toFixed(3)
 var rrpostlo = orpostlo/((1-p) +p*orpostlo).toFixed(3)
 var rrposthi = orposthi/((1-p) +p*orposthi).toFixed(3)
 
-var rdpost  = (100000*p*(1-rrpost)).toFixed(3)
-var rdpostlo  = (100000*p*(1-rrpostlo)).toFixed(3)
-var rdposthi  = (100000*p*(1-rrposthi)).toFixed(3)
+var rdpost  = (100*p*(1-rrpost))
+var rdpostlo  = (100*p*(1-rrpostlo))
+var rdposthi  = (100*p*(1-rrposthi))
 
 
 
@@ -453,7 +453,7 @@ var custom2 = " .The probability that treatment effect lies between "+ rope1 + "
 
 var  rr = ". The mean relative risk is " + rrpost + " The 95% credible interval for relative risk is from " +rrpostlo+ " to " +rrposthi+"."
 
-var  rd = ". The mean absolute risk difference  is " + rdpost + " percent .The 95% credible interval for absolute risk difference is from " +rdposthi+ " to " +rdpostlo+" percent."
+var  rd = ". The mean absolute risk difference  is " + rdpost.toFixed(3) + " percent .The 95% credible interval for absolute risk difference is from " +rdposthi.toFixed(3)+ " to " +rdpostlo.toFixed(3)+" percent."
 
 var sun = summary + summary1 + summary2 + custom1 + custom2 + rr + rd
 
