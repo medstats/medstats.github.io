@@ -1,7 +1,0 @@
----
-title: "Hi there, I'm Florian Privé!"
----
-
-I'm a PhD student in predictive human genetics and an R(cpp) enthusiast. 
-
-[Read more about my life...](about.html)
