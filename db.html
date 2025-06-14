@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Infection Dashboard</title>
+    <!-- Load Plotly.js -->
+    <script src='https://cdn.plot.ly/plotly-2.24.1.min.js'></script>
+</head>
+<body>
+    <div id="dashboard" style="width:1400px; height:1000px;"></div>
+
+    <script>
+        // Function to parse CSV
+        function parseCSV(text) {
+            const lines = text.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const rows = lines.slice(1).filter(line => line.trim() !== '');
+
+            return rows.map(row => {
+                const values = row.split(',');
+                return headers.reduce((obj, header, index) => {
+                    const value = values[index] ? values[index].trim() : '';
+                    if (['Samples','Positive','MDR','MeropenemResistant','CONS','MRSA','MSSA'].includes(header)) {
+                        obj[header] = parseInt(value, 10) || 0;
+                    } else {
+                        obj[header] = value;
+                    }
+                    return obj;
+                }, {});
+            });
+        }
+
+        // Load and process data
+        fetch('data.csv')
+            .then(response => response.text())
+            .then(text => {
+                const data = parseCSV(text);
+                
+                // Process data
+                const monthOrder = {
+                    'FEBRUARY': 0, 'MARCH': 1, 'APRIL': 2, 'MAY': 3
+                };
+                
+                data.forEach(d => {
+                    // Remove CONS
+                    delete d.CONS;
+                    // Add month order for sorting
+                    d.monthOrder = monthOrder[d.Month] || 99;
+                });
+
+                // Group data by CultureType
+                const groupedData = data.reduce((acc, d) => {
+                    if (!acc[d.CultureType]) acc[d.CultureType] = [];
+                    // Sort each group by month order
+                    acc[d.CultureType].push(d);
+                    acc[d.CultureType].sort((a, b) => a.monthOrder - b.monthOrder);
+                    return acc;
+                }, {});
+
+                // Define culture types for the charts
+                const cultureTypes = [
+                    'Blood Culture', 
+                    'Urine Culture', 
+                    'Respiratory Culture', 
+                    'Pus Culture'
+                ];
+
+                // Create dashboard layout
+                const layout = {
+                    grid: {
+                        rows: 2,
+                        columns: 2,
+                        pattern: 'independent',
+                    },
+                    showlegend: true,
+                    title: 'Monthly Infection Metrics',
+                    height: 800
+                };
+
+                const figures = [];
+                
+                // Create subplots for each culture type
+                cultureTypes.forEach((culture, index) => {
+                    if (!groupedData[culture]) return;
+                    
+                    const dataPoints = groupedData[culture];
+                    const months = dataPoints.map(d => d.Month);
+                    
+                    // Add Positivity Rate line
+                    figures.push({
+                        x: months,
+                        y: dataPoints.map(d => (d.Samples > 0 ? (d.Positive / d.Samples) * 100 : 0)),
+                        type: 'scatter',
+                        mode: 'lines+markers',
+                        name: 'Culture Positivity',
+                        line: {color: 'red', width: 2},
+                        marker: {color: 'red', size: 8},
+                        xaxis: 'x' + (index+1),
+                        yaxis: 'y' + (index+1)
+                    });
+                    
+                    // Add MRSA Rate line
+                    figures.push({
+                        x: months,
+                        y: dataPoints.map(d => (d.Samples > 0 ? (d.MRSA / d.Samples) * 100 : 0)),
+                        type: 'scatter',
+                        mode: 'lines+markers',
+                        name: 'MRSA Rate',
+                        line: {color: 'blue', width: 2},
+                        marker: {color: 'blue', size: 8},
+                        xaxis: 'x' + (index+1),
+                        yaxis: 'y' + (index+1)
+                    });
+                    
+                    // Add Meropenem Resistance Rate line
+                    figures.push({
+                        x: months,
+                        y: dataPoints.map(d => (d.Samples > 0 ? (d.MeropenemResistant / d.Samples) * 100 : 0)),
+                        type: 'scatter',
+                        mode: 'lines+markers',
+                        name: 'Meropenem Resistance',
+                        line: {color: 'green', width: 2},
+                        marker: {color: 'green', size: 8},
+                        xaxis: 'x' + (index+1),
+                        yaxis: 'y' + (index+1)
+                    });
+                    
+                    // Add title for each subplot
+                    layout['xaxis' + (index+1)] = {title: 'Month'};
+                    layout['yaxis' + (index+1)] = {title: 'Rate (%)', range: [0, 50]};
+                    layout['title' + (index+1)] = culture;
+                });
+
+                // Plot the dashboard
+                Plotly.newPlot('dashboard', figures, layout);
+            });
+    </script>
+</body>
+</html>
