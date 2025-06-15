@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10‑Year ASCVD Risk Calculator (Pro)</title>
+<style>
+    body{font-family:Arial,Helvetica,sans-serif;padding:20px;max-width:760px;margin:auto;background:#f7f7f7;color:#333}
+    h1{font-size:1.7rem;text-align:center;margin-bottom:0.6rem}
+    h2{font-size:1.1rem;margin:1.2rem 0 0.4rem}
+    fieldset{border:1px solid #ddd;border-radius:8px;padding:15px;margin-bottom:18px;background:white}
+    legend{font-weight:bold}
+    label{display:block;margin-top:10px}
+    input[type=number]{width:100%;padding:5px;font-size:1rem}
+    select{width:100%;padding:5px;font-size:1rem}
+    .inline{display:flex;gap:10px;align-items:center}
+    .inline input{flex:2}
+    .inline select{flex:1}
+    .checkbox-inline{display:flex;align-items:center;gap:8px;margin-top:10px}
+    button{margin-top:18px;padding:11px 22px;font-size:1rem;border:none;border-radius:6px;background:#1976d2;color:white;cursor:pointer}
+    button:hover{background:#0f5ca8}
+    #result{margin-top:22px;padding:16px;border-radius:8px;font-size:1.25rem;font-weight:bold;text-align:center}
+</style>
+</head>
+<body>
+<h1>10‑Year ASCVD Risk Calculator</h1>
+
+<fieldset>
+<legend>Core Variables</legend>
+
+<label>Age (40–79 yr)
+  <input id="age" type="number" min="40" max="79" value="55">
+</label>
+
+<label>Sex
+  <select id="sex">
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+</label>
+
+<label>Race
+  <select id="race">
+    <option value="white">White / Other</option>
+    <option value="black">Black</option>
+  </select>
+</label>
+
+<label>Total Cholesterol (mg/dL)
+  <input id="tc" type="number" min="100" max="400" value="200">
+</label>
+
+<label>HDL Cholesterol (mg/dL)
+  <input id="hdl" type="number" min="20" max="100" value="50">
+</label>
+
+<label>Systolic Blood Pressure (mm Hg)
+  <input id="sbp" type="number" min="90" max="200" value="120">
+</label>
+
+<label>On blood‑pressure medication?
+  <select id="bp_treated">
+    <option value="no">No</option>
+    <option value="yes">Yes</option>
+  </select>
+</label>
+
+<label>Diabetes?
+  <select id="diabetes">
+    <option value="no">No</option>
+    <option value="yes">Yes</option>
+  </select>
+</label>
+
+<label>Current smoker?
+  <select id="smoker">
+    <option value="no">No</option>
+    <option value="yes">Yes</option>
+  </select>
+</label>
+</fieldset>
+
+<fieldset>
+<legend>Risk Enhancers <span style="font-weight:normal">(optional)</span></legend>
+
+<label class="checkbox-inline">
+  <input type="checkbox" id="fh"> Family history of premature ASCVD
+</label>
+
+<label>High‑sensitivity CRP (mg/L)
+  <input id="hscrp" type="number" min="0" step="0.1" placeholder="0">
+</label>
+
+<label>Coronary Artery Calcium (CAC) Score
+  <input id="cac" type="number" min="0" step="1" placeholder="0">
+</label>
+</fieldset>
+
+<fieldset>
+<legend>Lipoprotein‑a Modifier</legend>
+<div class="inline">
+  <input id="lpa" type="number" min="0" step="1" placeholder="0">
+  <select id="lpa_units">
+    <option value="mgdl" selected>mg/dL</option>
+    <option value="nmol">nmol/L</option>
+  </select>
+</div>
+</fieldset>
+
+<button onclick="calculateRisk()">Calculate</button>
+
+<div id="result"></div>
+
+<script>
+function calculateRisk() {
+  // --- core inputs
+  const age = parseFloat(document.getElementById('age').value);
+  const sex = document.getElementById('sex').value;
+  const race = document.getElementById('race').value;
+  const tc = parseFloat(document.getElementById('tc').value);
+  const hdl = parseFloat(document.getElementById('hdl').value);
+  const sbp = parseFloat(document.getElementById('sbp').value);
+  const bpTreated = document.getElementById('bp_treated').value === 'yes' ? 1 : 0;
+  const diabetes = document.getElementById('diabetes').value === 'yes' ? 1 : 0;
+  const smoker = document.getElementById('smoker').value === 'yes' ? 1 : 0;
+
+  // natural logs
+  const lnAge = Math.log(age);
+  const lnTC  = Math.log(tc);
+  const lnHDL = Math.log(hdl);
+  const lnSBP = Math.log(sbp);
+
+  // coefficients (ACC/AHA 2013 PCE w/ interaction terms & mean/Survival10)
+  const coeffs = {
+    'male_white':  {CAge:12.344,CSqAge:0,CTotalChol:11.853,CAgeTotalChol:-2.664,CHDLChol:-7.99,CAgeHDLChol:1.769,COnHTN:1.797,CAgeOnHTN:0,COffHTN:1.764,CAgeOffHTN:0,CSmoker:7.837,CAgeSmoker:-1.795,CDiabetes:0.658,S10:0.9144,Mean:61.18},
+    'female_white':{CAge:-29.799,CSqAge:4.884,CTotalChol:13.54,CAgeTotalChol:-3.114,CHDLChol:-13.578,CAgeHDLChol:3.149,COnHTN:2.019,CAgeOnHTN:0,COffHTN:1.957,CAgeOffHTN:0,CSmoker:7.574,CAgeSmoker:-1.665,CDiabetes:0.661,S10:0.9665,Mean:-29.18},
+    'male_black':  {CAge:2.469,CSqAge:0,CTotalChol:0.302,CAgeTotalChol:0,CHDLChol:-0.307,CAgeHDLChol:0,COnHTN:1.916,CAgeOnHTN:0,COffHTN:1.809,CAgeOffHTN:0,CSmoker:0.549,CAgeSmoker:0,CDiabetes:0.645,S10:0.8954,Mean:19.54},
+    'female_black':{CAge:17.114,CSqAge:0,CTotalChol:0.94,CAgeTotalChol:0,CHDLChol:-18.92,CAgeHDLChol:4.475,COnHTN:29.291,CAgeOnHTN:-6.432,COffHTN:27.82,CAgeOffHTN:-6.087,CSmoker:0.691,CAgeSmoker:0,CDiabetes:0.874,S10:0.9533,Mean:86.61}
+  };
+
+  const c = coeffs[`${sex}_${race === 'black' ? 'black' : 'white'}`];
+
+  let sum = c.CAge * lnAge + c.CSqAge * lnAge * lnAge +
+            c.CTotalChol * lnTC + c.CAgeTotalChol * lnAge * lnTC +
+            c.CHDLChol * lnHDL + c.CAgeHDLChol * lnAge * lnHDL;
+
+  if (bpTreated) {
+     sum += c.COnHTN * lnSBP + c.CAgeOnHTN * lnAge * lnSBP;
+  } else {
+     sum += c.COffHTN * lnSBP + c.CAgeOffHTN * lnAge * lnSBP;
+  }
+
+  sum += c.CSmoker * smoker + c.CAgeSmoker * lnAge * smoker +
+         c.CDiabetes * diabetes;
+
+  // baseline PCE risk (proportion 0‑1)
+  const baseRisk = 1 - Math.pow(c.S10, Math.exp(sum - c.Mean));
+
+  // --- Lp(a) modifier (multiplicative)
+  const lpaVal = parseFloat(document.getElementById('lpa').value) || 0;
+  const lpaUnits = document.getElementById('lpa_units').value;
+  const lpaNmol = lpaUnits === 'mgdl' ? lpaVal * 2.5 : lpaVal;  // 1 mg/dL ≈ 2.5 nmol/L
+
+  let riskProp = baseRisk;
+  if (lpaNmol > 0) {
+      riskProp = baseRisk * Math.pow(1.11, lpaNmol / 50);
+  }
+
+  // convert to percentage
+  let riskPct = riskProp * 100;
+
+  // --- Advanced risk enhancers (additive, from original Streamlit script)
+  const familyHistory = document.getElementById('fh').checked;
+  const hsCRP = parseFloat(document.getElementById('hscrp').value) || 0;
+  const cacScore = parseFloat(document.getElementById('cac').value) || 0;
+
+  if (familyHistory) riskPct += 2;
+  if (hsCRP > 2.0) riskPct += 1;
+  if (cacScore > 100) riskPct += 5;
+  else if (cacScore === 0) riskPct = Math.max(riskPct - 5, 0);
+
+  // round
+  riskPct = riskPct.toFixed(1);
+
+  // category
+  let category = 'Low (<5%)'; let bg='#4caf50';
+  if (riskPct >= 20)       { category = 'High (≥20%)'; bg='#e53935'; }
+  else if (riskPct >= 7.5) { category = 'Intermediate (7.5–19.9%)'; bg='#fb8c00'; }
+  else if (riskPct >= 5)   { category = 'Borderline (5–7.4%)'; bg='#fdd835'; }
+
+  const resultEl = document.getElementById('result');
+  resultEl.style.background = bg;
+  resultEl.textContent = `Adjusted 10‑Year ASCVD Risk: ${riskPct}% — ${category}`;
+}
+</script>
+
+<footer style="margin-top:32px;font-size:0.9rem;color:#666;text-align:center">
+  <p>2013 ACC/AHA Pooled Cohort Equations &nbsp;+&nbsp; modifiers<br>
+     • Lp(a) multiplicative factor&nbsp;1.11<sup>(nmol/L ÷ 50)</sup> <br>
+     • Risk‑enhancers: family history, hs‑CRP ≥2 mg/L, CAC&nbsp;score per ACC/AHA&nbsp;2019 guidance </p>
+  <p><span style="color:#1976d2;font-weight:bold">Coded by Anupam Singh MD</span></p>
+</footer>
+</body>
+</html>
