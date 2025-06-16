@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAF-5 Score Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    h2 {
+      color: #2c3e50;
+      font-size: 1.5em;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="number"], button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 1em;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .checkbox-label input {
+      margin-right: 10px;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    footer {
+      margin-top: 40px;
+      color: blue;
+      font-weight: bold;
+      text-align: center;
+    }
+    .reference {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>MAF-5 Score Calculator</h2>
+
+  <label for="waist">Waist Circumference (cm):</label>
+  <input type="number" id="waist" required>
+
+  <label for="bmi">Body Mass Index (BMI):</label>
+  <input type="number" step="0.1" id="bmi" required>
+
+  <label for="ast">AST (U/L):</label>
+  <input type="number" id="ast" required>
+
+  <label for="platelets">Platelet Count (×10⁹/L):</label>
+  <input type="number" id="platelets" required>
+
+  <div class="checkbox-label">
+    <input type="checkbox" id="diabetes">
+    <label for="diabetes">Diabetes Present</label>
+  </div>
+
+  <button onclick="calculateMAF5()">Calculate MAF-5</button>
+
+  <div class="result" id="output"></div>
+
+  <p class="reference">
+    Reference: van Kleef LA et al. "MAF-5 Score Predicts Liver Fibrosis Risk and Outcome in the General Population With Metabolic Dysfunction." Gastroenterology. 2024;167(2):357–367.
+  </p>
+
+  <footer>
+    Coded by Anupam Singh MD
+  </footer>
+
+  <script>
+    function calculateMAF5() {
+      const waist = parseFloat(document.getElementById('waist').value);
+      const bmi = parseFloat(document.getElementById('bmi').value);
+      const ast = parseFloat(document.getElementById('ast').value);
+      const platelets = parseFloat(document.getElementById('platelets').value);
+      const diabetes = document.getElementById('diabetes').checked ? 1 : 0;
+
+      if (!waist || !bmi || !ast || !platelets) {
+        document.getElementById('output').innerText = "Please enter all required values.";
+        return;
+      }
+
+      const lnAST = Math.log(ast);
+      const maf5 = -11.3674 + (waist * 0.0282) - (bmi * 0.1761) +
+                   (waist * bmi * 0.0019) + (diabetes * 2.0762) +
+                   (lnAST * 2.9207) - (platelets * 0.0059);
+
+      let risk = "";
+      if (maf5 < 0) {
+        risk = "Low Risk of Fibrosis";
+      } else if (maf5 >= 0 && maf5 < 1) {
+        risk = "Intermediate Risk of Fibrosis";
+      } else {
+        risk = "High Risk of Fibrosis";
+      }
+
+      document.getElementById('output').innerText =
+        "MAF-5 Score: " + maf5.toFixed(2) + " → " + risk;
+    }
+  </script>
+</body>
+</html>
