@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Microbiology Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #34495e;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e8f4f8;
+        }
+        .plot-container {
+            width: 100%;
+            min-height: 450px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Avee Microbiology Dashboard</h1>
+
+    <div class="dashboard-container">
+        <div class="card">
+            <h2>Key Numbers (Last Month)</h2>
+            <div id="summary-table"></div>
+        </div>
+
+        <div class="card">
+            <h2>Monthly Number of Samples by Culture Type</h2>
+            <div id="samples-plot" class="plot-container"></div>
+        </div>
+
+        <div class="card">
+            <h2>Blood Culture Trends</h2>
+            <div id="blood-plot" class="plot-container"></div>
+        </div>
+
+        <div class="card">
+            <h2>Respiratory Culture Trends</h2>
+            <div id="respiratory-plot" class="plot-container"></div>
+        </div>
+
+        <div class="card">
+            <h2>Urine Culture Trends</h2>
+            <div id="urine-plot" class="plot-container"></div>
+        </div>
+
+        <div class="card">
+            <h2>Pus Culture Trends</h2>
+            <div id="pus-plot" class="plot-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const monthMap = {
+            JANUARY: 1, FEBRUARY: 2, MARCH: 3, APRIL: 4, MAY: 5, JUNE: 6,
+            JULY: 7, AUGUST: 8, SEPTEMBER: 9, OCTOBER: 10, NOVEMBER: 11, DECEMBER: 12
+        };
+
+        function processData(data) {
+            // 1. Parse numbers and calculate rates
+            const processed = data.map(row => {
+                const samples = parseInt(row.Samples, 10);
+                const positive = parseInt(row.Positive, 10);
+                const mdr = parseInt(row.MDR, 10);
+                const meroResistant = parseInt(row.MeropenemResistant, 10);
+                const mrsa = parseInt(row.MRSA, 10);
+
+                // Calculate rates, handle division by zero
+                const culturePositivityRate = samples > 0 ? (positive / samples) * 100 : 0;
+                const mdrRate = positive > 0 ? (mdr / positive) * 100 : 0;
+                const meropenemResistanceRate = positive > 0 ? (meroResistant / positive) * 100 : 0;
+                const mrsaRate = positive > 0 ? (mrsa / positive) * 100 : 0;
+
+                return {
+                    ...row,
+                    Samples: samples,
+                    Positive: positive,
+                    MDR: mdr,
+                    MeropenemResistant: meroResistant,
+                    MRSA: mrsa,
+                    MonthNum: monthMap[row.Month.toUpperCase()],
+                    Year: parseInt(row.Year, 10),
+                    CulturePositivityRate: culturePositivityRate,
+                    MDRRate: mdrRate,
+                    MeropenemResistanceRate: meropenemResistanceRate,
+                    MRSARate: mrsaRate
+                };
+            });
+
+            // 2. Sort data chronologically
+            processed.sort((a, b) => {
+                if (a.Year !== b.Year) {
+                    return a.Year - b.Year;
+                }
+                return a.MonthNum - b.MonthNum;
+            });
+
+            return processed;
+        }
+
+        function createSummaryTable(data) {
+            // Find the latest month/year
+            const latestEntry = data[data.length - 1];
+            const latestYear = latestEntry.Year;
+            const latestMonthNum = latestEntry.MonthNum;
+
+            const latestMonthData = data.filter(d => d.Year === latestYear && d.MonthNum === latestMonthNum);
+
+            let tableHTML = '<table>';
+            tableHTML += `
+                <thead>
+                    <tr>
+                        <th>Culture Type</th>
+                        <th>Culture Positivity (%)</th>
+                        <th>Meropenem Resistance Rate (%)</th>
+                        <th>MDR Rate (%)</th>
+                        <th>MRSA Rate (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+
+            const cultureTypes = ["Blood Culture", "Urine Culture", "Respiratory Culture", "Pus Culture"];
+            cultureTypes.forEach(type => {
+                const rowData = latestMonthData.find(d => d.CultureType === type);
+                if (rowData) {
+                    tableHTML += `
+                        <tr>
+                            <td>${rowData.CultureType}</td>
+                            <td>${rowData.CulturePositivityRate.toFixed(2)}</td>
+                            <td>${rowData.MeropenemResistanceRate.toFixed(2)}</td>
+                            <td>${rowData.MDRRate.toFixed(2)}</td>
+                            <td>${rowData.MRSARate.toFixed(2)}</td>
+                        </tr>
+                    `;
+                }
+            });
+
+            tableHTML += '</tbody></table>';
+            document.getElementById('summary-table').innerHTML = tableHTML;
+        }
+
+        function createSamplesPlot(data) {
+            const cultureTypes = [...new Set(data.map(d => d.CultureType))].sort();
+            const traces = cultureTypes.map(type => {
+                const typeData = data.filter(d => d.CultureType === type);
+                return {
+                    x: typeData.map(d => `${d.Month.slice(0,3)}-${d.Year}`),
+                    y: typeData.map(d => d.Samples),
+                    name: type,
+                    type: 'bar'
+                };
+            });
+
+            const layout = {
+                barmode: 'group',
+                xaxis: { title: 'Month' },
+                yaxis: { title: 'Number of Samples' },
+                legend: {
+                    orientation: 'h',
+                    y: -0.3,
+                    yanchor: 'top'
+                },
+                margin: { b: 100 }
+            };
+
+            Plotly.newPlot('samples-plot', traces, layout, {responsive: true});
+        }
+
+        function createTrendPlot(data, cultureType, elementId) {
+            const cultureData = data.filter(d => d.CultureType === cultureType);
+            const x_axis = cultureData.map(d => `${d.Month.slice(0,3)}-${d.Year}`);
+
+            const traces = [
+                {
+                    x: x_axis,
+                    y: cultureData.map(d => d.CulturePositivityRate),
+                    name: 'Culture Positivity Rate',
+                    mode: 'lines+markers'
+                },
+                {
+                    x: x_axis,
+                    y: cultureData.map(d => d.MeropenemResistanceRate),
+                    name: 'Meropenem Resistance Rate',
+                    mode: 'lines+markers'
+                },
+                {
+                    x: x_axis,
+                    y: cultureData.map(d => d.MDRRate),
+                    name: 'MDR Rate',
+                    mode: 'lines+markers'
+                },
+                {
+                    x: x_axis,
+                    y: cultureData.map(d => d.MRSARate),
+                    name: 'MRSA Rate',
+                    mode: 'lines+markers'
+                }
+            ];
+
+            const layout = {
+                xaxis: { title: 'Month' },
+                yaxis: { title: 'Rate (%)', rangemode: 'tozero' },
+                legend: {
+                    orientation: 'h',
+                    y: -0.3,
+                    yanchor: 'top'
+                },
+                margin: { b: 100 }
+            };
+
+            Plotly.newPlot(elementId, traces, layout, {responsive: true});
+        }
+
+
+        Plotly.d3.csv('micro.csv', (err, data) => {
+            if (err) {
+                console.error('Error loading or parsing data.csv:', err);
+                document.body.innerHTML = `<h1 style="color:red;">Error: Could not load data.csv</h1><p>Please ensure the file is in the same directory as this HTML file and is accessible.</p><pre>${err}</pre>`;
+                return;
+            }
+
+            const processedData = processData(data);
+
+            // Create Summary Table
+            createSummaryTable(processedData);
+
+            // Create Plots
+            createSamplesPlot(processedData);
+            createTrendPlot(processedData, 'Blood Culture', 'blood-plot');
+            createTrendPlot(processedData, 'Respiratory Culture', 'respiratory-plot');
+            createTrendPlot(processedData, 'Urine Culture', 'urine-plot');
+            createTrendPlot(processedData, 'Pus Culture', 'pus-plot');
+        });
+
+    </script>
+
+</body>
+</html>

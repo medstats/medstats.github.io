@@ -1,0 +1,17 @@
+CultureType,Month,Year,Samples,Positive,MDR,MeropenemResistant,CONS,MRSA,MSSA
+Blood Culture,FEBRUARY,2025,123,34,0,0,9,0,0
+Blood Culture,MARCH,2025,180,69,14,7,26,0,0
+Blood Culture,APRIL,2025,186,77,17,13,18,1,0
+Blood Culture,MAY,2025,203,52,3,2,20,1,0
+Urine Culture,FEBRUARY,2025,118,13,5,5,0,0,0
+Urine Culture,MARCH,2025,172,20,8,3,0,0,0
+Urine Culture,APRIL,2025,176,24,5,4,0,0,0
+Urine Culture,MAY,2025,125,29,8,5,0,0,0
+Pus Culture,FEBRUARY,2025,6,1,0,0,0,0,0
+Pus Culture,MARCH,2025,3,0,0,0,0,0,0
+Pus Culture,APRIL,2025,13,4,1,1,0,1,1
+Pus Culture,MAY,2025,10,8,6,6,0,1,2
+Respiratory Culture,FEBRUARY,2025,29,9,6,6,0,0,0
+Respiratory Culture,MARCH,2025,47,18,6,5,0,0,0
+Respiratory Culture,APRIL,2025,32,16,12,11,0,0,0
+Respiratory Culture,MAY,2025,51,12,9,8,0,0,0
