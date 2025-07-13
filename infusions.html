@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSSDI IV Insulin Infusion Calculator</title>
+  <style>
+    :root {
+      font-family: system-ui, sans-serif;
+    }
+    body {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.4;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    fieldset {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.4rem;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 2px solid #0077b6;
+      background: #e0f4ff;
+      display: none;
+    }
+    .note {
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #777;
+      line-height: 1.6;
+    }
+    .credit {
+      color: #0263e0;
+    }
+  </style>
+</head>
+<body>
+  <h1>RSSDI IV Insulin Infusion Protocol (2019)</h1>
+
+  <fieldset>
+    <legend><strong>Step 1 – Choose calculator mode</strong></legend>
+    <label>
+      <input type="radio" name="mode" value="start" checked />
+      Start infusion
+    </label>
+    <label>
+      <input type="radio" name="mode" value="adjust" />
+      Maintenance adjustment
+    </label>
+  </fieldset>
+
+  <form id="start-section">
+    <fieldset>
+      <legend><strong>Initial (Priming) Dosing</strong></legend>
+      <label>
+        Patient weight (kg)
+        <input type="number" id="weight" placeholder="e.g. 70" min="1" step="0.1" />
+      </label>
+      <label>
+        Initial blood glucose (mg/dL)
+        <input type="number" id="initial-bg" placeholder="e.g. 320" min="1" step="1" />
+      </label>
+    </fieldset>
+  </form>
+
+  <form id="adjust-section" style="display: none;">
+    <fieldset>
+      <legend><strong>Maintenance Adjustment</strong></legend>
+      <label>
+        Current BG (mg/dL)
+        <input type="number" id="current-bg" placeholder="e.g. 184" min="1" step="1" />
+      </label>
+      <label>
+        Prior BG (mg/dL) (1 h ago)
+        <input type="number" id="prior-bg" placeholder="e.g. 210" min="1" step="1" />
+      </label>
+      <label>
+        Current infusion rate (U/h)
+        <input type="number" id="last-rate" placeholder="e.g. 4" min="0" step="0.5" />
+      </label>
+    </fieldset>
+  </form>
+
+  <button id="calculate">Calculate</button>
+
+  <div id="result"></div>
+
+  <p class="note"; style="font-weight: bold;">
+    *Protocol adapted from RSSDI Clinical Practice Recommendations for In‑Hospital Hyperglycaemia, 2016 / Umpirrez et al. <br>
+  25 % dextrose rescue: (100 – BG) × 0.8 mL IV. Restart drip at 50 % of prior rate once BG &gt; 140 mg/dL.
+  </p>
+  
+  <footer>
+  
+    <div class="credit">Coded by Anupam Singh, MD</div>
+  </footer>
+  
+  <div id="rssdiFig">
+    <a href="https://github.com/medstats/medstats.github.io/blob/master/rssdi.png" target="_blank">
+      <img src="https://raw.githubusercontent.com/medstats/medstats.github.io/master/rssdi.png" alt="RSSDI Insulin Infusion Calculator " style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1);" />
+
+  <script>
+    const modeRadios = document.querySelectorAll('input[name="mode"]');
+    const startSection = document.getElementById('start-section');
+    const adjustSection = document.getElementById('adjust-section');
+    const resultBox = document.getElementById('result');
+
+    modeRadios.forEach(r => r.addEventListener('change', toggleMode));
+
+    function toggleMode() {
+      const mode = document.querySelector('input[name="mode"]:checked').value;
+      if (mode === 'start') {
+        startSection.style.display = '';
+        adjustSection.style.display = 'none';
+      } else {
+        startSection.style.display = 'none';
+        adjustSection.style.display = '';
+      }
+      resultBox.style.display = 'none';
+    }
+
+    document.getElementById('calculate').addEventListener('click', evt => {
+      evt.preventDefault();
+      const mode = document.querySelector('input[name="mode"]:checked').value;
+      if (mode === 'start') {
+        computeStart();
+      } else {
+        computeAdjust();
+      }
+    });
+
+    function computeStart() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const bg     = parseFloat(document.getElementById('initial-bg').value);
+      if (isNaN(weight) || isNaN(bg)) {
+        alert('Enter weight and BG.');
+        return;
+      }
+      const bolus = (0.1 * weight).toFixed(1);
+      const rate  = (bg / 100).toFixed(1);
+      showResult(`<h3>Initial Orders</h3>
+        <p><strong>IV bolus:</strong> ${bolus} Units regular insulin</p>
+        <p><strong>Start infusion:</strong> ${rate} U/h</p>
+        <p>Check blood glucose hourly.</p>`);
+    }
+
+    function computeAdjust() {
+      const currBG = parseFloat(document.getElementById('current-bg').value);
+      const prevBG = parseFloat(document.getElementById('prior-bg').value);
+      const lastRate = parseFloat(document.getElementById('last-rate').value);
+      if (isNaN(currBG) || isNaN(prevBG) || isNaN(lastRate)) {
+        alert('Enter current BG, prior BG, and current infusion rate.');
+        return;
+      }
+      const delta = currBG - prevBG; // +ve rise, -ve drop
+      let action = '';
+      let newRate = lastRate;
+
+      // Helper to increase by N U/h with min step 0.5 and one decimal
+      const inc = n => Math.round((lastRate + n) * 2) / 2;
+      const dec50 = () => Math.round(lastRate * 0.5 * 2) / 2;
+
+      if (currBG > 240) {
+        if (delta > 30 || delta >= -30) { // rise or small fall (<30)
+          action = 'Increase rate by 3 U/h';
+          newRate = inc(3);
+        } else {
+          action = 'No change';
+        }
+      } else if (currBG >= 211) {
+        if (delta > 30 || delta >= -30) {
+          action = 'Increase rate by 2 U/h';
+          newRate = inc(2);
+        } else {
+          action = 'No change';
+        }
+      } else if (currBG >= 181) {
+        if (delta > 30 || delta >= -30) {
+          action = 'Increase rate by 1 U/h';
+          newRate = inc(1);
+        } else {
+          action = 'No change';
+        }
+      } else if (currBG >= 141) {
+        action = 'No change';
+      } else if (currBG >= 110) {
+        if (delta < -30) {
+          action = 'Decrease rate by 50%';
+          newRate = dec50();
+        } else {
+          action = 'No change';
+        }
+      } else if (currBG >= 91) {
+        action = 'Hold insulin – check BG in 1 h';
+        newRate = 0;
+      } else if (currBG >= 71) {
+        action = 'Hold insulin – check BG in 30 min';
+        newRate = 0;
+      } else { // ≤70
+        const dextroseVol = ((100 - currBG) * 0.8).toFixed(0);
+        action = `Hypoglycaemia: stop insulin, give ${dextroseVol} mL of 25 % dextrose IV, re‑check BG in 15 min`;
+        newRate = 0;
+      }
+
+      showResult(`<h3>Adjustment Orders</h3>
+        <p><strong>Action:</strong> ${action}</p>
+        <p><strong>New infusion rate:</strong> ${newRate.toFixed(1)} U/h</p>
+        <p>Continue hourly BG monitoring until stable.</p>`);
+    }
+
+    function showResult(html) {
+      resultBox.innerHTML = html;
+      resultBox.style.display = 'block';
+      resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
