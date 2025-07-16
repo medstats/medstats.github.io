@@ -259,7 +259,7 @@
         }
 
 
-        Plotly.d3.csv('micro.csv', (err, data) => {
+        Plotly.d3.csv('data.csv', (err, data) => {
             if (err) {
                 console.error('Error loading or parsing data.csv:', err);
                 document.body.innerHTML = `<h1 style="color:red;">Error: Could not load data.csv</h1><p>Please ensure the file is in the same directory as this HTML file and is accessible.</p><pre>${err}</pre>`;
