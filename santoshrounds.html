@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santosh Grand Rounds</title>
+<style>
+  :root {
+    --blue: #0057d9;
+    --border: #d0d0d0;
+    --user-bg: #e6ffe6;
+    --resident-bg: #eef4ff;
+    --consultant-bg: #fff0e6;
+    --radius: 12px;
+  }
+  * {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #fafafa;
+  }
+  header {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+  }
+  .controls input,
+  .controls select,
+  .controls button {
+    flex: 1 1 150px;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .controls button {
+    background: var(--blue);
+    color: #fff;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+  #chat {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  .msg {
+    max-width: 85%;
+    margin-bottom: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius);
+    line-height: 1.35;
+    word-wrap: break-word;
+    background: #fff;
+  }
+  .user {
+    align-self: flex-end;
+    background: var(--user-bg);
+  }
+  .resident {
+    background: var(--resident-bg);
+    color: #002c71;
+  }
+  .consultant {
+    background: var(--consultant-bg);
+    color: #702c00;
+  }
+  footer {
+    padding: 0.4rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--blue);
+  }
+  pre {
+    overflow-x: auto;
+  }
+</style>
+</head>
+<body>
+  <header>Santosh Grand Rounds</header>
+  <!-- Top controls -->
+  <section class="controls" id="topControls">
+    <input id="apiKey" type="password" placeholder="Enter Your Code" />
+    <select id="residentModel">
+      <option disabled selected>Resident model</option>
+      <option value="deepseek/deepseek-chat-v3-0324">Deep Seek Chat</option>
+      <option value="google/gemini-2.5-flash">Gemini 2.5 Flash</option>
+      <option value="perplexity/sonar-reasoning-pro">Perplexity</option>
+      <option value="openai/o4-mini">o4-mini</option>
+      <option value="openai/gpt-4o">gpt-4o</option>
+      <option value="anthropic/claude-sonnet-4"> Claude Sonnet</option>
+    </select>
+
+    <select id="consultantModel">
+      <option disabled selected>Consultant model</option>
+      <option value="google/gemini-2.5-pro">Gemini 2.5 pro</option>
+      <option value="deepseek/deepseek-r1-0528">Deep Seek R1</option>
+      <option value="openai/o3">O3</option>
+      <option value="x-ai/grok-4">Grok 4</option>
+    </select>
+
+    <select id="expertModel">
+      <option disabled selected>Expert model</option>
+      <option value="google/gemini-2.5-pro">Gemini 2.5 pro</option>
+      <option value="deepseek/deepseek-r1-0528">Deep Seek R1</option>
+      <option value="openai/o3">O3</option>
+      <option value="x-ai/grok-4">Grok 4</option>
+    </select>
+
+    <button id="clear">Clear</button>
+    <button id="download">Download Chat</button>
+  </section>
+
+  <!-- Chat area -->
+  <section id="chat"></section>
+
+  <!-- Bottom controls -->
+  <section class="controls" id="inputControls" style="border-top: 1px solid var(--border)">
+    <input id="prompt" type="text" placeholder="Type your message…" autocomplete="off" />
+    <button id="send">Send</button>
+  </section>
+
+  <footer>Coded by Anupam Singh MD</footer>
+
+  <script>
+    // ----------------------------------
+    //  Lightweight Markdown parser
+    // ----------------------------------
+    function markdownToHTML(src) {
+      if (!src) return '';
+      let text = src
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      // Code blocks ```code```
+      text = text.replace(/```([\s\S]*?)```/g, (_, code) => '<pre><code>' + code + '</code></pre>');
+
+      // Inline code `code`
+      text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+      // Headings
+      text = text.replace(/^######\s+(.+)$/gm, '<h6>$1</h6>');
+      text = text.replace(/^#####\s+(.+)$/gm, '<h5>$1</h5>');
+      text = text.replace(/^####\s+(.+)$/gm, '<h4>$1</h4>');
+      text = text.replace(/^###\s+(.+)$/gm, '<h3>$1</h3>');
+      text = text.replace(/^##\s+(.+)$/gm, '<h2>$1</h2>');
+      text = text.replace(/^#\s+(.+)$/gm, '<h1>$1</h1>');
+
+      // Bold & Italics
+      text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+      // Lists
+      text = text.replace(/^[-*]\s+(.+)$/gm, '<li>$1</li>');
+      text = text.replace(/(<li>[\s\S]*?<\/li>)/g, (m) => /<ul>/m.test(m) ? m : '<ul>' + m + '</ul>');
+
+      // Line breaks
+      text = text.replace(/\n\n/g, '<br><br>');
+
+      return text;
+    }
+
+    // ----------------------------------
+    //  System prompts
+    // ----------------------------------
+    const RESIDENT_PROMPT =
+      'You are an expert Chief Resident participating in a case discussion with other clinical experts. Mention key findings of the case or updated key findings. Provide transparent, probability-based diagnoses with reasoning. Analyse patient symptoms, identify key findings, and suggest 3-5 differential diagnoses with confidence percentages that sum to 100%. If uncertain, request follow-up history or recommend up to five prioritised tests to refine the diagnosis and next steps in management.\nAlways start your dialogue by saying: "Hello, Chief Resident here."';
+
+    const CONSULTANT_PROMPT =
+      'You are an expert Attending Consultant. Critique or suggest improvements to the clinical plan proposed by the Chief Resident. Be concise. Use technical language and a high insight-to-word ratio. Suggest 5-7 specific points if any. Always start your dialogue by saying: "Hello Attending Consultant here."';
+
+    // ----------------------------------
+    //  DOM references
+    // ----------------------------------
+    const chatDiv = document.getElementById('chat');
+    const promptBox = document.getElementById('prompt');
+    const sendBtn = document.getElementById('send');
+    const clearBtn = document.getElementById('clear');
+    const downloadBtn = document.getElementById('download');
+
+    let history = [];
+    let transcript = [];
+
+    // ----------------------------------
+    //  Helper functions for normal (non-stream) user messages
+    // ----------------------------------
+    function addMessage(role, text, cls) {
+      const div = document.createElement('div');
+      div.className = 'msg ' + cls;
+      div.innerHTML = `<strong>${role}:</strong> ` + markdownToHTML(text);
+      chatDiv.appendChild(div);
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+      transcript.push({ label: role, text });
+    }
+
+    // ----------------------------------
+    //  Streaming helpers
+    // ----------------------------------
+    function createStreamingContainer(role, cls) {
+      const div = document.createElement('div');
+      div.className = 'msg ' + cls;
+      const strong = document.createElement('strong');
+      strong.textContent = role + ': ';
+      div.appendChild(strong);
+      const span = document.createElement('span');
+      div.appendChild(span);
+      chatDiv.appendChild(div);
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+      transcript.push({ label: role, text: '' });
+      return { span, index: transcript.length - 1 };
+    }
+
+    function appendStreamChunk(obj, chunk) {
+      obj.span.textContent += chunk; // plain while streaming
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+      transcript[obj.index].text += chunk;
+    }
+
+    function finaliseStream(obj) {
+      obj.span.innerHTML = markdownToHTML(obj.span.textContent);
+    }
+
+    // ----------------------------------
+    //  Streaming generation with OpenRouter
+    // ----------------------------------
+    async function generateStream(rolePrompt, model, apiKey, roleLabel, cssClass) {
+      const { span, index } = createStreamingContainer(roleLabel, cssClass);
+
+      const payload = {
+        model,
+        stream: true,
+        messages: [{ role: 'system', content: rolePrompt }, ...history],
+      };
+
+      try {
+        const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + apiKey,
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          appendStreamChunk({ span, index }, `\nError: ${res.status} ${res.statusText}`);
+          finaliseStream({ span, index });
+          return;
+        }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let finalText = '';
+
+        try {
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || ''; // keep the last partial line
+
+            for (const line of lines) {
+              const trimmedLine = line.trim();
+              if (!trimmedLine || !trimmedLine.startsWith('data:')) continue;
+
+              const dataStr = trimmedLine.slice(5).trim(); // remove 'data:' prefix
+              if (dataStr === '' || dataStr === '[DONE]') continue;
+
+              try {
+                const json = JSON.parse(dataStr);
+                const delta = json.choices?.[0]?.delta?.content || '';
+                if (delta) {
+                  finalText += delta;
+                  appendStreamChunk({ span, index }, delta);
+                }
+              } catch (parseError) {
+                continue;
+              }
+            }
+          }
+        } catch (streamError) {
+          appendStreamChunk({ span, index }, `\nStream error: ${streamError.message}`);
+        }
+
+        finaliseStream({ span, index });
+        history.push({ role: 'assistant', content: finalText });
+
+      } catch (error) {
+        appendStreamChunk({ span, index }, `\nRequest error: ${error.message}`);
+        finaliseStream({ span, index });
+      }
+    }
+
+    // ----------------------------------
+    //  Entry-point: send user message & trigger streaming for all agents
+    // ----------------------------------
+    async function send() {
+      const apiKey = document.getElementById('apiKey').value.trim();
+      if (!apiKey) {
+        alert('Enter API key');
+        return;
+      }
+
+      const residentModel = document.getElementById('residentModel').value;
+      const consultantModel = document.getElementById('consultantModel').value;
+      const expertModel = document.getElementById('expertModel').value;
+
+      if (!residentModel || !consultantModel || !expertModel) {
+        alert('Please select resident, consultant, and expert models');
+        return;
+      }
+
+      const userText = promptBox.value.trim();
+      if (!userText) return;
+
+      addMessage('User', userText, 'user');
+      history.push({ role: 'user', content: userText });
+      promptBox.value = '';
+
+      try {
+        await generateStream(RESIDENT_PROMPT, residentModel, apiKey, 'Resident', 'resident');
+        await generateStream(CONSULTANT_PROMPT, consultantModel, apiKey, 'Attending', 'consultant');
+        await generateStream(CONSULTANT_PROMPT, expertModel, apiKey, 'Expert', 'consultant');
+      } catch (err) {
+        addMessage('System', 'Error: ' + err.message, 'assistant');
+      }
+    }
+
+    // ----------------------------------
+    //  Download chat
+    // ----------------------------------
+    function downloadChat() {
+      if (transcript.length === 0) {
+        alert('No chat to download');
+        return;
+      }
+      const text = transcript.map((t) => `${t.label}: ${t.text}`).join('\n\n');
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'resident_consultant_expert_chat.txt';
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      a.remove();
+    }
+
+    // ----------------------------------
+    //  Event listeners
+    // ----------------------------------
+    sendBtn.onclick = send;
+    promptBox.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        send();
+      }
+    });
+
+    downloadBtn.onclick = downloadChat;
+
+    clearBtn.onclick = () => {
+      history = [];
+      transcript = [];
+      chatDiv.innerHTML = '';
+      promptBox.value = '';
+    };
+  </script>
+</body>
+</html>
