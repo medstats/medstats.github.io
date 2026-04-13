@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIC Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #152033;
+      --muted: #5a6a85;
+      --line: #dbe3ef;
+      --accent: #2357d8;
+      --good: #dff3e4;
+      --mid: #fff3cd;
+      --bad: #f8d7da;
+      --shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .app {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .title-wrap h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .title-wrap p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .filter-group label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: bold;
+      letter-spacing: 0.2px;
+    }
+
+    input[type="date"],
+    input[type="file"],
+    select,
+    button,
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid #c8d3e4;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: white;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    button {
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+      border: none;
+    }
+
+    button.secondary {
+      background: #e9eefc;
+      color: var(--accent);
+      border: 1px solid #c8d3e4;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .kpi {
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .kpi .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    .kpi .value {
+      font-size: 28px;
+      font-weight: bold;
+      line-height: 1.1;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .chart-wrap {
+      position: relative;
+      min-height: 320px;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      max-height: 520px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    th, td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #edf2f7;
+      text-align: left;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f8fbff;
+      z-index: 1;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .heat-good { background: var(--good); }
+    .heat-mid { background: var(--mid); }
+    .heat-bad { background: var(--bad); }
+    .heat-low { background: #eef2f7; color: var(--muted); }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      width: auto;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #edf2ff;
+      color: #2947a5;
+      border: 1px solid #d2dcf8;
+      font-weight: bold;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .small-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    @media (max-width: 1200px) {
+      .filters, .kpis, .grid-2, .grid-3 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .filters, .kpis, .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .title-wrap h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="title-wrap">
+        <h1>Open VITEK Dashboard</h1>
+        <p>Plain HTML + JavaScript dashboard for VITEK-style MIC export. Load your TXT/CSV file and explore organisms, phenotypes, antibiograms, and ICU vs non-ICU differences.
+<br>
+  <strong>Coded by Anupam Singh,MD </strong>
+</p>
+      </div>
+      <div class="toolbar">
+        <button id="loadSampleBtn" class="secondary">Load demo data</button>
+        <button id="exportFilteredBtn" class="secondary">Export filtered CSV</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="filters">
+        <div class="filter-group">
+          <label>Upload MIC TXT / CSV</label>
+          <input type="file" id="fileInput" accept=".txt,.csv" />
+        </div>
+        <div class="filter-group">
+          <label>Date field</label>
+          <select id="dateFieldSelect">
+            <option value="Collection Date">Collection Date</option>
+            <option value="Testing Date">Testing Date</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>From date</label>
+          <input type="date" id="fromDate" />
+        </div>
+        <div class="filter-group">
+          <label>To date</label>
+          <input type="date" id="toDate" />
+        </div>
+        <div class="filter-group">
+          <label>Care area</label>
+          <select id="careAreaFilter">
+            <option value="All">All</option>
+            <option value="ICU/HDU">ICU/HDU</option>
+            <option value="Non-ICU">Non-ICU</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Raw location</label>
+          <select id="locationFilter"><option value="All">All</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Specimen type</label>
+          <select id="specimenFilter"><option value="All">All</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Organism</label>
+          <select id="organismFilter"><option value="All">All</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Organism group</label>
+          <select id="groupFilter">
+            <option value="All">All</option>
+            <option value="Enterobacterales">Enterobacterales / Enterobacteriaceae</option>
+            <option value="Non-fermenters">Non-fermenters</option>
+            <option value="Gram positive">Gram positive</option>
+            <option value="Yeast/Candida">Yeast/Candida</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Phenotype / mechanism</label>
+          <select id="mechanismFilter"><option value="All">All</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Search organism / patient</label>
+          <input type="text" id="searchText" placeholder="Type to search" />
+        </div>
+        <div class="filter-group">
+          <label>First isolate only</label>
+          <select id="dedupeFilter">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Combine Klebsiella labels</label>
+          <select id="combineKlebsiellaFilter">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Antibiogram metric</label>
+          <select id="antibiogramMetricSelect">
+            <option value="pctS">% susceptible</option>
+            <option value="pctR">% resistant</option>
+            <option value="pctI">% intermediate</option>
+            <option value="tested">Tested count</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Low-n threshold</label>
+          <select id="minTestedSelect">
+            <option value="0">No guardrail</option>
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Trend drug</label>
+          <select id="trendDrugSelect"><option value="Meropenem">Meropenem</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px; padding:10px 14px;">
+      <span class="pill" id="dataQualityPill">No file loaded</span>
+      <span class="small-note" id="dataQualityNote" style="margin-left:10px;"></span>
+    </div>
+
+    <div class="kpis" id="kpiContainer"></div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="overview">Overview</button>
+      <button class="tab-btn" data-tab="antibiogram">Antibiogram</button>
+      <button class="tab-btn" data-tab="phenotypes">Phenotypes</button>
+      <button class="tab-btn" data-tab="icu">ICU vs Non-ICU</button>
+      <button class="tab-btn" data-tab="raw">Raw Data</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-overview">
+      <div class="grid-3">
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Top organisms</h2>
+              <p>Count of isolates after current filters</p>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="organismChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Specimen mix</h2>
+              <p>Distribution by specimen type</p>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="specimenChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Monthly trend</h2>
+              <p>Isolate counts by month</p>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Organism distribution table</h2>
+              <p>Counts and percent within filtered set</p>
+            </div>
+          </div>
+          <div class="table-wrap" id="organismTableWrap"></div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Organism × specimen heat table</h2>
+              <p>Top organisms across specimen types</p>
+            </div>
+          </div>
+          <div class="table-wrap" id="organismSpecimenHeatWrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-antibiogram">
+      <div class="grid-2">
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Antibiogram heat table</h2>
+              <p>% susceptible and n tested for top organisms</p>
+            </div>
+          </div>
+          <div class="table-wrap" id="antibiogramWrap"></div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Selected organism summary</h2>
+              <p>Choose one organism from filters for detailed drug pattern</p>
+            </div>
+          </div>
+          <div class="table-wrap" id="singleOrganismAntibiogramWrap"></div>
+          <div class="small-note">Tip: choose a single organism in the filter row for cleaner output.</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Selected organism trend</h2>
+              <p>Monthly resistance or susceptibility trend for the chosen drug, with tested n</p>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="selectedTrendChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Specimen-wise antibiogram</h2>
+              <p>Selected organism split by normalized specimen groups</p>
+            </div>
+          </div>
+          <div class="table-wrap" id="specimenAntibiogramWrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-phenotypes">
+      <div class="grid-2">
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Top phenotype / mechanism labels</h2>
+              <p>Unique per isolate mechanism count</p>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="mechanismChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Mechanism table</h2>
+              <p>Top inferred resistance labels</p>
+            </div>
+          </div>
+          <div class="table-wrap" id="mechanismTableWrap"></div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Selected phenotype organisms</h2>
+              <p>Top organisms carrying the chosen mechanism</p>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="phenotypeOrganismChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>Selected phenotype specimen mix</h2>
+              <p>Specimen distribution and counts within the chosen mechanism</p>
+            </div>
+          </div>
+          <div class="table-wrap" id="phenotypeSpecimenWrap"></div>
+        </div>
+      </div>
+      <div class="small-note" id="phenotypeSelectionNote" style="margin-bottom:12px;"></div>
+      <div class="card">
+        <div class="section-title">
+          <div>
+            <h2>Phenotype-specific antibiogram</h2>
+            <p>Uses the phenotype selected in filters, or the top phenotype if none is selected</p>
+          </div>
+        </div>
+        <div class="table-wrap" id="mechanismAntibiogramWrap"></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-icu">
+      <div class="grid-2">
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>ICU vs non-ICU organism distribution</h2>
+              <p>Top organisms by count</p>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="icuOrgChart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <h2>ICU vs non-ICU selected organism resistance</h2>
+              <p>% resistant by antibiotic</p>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="icuResistanceChart"></canvas></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-title">
+          <div>
+            <h2>ICU vs non-ICU resistance table</h2>
+            <p>Selected organism only. Uses combined Klebsiella if enabled.</p>
+          </div>
+        </div>
+        <div class="table-wrap" id="icuResistanceTableWrap"></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-raw">
+      <div class="card">
+        <div class="section-title">
+          <div>
+            <h2>Filtered raw rows</h2>
+            <p>Top rows from current selection</p>
+          </div>
+        </div>
+        <div class="table-wrap" id="rawTableWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      rows: [],
+      filteredRows: [],
+      charts: {},
+      mechanismColumns: [],
+      antibioticPrefixes: {
+        "Ampicillin": "AM",
+        "Amoxicillin-clavulanate": "AMC",
+        "Amikacin": "AN",
+        "Aztreonam": "ATM",
+        "Ceftazidime": "CAZ",
+        "Cefepime": "FEP",
+        "Ceftriaxone": "CRO",
+        "Cefoxitin": "FOX",
+        "Cefixime": "CFM",
+        "Cefotaxime": "CTX",
+        "Cefoperazone-sulbactam": "SFP",
+        "Piperacillin-tazobactam": "TZP",
+        "Imipenem": "IPM",
+        "Meropenem": "MEM",
+        "Ertapenem": "ETP",
+        "Ciprofloxacin": "CIP",
+        "Levofloxacin": "LEV",
+        "Gentamicin": "GM",
+        "Nitrofurantoin": "FT",
+        "Fosfomycin": "FOS",
+        "TMP-SMX": "SXT",
+        "Minocycline": "MNO",
+        "Tetracycline": "TE",
+        "Doxycycline": "DO",
+        "Tigecycline": "TGC",
+        "Colistin": "CS",
+        "Polymyxin B": "PB",
+        "Linezolid": "LNZ",
+        "Vancomycin": "VA",
+        "Teicoplanin": "TEC",
+        "Clindamycin": "CM",
+        "Erythromycin": "E",
+        "Rifampicin": "RA",
+        "Oxacillin": "OX1",
+        "Fluconazole": "FLU",
+        "Voriconazole": "VRC",
+        "Caspofungin": "CAS",
+        "Micafungin": "MCF",
+        "Flucytosine": "FCT",
+        "Amphotericin B": "AB"
+      },
+      priorityDrugs: [
+        "Meropenem", "Imipenem", "Ertapenem", "Piperacillin-tazobactam", "Cefepime", "Cefoperazone-sulbactam",
+        "Ceftazidime", "Ceftriaxone", "Ciprofloxacin", "Levofloxacin", "Amikacin", "Gentamicin", "Fosfomycin",
+        "Nitrofurantoin", "TMP-SMX", "Minocycline", "Colistin", "Polymyxin B"
+      ]
+    };
+
+    const ENTEROBACTERALES = new Set([
+      "Esch.coli", "K.pneum.pneumoniae", "K.pneumoniae", "Pantoea agglomerans", "Salm.Typhi",
+      "Ent.cloacae complex", "Ent.cloacae", "Ent.aerogenes", "Ser.marcescens", "Ser.fonticola",
+      "Ser.liquefaciens", "Proteus mirabilis", "Proteus vulgaris", "Cit.freundii", "Morganella morganii",
+      "K.aerogenes", "K.oxytoca", "K.pneum.ozaenae", "Providencia stuartii", "Providencia rettgeri",
+      "Cro.sakazakii group"
+    ]);
+
+    const NONFERMENTERS = new Set([
+      "Ps.aeruginosa", "Ps.putida", "Ps.fluorescens", "Ps.oleovorans", "Ps.alcaligenes", "Ps.stutzeri",
+      "Sphmon.paucimobilis", "Sphingo.multivorum", "Sphingo.spiritivorum", "Sphingo.thalpophilum",
+      "Aci.baumannii", "Aci.baumannii cplx", "Aci.lwoffii", "Achro.denitrificans", "Achro.xylosoxidans",
+      "Steno.maltophilia", "Burkhol.cepacia", "Ral.pickettii", "Ralst.pickettii", "Com.testosteroni",
+      "Brev.dimi./vesicu.", "Moraxella group"
+    ]);
+
+    const EXCLUDE_MECHANISMS = new Set(["", "WILD", "RESISTANT", "PARTIALLY RESISTANT", "TRM"]);
+
+    function normalize(value) {
+      return String(value ?? "").trim();
+    }
+
+    function titleCaseWords(value) {
+      return normalize(value)
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean)
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ");
+    }
+
+    function normalizeSpecimenType(value) {
+      const raw = normalize(value).toLowerCase().replace(/[_-]+/g, " ");
+      const compact = raw.replace(/[^a-z]/g, "");
+      if (!raw) return "Unknown";
+      if (raw.includes("blood") || compact.includes("blood") || /^b+l*o+o*d+$/.test(compact)) return "Blood";
+      if (raw.includes("urine") || compact.includes("urine") || ["uirne", "urne", "rine"].includes(compact)) return "Urine";
+      if (raw.includes("pus") || compact.includes("pus")) return "Pus";
+      if (
+        raw.includes("sputum") ||
+        compact === "et" ||
+        compact.startsWith("etc") ||
+        compact === "tt" ||
+        compact.startsWith("ttc") ||
+        raw.includes("endotrache") ||
+        raw.includes("trache") ||
+        raw.includes("bronch") ||
+        raw.includes("bal") ||
+        raw.includes("resp")
+      ) {
+        return "Respiratory";
+      }
+      return titleCaseWords(raw);
+    }
+
+    function detectCareArea(location) {
+      const loc = normalize(location).toUpperCase();
+      if (loc.includes("ICU") || loc.includes("HDU")) return "ICU/HDU";
+      return "Non-ICU";
+    }
+
+    function combinedOrganismName(name, combineKlebsiella = true) {
+      const org = normalize(name);
+      if (!combineKlebsiella) return org;
+      if (org === "K.pneum.pneumoniae" || org === "K.pneumoniae") return "Klebsiella pneumoniae";
+      return org;
+    }
+
+    function organismGroup(org) {
+      const normalizedOrg = normalize(org);
+      if (!normalizedOrg) return "Other";
+      if (ENTEROBACTERALES.has(normalizedOrg) || /^(Esch\.|K\.|Ent\.|Ser\.|Cit\.|Proteus|Morganella|Providencia|Salm\.|Pantoea|Cro\.)/.test(normalizedOrg)) {
+        return "Enterobacterales";
+      }
+      if (NONFERMENTERS.has(normalizedOrg) || /^(Ps\.|Aci\.|Achro\.|Steno\.|Burkhol\.|Ral(?:st)?\.|Sph(?:mon|ingo)\.|Com\.|Brev\.|Moraxella)/.test(normalizedOrg)) {
+        return "Non-fermenters";
+      }
+      if (normalizedOrg.startsWith("C.") || normalizedOrg.startsWith("Candida") || normalizedOrg.includes("albicans") || normalizedOrg.includes("tropicalis") || normalizedOrg.includes("guilliermondii") || normalizedOrg.includes("glabrata") || normalizedOrg.includes("parapsilosis")) {
+        return "Yeast/Candida";
+      }
+      if (/^(Staph\.|Entero\.|Str\.|Leuco\.|Koc\.|Rothia|Gem\.|Mic\.)/.test(normalizedOrg) || normalizedOrg.includes("MRSA") || normalizedOrg.includes("Coagulase")) {
+        return "Gram positive";
+      }
+      return "Other";
+    }
+
+    function parseDateMaybe(value) {
+      const v = normalize(value);
+      if (!v) return null;
+      const d = new Date(v);
+      if (!Number.isNaN(d.getTime())) return d;
+      const m = v.match(/^(\d{2})[\/-](\d{2})[\/-](\d{4})$/);
+      if (m) return new Date(`${m[3]}-${m[2]}-${m[1]}`);
+      return null;
+    }
+
+    function toYmd(dateObj) {
+      if (!dateObj) return "";
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const d = String(dateObj.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function monthKey(dateObj) {
+      if (!dateObj) return "Unknown";
+      return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, "0")}`;
+    }
+
+    function getMechanismColumns(headers) {
+      return headers.filter(h => h.startsWith("Family -"));
+    }
+
+    function extractMechanisms(row) {
+      const set = new Set();
+      for (const col of state.mechanismColumns) {
+        const val = normalize(row[col]);
+        if (!EXCLUDE_MECHANISMS.has(val)) set.add(val);
+      }
+      return [...set];
+    }
+
+    function getResultColumn(prefix) {
+      const expert = `${prefix}-Other-Expertized`;
+      const instrument = `${prefix}-Other-Instrument`;
+      if (state.rows.length && expert in state.rows[0]) return expert;
+      if (state.rows.length && instrument in state.rows[0]) return instrument;
+      return null;
+    }
+
+    function toCsv(rows) {
+      if (!rows.length) return "";
+      const headers = Object.keys(rows[0]);
+      const escapeCell = (v) => {
+        const s = String(v ?? "");
+        if (/[",\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
+        return s;
+      };
+      return [headers.join(","), ...rows.map(r => headers.map(h => escapeCell(r[h])).join(","))].join("\n");
+    }
+
+    function downloadText(filename, content, mime = "text/plain") {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function countBy(rows, fn) {
+      const map = new Map();
+      rows.forEach(r => {
+        const key = fn(r);
+        map.set(key, (map.get(key) || 0) + 1);
+      });
+      return [...map.entries()].map(([key, count]) => ({ key, count }));
+    }
+
+    function sortCountDesc(arr) {
+      return arr.sort((a, b) => b.count - a.count || String(a.key).localeCompare(String(b.key)));
+    }
+
+    function percent(n, d) {
+      return d ? +(100 * n / d).toFixed(1) : 0;
+    }
+
+    function getAntibiogramSettings() {
+      return {
+        metric: document.getElementById("antibiogramMetricSelect")?.value || "pctS",
+        minTested: Number(document.getElementById("minTestedSelect")?.value || 0)
+      };
+    }
+
+    function metricLabel(metric) {
+      return {
+        pctS: "%S",
+        pctR: "%R",
+        pctI: "%I",
+        tested: "Tested"
+      }[metric] || "%S";
+    }
+
+    function metricLongLabel(metric) {
+      return {
+        pctS: "% susceptible",
+        pctR: "% resistant",
+        pctI: "% intermediate",
+        tested: "tested count"
+      }[metric] || "% susceptible";
+    }
+
+    function metricValue(summary, metric) {
+      if (!summary) return 0;
+      if (metric === "pctR") return summary.pctR;
+      if (metric === "pctI") return summary.pctI;
+      if (metric === "tested") return summary.tested;
+      return summary.pctS;
+    }
+
+    function metricText(summary, metric) {
+      if (!summary || !summary.tested) return "Not tested";
+      if (metric === "tested") return `n=${summary.tested}`;
+      return `${metricValue(summary, metric)}% (n=${summary.tested})`;
+    }
+
+    function heatClassForSummary(summary, metric, minTested) {
+      if (!summary || !summary.tested || summary.tested < minTested) return "heat-low";
+      const score = metricValue(summary, metric);
+      if (metric === "pctR") {
+        if (score <= 20) return "heat-good";
+        if (score <= 50) return "heat-mid";
+        return "heat-bad";
+      }
+      if (metric === "pctI") {
+        if (score <= 10) return "heat-good";
+        if (score <= 25) return "heat-mid";
+        return "heat-bad";
+      }
+      if (metric === "tested") {
+        if (score >= Math.max(minTested * 2, 20)) return "heat-good";
+        if (score >= Math.max(minTested, 10)) return "heat-mid";
+        return "";
+      }
+      if (score >= 80) return "heat-good";
+      if (score >= 50) return "heat-mid";
+      return "heat-bad";
+    }
+
+    function metricCellMeta(summary, metric, minTested) {
+      if (!summary || !summary.tested) return { text: "Not tested", className: "heat-low" };
+      if (summary.tested < minTested) return { text: `Low n (n=${summary.tested})`, className: "heat-low" };
+      return { text: metricText(summary, metric), className: heatClassForSummary(summary, metric, minTested) };
+    }
+
+    function availableDrugs() {
+      return state.priorityDrugs.filter(drug => !!getResultColumn(state.antibioticPrefixes[drug]));
+    }
+
+    function fillValueSelect(id, values, fallback = "") {
+      const select = document.getElementById(id);
+      if (!select) return;
+      const current = select.value;
+      select.innerHTML = values.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
+      if (values.includes(current)) select.value = current;
+      else if (fallback && values.includes(fallback)) select.value = fallback;
+      else if (values.length) select.value = values[0];
+    }
+
+    function updateDrugOptions() {
+      const drugs = availableDrugs();
+      fillValueSelect("trendDrugSelect", drugs, "Meropenem");
+    }
+
+    function getFilterContext() {
+      return {
+        dateField: document.getElementById("dateFieldSelect")?.value || "Collection Date",
+        fromDateRaw: document.getElementById("fromDate")?.value || "",
+        toDateRaw: document.getElementById("toDate")?.value || "",
+        careArea: document.getElementById("careAreaFilter")?.value || "All",
+        location: document.getElementById("locationFilter")?.value || "All",
+        specimen: document.getElementById("specimenFilter")?.value || "All",
+        organism: document.getElementById("organismFilter")?.value || "All",
+        group: document.getElementById("groupFilter")?.value || "All",
+        mechanism: document.getElementById("mechanismFilter")?.value || "All",
+        searchText: document.getElementById("searchText")?.value.trim().toLowerCase() || "",
+        dedupe: document.getElementById("dedupeFilter")?.value === "Yes"
+      };
+    }
+
+    function rowsMatchingFilters(sourceRows, context, ignoreKeys = []) {
+      const ignored = new Set(ignoreKeys);
+      const fromDate = context.fromDateRaw ? new Date(context.fromDateRaw) : null;
+      const toDate = context.toDateRaw ? new Date(context.toDateRaw) : null;
+      const useDateFilter = !!(context.fromDateRaw || context.toDateRaw);
+
+      let rows = sourceRows.filter(row => {
+        const d = context.dateField === "Testing Date" ? row.__testingDate : row.__collectionDate;
+        if (useDateFilter && d) {
+          if (fromDate && d < fromDate) return false;
+          if (toDate) {
+            const end = new Date(toDate);
+            end.setHours(23, 59, 59, 999);
+            if (d > end) return false;
+          }
+        }
+        if (!ignored.has("careArea") && context.careArea !== "All" && row.__careArea !== context.careArea) return false;
+        if (!ignored.has("location") && context.location !== "All" && normalize(row["Patient Location"]) !== context.location) return false;
+        if (!ignored.has("specimen") && context.specimen !== "All" && row.__specimenNormalized !== context.specimen) return false;
+        if (!ignored.has("organism") && context.organism !== "All" && row.__organismCombined !== context.organism) return false;
+        if (!ignored.has("group") && context.group !== "All" && row.__organismGroup !== context.group) return false;
+        if (!ignored.has("mechanism") && context.mechanism !== "All" && !row.__mechanisms.includes(context.mechanism)) return false;
+        if (context.searchText) {
+          const hay = [row.__organismCombined, row["Patient Name"], row["Patient ID"], row["Specimen Type"], row["Patient Location"]].join(" ").toLowerCase();
+          if (!hay.includes(context.searchText)) return false;
+        }
+        return true;
+      });
+
+      if (!ignored.has("dedupe") && context.dedupe) {
+        const seen = new Set();
+        rows = [...rows].sort((a, b) => {
+          const da = a.__collectionDate?.getTime() ?? Number.MAX_SAFE_INTEGER;
+          const db = b.__collectionDate?.getTime() ?? Number.MAX_SAFE_INTEGER;
+          return da - db;
+        }).filter(row => {
+          const key = `${row.__patientKey}||${row.__organismCombined}`;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
+      }
+
+      return rows;
+    }
+
+    function updateFilterOptions(baseContext = getFilterContext()) {
+      const locationSet = new Set();
+      const specimenSet = new Set();
+      const organismSet = new Set();
+      const mechanismSet = new Set();
+
+      rowsMatchingFilters(state.rows, baseContext, ["location"]).forEach(row => {
+        locationSet.add(row["Patient Location"] || "");
+      });
+      rowsMatchingFilters(state.rows, baseContext, ["specimen"]).forEach(row => {
+        specimenSet.add(row.__specimenNormalized);
+      });
+      rowsMatchingFilters(state.rows, baseContext, ["organism"]).forEach(row => {
+        organismSet.add(row.__organismCombined);
+      });
+      rowsMatchingFilters(state.rows, baseContext, ["mechanism"]).forEach(row => {
+        row.__mechanisms.forEach(m => mechanismSet.add(m));
+      });
+
+      fillSelect("locationFilter", [...locationSet].filter(Boolean).sort());
+      fillSelect("specimenFilter", [...specimenSet].filter(Boolean).sort());
+      fillSelect("organismFilter", [...organismSet].filter(Boolean).sort());
+      fillSelect("mechanismFilter", [...mechanismSet].filter(Boolean).sort());
+    }
+
+    function fillSelect(id, values) {
+      const select = document.getElementById(id);
+      const current = select.value;
+      select.innerHTML = `<option value="All">All</option>` + values.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
+      if (values.includes(current)) select.value = current;
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function buildRows(rawRows) {
+      const combineKlebsiella = document.getElementById("combineKlebsiellaFilter").value === "Yes";
+      return rawRows.map((row, i) => {
+        const collectionDate = parseDateMaybe(row["Collection Date"]);
+        const testingDate = parseDateMaybe(row["Testing Date"]);
+        const organism = normalize(row["Organism Name"]);
+        const combined = combinedOrganismName(organism, combineKlebsiella);
+        const mechanisms = extractMechanisms(row);
+        return {
+          ...row,
+          __id: i + 1,
+          __collectionDate: collectionDate,
+          __testingDate: testingDate,
+          __careArea: detectCareArea(row["Patient Location"]),
+          __specimenNormalized: normalizeSpecimenType(row["Specimen Type"]),
+          __organismRaw: organism,
+          __organismCombined: combined,
+          __organismGroup: organismGroup(organism),
+          __mechanisms: mechanisms,
+          __patientKey: normalize(row["Patient ID"]) || normalize(row["Patient Name"]) || `row-${i + 1}`
+        };
+      });
+    }
+
+    function applyFilters() {
+      let context = getFilterContext();
+      updateFilterOptions(context);
+      context = getFilterContext();
+      const rows = rowsMatchingFilters(state.rows, context);
+
+      state.filteredRows = rows;
+      renderAll();
+    }
+
+    function makeKpis(rows) {
+      const total = rows.length;
+      const patients = new Set(rows.map(r => r.__patientKey)).size;
+      const organisms = new Set(rows.map(r => r.__organismCombined)).size;
+      const topOrg = sortCountDesc(countBy(rows, r => r.__organismCombined))[0]?.key || "-";
+      const icu = rows.filter(r => r.__careArea === "ICU/HDU").length;
+      const entero = rows.filter(r => r.__organismGroup === "Enterobacterales").length;
+      const nonfer = rows.filter(r => r.__organismGroup === "Non-fermenters").length;
+      const yeast = rows.filter(r => r.__organismGroup === "Yeast/Candida").length;
+      const mechCountMap = countBy(rows.flatMap(r => r.__mechanisms.map(m => ({ m }))), x => x.m);
+      const topMech = sortCountDesc(mechCountMap)[0]?.key || "-";
+      return [
+        { label: "Total isolates", value: total },
+        { label: "Unique patients", value: patients },
+        { label: "Unique organisms", value: organisms },
+        { label: "Top organism", value: topOrg },
+        { label: "% ICU/HDU", value: `${percent(icu, total)}%` },
+        { label: "% Enterobacterales", value: `${percent(entero, total)}%` },
+        { label: "% Non-fermenters", value: `${percent(nonfer, total)}%` },
+        { label: "% Yeast/Candida", value: `${percent(yeast, total)}%` },
+        { label: "Top phenotype", value: topMech }
+      ];
+    }
+
+    function renderKpis(rows) {
+      const html = makeKpis(rows).map(k => `
+        <div class="kpi">
+          <div class="label">${escapeHtml(k.label)}</div>
+          <div class="value">${escapeHtml(k.value)}</div>
+        </div>`).join("");
+      document.getElementById("kpiContainer").innerHTML = html;
+
+      const collectionUsable = state.rows.filter(r => r.__collectionDate).length;
+      const testingUsable = state.rows.filter(r => r.__testingDate).length;
+      const pill = document.getElementById("dataQualityPill");
+      const note = document.getElementById("dataQualityNote");
+      pill.textContent = `Loaded rows: ${state.rows.length}`;
+      note.textContent = `Usable Collection Dates: ${collectionUsable} | Usable Testing Dates: ${testingUsable} | Filtered rows: ${rows.length}`;
+    }
+
+    function destroyChart(key) {
+      if (state.charts[key]) {
+        state.charts[key].destroy();
+        delete state.charts[key];
+      }
+    }
+
+    function renderBarChart(canvasId, key, labels, values, label, horizontal = false) {
+      destroyChart(key);
+      const ctx = document.getElementById(canvasId).getContext("2d");
+      state.charts[key] = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [{ label, data: values }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: horizontal ? "y" : "x",
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    function renderLineChart(canvasId, key, labels, values, label) {
+      destroyChart(key);
+      const ctx = document.getElementById(canvasId).getContext("2d");
+      state.charts[key] = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels,
+          datasets: [{ label, data: values, tension: 0.2, fill: false }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    function renderStackedBarChart(canvasId, key, labels, datasets) {
+      destroyChart(key);
+      const ctx = document.getElementById(canvasId).getContext("2d");
+      state.charts[key] = new Chart(ctx, {
+        type: "bar",
+        data: { labels, datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: "bottom" } },
+          scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } }
+        }
+      });
+    }
+
+    function renderGroupedBarChart(canvasId, key, labels, datasets) {
+      destroyChart(key);
+      const ctx = document.getElementById(canvasId).getContext("2d");
+      state.charts[key] = new Chart(ctx, {
+        type: "bar",
+        data: { labels, datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { y: { beginAtZero: true, max: 100 } }
+        }
+      });
+    }
+
+    function renderMetricTrendChart(canvasId, key, labels, metricValues, testedValues, metric) {
+      destroyChart(key);
+      const ctx = document.getElementById(canvasId).getContext("2d");
+      const metricName = metricLongLabel(metric);
+      const datasets = [{
+        type: "bar",
+        label: "Tested n",
+        data: testedValues,
+        yAxisID: metric === "tested" ? "y" : "y1",
+        backgroundColor: "rgba(35, 87, 216, 0.2)",
+        borderColor: "rgba(35, 87, 216, 0.45)",
+        borderWidth: 1
+      }];
+
+      if (metric !== "tested") {
+        datasets.unshift({
+          type: "line",
+          label: metricName,
+          data: metricValues,
+          yAxisID: "y",
+          borderColor: "rgba(220, 53, 69, 0.95)",
+          backgroundColor: "rgba(220, 53, 69, 0.15)",
+          tension: 0.25,
+          fill: false
+        });
+      }
+
+      state.charts[key] = new Chart(ctx, {
+        data: { labels, datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: "bottom" } },
+          scales: metric === "tested"
+            ? {
+                y: { beginAtZero: true, title: { display: true, text: "Tested n" } }
+              }
+            : {
+                y: {
+                  beginAtZero: true,
+                  max: 100,
+                  title: { display: true, text: metricName }
+                },
+                y1: {
+                  beginAtZero: true,
+                  position: "right",
+                  grid: { drawOnChartArea: false },
+                  title: { display: true, text: "Tested n" }
+                }
+              }
+        }
+      });
+    }
+
+    function renderSimpleTable(containerId, columns, rows) {
+      const header = `<tr>${columns.map(c => `<th>${escapeHtml(c.label)}</th>`).join("")}</tr>`;
+      const body = rows.map(r => `<tr>${columns.map(c => `<td>${c.html ? c.render(r[c.key], r) : escapeHtml(r[c.key] ?? "")}</td>`).join("")}</tr>`).join("");
+      document.getElementById(containerId).innerHTML = `<table><thead>${header}</thead><tbody>${body || `<tr><td colspan="${columns.length}" class="muted">No data</td></tr>`}</tbody></table>`;
+    }
+
+    function renderHeatTable(containerId, dataRows, valueFn) {
+      if (!dataRows.length) {
+        document.getElementById(containerId).innerHTML = `<table><tbody><tr><td class="muted">No data</td></tr></tbody></table>`;
+        return;
+      }
+      const headers = Object.keys(dataRows[0]).filter(h => !h.startsWith("__"));
+      const body = dataRows.map(r => {
+        return `<tr>${headers.map((h, i) => {
+          const val = r[h];
+          if (i === 0) return `<td>${escapeHtml(val)}</td>`;
+          const meta = valueFn ? valueFn(h, val, r) : { text: val, className: "" };
+          return `<td class="${meta.className || ""}">${escapeHtml(meta.text)}</td>`;
+        }).join("")}</tr>`;
+      }).join("");
+      document.getElementById(containerId).innerHTML = `<table><thead><tr>${headers.map(h => `<th>${escapeHtml(h)}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table>`;
+    }
+
+    function antibiogramForRows(rows, drugs = state.priorityDrugs) {
+      return drugs.map(drug => {
+        const prefix = state.antibioticPrefixes[drug];
+        const expert = `${prefix}-Other-Expertized`;
+        const instrument = `${prefix}-Other-Instrument`;
+        const col = rows.length && rows[0][expert] !== undefined ? expert : (rows.length && rows[0][instrument] !== undefined ? instrument : null);
+        if (!col) return { drug, tested: 0, s: 0, i: 0, r: 0, pctS: 0, pctI: 0, pctR: 0 };
+        const vals = rows.map(r => normalize(r[col]).toUpperCase()).filter(v => ["S", "I", "R", "SDD"].includes(v));
+        const tested = vals.length;
+        const s = vals.filter(v => v === "S").length;
+        const i = vals.filter(v => v === "I" || v === "SDD").length;
+        const r = vals.filter(v => v === "R").length;
+        return { drug, tested, s, i, r, pctS: percent(s, tested), pctI: percent(i, tested), pctR: percent(r, tested) };
+      });
+    }
+
+    function selectedOrganismName(rows) {
+      if (!rows.length) return "";
+      const chosen = document.getElementById("organismFilter").value;
+      if (chosen !== "All" && rows.some(r => r.__organismCombined === chosen)) return chosen;
+      return sortCountDesc(countBy(rows, r => r.__organismCombined))[0]?.key || "";
+    }
+
+    function selectedMechanismName(rows) {
+      const chosen = document.getElementById("mechanismFilter").value;
+      if (chosen !== "All") return chosen;
+      const mechMap = new Map();
+      rows.forEach(r => r.__mechanisms.forEach(m => mechMap.set(m, (mechMap.get(m) || 0) + 1)));
+      return [...mechMap.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0] || "";
+    }
+
+    function renderOverview(rows) {
+      const topOrg = sortCountDesc(countBy(rows, r => r.__organismCombined)).slice(0, 12);
+      renderBarChart("organismChart", "organismChart", topOrg.map(x => x.key), topOrg.map(x => x.count), "Isolates", true);
+
+      const spec = sortCountDesc(countBy(rows, r => r.__specimenNormalized || "Unknown")).slice(0, 10);
+      renderBarChart("specimenChart", "specimenChart", spec.map(x => x.key), spec.map(x => x.count), "Specimen count");
+
+      const trendMap = new Map();
+      rows.forEach(r => {
+        const d = document.getElementById("dateFieldSelect").value === "Testing Date" ? r.__testingDate : r.__collectionDate;
+        const key = monthKey(d);
+        trendMap.set(key, (trendMap.get(key) || 0) + 1);
+      });
+      const trendLabels = [...trendMap.keys()].sort();
+      renderLineChart("trendChart", "trendChart", trendLabels, trendLabels.map(k => trendMap.get(k)), "Monthly count");
+
+      const orgTableRows = sortCountDesc(countBy(rows, r => r.__organismCombined)).map(x => ({
+        organism: x.key,
+        count: x.count,
+        percent: `${percent(x.count, rows.length)}%`
+      }));
+      renderSimpleTable("organismTableWrap", [
+        { key: "organism", label: "Organism" },
+        { key: "count", label: "Count" },
+        { key: "percent", label: "%" }
+      ], orgTableRows);
+
+      const topOrgs = topOrg.map(x => x.key);
+      const topSpecimens = sortCountDesc(countBy(rows, r => r.__specimenNormalized || "Unknown")).slice(0, 6).map(x => x.key);
+      const heatRows = topOrgs.map(org => {
+        const r = { Organism: org };
+        topSpecimens.forEach(sp => {
+          r[sp] = rows.filter(x => x.__organismCombined === org && x.__specimenNormalized === sp).length;
+        });
+        return r;
+      });
+      renderHeatTable("organismSpecimenHeatWrap", heatRows, (_, val) => ({ text: String(val), className: val > 10 ? "heat-bad" : val > 3 ? "heat-mid" : val > 0 ? "heat-good" : "" }));
+    }
+
+    function renderAntibiogram(rows) {
+      const settings = getAntibiogramSettings();
+      const drugs = availableDrugs();
+      const heatDrugs = drugs.slice(0, 12);
+      const topOrgs = sortCountDesc(countBy(rows, r => r.__organismCombined)).slice(0, 10).map(x => x.key);
+      const tableRows = topOrgs.map(org => {
+        const sub = rows.filter(r => r.__organismCombined === org);
+        const row = { Organism: org, N: sub.length };
+        antibiogramForRows(sub, heatDrugs).forEach(a => {
+          row[a.drug] = a;
+        });
+        return row;
+      });
+      renderHeatTable("antibiogramWrap", tableRows, (header, val, row) => {
+        if (header === "Organism" || header === "N") return { text: String(val), className: "" };
+        return metricCellMeta(val, settings.metric, settings.minTested);
+      });
+
+      const selectedOrg = selectedOrganismName(rows);
+      const singleRows = selectedOrg ? rows.filter(r => r.__organismCombined === selectedOrg) : [];
+      const singleTable = antibiogramForRows(singleRows, drugs).map(a => ({
+        Drug: a.drug,
+        Tested: a.tested,
+        S: a.s,
+        I: a.i,
+        R: a.r,
+        [metricLabel(settings.metric)]: a.tested ? metricText(a, settings.metric) : "Not tested",
+        Guardrail: a.tested && a.tested < settings.minTested ? `n<${settings.minTested}` : ""
+      }));
+      renderSimpleTable("singleOrganismAntibiogramWrap", [
+        { key: "Drug", label: "Drug" },
+        { key: "Tested", label: "Tested" },
+        { key: "S", label: "S" },
+        { key: "I", label: "I" },
+        { key: "R", label: "R" },
+        { key: metricLabel(settings.metric), label: metricLabel(settings.metric) },
+        { key: "Guardrail", label: "Guardrail" }
+      ], singleTable);
+
+      const trendDrug = document.getElementById("trendDrugSelect").value || heatDrugs[0];
+      const trendMap = new Map();
+      singleRows.forEach(r => {
+        const d = document.getElementById("dateFieldSelect").value === "Testing Date" ? r.__testingDate : r.__collectionDate;
+        const key = monthKey(d);
+        if (!trendMap.has(key)) trendMap.set(key, []);
+        trendMap.get(key).push(r);
+      });
+      const trendLabels = [...trendMap.keys()].sort();
+      const trendSummaries = trendLabels.map(key => antibiogramForRows(trendMap.get(key), [trendDrug])[0]);
+      renderMetricTrendChart(
+        "selectedTrendChart",
+        "selectedTrendChart",
+        trendLabels,
+        trendSummaries.map(summary => metricValue(summary, settings.metric)),
+        trendSummaries.map(summary => summary.tested),
+        settings.metric
+      );
+
+      const topSpecimens = sortCountDesc(countBy(singleRows, r => r.__specimenNormalized)).slice(0, 6).map(x => x.key);
+      const specimenRows = topSpecimens.map(specimen => {
+        const specimenSubset = singleRows.filter(r => r.__specimenNormalized === specimen);
+        const row = { Specimen: specimen, N: specimenSubset.length };
+        antibiogramForRows(specimenSubset, heatDrugs.slice(0, 8)).forEach(a => {
+          row[a.drug] = a;
+        });
+        return row;
+      });
+      renderHeatTable("specimenAntibiogramWrap", specimenRows, (header, val) => {
+        if (header === "Specimen" || header === "N") return { text: String(val), className: "" };
+        return metricCellMeta(val, settings.metric, settings.minTested);
+      });
+    }
+
+    function renderPhenotypes(rows) {
+      const settings = getAntibiogramSettings();
+      const drugs = availableDrugs();
+      const mechMap = new Map();
+      rows.forEach(r => {
+        r.__mechanisms.forEach(m => mechMap.set(m, (mechMap.get(m) || 0) + 1));
+      });
+      const mechRows = [...mechMap.entries()].map(([key, count]) => ({ key, count })).sort((a, b) => b.count - a.count).slice(0, 15);
+      renderBarChart("mechanismChart", "mechanismChart", mechRows.map(x => x.key), mechRows.map(x => x.count), "Mechanism count", true);
+      renderSimpleTable("mechanismTableWrap", [
+        { key: "key", label: "Mechanism" },
+        { key: "count", label: "Count" }
+      ], mechRows);
+
+      const selectedMech = selectedMechanismName(rows);
+      const mechFiltered = selectedMech ? rows.filter(r => r.__mechanisms.includes(selectedMech)) : [];
+      document.getElementById("phenotypeSelectionNote").textContent = selectedMech
+        ? `Drill-down phenotype: ${selectedMech} | isolates: ${mechFiltered.length}`
+        : "No phenotype found in current filtered set.";
+      const mechOrgRows = sortCountDesc(countBy(mechFiltered, r => r.__organismCombined)).slice(0, 10);
+      renderBarChart("phenotypeOrganismChart", "phenotypeOrganismChart", mechOrgRows.map(x => x.key), mechOrgRows.map(x => x.count), "Isolates", true);
+
+      const mechSpecRows = sortCountDesc(countBy(mechFiltered, r => r.__specimenNormalized)).map(x => ({
+        Specimen: x.key,
+        Count: x.count,
+        Percent: `${percent(x.count, mechFiltered.length)}%`
+      }));
+      renderSimpleTable("phenotypeSpecimenWrap", [
+        { key: "Specimen", label: "Specimen" },
+        { key: "Count", label: "Count" },
+        { key: "Percent", label: "%" }
+      ], mechSpecRows);
+
+      const table = antibiogramForRows(mechFiltered, drugs).map(a => ({
+        Drug: a.drug,
+        Tested: a.tested,
+        S: a.s,
+        I: a.i,
+        R: a.r,
+        [metricLabel(settings.metric)]: a.tested ? metricText(a, settings.metric) : "Not tested",
+        Guardrail: a.tested && a.tested < settings.minTested ? `n<${settings.minTested}` : ""
+      }));
+      renderSimpleTable("mechanismAntibiogramWrap", [
+        { key: "Drug", label: "Drug" },
+        { key: "Tested", label: "Tested" },
+        { key: "S", label: "S" },
+        { key: "I", label: "I" },
+        { key: "R", label: "R" },
+        { key: metricLabel(settings.metric), label: metricLabel(settings.metric) },
+        { key: "Guardrail", label: "Guardrail" }
+      ], table);
+    }
+
+    function renderIcu(rows) {
+      const icuRows = rows.filter(r => r.__careArea === "ICU/HDU");
+      const nonRows = rows.filter(r => r.__careArea === "Non-ICU");
+      const topUnion = new Set([
+        ...sortCountDesc(countBy(icuRows, r => r.__organismCombined)).slice(0, 10).map(x => x.key),
+        ...sortCountDesc(countBy(nonRows, r => r.__organismCombined)).slice(0, 10).map(x => x.key)
+      ]);
+      const labels = [...topUnion];
+      renderStackedBarChart("icuOrgChart", "icuOrgChart", labels, [
+        { label: "ICU/HDU", data: labels.map(org => icuRows.filter(r => r.__organismCombined === org).length) },
+        { label: "Non-ICU", data: labels.map(org => nonRows.filter(r => r.__organismCombined === org).length) }
+      ]);
+
+      const selectedOrg = document.getElementById("organismFilter").value !== "All"
+        ? document.getElementById("organismFilter").value
+        : sortCountDesc(countBy(rows, r => r.__organismCombined))[0]?.key;
+
+      const icuOrgRows = icuRows.filter(r => r.__organismCombined === selectedOrg);
+      const nonOrgRows = nonRows.filter(r => r.__organismCombined === selectedOrg);
+      const icuAnti = antibiogramForRows(icuOrgRows, state.priorityDrugs.slice(0, 10));
+      const nonAnti = antibiogramForRows(nonOrgRows, state.priorityDrugs.slice(0, 10));
+
+      renderGroupedBarChart("icuResistanceChart", "icuResistanceChart", icuAnti.map(x => x.drug), [
+        { label: `ICU/HDU %R (n=${icuOrgRows.length})`, data: icuAnti.map(x => x.pctR) },
+        { label: `Non-ICU %R (n=${nonOrgRows.length})`, data: nonAnti.map(x => x.pctR) }
+      ]);
+
+      const tableRows = icuAnti.map((a, idx) => ({
+        Drug: a.drug,
+        "ICU tested": a.tested,
+        "ICU %R": `${a.pctR}%`,
+        "Non-ICU tested": nonAnti[idx].tested,
+        "Non-ICU %R": `${nonAnti[idx].pctR}%`,
+      }));
+      renderSimpleTable("icuResistanceTableWrap", [
+        { key: "Drug", label: "Drug" },
+        { key: "ICU tested", label: "ICU tested" },
+        { key: "ICU %R", label: "ICU %R" },
+        { key: "Non-ICU tested", label: "Non-ICU tested" },
+        { key: "Non-ICU %R", label: "Non-ICU %R" }
+      ], tableRows);
+    }
+
+    function renderRaw(rows) {
+      const shown = rows.slice(0, 200).map(r => ({
+        "Collection Date": toYmd(r.__collectionDate),
+        "Testing Date": toYmd(r.__testingDate),
+        "Patient Name": r["Patient Name"],
+        "Patient ID": r["Patient ID"],
+        "Location": r["Patient Location"],
+        "Care Area": r.__careArea,
+        "Specimen Type": r.__specimenNormalized,
+        "Organism": r.__organismCombined,
+        "Mechanisms": r.__mechanisms.join("; ")
+      }));
+      renderSimpleTable("rawTableWrap", [
+        { key: "Collection Date", label: "Collection Date" },
+        { key: "Testing Date", label: "Testing Date" },
+        { key: "Patient Name", label: "Patient Name" },
+        { key: "Patient ID", label: "Patient ID" },
+        { key: "Location", label: "Location" },
+        { key: "Care Area", label: "Care Area" },
+        { key: "Specimen Type", label: "Specimen Type" },
+        { key: "Organism", label: "Organism" },
+        { key: "Mechanisms", label: "Mechanisms" }
+      ], shown);
+    }
+
+    function renderAll() {
+      const rows = state.filteredRows;
+      renderKpis(rows);
+      renderOverview(rows);
+      renderAntibiogram(rows);
+      renderPhenotypes(rows);
+      renderIcu(rows);
+      renderRaw(rows);
+    }
+
+    function wireEvents() {
+      [
+        "dateFieldSelect", "fromDate", "toDate", "careAreaFilter", "locationFilter", "specimenFilter", "organismFilter",
+        "groupFilter", "mechanismFilter", "searchText", "dedupeFilter"
+      ].forEach(id => {
+        document.getElementById(id).addEventListener(id === "searchText" ? "input" : "change", applyFilters);
+      });
+
+      ["antibiogramMetricSelect", "minTestedSelect", "trendDrugSelect"].forEach(id => {
+        document.getElementById(id).addEventListener("change", renderAll);
+      });
+
+      document.getElementById("combineKlebsiellaFilter").addEventListener("change", () => {
+        state.rows = buildRows(state.rows.map(({__id, __collectionDate, __testingDate, __careArea, __specimenNormalized, __organismRaw, __organismCombined, __organismGroup, __mechanisms, __patientKey, ...rest}) => rest));
+        updateFilterOptions();
+        applyFilters();
+      });
+
+      document.getElementById("fileInput").addEventListener("change", handleFileUpload);
+      document.getElementById("loadSampleBtn").addEventListener("click", loadDemoData);
+      document.getElementById("exportFilteredBtn").addEventListener("click", () => {
+        const exportRows = state.filteredRows.map(r => ({
+          "Collection Date": toYmd(r.__collectionDate),
+          "Testing Date": toYmd(r.__testingDate),
+          "Patient Name": r["Patient Name"],
+          "Patient ID": r["Patient ID"],
+          "Patient Location": r["Patient Location"],
+          "Care Area": r.__careArea,
+          "Specimen Type": r.__specimenNormalized,
+          "Organism Combined": r.__organismCombined,
+          "Organism Raw": r.__organismRaw,
+          "Organism Group": r.__organismGroup,
+          "Mechanisms": r.__mechanisms.join("; ")
+        }));
+        downloadText("filtered_mic_rows.csv", toCsv(exportRows), "text/csv");
+      });
+
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab-btn").forEach(x => x.classList.remove("active"));
+          document.querySelectorAll(".tab-panel").forEach(x => x.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById(`tab-${btn.dataset.tab}`).classList.add("active");
+        });
+      });
+    }
+
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (result) => {
+          const rawRows = result.data || [];
+          state.mechanismColumns = getMechanismColumns(result.meta.fields || []);
+          state.rows = buildRows(rawRows);
+          updateDrugOptions();
+          setDateBoundsFromRows(state.rows);
+          updateFilterOptions();
+          applyFilters();
+        }
+      });
+    }
+
+    function setDateBoundsFromRows(rows) {
+      const dates = rows.flatMap(r => [r.__collectionDate, r.__testingDate]).filter(Boolean).sort((a, b) => a - b);
+      if (!dates.length) return;
+      document.getElementById("fromDate").value = "";
+      document.getElementById("toDate").value = "";
+    }
+
+    function loadDemoData() {
+      const csv = `Lab ID,Isolate Number,Patient Name,Patient ID,Patient Location,Specimen Type,Collection Date,Testing Date,Organism Name,Family -BETA-LACTAMS - 1,Family -BETA-LACTAMS - 2,Family -TRIMETHOPRIM/SULFONAMIDES - 1,MEM-Other-Expertized,IPM-Other-Expertized,ETP-Other-Expertized,TZP-Other-Expertized,FEP-Other-Expertized,SFP-Other-Expertized,CIP-Other-Expertized,LEV-Other-Expertized,AN-Other-Expertized,GM-Other-Expertized,FOS-Other-Expertized,SXT-Other-Expertized,MNO-Other-Expertized\n1,1,A,1001,ICU 1,urine,2024-10-01,2024-10-02,Esch.coli,EXTENDED SPECTRUM BETA-LACTAMASE,HL CEPHALOSPORINASE (AmpC),TRIMETHOPRIM RESISTANT,R,S,R,R,R,S,R,R,S,R,S,R,S\n2,1,B,1002,WARD A,urine,2024-10-02,2024-10-03,Esch.coli,EXTENDED SPECTRUM BETA-LACTAMASE,,TRIMETHOPRIM RESISTANT,S,S,S,R,R,S,R,S,S,S,S,R,S\n3,1,C,1003,ICU 2,sputum,2024-10-03,2024-10-03,Ps.aeruginosa,CARBAPENEMASE,HL CASE + R CARBAPENEMS (IMPER),,R,R,,R,R,,R,R,R,R,,,\n4,1,D,1004,ER,blood,2024-10-03,2024-10-04,Ps.aeruginosa,HIGH LEVEL CEPHALOSPORINASE,,,,S,S,,R,S,,S,S,S,R,,,\n5,1,E,1005,HDU,blood,2024-10-04,2024-10-05,K.pneum.pneumoniae,CARBAPENEMASE (+ OR - ESBL),IMPERMEABILITY CARBA (+ESBL OR +HL AmpC),TRIMETHOPRIM RESISTANT,R,R,R,R,R,R,R,R,R,R,,R,S\n6,1,F,1006,WARD B,urine,2024-10-04,2024-10-05,K.pneumoniae,CARBAPENEMASE (+ OR - ESBL),IMPERMEABILITY CARBA (+ESBL OR +HL AmpC),TRIMETHOPRIM RESISTANT,R,R,R,R,R,R,R,R,R,R,,R,S\n7,1,G,1007,WARD C,blood,2024-10-05,2024-10-06,C.albicans,,,,,,,,,,,,,,,,,\n8,1,H,1008,WARD D,blood,2024-10-06,2024-10-06,Sphmon.paucimobilis,,,TRIMETHOPRIM RESISTANT,S,S,,R,R,,R,S,R,S,,S,S\n9,1,I,1009,ICU 1,ET,2024-10-06,2024-10-06,Aci.baumannii cplx,CARBAPENEMASE,,TRIMETHOPRIM RESISTANT,R,R,,R,R,,R,R,R,R,,R,R\n10,1,J,1010,WARD E,urine,2024-10-07,2024-10-08,Entero.faecium,MODIFICATION OF PBP (mecA),,TRIMETHOPRIM RESISTANT,,,,,,,,,,,,,,,,`;
+      const parsed = Papa.parse(csv, { header: true, skipEmptyLines: true });
+      state.mechanismColumns = getMechanismColumns(parsed.meta.fields || []);
+      state.rows = buildRows(parsed.data || []);
+      updateDrugOptions();
+      setDateBoundsFromRows(state.rows);
+      updateFilterOptions();
+      applyFilters();
+    }
+
+    wireEvents();
+    loadDemoData();
+  </script>
+</body>
+</html>
