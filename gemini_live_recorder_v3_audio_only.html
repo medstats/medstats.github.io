@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini Live Recorder V3 Audio Only</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #141b34;
+      --panel-2: #1b2445;
+      --text: #eef2ff;
+      --muted: #b7c0e0;
+      --accent: #79a8ff;
+      --accent-2: #3dd9b5;
+      --danger: #ff7a90;
+      --border: rgba(255,255,255,0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #09101d, #111936);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 370px 1fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(20, 27, 52, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.24);
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    input, textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      padding: 11px 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 145px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    .field { margin-bottom: 14px; }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .primary { background: var(--accent); color: #071129; }
+    .secondary { background: #d8e3ff; color: #0b1020; }
+    .danger { background: var(--danger); color: #2b0611; }
+    .ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #8a92ae;
+      display: inline-block;
+    }
+
+    .dot.live { background: var(--accent-2); box-shadow: 0 0 10px rgba(61,217,181,0.75); }
+    .dot.busy { background: #ffd166; box-shadow: 0 0 10px rgba(255,209,102,0.75); }
+    .dot.err { background: var(--danger); box-shadow: 0 0 10px rgba(255,122,144,0.75); }
+
+    .notes {
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--muted);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .transcript-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .transcript {
+      height: 68vh;
+      overflow: auto;
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+    }
+
+    .msg {
+      margin-bottom: 12px;
+      padding: 12px 13px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .msg.user { background: rgba(121,168,255,0.12); }
+    .msg.assistant { background: rgba(61,217,181,0.10); }
+    .msg.meta { background: rgba(255,255,255,0.04); }
+
+    .msg-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .msg-text {
+      white-space: pre-wrap;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .inline-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .inline-check input {
+      width: auto;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .transcript {
+        height: 55vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Gemini Live Recorder V3 Audio Only</h1>
+    <div class="sub">
+      Speak into the mic, let Gemini respond, then stop the encounter and download one WAV file with the full conversation audio.
+      This mode disables live transcript handling and keeps the session audio-only to reduce local latency.
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <div class="pill"><span id="statusDot" class="dot"></span> <span id="statusText">Idle</span></div>
+
+        <div class="field">
+          <label for="apiKey">Gemini API key</label>
+          <input id="apiKey" type="password" placeholder="Paste your Gemini API key" autocomplete="off" />
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="model">Model</label>
+            <input id="model" type="text" value="gemini-3.1-flash-live-preview" />
+          </div>
+          <div class="field">
+            <label for="languageHint">Language hint</label>
+            <input id="languageHint" type="text" value="English" placeholder="Optional" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="systemInstruction">System instruction</label>
+          <textarea id="systemInstruction" placeholder="Example: You are a calm medical interview assistant. Ask concise follow-up questions."></textarea>
+          <div class="small">This is sent in the session config. Change it before starting a new encounter.</div>
+        </div>
+
+        <div class="inline-check"><input id="playAudio" type="checkbox" checked /> <label for="playAudio" style="margin:0">Play Gemini audio reply</label></div>
+        <div class="inline-check"><input id="autoDownload" type="checkbox" checked /> <label for="autoDownload" style="margin:0">Auto-download WAV on stop</label></div>
+        <div class="inline-check"><input id="rememberKey" type="checkbox" /> <label for="rememberKey" style="margin:0">Remember API key in this browser</label></div>
+
+        <div class="btns">
+          <button id="startBtn" class="primary">Start encounter</button>
+          <button id="stopBtn" class="danger" disabled>Stop encounter</button>
+          <button id="downloadBtn" class="secondary" disabled>Download WAV</button>
+          <button id="clearBtn" class="ghost">Clear chat</button>
+        </div>
+
+        <div class="notes">
+          <strong>Notes</strong><br>
+          1. This page sends your key directly from the browser. Fine for testing, not ideal for production.<br>
+          2. For production, use ephemeral tokens from your backend.<br>
+          3. The downloaded file is a mixed WAV containing both your microphone and Gemini's audio replies.<br>
+          4. Live transcript is disabled in this version to reduce overhead.<br>
+          5. Gemini audio is always included in the WAV even if speaker playback is turned off.<br>
+          6. This file imports <code>@google/genai</code> from a CDN at runtime, so internet access is required.
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="transcript-header">
+          <div>
+            <strong>Session Events</strong>
+            <div class="small" id="summaryLine">Audio-only mode. No live transcript.</div>
+          </div>
+        </div>
+        <div id="transcript" class="transcript"></div>
+      </section>
+    </div>
+  </div>
+
+  <script type="module">
+    import { GoogleGenAI, Modality } from 'https://esm.sh/@google/genai';
+
+    const apiKeyEl = document.getElementById('apiKey');
+    const modelEl = document.getElementById('model');
+    const languageHintEl = document.getElementById('languageHint');
+    const systemInstructionEl = document.getElementById('systemInstruction');
+    const playAudioEl = document.getElementById('playAudio');
+    const autoDownloadEl = document.getElementById('autoDownload');
+    const rememberKeyEl = document.getElementById('rememberKey');
+
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const clearBtn = document.getElementById('clearBtn');
+
+    const transcriptEl = document.getElementById('transcript');
+    const statusDotEl = document.getElementById('statusDot');
+    const statusTextEl = document.getElementById('statusText');
+    const summaryLineEl = document.getElementById('summaryLine');
+
+    let ai = null;
+    let session = null;
+    let stopRequested = false;
+    let downloadTriggered = false;
+    let micStream = null;
+    let micContext = null;
+    let micSource = null;
+    let micProcessor = null;
+    let micMuteGain = null;
+    let micRecordGain = null;
+    let mixBus = null;
+    let mixRecorder = null;
+    let mixRecorderMute = null;
+    let playbackCursorTime = 0;
+    let encounterStartedAt = null;
+    let eventEntries = [];
+    let connectTimeout = null;
+    let recordingSampleRate = 48000;
+    let recordingBuffers = [];
+    let recordingLength = 0;
+    let latestRecordingBlob = null;
+
+    const KEY_STORAGE = 'gemini_live_recorder_api_key';
+
+    function setStatus(text, kind = 'idle') {
+      statusTextEl.textContent = text;
+      statusDotEl.className = 'dot';
+      if (kind === 'live') statusDotEl.classList.add('live');
+      if (kind === 'busy') statusDotEl.classList.add('busy');
+      if (kind === 'err') statusDotEl.classList.add('err');
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function nowStamp() {
+      return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    function addMeta(text) {
+      eventEntries.push({ text, ts: nowStamp() });
+      renderTranscript();
+    }
+
+    function updateDownloadButton() {
+      downloadBtn.disabled = !latestRecordingBlob;
+    }
+
+    function renderTranscript() {
+      transcriptEl.innerHTML = eventEntries.map(entry => {
+        return `
+          <div class="msg meta">
+            <div class="msg-top">
+              <span>System</span>
+              <span>${escapeHtml(entry.ts || '')}</span>
+            </div>
+            <div class="msg-text">${escapeHtml(entry.text || '')}</div>
+          </div>
+        `;
+      }).join('');
+      transcriptEl.scrollTop = transcriptEl.scrollHeight;
+      summaryLineEl.textContent = eventEntries.length ? `${eventEntries.length} event${eventEntries.length === 1 ? '' : 's'}` : 'Audio-only mode. No live transcript.';
+      updateDownloadButton();
+    }
+
+    function getSystemInstructionText() {
+      const raw = systemInstructionEl.value.trim();
+      const hint = languageHintEl.value.trim();
+      if (!raw && !hint) return '';
+      if (!raw) return `Reply in ${hint}.`;
+      if (!hint) return raw;
+      return `${raw}\n\nPreferred reply language: ${hint}.`;
+    }
+
+    function buildConfig() {
+      const systemText = getSystemInstructionText();
+      const config = {
+        responseModalities: [Modality.AUDIO],
+      };
+      if (systemText) {
+        config.systemInstruction = {
+          parts: [{ text: systemText }],
+        };
+      }
+      return config;
+    }
+
+    function resetConnectionTimer() {
+      if (connectTimeout) {
+        clearTimeout(connectTimeout);
+        connectTimeout = null;
+      }
+    }
+
+    function stopMicInput() {
+      if (micProcessor) {
+        micProcessor.disconnect();
+        micProcessor.onaudioprocess = null;
+        micProcessor = null;
+      }
+      if (micSource) {
+        micSource.disconnect();
+        micSource = null;
+      }
+      if (micMuteGain) {
+        micMuteGain.disconnect();
+        micMuteGain = null;
+      }
+      if (micRecordGain) {
+        micRecordGain.disconnect();
+        micRecordGain = null;
+      }
+      if (micStream) {
+        micStream.getTracks().forEach(track => track.stop());
+        micStream = null;
+      }
+    }
+
+    function cleanupMic() {
+      stopMicInput();
+      if (mixRecorder) {
+        mixRecorder.disconnect();
+        mixRecorder.onaudioprocess = null;
+        mixRecorder = null;
+      }
+      if (mixRecorderMute) {
+        mixRecorderMute.disconnect();
+        mixRecorderMute = null;
+      }
+      if (mixBus) {
+        mixBus.disconnect();
+        mixBus = null;
+      }
+      if (micContext) {
+        micContext.close().catch(() => {});
+        micContext = null;
+      }
+    }
+
+    async function cleanupSession() {
+      resetConnectionTimer();
+      if (session) {
+        try {
+          session.close();
+        } catch (_) {}
+      }
+      session = null;
+      ai = null;
+      cleanupMic();
+      playbackCursorTime = 0;
+    }
+
+    function floatTo16BitPCM(float32Array) {
+      const out = new Int16Array(float32Array.length);
+      for (let i = 0; i < float32Array.length; i++) {
+        const s = Math.max(-1, Math.min(1, float32Array[i]));
+        out[i] = s < 0 ? s * 0x8000 : s * 0x7fff;
+      }
+      return out;
+    }
+
+    function resampleFloat32(input, inputRate, targetRate) {
+      if (inputRate === targetRate) return input;
+      const ratio = inputRate / targetRate;
+      const newLength = Math.max(1, Math.round(input.length / ratio));
+      const result = new Float32Array(newLength);
+      let offsetResult = 0;
+      let offsetInput = 0;
+      while (offsetResult < result.length) {
+        const nextOffsetInput = Math.round((offsetResult + 1) * ratio);
+        let accum = 0;
+        let count = 0;
+        for (let i = offsetInput; i < nextOffsetInput && i < input.length; i++) {
+          accum += input[i];
+          count++;
+        }
+        result[offsetResult] = count ? accum / count : 0;
+        offsetResult++;
+        offsetInput = nextOffsetInput;
+      }
+      return result;
+    }
+
+    function int16ToBase64(int16Array) {
+      const bytes = new Uint8Array(int16Array.buffer);
+      let binary = '';
+      const chunkSize = 0x8000;
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        const chunk = bytes.subarray(i, i + chunkSize);
+        binary += String.fromCharCode(...chunk);
+      }
+      return btoa(binary);
+    }
+
+    function base64ToArrayBuffer(base64) {
+      const binary = atob(base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      return bytes.buffer;
+    }
+
+    function resetRecording() {
+      latestRecordingBlob = null;
+      recordingBuffers = [];
+      recordingLength = 0;
+      updateDownloadButton();
+    }
+
+    function initRecordingGraph() {
+      mixBus = micContext.createGain();
+      mixRecorder = micContext.createScriptProcessor(2048, 1, 1);
+      mixRecorderMute = micContext.createGain();
+      mixRecorderMute.gain.value = 0;
+
+      recordingSampleRate = micContext.sampleRate;
+      recordingBuffers = [];
+      recordingLength = 0;
+
+      mixRecorder.onaudioprocess = (event) => {
+        const input = event.inputBuffer.getChannelData(0);
+        recordingBuffers.push(new Float32Array(input));
+        recordingLength += input.length;
+      };
+
+      mixBus.connect(mixRecorder);
+      mixRecorder.connect(mixRecorderMute);
+      mixRecorderMute.connect(micContext.destination);
+    }
+
+    function buildWavBlob() {
+      if (!recordingLength) return null;
+
+      const merged = new Float32Array(recordingLength);
+      let offset = 0;
+      for (const chunk of recordingBuffers) {
+        merged.set(chunk, offset);
+        offset += chunk.length;
+      }
+
+      const wavBuffer = new ArrayBuffer(44 + merged.length * 2);
+      const view = new DataView(wavBuffer);
+
+      function writeString(pos, value) {
+        for (let i = 0; i < value.length; i++) {
+          view.setUint8(pos + i, value.charCodeAt(i));
+        }
+      }
+
+      writeString(0, 'RIFF');
+      view.setUint32(4, 36 + merged.length * 2, true);
+      writeString(8, 'WAVE');
+      writeString(12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, 1, true);
+      view.setUint32(24, recordingSampleRate, true);
+      view.setUint32(28, recordingSampleRate * 2, true);
+      view.setUint16(32, 2, true);
+      view.setUint16(34, 16, true);
+      writeString(36, 'data');
+      view.setUint32(40, merged.length * 2, true);
+
+      let pcmOffset = 44;
+      for (let i = 0; i < merged.length; i++) {
+        const sample = Math.max(-1, Math.min(1, merged[i]));
+        view.setInt16(pcmOffset, sample < 0 ? sample * 0x8000 : sample * 0x7fff, true);
+        pcmOffset += 2;
+      }
+
+      return new Blob([wavBuffer], { type: 'audio/wav' });
+    }
+
+    async function playPcm24kBase64(base64Data) {
+      if (!base64Data) return;
+      try {
+        if (!micContext) return;
+        if (micContext.state === 'suspended') await micContext.resume();
+
+        const arrayBuffer = base64ToArrayBuffer(base64Data);
+        const pcm = new Int16Array(arrayBuffer);
+        const floats = new Float32Array(pcm.length);
+        for (let i = 0; i < pcm.length; i++) floats[i] = pcm[i] / 32768;
+
+        const buffer = micContext.createBuffer(1, floats.length, 24000);
+        buffer.copyToChannel(floats, 0);
+
+        const source = micContext.createBufferSource();
+        source.buffer = buffer;
+        if (playAudioEl.checked) source.connect(micContext.destination);
+        if (mixBus) source.connect(mixBus);
+
+        const now = micContext.currentTime;
+        if (playbackCursorTime < now) playbackCursorTime = now + 0.03;
+        source.start(playbackCursorTime);
+        playbackCursorTime += buffer.duration;
+      } catch (err) {
+        console.error('Audio playback failed:', err);
+        addMeta(`Audio playback failed: ${err.message || String(err)}`);
+      }
+    }
+
+    async function startMicrophone() {
+      if (!navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
+        throw new Error('This browser does not support microphone access here. Open the page in a modern browser over HTTPS or localhost.');
+      }
+
+      if (!window.AudioContext && !window.webkitAudioContext) {
+        throw new Error('This browser does not support Web Audio.');
+      }
+
+      micStream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          channelCount: 1,
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+        },
+      });
+
+      micContext = new (window.AudioContext || window.webkitAudioContext)();
+      if (micContext.state === 'suspended') await micContext.resume();
+      initRecordingGraph();
+
+      micSource = micContext.createMediaStreamSource(micStream);
+      micProcessor = micContext.createScriptProcessor(2048, 1, 1);
+      micMuteGain = micContext.createGain();
+      micRecordGain = micContext.createGain();
+      micMuteGain.gain.value = 0;
+      micRecordGain.gain.value = 1;
+
+      micProcessor.onaudioprocess = (event) => {
+        if (!session || stopRequested) return;
+        const raw = event.inputBuffer.getChannelData(0);
+        const resampled = resampleFloat32(raw, micContext.sampleRate, 16000);
+        const pcm16 = floatTo16BitPCM(resampled);
+        const base64 = int16ToBase64(pcm16);
+        try {
+          session.sendRealtimeInput({
+            audio: {
+              data: base64,
+              mimeType: 'audio/pcm;rate=16000',
+            },
+          });
+        } catch (err) {
+          console.error('sendRealtimeInput failed:', err);
+        }
+      };
+
+      micSource.connect(micProcessor);
+      micSource.connect(micRecordGain);
+      micProcessor.connect(micMuteGain);
+      micRecordGain.connect(mixBus);
+      micMuteGain.connect(micContext.destination);
+    }
+
+    function handleServerMessage(message) {
+      const sc = message?.serverContent;
+      if (!sc) return;
+
+      if (sc.modelTurn?.parts) {
+        for (const part of sc.modelTurn.parts) {
+          if (part.inlineData?.data) {
+            playPcm24kBase64(part.inlineData.data);
+          }
+        }
+      }
+
+      if (sc.interrupted) {
+        playbackCursorTime = 0;
+        addMeta('Generation interrupted.');
+      }
+
+      if (sc.turnComplete) {
+        if (stopRequested) {
+          finalizeEncounter();
+        }
+      }
+    }
+
+    function downloadRecording() {
+      if (!latestRecordingBlob) return;
+      const url = URL.createObjectURL(latestRecordingBlob);
+      const a = document.createElement('a');
+      const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+      a.href = url;
+      a.download = `gemini-live-chat-${stamp}.wav`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    async function finalizeEncounter() {
+      if (downloadTriggered) return;
+      downloadTriggered = true;
+      latestRecordingBlob = buildWavBlob();
+      cleanupMic();
+      updateDownloadButton();
+      if (autoDownloadEl.checked && latestRecordingBlob) downloadRecording();
+      setStatus('Encounter stopped', 'idle');
+      stopBtn.disabled = true;
+      startBtn.disabled = false;
+      await cleanupSession();
+    }
+
+    async function startEncounter() {
+      try {
+        await cleanupSession();
+        if (!apiKeyEl.value.trim()) throw new Error('Please paste a Gemini API key.');
+        if (rememberKeyEl.checked) {
+          localStorage.setItem(KEY_STORAGE, apiKeyEl.value.trim());
+        } else {
+          localStorage.removeItem(KEY_STORAGE);
+        }
+
+        downloadTriggered = false;
+        stopRequested = false;
+        resetRecording();
+        encounterStartedAt = new Date();
+        eventEntries = [];
+        renderTranscript();
+        addMeta(`Encounter started at ${encounterStartedAt.toLocaleString()}.`);
+        setStatus('Requesting microphone…', 'busy');
+        startBtn.disabled = true;
+        stopBtn.disabled = true;
+
+        await startMicrophone();
+        addMeta('Microphone access granted. Connecting to Gemini Live…');
+        setStatus('Connecting…', 'busy');
+
+        ai = new GoogleGenAI({ apiKey: apiKeyEl.value.trim() });
+
+        connectTimeout = setTimeout(async () => {
+          addMeta('Connection timed out.');
+          setStatus('Connection timed out', 'err');
+          await cleanupSession();
+          startBtn.disabled = false;
+          stopBtn.disabled = true;
+        }, 15000);
+
+        session = await ai.live.connect({
+          model: modelEl.value.trim() || 'gemini-2.5-flash-native-audio-preview-12-2025',
+          config: buildConfig(),
+          callbacks: {
+            onopen: async () => {
+              resetConnectionTimer();
+              setStatus('Microphone live', 'live');
+              addMeta('Session connected. Audio streaming started.');
+              stopBtn.disabled = false;
+              startBtn.disabled = true;
+            },
+            onmessage: (message) => {
+              handleServerMessage(message);
+              if (message?.goAway?.timeLeft) {
+                addMeta(`Server requested reconnect soon. Time left: ${message.goAway.timeLeft}`);
+              }
+              if (message?.sessionResumptionUpdate) {
+                console.debug('Session resumption update:', message.sessionResumptionUpdate);
+              }
+              if (message?.toolCall) {
+                addMeta('Tool call received. This app does not handle tools.');
+              }
+              if (message?.usageMetadata) {
+                console.debug('Usage metadata:', message.usageMetadata);
+              }
+            },
+            onerror: (e) => {
+              console.error('Live API error:', e);
+              addMeta(`Error: ${e?.message || String(e)}`);
+              setStatus('Error', 'err');
+            },
+            onclose: (e) => {
+              console.debug('Session closed:', e);
+              const reason = e?.reason ? ` ${e.reason}` : '';
+              const code = e?.code ? ` (${e.code})` : '';
+              addMeta(`Session closed${code}.${reason}`.trim());
+              if (stopRequested && !downloadTriggered) {
+                finalizeEncounter();
+              } else if (!stopRequested) {
+                setStatus('Disconnected', 'err');
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+              }
+            },
+          },
+        });
+      } catch (err) {
+        console.error(err);
+        resetConnectionTimer();
+        await cleanupSession();
+        setStatus('Error', 'err');
+        addMeta(`Error: ${err.message || String(err)}`);
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+      }
+    }
+
+    async function stopEncounter() {
+      stopRequested = true;
+      setStatus('Stopping… waiting for final turn', 'busy');
+      stopBtn.disabled = true;
+      stopMicInput();
+      try {
+        if (session) {
+          session.sendRealtimeInput({ audioStreamEnd: true });
+          setTimeout(() => {
+            if (!downloadTriggered) finalizeEncounter();
+          }, 5000);
+        } else {
+          await finalizeEncounter();
+        }
+      } catch (err) {
+        addMeta(`Stop error: ${err.message || String(err)}`);
+        await finalizeEncounter();
+      }
+    }
+
+    startBtn.addEventListener('click', startEncounter);
+    stopBtn.addEventListener('click', stopEncounter);
+    downloadBtn.addEventListener('click', downloadRecording);
+    clearBtn.addEventListener('click', () => {
+      eventEntries = [];
+      latestRecordingBlob = null;
+      updateDownloadButton();
+      renderTranscript();
+    });
+
+    const savedKey = localStorage.getItem(KEY_STORAGE);
+    if (savedKey) {
+      apiKeyEl.value = savedKey;
+      rememberKeyEl.checked = true;
+    }
+
+    renderTranscript();
+  </script>
+</body>
+</html>
