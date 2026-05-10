@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ER Clinical Simulator</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060d1a;
+      --surface: #0c1628;
+      --surface2: #111e35;
+      --border: rgba(99,174,255,0.15);
+      --text: #e8f1ff;
+      --muted: #7a9cc5;
+      --accent: #3b9eff;
+      --accent2: #00d4aa;
+      --good: #22d87a;
+      --bad: #ff4d6a;
+      --warn: #ffb340;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Sora', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(59,158,255,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,212,170,0.05) 0%, transparent 60%);
+      color: var(--text);
+      font-family: var(--sans);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 12px 32px;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      width: min(1220px, 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .topbar-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .topbar-title span { color: var(--accent); }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .pill.score { color: #93c5fd; border-color: rgba(59,158,255,0.3); }
+    .pill.timer { color: var(--warn); border-color: rgba(255,179,64,0.3); }
+    .pill.timer.urgent { color: var(--bad); border-color: rgba(255,77,106,0.4); animation: pulse 0.8s infinite; }
+    .pill.case-id { color: var(--accent2); border-color: rgba(0,212,170,0.3); font-size: 11px; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.55} }
+
+    /* ── Main grid ── */
+    .game-wrap {
+      width: min(1220px, 100%);
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    canvas#game {
+      width: 100%;
+      display: block;
+      background: #08111f;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .canvas-footer {
+      padding: 10px 16px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+    }
+
+    /* ── Side panel ── */
+    .side {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 16px;
+    }
+
+    .section h2 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-family: var(--mono);
+    }
+
+    .section p {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+
+    /* sequence hint */
+    .seq-hint {
+      font-size: 12px;
+      color: var(--warn);
+      font-family: var(--mono);
+      margin-top: 6px;
+      padding: 6px 10px;
+      background: rgba(255,179,64,0.08);
+      border-radius: 8px;
+      border-left: 3px solid var(--warn);
+    }
+
+    /* ── Choices ── */
+    .buttons { display: grid; gap: 7px; margin-top: 10px; }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 13px;
+      font-weight: 700;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: #031525;
+      background: linear-gradient(135deg, #7dd3fc, #3b9eff);
+      cursor: pointer;
+      text-align: left;
+      transition: filter 0.15s, transform 0.1s;
+    }
+    button:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; background: var(--surface2); color: var(--muted); }
+    button.danger { background: linear-gradient(135deg, #fca5a5, #ff4d6a); }
+    button.restart { background: linear-gradient(135deg, #6ee7b7, #00d4aa); margin-top: 4px; }
+    button.next-case { background: linear-gradient(135deg, #c4b5fd, #8b5cf6); margin-top: 4px; }
+
+    /* ── Feedback log ── */
+    .log {
+      max-height: 180px;
+      overflow-y: auto;
+      font-size: 12.5px;
+      font-family: var(--mono);
+      line-height: 1.45;
+    }
+    .log div {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(99,174,255,0.08);
+    }
+    .log div:first-child { border-top: none; }
+
+    /* ── ECG ── */
+    #ecgWrap { display: none; margin-top: 10px; }
+    #ecgFindings {
+      background: #0a1a0f;
+      border: 1px solid rgba(34,216,122,0.25);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #bbf7d0;
+    }
+    #ecgFindings .ecg-title {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    #ecgFindings .ecg-row {
+      display: flex;
+      gap: 8px;
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(34,216,122,0.08);
+    }
+    #ecgFindings .ecg-row:last-child { border-bottom: none; }
+    #ecgFindings .ecg-lead {
+      color: var(--muted);
+      min-width: 54px;
+    }
+    #ecgFindings .ecg-val { color: #e2f5eb; }
+
+    /* ── Progress ── */
+    .status-list { display: grid; gap: 5px; margin-top: 4px; }
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .status-row .obj-label { display: flex; align-items: center; gap: 6px; }
+    .lock-icon { font-size: 11px; opacity: 0.5; }
+    .status-pill {
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--mono);
+    }
+    .done { background: rgba(34,216,122,0.15); color: #86efac; }
+    .pending { background: rgba(148,163,184,0.1); color: #94a3b8; }
+    .locked { background: rgba(255,179,64,0.12); color: var(--warn); }
+
+    /* ── Wrong answer explanation ── */
+    .explain {
+      margin-top: 8px;
+      padding: 8px 11px;
+      background: rgba(255,77,106,0.08);
+      border-left: 3px solid var(--bad);
+      border-radius: 8px;
+      font-size: 12.5px;
+      color: #fca5a5;
+      line-height: 1.5;
+    }
+    .explain.good-explain {
+      background: rgba(34,216,122,0.08);
+      border-left-color: var(--good);
+      color: #bbf7d0;
+    }
+
+    /* ── End screen overlay ── */
+    .end-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6,13,26,0.92);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .end-overlay.show { display: flex; }
+
+    .end-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px 28px;
+      width: min(520px, 100%);
+      text-align: center;
+    }
+
+    .end-card .grade {
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .end-card .grade-label {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .end-card .grade-label.excellent { color: var(--good); }
+    .end-card .grade-label.satisfactory { color: var(--warn); }
+    .end-card .grade-label.needs-review { color: var(--bad); }
+
+    .breakdown {
+      background: var(--surface2);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 16px 0;
+      text-align: left;
+    }
+    .breakdown h3 {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: var(--mono);
+      margin-bottom: 10px;
+    }
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .breakdown-row:last-child { border-bottom: none; }
+    .breakdown-row .pts {
+      font-family: var(--mono);
+      font-weight: 700;
+    }
+    .pts.pos { color: var(--good); }
+    .pts.neg { color: var(--bad); }
+    .pts.zero { color: var(--muted); }
+
+    .end-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 4px; }
+    .end-buttons button { font-size: 14px; padding: 11px 22px; }
+
+    /* ── Case select ── */
+    .case-select {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .case-btn {
+      font-size: 11px !important;
+      padding: 6px 12px !important;
+      border-radius: 999px !important;
+      background: var(--surface2) !important;
+      color: var(--muted) !important;
+      border: 1px solid var(--border) !important;
+      font-family: var(--mono) !important;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .case-btn:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
+    .case-btn.active { background: rgba(59,158,255,0.15) !important; color: var(--accent) !important; border-color: var(--accent) !important; }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .game-wrap { grid-template-columns: 1fr; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      canvas#game { min-height: 260px; }
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-title">ER Clinical <span>Simulator</span></div>
+    <div class="topbar-right">
+      <div class="pill case-id" id="caseIdPill">CASE 1 / 3</div>
+      <div class="pill score" id="scorePill">Score: 0 / 14</div>
+      <div class="pill timer" id="timerPill">⏱ 5:00</div>
+    </div>
+  </div>
+
+  <!-- Main layout -->
+  <div class="game-wrap">
+    <!-- Canvas card -->
+    <div class="card">
+      <canvas id="game" width="800" height="520"></canvas>
+      <div class="canvas-footer" id="canvasFooter">
+        Click objects in order ▸ Patient → Monitor → ECG → Lab File → Treatment Tray &nbsp;|&nbsp; Coded by Anupam Singh MD, Santosh Medical College
+      </div>
+    </div>
+
+    <!-- Side panel -->
+    <div class="side">
+
+      <div class="section">
+        <h2>Clinical Case</h2>
+        <p id="caseText">Loading case…</p>
+        <div class="case-select" id="caseSelect"></div>
+      </div>
+
+      <div class="section">
+        <h2>Action Panel</h2>
+        <p id="actionText">Start by clicking the <strong style="color:var(--accent)">Patient</strong> to assess.</p>
+        <div id="seqHint"></div>
+        <div id="ecgWrap">
+          <div id="ecgFindings"></div>
+        </div>
+        <div class="buttons" id="choices"></div>
+      </div>
+
+      <div class="section">
+        <h2>Progress</h2>
+        <div class="status-list" id="statusList"></div>
+      </div>
+
+      <div class="section">
+        <h2>Feedback Log</h2>
+        <div class="log" id="log"></div>
+      </div>
+
+      <div class="section">
+        <h2>Goal</h2>
+        <p style="color:#fde68a;font-size:13px;line-height:1.55;" id="goalText"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- End overlay -->
+  <div class="end-overlay" id="endOverlay">
+    <div class="end-card">
+      <div class="grade" id="endGrade">🏅</div>
+      <div class="grade-label" id="endLabel">Excellent</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">
+        Case: <span id="endCaseName" style="color:var(--text)"></span>
+      </div>
+      <div style="font-size:22px;font-weight:800;font-family:var(--mono);margin-bottom:14px;" id="endScoreLine"></div>
+      <div class="breakdown" id="breakdownBox">
+        <h3>Score Breakdown</h3>
+        <div id="breakdownRows"></div>
+      </div>
+      <div class="end-buttons">
+        <button class="restart" onclick="restartSame()">↩ Retry Case</button>
+        <button class="next-case" onclick="nextCase()">→ Next Case</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ─────────────────────────────────────────────
+// CASE DEFINITIONS
+// ─────────────────────────────────────────────
+
+const CASES = [
+  {
+    id: 1,
+    name: 'Case 1',
+    intro: 'A 58-year-old male arrives with 2 hours of severe central chest pain, radiation to left arm, sweating, and nausea.',
+    goal: 'Take a focused history, interpret vitals and the ECG carefully, review labs, and choose the safest and most effective immediate management. Consider BP before giving vasodilators. Think about when oxygen is truly indicated.',
+    maxScore: 14,
+    ecgType: 'inferior-stemi',
+    sequence: ['patient','monitor','ecg','labs','tray'],
+    objects: [
+      { id:'patient', label:'Patient',        x:250, y:245, w:260, h:95,  color:'#334d6e' },
+      { id:'monitor', label:'Monitor',        x:580, y:110, w:140, h:105, color:'#0a3d5c' },
+      { id:'ecg',     label:'ECG Board',      x:70,  y:80,  w:170, h:110, color:'#2d3748' },
+      { id:'labs',    label:'Lab File',       x:95,  y:335, w:120, h:90,  color:'#4a2c0a' },
+      { id:'tray',    label:'Treatment Tray', x:560, y:330, w:175, h:95,  color:'#0f3d20' }
+    ],
+    actions: {
+      patient: {
+        text: 'Patient says: severe central chest pain radiating to left arm, sweating and nausea for 2 hours.',
+        choices: [
+          { label:'Ask risk factors & duration', feedback:'Correct. Smoker, diabetic, hypertensive. Focused cardiac history.', explain:'History of cardiac risk factors directly informs ACS risk stratification and immediate management decisions.', delta:1 },
+          { label:'Ask only about abdominal pain', feedback:'Not the best first question for this presentation.', explain:'Central chest pain with radiation and diaphoresis is a classic ACS presentation. Abdominal focus delays life-saving assessment.', delta:-1 },
+          { label:'Discharge with antacid advice', feedback:'Unsafe. ACS must be ruled out first.', explain:'Discharging a patient with classic ACS features without evaluation risks MI-related death. This is a critical error in triage.', delta:-3 }
+        ]
+      },
+      monitor: {
+        text: 'Vitals: BP 96/64, HR 108/min, SpO₂ 95% on room air, RR 22/min. Patient is diaphoretic but conscious.',
+        choices: [
+          { label:'Recognize borderline hypotension → caution with nitrates', feedback:'Correct. Nitrates require caution here.', explain:'Hypotension + inferior STEMI suggests RV involvement. Nitrates can precipitate severe hypotension by reducing preload.', delta:2 },
+          { label:'Give high-flow oxygen to everyone', feedback:'Oxygen is not routine if saturation is adequate.', explain:'Current guidelines (AHA/ESC) recommend supplemental O₂ only if SpO₂ <90%. Hyperoxia may worsen myocardial injury.', delta:-1 },
+          { label:'Give sublingual nitrate immediately', feedback:'Risky — BP is low and RV involvement possible.', explain:'Nitrates are contraindicated (or require extreme caution) in inferior STEMI with hypotension, as they can cause cardiovascular collapse.', delta:-2 }
+        ]
+      },
+      ecg: {
+        text: 'ECG displayed. Examine the strip carefully and make your interpretation.',
+        choices: [
+          { label:'Inferior STEMI — ST elevation in II, III, aVF with reciprocal depression in I, aVL', feedback:'Correct diagnosis. Classic pattern identified.', explain:'This pattern defines inferior STEMI (RCA territory). Reciprocal changes confirm the diagnosis and exclude pericarditis.', delta:3 },
+          { label:'GERD — chest pain is non-cardiac', feedback:'Incorrect. The ECG is diagnostic of STEMI.', explain:'Dismissing ECG changes as GERD is a dangerous error. ST elevation in contiguous leads with reciprocal changes mandates immediate reperfusion.', delta:-3 },
+          { label:'Wait for troponin before acting', feedback:'Do not delay reperfusion in confirmed STEMI.', explain:'In STEMI, every minute of delay increases myocardial loss. Guidelines mandate reperfusion within 90 min (PCI) or 30 min (thrombolysis) from diagnosis — not troponin result.', delta:-2 }
+        ]
+      },
+      labs: {
+        text: 'Labs: RBS 232 mg/dL, Creatinine 1.1 mg/dL. Troponin pending. No active bleeding history.',
+        choices: [
+          { label:'Do not wait for troponin — act on ECG', feedback:'Correct. STEMI is a clinical-ECG diagnosis.', explain:'Troponin becomes detectable 3–6 hours after symptom onset. Waiting delays reperfusion unnecessarily in ECG-confirmed STEMI.', delta:2 },
+          { label:'Wait 6 hours for repeat troponin', feedback:'Wrong. This critically delays reperfusion.', explain:'Repeating troponin at 6h is appropriate in NSTEMI/unstable angina — not in confirmed STEMI where immediate reperfusion is mandatory.', delta:-3 },
+          { label:'Check contraindications to antiplatelets', feedback:'Good safety step before antiplatelet loading.', explain:'Checking for active bleeding, severe thrombocytopenia, or recent surgery is essential before giving aspirin + P2Y12 inhibitors.', delta:1 }
+        ]
+      },
+      tray: {
+        text: 'Treatment options available. Choose the best immediate management.',
+        choices: [
+          { label:'Aspirin + P2Y12 inhibitor + statin + activate cath lab', feedback:'Optimal. Dual antiplatelet + statin + reperfusion pathway.', explain:'DAPT (aspirin 325mg + ticagrelor/clopidogrel) + high-intensity statin + primary PCI or thrombolysis is the evidence-based STEMI bundle. This saves lives.', delta:5 },
+          { label:'Antacid and observe', feedback:'Unsafe — this is STEMI, not GERD.', explain:'Treating STEMI as GERD results in complete infarction, ventricular dysfunction, and death. Recognition failure is the most dangerous error.', delta:-4 },
+          { label:'Oxygen only and wait', feedback:'Insufficient. Oxygen does not treat occlusion.', explain:'The culprit vessel is occluded. Oxygen does not restore coronary flow. Reperfusion — not supportive care — is the only definitive treatment.', delta:-3 },
+          { label:'Nitrate despite low BP', feedback:'Avoid — hypotension + inferior STEMI = very high risk.', explain:'Nitrate-induced preload reduction in an RV-dependent inferior STEMI can cause cardiovascular collapse. This is a known cause of iatrogenic cardiac arrest.', delta:-2 }
+        ]
+      }
+    }
+  },
+
+  {
+    id: 2,
+    name: 'Case 2',
+    intro: 'A 67-year-old woman with diabetes presents with 4 hours of exertional chest tightness, dyspnoea, and mild diaphoresis. She takes metformin and amlodipine.',
+    goal: 'Assess this patient carefully — her presentation may be atypical. Interpret vitals, ECG, and troponin in context. Consider renal function when planning treatment. Choose the right investigation timing and management bundle.',
+    maxScore: 14,
+    ecgType: 'nstemi',
+    sequence: ['patient','monitor','ecg','labs','tray'],
+    objects: [
+      { id:'patient', label:'Patient',        x:250, y:245, w:260, h:95,  color:'#334d6e' },
+      { id:'monitor', label:'Monitor',        x:580, y:110, w:140, h:105, color:'#0a3d5c' },
+      { id:'ecg',     label:'ECG Board',      x:70,  y:80,  w:170, h:110, color:'#2d3748' },
+      { id:'labs',    label:'Lab File',       x:95,  y:335, w:120, h:90,  color:'#4a2c0a' },
+      { id:'tray',    label:'Treatment Tray', x:560, y:330, w:175, h:95,  color:'#0f3d20' }
+    ],
+    actions: {
+      patient: {
+        text: 'Patient: 67F, 4h chest tightness on exertion, dyspnoea, mild diaphoresis. Diabetic, hypertensive, non-smoker.',
+        choices: [
+          { label:'Assess GRACE score risk factors', feedback:'Correct. Age, diabetes, renal function matter for NSTEMI risk.', explain:'GRACE score (age, HR, BP, creatinine, Killip class, troponin) guides timing of invasive strategy: high-risk patients need early angiography.', delta:1 },
+          { label:'Reassure as panic attack — younger women often anxious', feedback:'Dangerous assumption. Elderly women with diabetes often have atypical ACS.', explain:'Diabetic women frequently present with atypical ACS (dyspnoea, fatigue, epigastric pain). Assuming anxiety in this group is a recognised source of diagnostic error and excess mortality.', delta:-3 },
+          { label:'Ask about prior cardiac history', feedback:'Relevant — prior MI/PCI changes management.', explain:'Known CAD, prior PCI, and CABG status affect choice of P2Y12 inhibitor and urgency of angiography in NSTEMI.', delta:1 }
+        ]
+      },
+      monitor: {
+        text: 'Vitals: BP 148/88, HR 96/min, SpO₂ 94% on room air, RR 20/min. Mildly distressed.',
+        choices: [
+          { label:'Supplement O₂ — SpO₂ 94% warrants it', feedback:'Correct. SpO₂ <95% is an indication for supplemental oxygen.', explain:'Unlike the previous case, SpO₂ 94% is below the threshold. Supplemental O₂ targeting SpO₂ ≥95% is appropriate here to reduce myocardial ischaemia.', delta:2 },
+          { label:'Hypertension is not related — ignore BP', feedback:'Incorrect. Elevated BP in ACS requires attention.', explain:'Hypertension increases myocardial O₂ demand. It may also reflect pain/anxiety or underlying hypertensive heart disease — all relevant to ACS workup.', delta:-1 },
+          { label:'Give IV labetalol for BP immediately', feedback:'Not first-line in active ACS without clear indication.', explain:'Beta-blockade in ACS is beneficial but oral route is preferred unless hypertensive emergency. IV labetalol without assessment of LV function is premature.', delta:-1 }
+        ]
+      },
+      ecg: {
+        text: 'ECG displayed. Interpret the findings.',
+        choices: [
+          { label:'ST depression in V4–V6 + TWI in I and aVL — high-risk NSTEMI', feedback:'Correct. ST depression is the hallmark of NSTEMI/demand ischaemia.', explain:'Horizontal or down-sloping ST depression ≥0.5mm in two contiguous leads indicates myocardial ischaemia. This, combined with troponin rise, confirms NSTEMI. No ST elevation means no thrombolytics.', delta:3 },
+          { label:'Normal ECG — discharge with antacid', feedback:'ECG shows ischaemic changes — do not dismiss them.', explain:'ST depression and T-wave inversions in V4–V6 are NOT normal. Missing these changes is a significant diagnostic error in a high-risk patient.', delta:-3 },
+          { label:'Give thrombolytics — looks like ACS', feedback:'Contraindicated! Thrombolytics are not used in NSTEMI.', explain:'Thrombolytics are only indicated in STEMI without PCI access. In NSTEMI, they increase bleeding risk without benefit and are absolutely contraindicated.', delta:-2 }
+        ]
+      },
+      labs: {
+        text: 'Labs: Troponin-I 2.4 ng/mL (elevated, ULN 0.04). Creatinine 1.3 mg/dL, eGFR 52. HbA1c 9.1%.',
+        choices: [
+          { label:'Elevated troponin confirms NSTEMI — proceed with risk stratification', feedback:'Correct. Troponin rise + ischaemia symptoms = NSTEMI.', explain:'By universal definition, NSTEMI requires: troponin rise above ULN + clinical evidence of ischaemia (symptoms, ECG changes, imaging). Both are present.', delta:2 },
+          { label:'Single troponin value is unreliable — wait for serial values', feedback:'Partially correct but incomplete thinking here.', explain:'Serial troponins are standard, but a troponin 60× above ULN with typical symptoms and ischaemic ECG changes is diagnostic. Waiting for serial values should not delay anticoagulation.', delta:0 },
+          { label:'Adjust anticoagulant dose for reduced eGFR', feedback:'Excellent safety thinking — renal function affects drug dosing.', explain:'eGFR 52 (moderate CKD) requires dose adjustment of LMWH (enoxaparin 1mg/kg SC once daily instead of BD, or unfractionated heparin with monitoring). Fondaparinux is preferred with eGFR 20–50.', delta:1 }
+        ]
+      },
+      tray: {
+        text: 'Treatment options available. Choose the best immediate management bundle.',
+        choices: [
+          { label:'Aspirin + ticagrelor + anticoagulation + early angiography (within 24h)', feedback:'Optimal NSTEMI bundle. Early invasive strategy is indicated.', explain:'DAPT + anticoagulation (LMWH/fondaparinux/UFH) + early PCI within 24h is guideline-directed therapy for high-risk NSTEMI (GRACE >140, elevated troponin, ischaemic ECG). This reduces reinfarction and death.', delta:5 },
+          { label:'Thrombolytics + aspirin', feedback:'Wrong. Thrombolytics are contraindicated in NSTEMI.', explain:'Thrombolytics in NSTEMI increase major bleeding (including intracranial haemorrhage) with no mortality benefit. This is a potentially fatal error.', delta:-4 },
+          { label:'Conservative — discharge with aspirin and follow-up in 1 week', feedback:'Inappropriate for high-risk NSTEMI.', explain:'High GRACE score, elevated troponin, and ischaemic ECG changes mandate in-hospital management. Discharge without anticoagulation and angiography risks recurrent MI.', delta:-3 },
+          { label:'Aspirin alone — wait for cardiology input before anticoagulation', feedback:'Delayed anticoagulation worsens outcomes.', explain:'Anticoagulation should not be withheld pending cardiology review in confirmed high-risk NSTEMI. Early dual therapy (aspirin + anticoagulant) is the standard of care.', delta:-2 }
+        ]
+      }
+    }
+  },
+
+  {
+    id: 3,
+    name: 'Case 3',
+    intro: 'A 52-year-old hypertensive male presents with sudden, tearing chest pain radiating to the back, starting at rest. He appears pale and sweaty.',
+    goal: 'This chest pain has some unusual features. Take a careful history, look at vitals closely, interpret the ECG in clinical context, and use the labs wisely. Not all chest pain is cardiac — and not all cardiac emergencies look the same.',
+    maxScore: 14,
+    ecgType: 'normal',
+    sequence: ['patient','monitor','ecg','labs','tray'],
+    objects: [
+      { id:'patient', label:'Patient',        x:250, y:245, w:260, h:95,  color:'#334d6e' },
+      { id:'monitor', label:'Monitor',        x:580, y:110, w:140, h:105, color:'#0a3d5c' },
+      { id:'ecg',     label:'ECG Board',      x:70,  y:80,  w:170, h:110, color:'#2d3748' },
+      { id:'labs',    label:'Lab File',       x:95,  y:335, w:120, h:90,  color:'#4a2c0a' },
+      { id:'tray',    label:'Treatment Tray', x:560, y:330, w:175, h:95,  color:'#0f3d20' }
+    ],
+    actions: {
+      patient: {
+        text: 'Patient: 52M, sudden tearing chest pain radiating to back, onset at rest. Known hypertensive. Pale, sweaty, BP 178/102 in right arm.',
+        choices: [
+          { label:'Ask about pain character, onset, radiation, and check both arm BPs', feedback:'Correct. Classic dissection features — sudden tearing pain, interarm BP difference.', explain:'Key dissection features: abrupt maximum-severity onset, tearing/ripping character, radiation to back/interscapular, pulse/BP asymmetry (>20mmHg difference between arms). Eliciting these guides immediate management.', delta:1 },
+          { label:'Assume ACS — give aspirin and activate cath lab', feedback:'Very dangerous. Aspirin and anticoagulation worsen aortic dissection.', explain:'Administering thrombolytics or anticoagulants in aortic dissection can cause fatal haemorrhage. This misdiagnosis is one of the most dangerous errors in chest pain management.', delta:-3 },
+          { label:'Ask only about cardiac history', feedback:'Incomplete. The pain character is more diagnostic here.', explain:'While cardiac history matters, the quality and character of pain (tearing, back radiation) and risk factors (Marfan, bicuspid AoV, hypertension) are the highest-yield historical features for dissection.', delta:-1 }
+        ]
+      },
+      monitor: {
+        text: 'Vitals: Right arm BP 178/102, Left arm BP 148/90 (difference >20mmHg). HR 102/min. SpO₂ 97%. Diaphoretic.',
+        choices: [
+          { label:'BP asymmetry >20mmHg is a red flag for dissection', feedback:'Correct. Interarm difference increases pre-test probability significantly.', explain:'A BP difference >20mmHg between arms occurs when the dissection flap involves the subclavian artery. Combined with tearing pain and hypertension, this is highly specific for aortic dissection.', delta:2 },
+          { label:'Start IV fluids for borderline HR', feedback:'Premature without knowing the cause.', explain:'In dissection, fluid management depends on BP and type (Type A vs B). Aggressive fluids without diagnosis may worsen aortic wall stress. Control the BP first.', delta:-1 },
+          { label:'SpO₂ 97% — no concerns', feedback:'SpO₂ is fine, but ignoring BP asymmetry is a major error.', explain:'While SpO₂ 97% is reassuring, the clinical priority here is the BP asymmetry and HR, which together point to dissection. Vital sign assessment must be holistic.', delta:-1 }
+        ]
+      },
+      ecg: {
+        text: 'ECG displayed. Interpret the findings in this clinical context.',
+        choices: [
+          { label:'Near-normal ECG — does not rule out dissection (it is a clinical diagnosis)', feedback:'Correct. Normal/near-normal ECG can be seen in dissection.', explain:'Aortic dissection does not cause specific ECG changes unless the dissection involves coronary ostia (usually RCA → inferior STEMI). A normal ECG with classic history should raise dissection suspicion, not lower it.', delta:3 },
+          { label:'Normal ECG means no cardiac event — reassure patient', feedback:'Dangerous. ECG does not rule out dissection.', explain:'Dissection is primarily a clinical and imaging diagnosis. Reassuring a patient with tearing back-radiating pain and BP asymmetry based on a normal ECG risks catastrophic delay to CT aortogram.', delta:-3 },
+          { label:'Treat as inferior STEMI based on slight ST changes', feedback:'Treating dissection as STEMI with thrombolytics is potentially fatal.', explain:'If dissection involves the RCA ostium, it can mimic inferior STEMI. However, giving thrombolytics in this context causes fatal intrathoracic haemorrhage. CT first in any atypical or high-risk case.', delta:-2 }
+        ]
+      },
+      labs: {
+        text: 'Labs: D-dimer 3200 ng/mL (highly elevated). Creatinine 1.0 mg/dL. CXR shows widened mediastinum.',
+        choices: [
+          { label:'Widened mediastinum + elevated D-dimer → urgent CT aortogram', feedback:'Correct. These findings mandate immediate aortic imaging.', explain:'Widened mediastinum on CXR (>8cm at aortic knuckle) + elevated D-dimer + clinical features = very high probability of aortic dissection. CT aortogram is the investigation of choice (sensitivity >95%).', delta:2 },
+          { label:'D-dimer elevated — diagnose PE and give anticoagulants', feedback:'Dangerous misinterpretation. D-dimer is non-specific.', explain:'D-dimer is elevated in dissection, PE, MI, infection, and malignancy. Anticoagulating an aortic dissection patient causes haemorrhage. The clinical context — not D-dimer alone — guides diagnosis.', delta:-3 },
+          { label:'Order troponin and repeat ECG', feedback:'Helpful but should not delay CT aortogram.', explain:'While troponin helps in differential diagnosis, the priority here is CT aortogram. Every minute of delay in Type A dissection increases mortality by ~1%. Troponin workup should be parallel, not sequential.', delta:1 }
+        ]
+      },
+      tray: {
+        text: 'Treatment decisions. Choose the correct immediate management.',
+        choices: [
+          { label:'IV labetalol (heart rate and BP control) + urgent CT aortogram + cardiothoracic surgery referral', feedback:'Optimal. BP control + imaging + surgical referral is the dissection pathway.', explain:'Type A dissection (involving ascending aorta) requires emergency surgery. Immediate goals: HR <60bpm and systolic BP 100–120mmHg with IV beta-blockers (labetalol, esmolol) to reduce aortic wall stress while organising CT and surgical team.', delta:5 },
+          { label:'Aspirin + P2Y12 + activate cath lab (treat as STEMI)', feedback:'Critical error. This is not STEMI — antiplatelet + PCI in dissection is dangerous.', explain:'Misdiagnosing dissection as STEMI and giving antiplatelets/anticoagulants/thrombolytics leads to fatal haemorrhage. This is why ruling out dissection before STEMI treatment in atypical presentations is essential.', delta:-4 },
+          { label:'Thrombolytics for presumed pulmonary embolism', feedback:'Very dangerous. Thrombolytics in dissection are fatal.', explain:'Thrombolytics in aortic dissection dissolve the haematoma stabilising the false lumen, causing rupture and death. This is an absolute contraindication.', delta:-3 },
+          { label:'Conservative — monitor and repeat CXR in 4 hours', feedback:'Fatal delay. Type A dissection requires immediate surgery.', explain:'Type A dissection has ~1–2% per-hour mortality without surgery. Watchful waiting is appropriate only for uncomplicated Type B dissection under specialist guidance, not for an acute presentation.', delta:-2 }
+        ]
+      }
+    }
+  }
+];
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+
+let currentCaseIdx = 0;
+let score = 0;
+let completed = false;
+let currentObjectId = null;
+let timerSeconds = 300;
+let timerInterval = null;
+let scoreBreakdown = []; // { label, choice, delta }
+
+function currentCase() { return CASES[currentCaseIdx]; }
+
+function initState() {
+  const c = currentCase();
+  const s = {};
+  c.sequence.forEach(id => s[id] = { answered: false });
+  return s;
+}
+
+let state = initState();
+
+// ─────────────────────────────────────────────
+// CANVAS SETUP
+// ─────────────────────────────────────────────
+
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+
+// ─────────────────────────────────────────────
+// TIMER
+// ─────────────────────────────────────────────
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timerSeconds = 300;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      if (!completed) timeUp();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const pill = document.getElementById('timerPill');
+  const m = Math.floor(timerSeconds / 60);
+  const s = String(timerSeconds % 60).padStart(2, '0');
+  pill.textContent = `⏱ ${m}:${s}`;
+  pill.className = 'pill timer' + (timerSeconds <= 60 ? ' urgent' : '');
+}
+
+function timeUp() {
+  addLog('⏰ Time up! Case ended.', 'bad');
+  completed = true;
+  showEndOverlay();
+}
+
+// ─────────────────────────────────────────────
+// SEQUENCE LOGIC
+// ─────────────────────────────────────────────
+
+function getNextUnlocked() {
+  const seq = currentCase().sequence;
+  for (let i = 0; i < seq.length; i++) {
+    if (!state[seq[i]].answered) return seq[i];
+  }
+  return null;
+}
+
+function isUnlocked(objId) {
+  const seq = currentCase().sequence;
+  const idx = seq.indexOf(objId);
+  if (idx === 0) return true;
+  // All previous must be answered
+  for (let i = 0; i < idx; i++) {
+    if (!state[seq[i]].answered) return false;
+  }
+  return true;
+}
+
+function getStepNumber(objId) {
+  return currentCase().sequence.indexOf(objId) + 1;
+}
+
+// ─────────────────────────────────────────────
+// UI HELPERS
+// ─────────────────────────────────────────────
+
+const scorePill     = document.getElementById('scorePill');
+const caseIdPill    = document.getElementById('caseIdPill');
+const actionTextEl  = document.getElementById('actionText');
+const choicesEl     = document.getElementById('choices');
+const logEl         = document.getElementById('log');
+const ecgWrap       = document.getElementById('ecgWrap');
+const statusList    = document.getElementById('statusList');
+const seqHint       = document.getElementById('seqHint');
+
+function addLog(text, type='') {
+  const div = document.createElement('div');
+  div.textContent = text;
+  if (type==='good') div.style.color='#bbf7d0';
+  if (type==='bad')  div.style.color='#fecaca';
+  if (type==='warn') div.style.color='#fde68a';
+  logEl.prepend(div);
+}
+
+function clearChoices() { choicesEl.innerHTML=''; }
+
+function updateScore(delta) {
+  score += delta;
+  const c = currentCase();
+  scorePill.textContent = `Score: ${score} / ${c.maxScore}`;
+}
+
+function updateCaseId() {
+  caseIdPill.textContent = `CASE ${currentCaseIdx+1} / ${CASES.length}`;
+}
+
+function updateStatusList() {
+  statusList.innerHTML = '';
+  const c = currentCase();
+  c.sequence.forEach((id, i) => {
+    const obj = c.objects.find(o => o.id === id);
+    const row = document.createElement('div');
+    row.className = 'status-row';
+    const unlocked = isUnlocked(id);
+    const done = state[id].answered;
+    let statusClass = done ? 'done' : unlocked ? 'pending' : 'locked';
+    let statusText  = done ? '✓ Done' : unlocked ? 'Pending' : '🔒 Locked';
+    row.innerHTML = `
+      <span class="obj-label">
+        <span style="color:var(--muted);font-family:var(--mono);font-size:11px">${i+1}.</span>
+        ${obj.label}
+      </span>
+      <span class="status-pill ${statusClass}">${statusText}</span>
+    `;
+    statusList.appendChild(row);
+  });
+}
+
+function hideECG() { ecgWrap.style.display='none'; }
+function showECG()  { ecgWrap.style.display='block'; renderECGFindings(); }
+
+const ECG_FINDINGS = {
+  'inferior-stemi': [
+    { lead: 'Rhythm',   finding: 'Sinus tachycardia, HR ~108/min' },
+    { lead: 'Lead I',   finding: 'Reciprocal ST depression' },
+    { lead: 'aVL',      finding: 'Reciprocal ST depression' },
+    { lead: 'Lead II',  finding: '↑ ST elevation 2–3 mm' },
+    { lead: 'Lead III', finding: '↑ ST elevation (most prominent)' },
+    { lead: 'aVF',      finding: '↑ ST elevation 2–3 mm' },
+    { lead: 'V1',       finding: 'Possible right ventricular involvement pattern' },
+    { lead: 'V2–V6',    finding: 'No significant ST change' },
+    { lead: 'Axis',     finding: 'Normal' },
+  ],
+  'nstemi': [
+    { lead: 'Rhythm',   finding: 'Sinus tachycardia, HR ~96/min' },
+    { lead: 'Lead I',   finding: 'Normal' },
+    { lead: 'Lead II',  finding: 'Normal' },
+    { lead: 'aVL',      finding: '↓ ST depression + T-wave inversion' },
+    { lead: 'V1–V3',    finding: 'No ST elevation' },
+    { lead: 'V4',       finding: '↓ Horizontal ST depression 1.5 mm' },
+    { lead: 'V5',       finding: '↓ ST depression 2 mm + T-wave inversion' },
+    { lead: 'V6',       finding: '↓ ST depression 1.5 mm + T-wave inversion' },
+    { lead: 'Axis',     finding: 'Normal' },
+  ],
+  'normal': [
+    { lead: 'Rhythm',   finding: 'Sinus tachycardia, HR ~102/min' },
+    { lead: 'Lead I',   finding: 'Normal, no ST change' },
+    { lead: 'aVL',      finding: 'Normal' },
+    { lead: 'Lead II',  finding: 'Normal, upright P waves' },
+    { lead: 'Lead III', finding: 'Normal' },
+    { lead: 'aVF',      finding: 'Normal' },
+    { lead: 'V1',       finding: 'Normal R/S ratio' },
+    { lead: 'V4–V6',    finding: 'Normal ST segments' },
+    { lead: 'Axis',     finding: 'Normal' },
+  ]
+};
+
+function renderECGFindings() {
+  const type = currentCase().ecgType;
+  const rows = ECG_FINDINGS[type] || [];
+  const el = document.getElementById('ecgFindings');
+  el.innerHTML = `<div class="ecg-title">📋 ECG — Lead-by-Lead Findings</div>` +
+    rows.map(r =>
+      `<div class="ecg-row"><span class="ecg-lead">${r.lead}</span><span class="ecg-val">${r.finding}</span></div>`
+    ).join('');
+}
+
+// ─────────────────────────────────────────────
+// CHOICES & ACTIONS
+// ─────────────────────────────────────────────
+
+function showChoices(objId) {
+  currentObjectId = objId;
+  const c = currentCase();
+  const item = c.actions[objId];
+  const obj  = c.objects.find(o => o.id === objId);
+
+  if (objId === 'ecg') showECG(); else hideECG();
+
+  seqHint.innerHTML = '';
+
+  if (!isUnlocked(objId)) {
+    const next = getNextUnlocked();
+    const nextObj = next ? c.objects.find(o=>o.id===next) : null;
+    actionTextEl.textContent = `This station is locked.`;
+    seqHint.innerHTML = `<div class="seq-hint">⚠ Complete <strong>${nextObj ? nextObj.label : 'the previous step'}</strong> first — follow the clinical sequence.</div>`;
+    clearChoices();
+    draw();
+    return;
+  }
+
+  actionTextEl.textContent = item.text;
+
+  if (state[objId].answered) {
+    clearChoices();
+    const info = document.createElement('button');
+    info.textContent = `${obj.label} — already completed`;
+    info.disabled = true;
+    choicesEl.appendChild(info);
+    return;
+  }
+
+  clearChoices();
+
+  item.choices.forEach(ch => {
+    const btn = document.createElement('button');
+    btn.textContent = ch.label;
+    if (ch.delta < -2) btn.classList.add('danger');
+    btn.onclick = () => {
+      if (state[objId].answered) return;
+      state[objId].answered = true;
+
+      updateScore(ch.delta);
+      scoreBreakdown.push({ station: obj.label, choice: ch.label, delta: ch.delta });
+
+      addLog(`[${obj.label}] ${ch.label}: ${ch.feedback}`, ch.delta > 0 ? 'good' : ch.delta < 0 ? 'bad' : 'warn');
+
+      actionTextEl.textContent = ch.feedback;
+
+      clearChoices();
+
+      // Show explanation
+      const exp = document.createElement('div');
+      exp.className = 'explain' + (ch.delta > 0 ? ' good-explain' : '');
+      exp.innerHTML = `<strong>${ch.delta > 0 ? '📖 Why this is correct:' : '📖 Why this is wrong:'}</strong><br>${ch.explain}`;
+      choicesEl.appendChild(exp);
+
+      const locked = document.createElement('button');
+      locked.textContent = `${obj.label} — completed`;
+      locked.disabled = true;
+      choicesEl.appendChild(locked);
+
+      updateStatusList();
+      draw();
+      maybeFinishGame();
+    };
+    choicesEl.appendChild(btn);
+  });
+}
+
+function maybeFinishGame() {
+  const allDone = currentCase().sequence.every(id => state[id].answered);
+  if (allDone && !completed) {
+    completed = true;
+    clearInterval(timerInterval);
+    addLog(`✅ Case complete. Final score: ${score}/${currentCase().maxScore}.`, 'good');
+    setTimeout(showEndOverlay, 600);
+  }
+}
+
+// ─────────────────────────────────────────────
+// END OVERLAY
+// ─────────────────────────────────────────────
+
+function showEndOverlay() {
+  const c = currentCase();
+  const pct = score / c.maxScore;
+  let grade, gradeLabel, gradeClass;
+
+  if (pct >= 0.85) { grade='🏅'; gradeLabel='Excellent'; gradeClass='excellent'; }
+  else if (pct >= 0.6) { grade='👍'; gradeLabel='Satisfactory'; gradeClass='satisfactory'; }
+  else { grade='📚'; gradeLabel='Needs Review'; gradeClass='needs-review'; }
+
+  document.getElementById('endGrade').textContent = grade;
+  const labelEl = document.getElementById('endLabel');
+  labelEl.textContent = gradeLabel;
+  labelEl.className = `grade-label ${gradeClass}`;
+  document.getElementById('endCaseName').textContent = c.name;
+  document.getElementById('endScoreLine').textContent = `${score} / ${c.maxScore} points`;
+
+  // Breakdown
+  const rows = document.getElementById('breakdownRows');
+  rows.innerHTML = '';
+  scoreBreakdown.forEach(b => {
+    const row = document.createElement('div');
+    row.className = 'breakdown-row';
+    const ptsClass = b.delta > 0 ? 'pos' : b.delta < 0 ? 'neg' : 'zero';
+    const ptsText  = b.delta > 0 ? `+${b.delta}` : `${b.delta}`;
+    row.innerHTML = `
+      <span style="max-width:80%;font-size:12px;color:var(--muted)">${b.station}</span>
+      <span class="pts ${ptsClass}">${ptsText}</span>
+    `;
+    rows.appendChild(row);
+  });
+
+  document.getElementById('endOverlay').classList.add('show');
+}
+
+function restartSame() {
+  document.getElementById('endOverlay').classList.remove('show');
+  startCase(currentCaseIdx);
+}
+
+function nextCase() {
+  document.getElementById('endOverlay').classList.remove('show');
+  const next = (currentCaseIdx + 1) % CASES.length;
+  startCase(next);
+}
+
+// ─────────────────────────────────────────────
+// CASE BUTTONS
+// ─────────────────────────────────────────────
+
+function buildCaseButtons() {
+  const container = document.getElementById('caseSelect');
+  container.innerHTML = '';
+  CASES.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'case-btn' + (i === currentCaseIdx ? ' active' : '');
+    btn.textContent = c.name;
+    btn.onclick = () => startCase(i);
+    container.appendChild(btn);
+  });
+}
+
+// ─────────────────────────────────────────────
+// START CASE
+// ─────────────────────────────────────────────
+
+function startCase(idx) {
+  currentCaseIdx = idx;
+  score = 0;
+  completed = false;
+  currentObjectId = null;
+  scoreBreakdown = [];
+  state = initState();
+
+  const c = currentCase();
+  scorePill.textContent = `Score: 0 / ${c.maxScore}`;
+  document.getElementById('caseText').textContent = c.intro;
+  document.getElementById('goalText').textContent = c.goal;
+  actionTextEl.textContent = `Start by clicking the Patient to assess.`;
+  seqHint.innerHTML = '';
+  clearChoices();
+  logEl.innerHTML = '';
+  hideECG();
+  updateStatusList();
+  updateCaseId();
+  buildCaseButtons();
+  draw();
+  startTimer();
+  addLog(`Case started: ${c.name}. Click the Patient first.`, 'warn');
+}
+
+// ─────────────────────────────────────────────
+// DRAWING
+// ─────────────────────────────────────────────
+
+function roundRect(c, x, y, w, h, r) {
+  c.beginPath();
+  c.moveTo(x+r, y);
+  c.arcTo(x+w,y, x+w,y+h, r);
+  c.arcTo(x+w,y+h, x,y+h, r);
+  c.arcTo(x,y+h, x,y, r);
+  c.arcTo(x,y, x+w,y, r);
+  c.closePath();
+}
+
+function drawRoom() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#08111f';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Room walls
+  ctx.fillStyle = '#0d1a2e';
+  ctx.fillRect(30, 30, 740, 450);
+  ctx.strokeStyle = '#1e3a5f';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(30, 30, 740, 450);
+
+  // Grid
+  ctx.strokeStyle = 'rgba(59,158,255,0.05)';
+  ctx.lineWidth = 1;
+  for (let x=30; x<=770; x+=40) { ctx.beginPath(); ctx.moveTo(x,30); ctx.lineTo(x,480); ctx.stroke(); }
+  for (let y=30; y<=480; y+=40) { ctx.beginPath(); ctx.moveTo(30,y); ctx.lineTo(770,y); ctx.stroke(); }
+
+  // Door
+  ctx.fillStyle = '#1e3a5f';
+  ctx.fillRect(355, 30, 90, 14);
+  ctx.fillStyle = '#3b9eff';
+  ctx.font = '11px JetBrains Mono, monospace';
+  ctx.fillText('ER ROOM', 370, 26);
+
+  // Sequence arrows - subtle dotted path
+  const seq = currentCase().sequence;
+  const objs = currentCase().objects;
+  ctx.setLineDash([4,6]);
+  ctx.strokeStyle = 'rgba(59,158,255,0.2)';
+  ctx.lineWidth = 1.5;
+  for (let i=0; i<seq.length-1; i++) {
+    const a = objs.find(o=>o.id===seq[i]);
+    const b = objs.find(o=>o.id===seq[i+1]);
+    const ax = a.x + a.w/2, ay = a.y + a.h/2;
+    const bx = b.x + b.w/2, by = b.y + b.h/2;
+    ctx.beginPath(); ctx.moveTo(ax,ay); ctx.lineTo(bx,by); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+}
+
+function drawObject(obj) {
+  const done      = state[obj.id].answered;
+  const isCurrent = currentObjectId === obj.id;
+  const unlocked  = isUnlocked(obj.id);
+  const stepNum   = getStepNumber(obj.id);
+
+  // Base fill
+  ctx.fillStyle = done ? '#0d2e1a' : unlocked ? obj.color : '#1a2035';
+  roundRect(ctx, obj.x, obj.y, obj.w, obj.h, 14);
+  ctx.fill();
+
+  // Border
+  ctx.strokeStyle = done ? '#22d87a' : isCurrent ? '#facc15' : unlocked ? '#3b9eff' : '#1e3a5f';
+  ctx.lineWidth   = done ? 3 : isCurrent ? 3 : unlocked ? 1.5 : 1;
+  ctx.stroke();
+
+  // Label
+  ctx.fillStyle = done ? '#86efac' : unlocked ? '#e8f1ff' : '#3d5a7a';
+  ctx.font = `bold 15px Sora, sans-serif`;
+  ctx.fillText(obj.label, obj.x + 14, obj.y + 26);
+
+  // Step badge
+  ctx.fillStyle = done ? 'rgba(34,216,122,0.2)' : unlocked ? 'rgba(59,158,255,0.15)' : 'rgba(30,58,95,0.5)';
+  roundRect(ctx, obj.x + obj.w - 34, obj.y + 8, 24, 18, 6);
+  ctx.fill();
+  ctx.fillStyle = done ? '#86efac' : unlocked ? '#93c5fd' : '#2d4a6b';
+  ctx.font = `bold 12px JetBrains Mono, monospace`;
+  ctx.fillText(stepNum, obj.x + obj.w - 27, obj.y + 21);
+
+  // Decorative details
+  if (obj.id === 'patient' && unlocked) {
+    ctx.fillStyle = '#fcd34d';
+    ctx.beginPath(); ctx.arc(obj.x+55, obj.y+55, 16, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#bfdbfe';
+    ctx.fillRect(obj.x+80, obj.y+40, 120, 30);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(obj.x+22, obj.y+66, obj.w-44, 12);
+  }
+
+  if (obj.id === 'monitor' && unlocked) {
+    ctx.strokeStyle = '#22d87a'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    const sx=obj.x+18, sy=obj.y+72;
+    ctx.moveTo(sx, sy);
+    for (let i=0;i<7;i++) {
+      ctx.lineTo(sx+i*14+10, sy-(i%2)*16);
+      ctx.lineTo(sx+i*14+18, sy);
+    }
+    ctx.stroke();
+  }
+
+  if (obj.id === 'ecg' && unlocked) {
+    ctx.strokeStyle = '#f87171'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(obj.x+20, obj.y+72);
+    ctx.lineTo(obj.x+45, obj.y+72);
+    ctx.lineTo(obj.x+56, obj.y+42);
+    ctx.lineTo(obj.x+67, obj.y+90);
+    ctx.lineTo(obj.x+78, obj.y+72);
+    ctx.lineTo(obj.x+148, obj.y+72);
+    ctx.stroke();
+  }
+
+  if (obj.id === 'labs' && unlocked) {
+    ctx.fillStyle = 'rgba(251,191,36,0.3)';
+    ctx.fillRect(obj.x+14, obj.y+38, 90, 8);
+    ctx.fillRect(obj.x+14, obj.y+52, 70, 8);
+    ctx.fillRect(obj.x+14, obj.y+66, 80, 8);
+  }
+
+  if (obj.id === 'tray' && unlocked) {
+    ['#60a5fa','#34d399','#f472b6'].forEach((col,i) => {
+      ctx.fillStyle = col;
+      roundRect(ctx, obj.x+16+i*36, obj.y+46, 28, 28, 6);
+      ctx.fill();
+    });
+  }
+
+  // Done checkmark
+  if (done) {
+    ctx.fillStyle = '#22d87a';
+    ctx.beginPath(); ctx.arc(obj.x+obj.w-18, obj.y+18, 11, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle='#fff'; ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.moveTo(obj.x+obj.w-23, obj.y+18);
+    ctx.lineTo(obj.x+obj.w-19, obj.y+22);
+    ctx.lineTo(obj.x+obj.w-12, obj.y+14);
+    ctx.stroke();
+  }
+
+  // Locked overlay
+  if (!unlocked && !done) {
+    ctx.fillStyle = 'rgba(8,17,31,0.55)';
+    roundRect(ctx, obj.x, obj.y, obj.w, obj.h, 14);
+    ctx.fill();
+    ctx.fillStyle = '#2d4a6b';
+    ctx.font = '18px sans-serif';
+    ctx.fillText('🔒', obj.x + obj.w/2 - 10, obj.y + obj.h/2 + 6);
+  }
+}
+
+function draw() {
+  drawRoom();
+  currentCase().objects.forEach(drawObject);
+  ctx.fillStyle = 'rgba(59,158,255,0.5)';
+  ctx.font = '12px JetBrains Mono, monospace';
+  ctx.fillText('Follow numbered steps ▸ Locked stations require previous completion', 40, 510);
+}
+
+// ─────────────────────────────────────────────
+// CLICK HANDLER
+// ─────────────────────────────────────────────
+
+canvas.addEventListener('click', (e) => {
+  if (completed) return;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const x = (e.clientX - rect.left) * scaleX;
+  const y = (e.clientY - rect.top)  * scaleY;
+  const hit = currentCase().objects.find(o => x>=o.x && x<=o.x+o.w && y>=o.y && y<=o.y+o.h);
+  if (!hit) return;
+  addLog(`▸ Clicked: ${hit.label}`, 'warn');
+  showChoices(hit.id);
+  draw();
+});
+
+// Touch support for mobile
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const x = (touch.clientX - rect.left) * scaleX;
+  const y = (touch.clientY - rect.top)  * scaleY;
+  const hit = currentCase().objects.find(o => x>=o.x && x<=o.x+o.w && y>=o.y && y<=o.y+o.h);
+  if (!hit) return;
+  addLog(`▸ Clicked: ${hit.label}`, 'warn');
+  showChoices(hit.id);
+  draw();
+}, { passive: false });
+
+// ─────────────────────────────────────────────
+// BOOT
+// ─────────────────────────────────────────────
+
+startCase(0);
+</script>
+</body>
+</html>

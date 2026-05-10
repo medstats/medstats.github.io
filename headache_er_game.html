@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ER Headache Simulator</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070914;
+      --surface: #101426;
+      --surface2: #171d33;
+      --border: rgba(145, 170, 255, 0.18);
+      --text: #edf2ff;
+      --muted: #94a3c7;
+      --accent: #8b5cf6;
+      --accent2: #22d3ee;
+      --good: #22d87a;
+      --bad: #ff4d6a;
+      --warn: #ffb340;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Sora', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(139,92,246,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 85% 80%, rgba(34,211,238,0.07) 0%, transparent 60%);
+      color: var(--text);
+      font-family: var(--sans);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 12px 32px;
+    }
+
+    .topbar {
+      width: min(1220px, 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .topbar-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .topbar-title span { color: var(--accent2); }
+
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    .pill {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+    }
+    .pill.score { color: #c4b5fd; border-color: rgba(139,92,246,0.35); }
+    .pill.timer { color: var(--warn); border-color: rgba(255,179,64,0.3); }
+    .pill.timer.urgent { color: var(--bad); border-color: rgba(255,77,106,0.4); animation: pulse 0.8s infinite; }
+    .pill.case-id { color: var(--accent2); border-color: rgba(34,211,238,0.3); font-size: 11px; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.55} }
+
+    .game-wrap {
+      width: min(1220px, 100%);
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .card, .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    canvas#game {
+      width: 100%;
+      display: block;
+      background: #090d1a;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .canvas-footer {
+      padding: 10px 16px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+    }
+
+    .side { display: flex; flex-direction: column; gap: 12px; }
+    .section { padding: 14px 16px; }
+    .section h2 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 8px;
+      font-family: var(--mono);
+    }
+    .section p { color: var(--muted); font-size: 13.5px; line-height: 1.55; }
+
+    .seq-hint {
+      font-size: 12px;
+      color: var(--warn);
+      font-family: var(--mono);
+      margin-top: 6px;
+      padding: 6px 10px;
+      background: rgba(255,179,64,0.08);
+      border-radius: 8px;
+      border-left: 3px solid var(--warn);
+    }
+
+    .buttons { display: grid; gap: 7px; margin-top: 10px; }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 13px;
+      font-weight: 700;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: #06111f;
+      background: linear-gradient(135deg, #a5b4fc, #8b5cf6);
+      cursor: pointer;
+      text-align: left;
+      transition: filter 0.15s, transform 0.1s;
+    }
+    button:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; background: var(--surface2); color: var(--muted); }
+    button.danger { background: linear-gradient(135deg, #fca5a5, #ff4d6a); }
+    button.restart { background: linear-gradient(135deg, #6ee7b7, #00d4aa); margin-top: 4px; }
+    button.next-case { background: linear-gradient(135deg, #67e8f9, #22d3ee); margin-top: 4px; }
+
+    .log { max-height: 180px; overflow-y: auto; font-size: 12.5px; font-family: var(--mono); line-height: 1.45; }
+    .log div { padding: 6px 0; border-bottom: 1px solid rgba(145,170,255,0.09); }
+
+    #investigationWrap { display: none; margin-top: 10px; }
+    #investigationFindings {
+      background: #091622;
+      border: 1px solid rgba(34,211,238,0.25);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #cffafe;
+    }
+    #investigationFindings .inv-title {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    #investigationFindings .inv-row { display: flex; gap: 8px; padding: 3px 0; border-bottom: 1px solid rgba(34,211,238,0.08); }
+    #investigationFindings .inv-row:last-child { border-bottom: none; }
+    #investigationFindings .inv-key { color: var(--muted); min-width: 82px; }
+    #investigationFindings .inv-val { color: #e2f8ff; }
+
+    .status-list { display: grid; gap: 5px; margin-top: 4px; }
+    .status-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+    .status-row .obj-label { display: flex; align-items: center; gap: 6px; }
+    .status-pill { border-radius: 999px; padding: 2px 9px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+    .done { background: rgba(34,216,122,0.15); color: #86efac; }
+    .pending { background: rgba(148,163,184,0.1); color: #94a3b8; }
+    .locked { background: rgba(255,179,64,0.12); color: var(--warn); }
+
+    .explain {
+      margin-top: 8px;
+      padding: 8px 11px;
+      background: rgba(255,77,106,0.08);
+      border-left: 3px solid var(--bad);
+      border-radius: 8px;
+      font-size: 12.5px;
+      color: #fca5a5;
+      line-height: 1.5;
+    }
+    .explain.good-explain { background: rgba(34,216,122,0.08); border-left-color: var(--good); color: #bbf7d0; }
+
+    .end-overlay { display: none; position: fixed; inset: 0; background: rgba(7,9,20,0.92); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+    .end-overlay.show { display: flex; }
+    .end-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 30px 28px; width: min(520px, 100%); text-align: center; }
+    .end-card .grade { font-size: 56px; font-weight: 800; margin-bottom: 4px; }
+    .end-card .grade-label { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+    .end-card .grade-label.excellent { color: var(--good); }
+    .end-card .grade-label.satisfactory { color: var(--warn); }
+    .end-card .grade-label.needs-review { color: var(--bad); }
+    .breakdown { background: var(--surface2); border-radius: 14px; padding: 14px; margin: 16px 0; text-align: left; }
+    .breakdown h3 { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent2); font-family: var(--mono); margin-bottom: 10px; }
+    .breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .breakdown-row:last-child { border-bottom: none; }
+    .breakdown-row .pts { font-family: var(--mono); font-weight: 700; }
+    .pts.pos { color: var(--good); }
+    .pts.neg { color: var(--bad); }
+    .pts.zero { color: var(--muted); }
+    .end-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 4px; }
+    .end-buttons button { font-size: 14px; padding: 11px 22px; }
+
+    .case-select { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .case-btn {
+      font-size: 11px !important;
+      padding: 6px 12px !important;
+      border-radius: 999px !important;
+      background: var(--surface2) !important;
+      color: var(--muted) !important;
+      border: 1px solid var(--border) !important;
+      font-family: var(--mono) !important;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .case-btn:hover { border-color: var(--accent2) !important; color: var(--accent2) !important; }
+    .case-btn.active { background: rgba(34,211,238,0.12) !important; color: var(--accent2) !important; border-color: var(--accent2) !important; }
+
+    @media (max-width: 860px) {
+      .game-wrap { grid-template-columns: 1fr; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      canvas#game { min-height: 260px; }
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-title">ER Headache <span>Simulator</span></div>
+    <div class="topbar-right">
+      <div class="pill case-id" id="caseIdPill">CASE 1 / 3</div>
+      <div class="pill score" id="scorePill">Score: 0 / 14</div>
+      <div class="pill timer" id="timerPill">⏱ 5:00</div>
+    </div>
+  </div>
+
+  <div class="game-wrap">
+    <div class="card">
+      <canvas id="game" width="800" height="520"></canvas>
+      <div class="canvas-footer" id="canvasFooter">
+        Click objects in order ▸ Patient → Vitals → Neuro Exam → Imaging/Labs → Treatment Bay &nbsp;|&nbsp; Coded by Anupam Singh MD, Santosh Medical College
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="section">
+        <h2>Clinical Case</h2>
+        <p id="caseText">Loading case…</p>
+        <div class="case-select" id="caseSelect"></div>
+      </div>
+
+      <div class="section">
+        <h2>Action Panel</h2>
+        <p id="actionText">Start by clicking the <strong style="color:var(--accent2)">Patient</strong> to assess.</p>
+        <div id="seqHint"></div>
+        <div id="investigationWrap"><div id="investigationFindings"></div></div>
+        <div class="buttons" id="choices"></div>
+      </div>
+
+      <div class="section">
+        <h2>Progress</h2>
+        <div class="status-list" id="statusList"></div>
+      </div>
+
+      <div class="section">
+        <h2>Feedback Log</h2>
+        <div class="log" id="log"></div>
+      </div>
+
+      <div class="section">
+        <h2>Goal</h2>
+        <p style="color:#fde68a;font-size:13px;line-height:1.55;" id="goalText"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="end-overlay" id="endOverlay">
+    <div class="end-card">
+      <div class="grade" id="endGrade">🏅</div>
+      <div class="grade-label" id="endLabel">Excellent</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">
+        Case: <span id="endCaseName" style="color:var(--text)"></span>
+      </div>
+      <div style="font-size:22px;font-weight:800;font-family:var(--mono);margin-bottom:14px;" id="endScoreLine"></div>
+      <div class="breakdown" id="breakdownBox">
+        <h3>Score Breakdown</h3>
+        <div id="breakdownRows"></div>
+      </div>
+      <div class="end-buttons">
+        <button class="restart" onclick="restartSame()">↩ Retry Case</button>
+        <button class="next-case" onclick="nextCase()">→ Next Case</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+const BASE_OBJECTS = [
+  { id:'patient', label:'Patient',        x:250, y:245, w:260, h:95,  color:'#334d6e' },
+  { id:'vitals',  label:'Vitals Monitor', x:580, y:110, w:140, h:105, color:'#0a3d5c' },
+  { id:'neuro',   label:'Neuro Exam',     x:70,  y:80,  w:170, h:110, color:'#312e81' },
+  { id:'imaging', label:'Imaging/Labs',   x:95,  y:335, w:130, h:90,  color:'#4a2c0a' },
+  { id:'tray',    label:'Treatment Bay',  x:560, y:330, w:175, h:95,  color:'#0f3d20' }
+];
+
+const CASES = [
+  {
+    id: 1,
+    name: 'Case 1 — Thunderclap SAH',
+    intro: 'A 45-year-old woman arrives with the “worst headache of life”, sudden onset during exertion, vomiting, photophobia, and neck pain.',
+    goal: 'Assess severity, timing, red flags, and neurological risk. Use appropriate urgent imaging and follow-up testing without prematurely labeling it as migraine.',
+    maxScore: 14,
+    investigationType: 'sah',
+    sequence: ['patient','vitals','neuro','imaging','tray'],
+    objects: BASE_OBJECTS,
+    actions: {
+      patient: {
+        text: 'History: headache reached maximum intensity within 1 minute. Vomiting x2. No previous similar headache. No trauma. No anticoagulant use.',
+        choices: [
+          { label:'Ask onset-to-peak time, exertion, vomiting, neck pain, and prior similar headaches', feedback:'Correct. This is thunderclap headache until proven otherwise.', explain:'Abrupt maximum-intensity headache is a classic SAH red flag. Exertional onset, vomiting, meningism, syncope, and “different from usual” features raise pre-test probability.', delta:1 },
+          { label:'Treat as migraine because she has photophobia', feedback:'Unsafe. Photophobia can occur in SAH too.', explain:'Photophobia is not specific for migraine. Thunderclap onset is the dominant clue and needs emergency neuroimaging.', delta:-3 },
+          { label:'Focus only on sinus tenderness and allergies', feedback:'Low-yield first step.', explain:'Sinus headache rarely presents as instantaneous worst-ever headache with vomiting and neck pain. This delays dangerous secondary headache workup.', delta:-1 }
+        ]
+      },
+      vitals: {
+        text: 'Vitals: BP 178/96, HR 94/min, SpO₂ 98%, afebrile. She is restless but protecting airway.',
+        choices: [
+          { label:'Recognize severe BP as part of SAH physiology; avoid sudden overcorrection before diagnosis', feedback:'Correct. Manage pain and BP carefully while imaging is arranged.', explain:'Acute hypertension may be a stress response or may increase rebleeding risk after SAH is confirmed. Avoid abrupt hypotension; use a controlled plan with senior/neuro input.', delta:2 },
+          { label:'Give sumatriptan now and observe response', feedback:'Wrong. Triptans are inappropriate in suspected SAH.', explain:'A therapeutic trial for migraine should not precede exclusion of SAH in a thunderclap presentation.', delta:-2 },
+          { label:'Vitals are acceptable; discharge with oral analgesics', feedback:'Dangerous. Stable vitals do not exclude SAH.', explain:'SAH patients can initially look stable. Missing the first bleed can lead to catastrophic rebleeding.', delta:-3 }
+        ]
+      },
+      neuro: {
+        text: 'Neuro exam: GCS 14/15, neck stiffness present, mild photophobia. No clear hemiparesis. Fundus: no papilledema seen.',
+        choices: [
+          { label:'Treat meningism + thunderclap headache as high-risk SAH → urgent non-contrast CT brain', feedback:'Correct. This is a red-flag neurologic emergency.', explain:'Neck stiffness after thunderclap headache strongly supports meningeal irritation from SAH. Non-contrast CT brain is the first-line emergency test.', delta:3 },
+          { label:'Normal limb power means benign headache', feedback:'Wrong. SAH may have no focal deficit.', explain:'A normal motor exam does not rule out SAH. Headache pattern and meningeal signs matter.', delta:-3 },
+          { label:'Do LP immediately before any imaging', feedback:'Premature. CT brain comes first.', explain:'LP is useful when CT is negative but suspicion remains. Doing LP before CT may be unsafe if mass effect or obstructive hydrocephalus is present.', delta:-2 }
+        ]
+      },
+      imaging: {
+        text: 'Imaging/Labs station opened. Review the emergency results.',
+        choices: [
+          { label:'CT shows SAH → arrange CTA to identify aneurysm and call neurosurgery/neurointervention', feedback:'Correct. CT-positive SAH needs aneurysm localisation and urgent specialist care.', explain:'Non-contrast CT confirms hemorrhage. CTA helps locate a ruptured aneurysm and guides coiling/clipping. Do not delay specialist referral.', delta:3 },
+          { label:'Wait for serum electrolytes before acting', feedback:'Wrong priority. Labs are supportive, not diagnostic here.', explain:'Electrolytes and coagulation profile matter, but confirmed SAH needs urgent pathway activation immediately.', delta:-2 },
+          { label:'CT is positive, so perform LP to confirm SAH', feedback:'Unnecessary and potentially harmful.', explain:'LP is not required when CT clearly demonstrates SAH. It may delay aneurysm treatment and add risk.', delta:-2 }
+        ]
+      },
+      tray: {
+        text: 'Choose the best immediate management bundle.',
+        choices: [
+          { label:'Analgesia/antiemetic + controlled BP plan + nimodipine + neurovascular referral for aneurysm securing', feedback:'Optimal SAH bundle.', explain:'Key early SAH steps: stabilize airway/circulation, treat pain/vomiting, avoid rebleed, start nimodipine to reduce delayed cerebral ischemia, and secure the aneurysm urgently.', delta:5 },
+          { label:'Migraine cocktail and discharge when pain improves', feedback:'Critical error.', explain:'Symptom improvement does not exclude SAH. Discharge after a sentinel bleed may be fatal.', delta:-4 },
+          { label:'Aspirin and anticoagulation for possible stroke', feedback:'Dangerous. This is intracranial hemorrhage.', explain:'Antiplatelets/anticoagulants can worsen bleeding and rebleeding in SAH.', delta:-3 },
+          { label:'Give thrombolysis because acute neuro emergency is possible', feedback:'Catastrophic choice.', explain:'Thrombolysis is contraindicated in intracranial hemorrhage and can be fatal.', delta:-4 }
+        ]
+      }
+    }
+  },
+  {
+    id: 2,
+    name: 'Case 2 — Acute Meningitis',
+    intro: 'A 24-year-old man presents with fever, severe headache, photophobia, vomiting, and neck stiffness for 12 hours. Family says he is unusually drowsy.',
+    goal: 'Stabilize the patient, identify infection and neurological danger signs, decide when CT is needed before LP, and start time-critical empiric treatment safely.',
+    maxScore: 14,
+    investigationType: 'meningitis',
+    sequence: ['patient','vitals','neuro','imaging','tray'],
+    objects: BASE_OBJECTS,
+    actions: {
+      patient: {
+        text: 'History: fever 39°C, severe generalized headache, photophobia, vomiting, and neck stiffness. No known immunosuppression. No recent seizure. Vaccination status uncertain.',
+        choices: [
+          { label:'Recognize fever + headache + neck stiffness as meningitis until proven otherwise', feedback:'Correct. This is a time-critical infection.', explain:'The classic triad is not always complete, but fever with headache, meningism, photophobia, vomiting, rash, or altered mentation should trigger immediate meningitis pathway.', delta:1 },
+          { label:'Assume viral fever and give paracetamol only', feedback:'Unsafe. Bacterial meningitis can deteriorate quickly.', explain:'Paracetamol may reduce fever but does not treat meningeal infection or sepsis. Delayed antibiotics increase complications and mortality.', delta:-3 },
+          { label:'Ask about antibiotics, allergies, immunosuppression, travel, and contacts', feedback:'Good focused history.', explain:'Drug allergy affects empiric antibiotic choice. Immunosuppression, age, and exposure history alter organism probability and isolation decisions.', delta:1 }
+        ]
+      },
+      vitals: {
+        text: 'Vitals: Temp 39.2°C, HR 122/min, BP 96/60, RR 24/min, SpO₂ 96%. Capillary refill delayed. He is drowsy but arousable.',
+        choices: [
+          { label:'Treat as sepsis risk: IV access, fluids judiciously, blood cultures, and antibiotics within 1 hour', feedback:'Correct. Time matters.', explain:'Suspected bacterial meningitis with sepsis physiology needs immediate resuscitation and empiric antibiotics. Blood cultures should be taken first if this does not delay treatment.', delta:2 },
+          { label:'Wait until fever settles before further evaluation', feedback:'Wrong. Fever control is supportive only.', explain:'Meningitis progresses rapidly. Waiting for fever response wastes the therapeutic window.', delta:-3 },
+          { label:'Send for CT first and withhold antibiotics until LP is done', feedback:'Dangerous delay.', explain:'If CT or LP will delay treatment, antibiotics and dexamethasone should be started after blood cultures. Imaging should not delay lifesaving antimicrobials.', delta:-2 }
+        ]
+      },
+      neuro: {
+        text: 'Neuro exam: GCS 14/15, neck rigidity, positive Kernig sign, no focal deficit, no papilledema, no recent seizure.',
+        choices: [
+          { label:'No focal deficit/papilledema/seizure → blood cultures then prompt LP if feasible, without delaying antibiotics', feedback:'Correct. This is the practical ER sequence.', explain:'LP helps confirm diagnosis and guide therapy. But if LP is delayed, antibiotics must be given first after blood cultures.', delta:3 },
+          { label:'Do not do LP because all meningitis patients need CT first', feedback:'Incorrect blanket rule.', explain:'CT before LP is reserved for selected patients: focal deficit, papilledema, new seizure, immunocompromise, markedly impaired consciousness, or concern for mass lesion.', delta:-2 },
+          { label:'Normal power means this is not meningitis', feedback:'Wrong.', explain:'Meningitis often has no focal deficit. Neck stiffness, fever, drowsiness, and sepsis signs carry the diagnosis.', delta:-3 }
+        ]
+      },
+      imaging: {
+        text: 'LP and labs available. Interpret the results.',
+        choices: [
+          { label:'CSF neutrophils + low glucose + high protein → bacterial meningitis; continue empiric therapy', feedback:'Correct. CSF pattern is bacterial.', explain:'Typical bacterial CSF: high opening pressure, neutrophilic pleocytosis, low CSF:serum glucose ratio, high protein. Cultures/PCR refine treatment later.', delta:3 },
+          { label:'Wait for CSF culture report before giving antibiotics', feedback:'Dangerous.', explain:'Cultures can take many hours. Empiric therapy must begin immediately in suspected bacterial meningitis.', delta:-4 },
+          { label:'Drowsiness means give sedatives and discharge after observation', feedback:'Unsafe.', explain:'Drowsiness is a danger sign in meningitis/sepsis. This patient needs admission and parenteral treatment.', delta:-3 }
+        ]
+      },
+      tray: {
+        text: 'Choose the best immediate management bundle.',
+        choices: [
+          { label:'Blood cultures + IV ceftriaxone/cefotaxime + vancomycin + dexamethasone with first dose + droplet precautions', feedback:'Optimal meningitis bundle.', explain:'Empiric broad-spectrum IV antibiotics and dexamethasone should start rapidly. Add ampicillin when Listeria risk is present, such as age >50, pregnancy, or immunosuppression.', delta:5 },
+          { label:'Oral antibiotics and home review tomorrow', feedback:'Critical error.', explain:'Suspected bacterial meningitis is not outpatient disease. It needs IV therapy, monitoring, and complication surveillance.', delta:-4 },
+          { label:'Start steroids only, wait for microbiology', feedback:'Wrong. Steroids are adjunctive, not definitive.', explain:'Dexamethasone may reduce neurologic complications in selected bacterial meningitis, but it must accompany antibiotics, not replace them.', delta:-3 },
+          { label:'Give migraine cocktail and discharge if headache improves', feedback:'Dangerous.', explain:'Analgesic response does not exclude meningitis. Fever, meningism, and drowsiness require admission.', delta:-4 }
+        ]
+      }
+    }
+  },
+  {
+    id: 3,
+    name: 'Case 3 — Postpartum CVST',
+    intro: 'A 29-year-old woman, 10 days postpartum, presents with progressive severe headache, vomiting, blurred vision, and one brief generalized seizure at home.',
+    goal: 'Assess postpartum headache carefully. Look for raised intracranial pressure, focal deficits, seizure risk, and choose the right vascular imaging and acute treatment pathway.',
+    maxScore: 14,
+    investigationType: 'cvst',
+    sequence: ['patient','vitals','neuro','imaging','tray'],
+    objects: BASE_OBJECTS,
+    actions: {
+      patient: {
+        text: 'History: 10 days postpartum after normal delivery. Headache gradually worsened over 4 days. Vomiting and transient seizure. No fever. No known migraine history.',
+        choices: [
+          { label:'Ask postpartum status, seizure, visual symptoms, thrombosis history, dehydration, and OCP/heparin exposure', feedback:'Correct. Postpartum state is a strong prothrombotic risk.', explain:'Postpartum headache with seizure, vomiting, visual symptoms, or focal signs should trigger evaluation for CVST, pre-eclampsia/PRES, hemorrhage, and infection.', delta:1 },
+          { label:'Diagnose tension headache because pain is gradual', feedback:'Unsafe.', explain:'CVST often presents as subacute progressive headache, unlike SAH. Gradual onset does not make it benign, especially postpartum.', delta:-3 },
+          { label:'Ask only about sleep deprivation and stress', feedback:'Incomplete.', explain:'Sleep deprivation can worsen headache, but postpartum red flags and seizure must be prioritized.', delta:-1 }
+        ]
+      },
+      vitals: {
+        text: 'Vitals: BP 138/86, HR 90/min, afebrile, SpO₂ 99%. Urine dipstick: trace protein. She is anxious and nauseated.',
+        choices: [
+          { label:'BP not severely high; keep pre-eclampsia/PRES in differential but look for CVST and raised ICP', feedback:'Correct. Do not anchor too early.', explain:'Postpartum headache differential includes pre-eclampsia/PRES, CVST, SAH, meningitis, and pituitary apoplexy. Normal-ish BP does not exclude CVST.', delta:2 },
+          { label:'BP is near normal, so discharge with NSAID', feedback:'Dangerous.', explain:'Seizure and vomiting after delivery are red flags even when BP is not severely elevated.', delta:-3 },
+          { label:'Treat only as eclampsia and skip neuroimaging', feedback:'Incomplete and unsafe.', explain:'Magnesium may be considered if eclampsia is plausible, but seizure plus progressive headache needs neuroimaging to identify CVST, hemorrhage, or PRES.', delta:-2 }
+        ]
+      },
+      neuro: {
+        text: 'Neuro exam: papilledema present, mild right arm drift, bilateral sixth nerve palsy suspected. GCS 15 after seizure recovery.',
+        choices: [
+          { label:'Raised ICP + focal deficit postpartum → suspect CVST; avoid blind LP before imaging', feedback:'Correct. Image first.', explain:'Papilledema, sixth nerve palsy, vomiting, seizure, and focal deficit point to raised intracranial pressure. LP before imaging can be dangerous.', delta:3 },
+          { label:'Do LP immediately to reduce pressure', feedback:'Unsafe before imaging.', explain:'Therapeutic LP may have a role in selected raised ICP cases later, but focal signs/papilledema require imaging first to exclude mass effect or hemorrhage.', delta:-2 },
+          { label:'Neuro exam is almost normal, so migraine is likely', feedback:'Wrong. Papilledema and arm drift are not migraine features.', explain:'Papilledema and focal deficit are secondary headache red flags and need urgent imaging.', delta:-3 }
+        ]
+      },
+      imaging: {
+        text: 'Imaging/Labs station opened. Review the results.',
+        choices: [
+          { label:'Order CT venography/MR venography; absent superior sagittal sinus flow confirms CVST', feedback:'Correct. Venous imaging makes the diagnosis.', explain:'Non-contrast CT can be normal or subtle in CVST. CTV or MRV is needed when clinical suspicion is high.', delta:3 },
+          { label:'Normal non-contrast CT excludes dangerous headache', feedback:'Wrong.', explain:'CVST can be missed on plain CT. A normal CT should not end evaluation when postpartum red flags are present.', delta:-3 },
+          { label:'High D-dimer alone is enough to start thrombolysis', feedback:'Incorrect.', explain:'D-dimer can support suspicion but is not diagnostic. Thrombolysis is not routine CVST therapy and is reserved for selected deteriorating cases in expert centres.', delta:-2 }
+        ]
+      },
+      tray: {
+        text: 'Choose the best immediate management bundle.',
+        choices: [
+          { label:'Start therapeutic LMWH/UFH + seizure treatment + manage ICP + neurology/stroke referral', feedback:'Optimal CVST bundle.', explain:'Anticoagulation is the mainstay of CVST treatment, including many cases with venous hemorrhagic infarct, unless a specific contraindication exists. Also treat seizures and raised ICP.', delta:5 },
+          { label:'Avoid anticoagulation because there is a small venous hemorrhagic infarct', feedback:'Common but wrong.', explain:'Hemorrhagic venous infarct does not automatically contraindicate anticoagulation in CVST. Withholding anticoagulation can allow thrombus extension.', delta:-3 },
+          { label:'Migraine cocktail and discharge after observation', feedback:'Critical error.', explain:'Postpartum headache with seizure, papilledema, and focal signs is not safe for discharge.', delta:-4 },
+          { label:'Aspirin alone is enough for venous thrombosis', feedback:'Incorrect.', explain:'CVST requires therapeutic anticoagulation, not antiplatelet monotherapy.', delta:-3 }
+        ]
+      }
+    }
+  }
+];
+
+const INVESTIGATION_FINDINGS = {
+  sah: [
+    { key: 'NCCT Brain', val: 'Diffuse basal cistern subarachnoid blood; no large intraparenchymal bleed' },
+    { key: 'CTA', val: '6 mm anterior communicating artery aneurysm suspected' },
+    { key: 'Coagulation', val: 'Platelets normal; INR 1.0' },
+    { key: 'Key Point', val: 'CT-positive SAH does not need LP confirmation' }
+  ],
+  meningitis: [
+    { key: 'CSF Cells', val: '1,800 cells/µL, predominantly neutrophils' },
+    { key: 'CSF Glucose', val: 'Low; CSF:serum glucose ratio <0.4' },
+    { key: 'CSF Protein', val: 'High' },
+    { key: 'Gram stain', val: 'Gram-positive diplococci seen; culture pending' },
+    { key: 'Key Point', val: 'Do not wait for culture before treatment' }
+  ],
+  cvst: [
+    { key: 'NCCT Brain', val: 'Subtle left parasagittal venous hemorrhagic infarct; no mass lesion' },
+    { key: 'CTV/MRV', val: 'Absent flow in superior sagittal sinus and left transverse sinus' },
+    { key: 'D-dimer', val: 'Elevated; supportive but not diagnostic alone' },
+    { key: 'Key Point', val: 'Plain CT can miss CVST; venous imaging is needed' }
+  ]
+};
+
+let currentCaseIdx = 0;
+let score = 0;
+let completed = false;
+let currentObjectId = null;
+let timerSeconds = 300;
+let timerInterval = null;
+let scoreBreakdown = [];
+
+function currentCase() { return CASES[currentCaseIdx]; }
+function initState() { const s = {}; currentCase().sequence.forEach(id => s[id] = { answered: false }); return s; }
+let state = initState();
+
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const scorePill     = document.getElementById('scorePill');
+const caseIdPill    = document.getElementById('caseIdPill');
+const actionTextEl  = document.getElementById('actionText');
+const choicesEl     = document.getElementById('choices');
+const logEl         = document.getElementById('log');
+const investigationWrap = document.getElementById('investigationWrap');
+const statusList    = document.getElementById('statusList');
+const seqHint       = document.getElementById('seqHint');
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timerSeconds = 300;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) { clearInterval(timerInterval); if (!completed) timeUp(); }
+  }, 1000);
+}
+function updateTimerDisplay() {
+  const pill = document.getElementById('timerPill');
+  const m = Math.floor(timerSeconds / 60);
+  const s = String(timerSeconds % 60).padStart(2, '0');
+  pill.textContent = `⏱ ${m}:${s}`;
+  pill.className = 'pill timer' + (timerSeconds <= 60 ? ' urgent' : '');
+}
+function timeUp() { addLog('⏰ Time up! Case ended.', 'bad'); completed = true; showEndOverlay(); }
+
+function getNextUnlocked() {
+  const seq = currentCase().sequence;
+  for (let i = 0; i < seq.length; i++) if (!state[seq[i]].answered) return seq[i];
+  return null;
+}
+function isUnlocked(objId) {
+  const seq = currentCase().sequence;
+  const idx = seq.indexOf(objId);
+  if (idx === 0) return true;
+  for (let i = 0; i < idx; i++) if (!state[seq[i]].answered) return false;
+  return true;
+}
+function getStepNumber(objId) { return currentCase().sequence.indexOf(objId) + 1; }
+
+function addLog(text, type='') {
+  const div = document.createElement('div');
+  div.textContent = text;
+  if (type==='good') div.style.color='#bbf7d0';
+  if (type==='bad')  div.style.color='#fecaca';
+  if (type==='warn') div.style.color='#fde68a';
+  logEl.prepend(div);
+}
+function clearChoices() { choicesEl.innerHTML=''; }
+function updateScore(delta) { score += delta; scorePill.textContent = `Score: ${score} / ${currentCase().maxScore}`; }
+function updateCaseId() { caseIdPill.textContent = `CASE ${currentCaseIdx+1} / ${CASES.length}`; }
+function hideInvestigation() { investigationWrap.style.display='none'; }
+function showInvestigation() { investigationWrap.style.display='block'; renderInvestigationFindings(); }
+function renderInvestigationFindings() {
+  const rows = INVESTIGATION_FINDINGS[currentCase().investigationType] || [];
+  const el = document.getElementById('investigationFindings');
+  el.innerHTML = `<div class="inv-title">🧾 Imaging / Lab Findings</div>` + rows.map(r =>
+    `<div class="inv-row"><span class="inv-key">${r.key}</span><span class="inv-val">${r.val}</span></div>`
+  ).join('');
+}
+
+function updateStatusList() {
+  statusList.innerHTML = '';
+  const c = currentCase();
+  c.sequence.forEach((id, i) => {
+    const obj = c.objects.find(o => o.id === id);
+    const row = document.createElement('div');
+    row.className = 'status-row';
+    const unlocked = isUnlocked(id);
+    const done = state[id].answered;
+    const statusClass = done ? 'done' : unlocked ? 'pending' : 'locked';
+    const statusText  = done ? '✓ Done' : unlocked ? 'Pending' : '🔒 Locked';
+    row.innerHTML = `
+      <span class="obj-label"><span style="color:var(--muted);font-family:var(--mono);font-size:11px">${i+1}.</span>${obj.label}</span>
+      <span class="status-pill ${statusClass}">${statusText}</span>`;
+    statusList.appendChild(row);
+  });
+}
+
+function showChoices(objId) {
+  currentObjectId = objId;
+  const c = currentCase();
+  const item = c.actions[objId];
+  const obj  = c.objects.find(o => o.id === objId);
+
+  if (objId === 'imaging') showInvestigation(); else hideInvestigation();
+  seqHint.innerHTML = '';
+
+  if (!isUnlocked(objId)) {
+    const next = getNextUnlocked();
+    const nextObj = next ? c.objects.find(o=>o.id===next) : null;
+    actionTextEl.textContent = `This station is locked.`;
+    seqHint.innerHTML = `<div class="seq-hint">⚠ Complete <strong>${nextObj ? nextObj.label : 'the previous step'}</strong> first — follow the ER sequence.</div>`;
+    clearChoices();
+    draw();
+    return;
+  }
+
+  actionTextEl.textContent = item.text;
+  if (state[objId].answered) {
+    clearChoices();
+    const info = document.createElement('button');
+    info.textContent = `${obj.label} — already completed`;
+    info.disabled = true;
+    choicesEl.appendChild(info);
+    return;
+  }
+
+  clearChoices();
+  item.choices.forEach(ch => {
+    const btn = document.createElement('button');
+    btn.textContent = ch.label;
+    if (ch.delta < -2) btn.classList.add('danger');
+    btn.onclick = () => {
+      if (state[objId].answered) return;
+      state[objId].answered = true;
+      updateScore(ch.delta);
+      scoreBreakdown.push({ station: obj.label, choice: ch.label, delta: ch.delta });
+      addLog(`[${obj.label}] ${ch.label}: ${ch.feedback}`, ch.delta > 0 ? 'good' : ch.delta < 0 ? 'bad' : 'warn');
+      actionTextEl.textContent = ch.feedback;
+      clearChoices();
+      const exp = document.createElement('div');
+      exp.className = 'explain' + (ch.delta > 0 ? ' good-explain' : '');
+      exp.innerHTML = `<strong>${ch.delta > 0 ? '📖 Why this is correct:' : '📖 Why this is wrong:'}</strong><br>${ch.explain}`;
+      choicesEl.appendChild(exp);
+      const locked = document.createElement('button');
+      locked.textContent = `${obj.label} — completed`;
+      locked.disabled = true;
+      choicesEl.appendChild(locked);
+      updateStatusList();
+      draw();
+      maybeFinishGame();
+    };
+    choicesEl.appendChild(btn);
+  });
+}
+
+function maybeFinishGame() {
+  const allDone = currentCase().sequence.every(id => state[id].answered);
+  if (allDone && !completed) {
+    completed = true;
+    clearInterval(timerInterval);
+    addLog(`✅ Case complete. Final score: ${score}/${currentCase().maxScore}.`, 'good');
+    setTimeout(showEndOverlay, 600);
+  }
+}
+
+function showEndOverlay() {
+  const c = currentCase();
+  const pct = score / c.maxScore;
+  let grade, gradeLabel, gradeClass;
+  if (pct >= 0.85) { grade='🏅'; gradeLabel='Excellent'; gradeClass='excellent'; }
+  else if (pct >= 0.6) { grade='👍'; gradeLabel='Satisfactory'; gradeClass='satisfactory'; }
+  else { grade='📚'; gradeLabel='Needs Review'; gradeClass='needs-review'; }
+
+  document.getElementById('endGrade').textContent = grade;
+  const labelEl = document.getElementById('endLabel');
+  labelEl.textContent = gradeLabel;
+  labelEl.className = `grade-label ${gradeClass}`;
+  document.getElementById('endCaseName').textContent = c.name;
+  document.getElementById('endScoreLine').textContent = `${score} / ${c.maxScore} points`;
+
+  const rows = document.getElementById('breakdownRows');
+  rows.innerHTML = '';
+  scoreBreakdown.forEach(b => {
+    const row = document.createElement('div');
+    row.className = 'breakdown-row';
+    const ptsClass = b.delta > 0 ? 'pos' : b.delta < 0 ? 'neg' : 'zero';
+    const ptsText  = b.delta > 0 ? `+${b.delta}` : `${b.delta}`;
+    row.innerHTML = `<span style="max-width:80%;font-size:12px;color:var(--muted)">${b.station}</span><span class="pts ${ptsClass}">${ptsText}</span>`;
+    rows.appendChild(row);
+  });
+  document.getElementById('endOverlay').classList.add('show');
+}
+
+function restartSame() { document.getElementById('endOverlay').classList.remove('show'); startCase(currentCaseIdx); }
+function nextCase() { document.getElementById('endOverlay').classList.remove('show'); startCase((currentCaseIdx + 1) % CASES.length); }
+
+function buildCaseButtons() {
+  const container = document.getElementById('caseSelect');
+  container.innerHTML = '';
+  CASES.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'case-btn' + (i === currentCaseIdx ? ' active' : '');
+    btn.textContent = `Case ${i+1}`;
+    btn.title = c.name;
+    btn.onclick = () => startCase(i);
+    container.appendChild(btn);
+  });
+}
+
+function startCase(idx) {
+  currentCaseIdx = idx;
+  score = 0;
+  completed = false;
+  currentObjectId = null;
+  scoreBreakdown = [];
+  state = initState();
+  const c = currentCase();
+  scorePill.textContent = `Score: 0 / ${c.maxScore}`;
+  document.getElementById('caseText').textContent = c.intro;
+  document.getElementById('goalText').textContent = c.goal;
+  actionTextEl.textContent = `Start by clicking the Patient to assess.`;
+  seqHint.innerHTML = '';
+  clearChoices();
+  logEl.innerHTML = '';
+  hideInvestigation();
+  updateStatusList();
+  updateCaseId();
+  buildCaseButtons();
+  draw();
+  startTimer();
+  addLog(`Case started: ${c.name}. Click the Patient first.`, 'warn');
+}
+
+function roundRect(c, x, y, w, h, r) {
+  c.beginPath();
+  c.moveTo(x+r, y);
+  c.arcTo(x+w,y, x+w,y+h, r);
+  c.arcTo(x+w,y+h, x,y+h, r);
+  c.arcTo(x,y+h, x,y, r);
+  c.arcTo(x,y, x+w,y, r);
+  c.closePath();
+}
+
+function drawRoom() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#090d1a';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#11172a';
+  ctx.fillRect(30, 30, 740, 450);
+  ctx.strokeStyle = '#26345c';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(30, 30, 740, 450);
+
+  ctx.strokeStyle = 'rgba(139,92,246,0.06)';
+  ctx.lineWidth = 1;
+  for (let x=30; x<=770; x+=40) { ctx.beginPath(); ctx.moveTo(x,30); ctx.lineTo(x,480); ctx.stroke(); }
+  for (let y=30; y<=480; y+=40) { ctx.beginPath(); ctx.moveTo(30,y); ctx.lineTo(770,y); ctx.stroke(); }
+
+  ctx.fillStyle = '#26345c';
+  ctx.fillRect(350, 30, 100, 14);
+  ctx.fillStyle = '#22d3ee';
+  ctx.font = '11px JetBrains Mono, monospace';
+  ctx.fillText('HEADACHE ER', 356, 26);
+
+  const seq = currentCase().sequence;
+  const objs = currentCase().objects;
+  ctx.setLineDash([4,6]);
+  ctx.strokeStyle = 'rgba(34,211,238,0.22)';
+  ctx.lineWidth = 1.5;
+  for (let i=0; i<seq.length-1; i++) {
+    const a = objs.find(o=>o.id===seq[i]);
+    const b = objs.find(o=>o.id===seq[i+1]);
+    ctx.beginPath(); ctx.moveTo(a.x + a.w/2, a.y + a.h/2); ctx.lineTo(b.x + b.w/2, b.y + b.h/2); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+}
+
+function drawObject(obj) {
+  const done      = state[obj.id].answered;
+  const isCurrent = currentObjectId === obj.id;
+  const unlocked  = isUnlocked(obj.id);
+  const stepNum   = getStepNumber(obj.id);
+
+  ctx.fillStyle = done ? '#0d2e1a' : unlocked ? obj.color : '#1a2035';
+  roundRect(ctx, obj.x, obj.y, obj.w, obj.h, 14);
+  ctx.fill();
+  ctx.strokeStyle = done ? '#22d87a' : isCurrent ? '#facc15' : unlocked ? '#22d3ee' : '#26345c';
+  ctx.lineWidth   = done ? 3 : isCurrent ? 3 : unlocked ? 1.5 : 1;
+  ctx.stroke();
+
+  ctx.fillStyle = done ? '#86efac' : unlocked ? '#edf2ff' : '#3d4c76';
+  ctx.font = 'bold 15px Sora, sans-serif';
+  ctx.fillText(obj.label, obj.x + 14, obj.y + 26);
+
+  ctx.fillStyle = done ? 'rgba(34,216,122,0.2)' : unlocked ? 'rgba(34,211,238,0.15)' : 'rgba(38,52,92,0.5)';
+  roundRect(ctx, obj.x + obj.w - 34, obj.y + 8, 24, 18, 6);
+  ctx.fill();
+  ctx.fillStyle = done ? '#86efac' : unlocked ? '#a5f3fc' : '#3d4c76';
+  ctx.font = 'bold 12px JetBrains Mono, monospace';
+  ctx.fillText(stepNum, obj.x + obj.w - 27, obj.y + 21);
+
+  if (obj.id === 'patient' && unlocked) {
+    ctx.fillStyle = '#fcd34d';
+    ctx.beginPath(); ctx.arc(obj.x+55, obj.y+55, 16, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#c7d2fe';
+    ctx.fillRect(obj.x+80, obj.y+40, 120, 30);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(obj.x+22, obj.y+66, obj.w-44, 12);
+    ctx.fillStyle = '#ff4d6a';
+    ctx.font = 'bold 12px JetBrains Mono, monospace';
+    ctx.fillText('HEADACHE', obj.x+105, obj.y+60);
+  }
+
+  if (obj.id === 'vitals' && unlocked) {
+    ctx.strokeStyle = '#22d87a'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    const sx=obj.x+18, sy=obj.y+72;
+    ctx.moveTo(sx, sy);
+    for (let i=0;i<7;i++) { ctx.lineTo(sx+i*14+10, sy-(i%2)*16); ctx.lineTo(sx+i*14+18, sy); }
+    ctx.stroke();
+  }
+
+  if (obj.id === 'neuro' && unlocked) {
+    ctx.strokeStyle = '#c4b5fd'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(obj.x+70, obj.y+65, 26, 0.1, Math.PI*1.9);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(196,181,253,0.18)';
+    ctx.fillRect(obj.x+100, obj.y+48, 40, 8);
+    ctx.fillRect(obj.x+100, obj.y+64, 52, 8);
+    ctx.fillRect(obj.x+100, obj.y+80, 34, 8);
+  }
+
+  if (obj.id === 'imaging' && unlocked) {
+    ctx.fillStyle = 'rgba(251,191,36,0.25)';
+    ctx.fillRect(obj.x+14, obj.y+38, 98, 8);
+    ctx.fillRect(obj.x+14, obj.y+52, 78, 8);
+    ctx.strokeStyle = '#fbbf24'; ctx.lineWidth = 1.5;
+    ctx.strokeRect(obj.x+75, obj.y+35, 32, 32);
+    ctx.beginPath(); ctx.arc(obj.x+91, obj.y+51, 10, 0, Math.PI*2); ctx.stroke();
+  }
+
+  if (obj.id === 'tray' && unlocked) {
+    ['#60a5fa','#34d399','#f472b6'].forEach((col,i) => {
+      ctx.fillStyle = col; roundRect(ctx, obj.x+16+i*36, obj.y+46, 28, 28, 6); ctx.fill();
+    });
+  }
+
+  if (done) {
+    ctx.fillStyle = '#22d87a';
+    ctx.beginPath(); ctx.arc(obj.x+obj.w-18, obj.y+18, 11, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle='#fff'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(obj.x+obj.w-23, obj.y+18); ctx.lineTo(obj.x+obj.w-19, obj.y+22); ctx.lineTo(obj.x+obj.w-12, obj.y+14); ctx.stroke();
+  }
+
+  if (!unlocked && !done) {
+    ctx.fillStyle = 'rgba(9,13,26,0.58)';
+    roundRect(ctx, obj.x, obj.y, obj.w, obj.h, 14); ctx.fill();
+    ctx.fillStyle = '#3d4c76';
+    ctx.font = '18px sans-serif';
+    ctx.fillText('🔒', obj.x + obj.w/2 - 10, obj.y + obj.h/2 + 6);
+  }
+}
+
+function draw() {
+  drawRoom();
+  currentCase().objects.forEach(drawObject);
+  ctx.fillStyle = 'rgba(34,211,238,0.55)';
+  ctx.font = '12px JetBrains Mono, monospace';
+  ctx.fillText('Follow numbered ER steps ▸ dangerous secondary headache shortcuts lose points', 40, 510);
+}
+
+function handleCanvasPoint(clientX, clientY) {
+  if (completed) return;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const x = (clientX - rect.left) * scaleX;
+  const y = (clientY - rect.top)  * scaleY;
+  const hit = currentCase().objects.find(o => x>=o.x && x<=o.x+o.w && y>=o.y && y<=o.y+o.h);
+  if (!hit) return;
+  addLog(`▸ Clicked: ${hit.label}`, 'warn');
+  showChoices(hit.id);
+  draw();
+}
+
+canvas.addEventListener('click', (e) => handleCanvasPoint(e.clientX, e.clientY));
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  const t = e.touches[0];
+  handleCanvasPoint(t.clientX, t.clientY);
+}, { passive: false });
+
+startCase(0);
+</script>
+</body>
+</html>
