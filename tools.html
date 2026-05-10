@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical & Statistical Tools - Anupam Singh, MD</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f4f7f6;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #23455A;
+            padding-bottom: 30px;
+        }
+        h1 {
+            color: #23455A;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+        .bio {
+            font-size: 1.1em;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        section {
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #9A4D33;
+            border-left: 8px solid #9A4D33;
+            padding-left: 15px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .tool-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .tool-card:hover {
+            border-color: #23455A;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        .tool-card h3 {
+            margin-top: 0;
+            color: #23455A;
+            font-size: 1.25em;
+        }
+        .tool-card p {
+            color: #666;
+            font-size: 0.95em;
+            flex-grow: 1;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #23455A;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background-color: #9A4D33;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Medical & Statistical Tools</h1>
+            <div class="bio">
+                <p><strong>Anupam Singh, MD</strong> is a Professor in the Department of Medicine at Santosh Medical College, Ghaziabad. Beyond clinical practice, he is dedicated to developing open-source tools for <strong>Statistical Analysis</strong> and <strong>Medical Education</strong>, aiming to bridge the gap between complex data and clinical utility.</p>
+            </div>
+        </header>
+
+        <section id="medical-education">
+            <h2>Medical Education Tools</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>Chest Pain Triage Game</h3>
+                    <p>An interactive simulation for healthcare providers to practice rapid triage and management of acute chest pain in the emergency department.</p>
+                    <a href="chestpaingame.html" class="btn">Launch Game</a>
+                </div>
+                <div class="tool-card">
+                    <h3>Headache ER Simulator</h3>
+                    <p>A clinical decision-making game focused on evaluating and managing secondary headaches in an emergency setting.</p>
+                    <a href="headache_er_game.html" class="btn">Launch Game</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="clinical-statistical">
+            <h2>Clinical & Statistical Tools</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <h3>ABG Analyzer</h3>
+                    <p>A comprehensive tool for interpreting Arterial Blood Gas results, including acid-base disorders and compensation patterns.</p>
+                    <a href="abg.html" class="btn">Open Tool</a>
+                </div>
+                <div class="tool-card">
+                    <h3>ASCVD Risk + Lp(a)</h3>
+                    <p>Calculate 10-year cardiovascular risk with the incorporation of Lipoprotein(a) levels for refined risk stratification.</p>
+                    <a href="ascvdrisklpa.html" class="btn">Open Tool</a>
+                </div>
+                <div class="tool-card">
+                    <h3>Bayesian Analysis Suite</h3>
+                    <p>A collection of tools for performing Bayesian inference, including probability updates and prior sensitivity analysis.</p>
+                    <a href="bayes.html" class="btn">Open Tool</a>
+                </div>
+                <div class="tool-card">
+                    <h3>Bayes Factor Calculator</h3>
+                    <p>Determine the strength of evidence for competing hypotheses using Bayes Factors.</p>
+                    <a href="bayesfactor.html" class="btn">Open Tool</a>
+                </div>
+                <div class="tool-card">
+                    <h3>Diabetes Risk & Management</h3>
+                    <p>Tools for assessing diabetes risk and optimizing therapeutic strategies for glucose control.</p>
+                    <a href="diabetes.html" class="btn">Open Tool</a>
+                </div>
+                <div class="tool-card">
+                    <h3>Gelman Type S/M Error Tool</h3>
+                    <p>Analyze Type S (Sign) and Type M (Magnitude) errors to understand the risks of overestimation in low-power studies.</p>
+                    <a href="gelmanerror.html" class="btn">Open Tool</a>
+                </div>
+                <div class="tool-card">
+                    <h3>MAF Calculator</h3>
+                    <p>A tool for calculating Minor Allele Frequency and exploring genetic associations in clinical research.</p>
+                    <a href="maf.html" class="btn">Open Tool</a>
+                </div>
+                <div class="tool-card">
+                    <h3>MIC Clinical Tool</h3>
+                    <p>Analyze Minimum Inhibitory Concentrations (MIC) for antimicrobial susceptibility testing and clinical decision support.</p>
+                    <a href="micapp.html" class="btn">Open Tool</a>
+                </div>
+                <div class="tool-card">
+                    <h3>Mounjaro (Tirzepatide) Insights</h3>
+                    <p>Clinical data visualization and dosing considerations for Tirzepatide (Mounjaro/Zepbound) based on the SURMOUNT trials.</p>
+                    <a href="mounjaros.html" class="btn">Open Tool</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Anupam Singh, MD. All tools are provided for educational and research purposes.</p>
+            <p><a href="agenticgrandrounds.html" style="color: #23455A; text-decoration: none; font-weight: bold;">View Agentic Grand Rounds</a></p>
+        </footer>
+    </div>
+</body>
+</html>
