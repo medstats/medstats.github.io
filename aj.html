@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinical Case Viva: Acute Jaundice (Hepatocellular vs Obstructive)</title>
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background-color: #f4f7f9;
+    }
+    .container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+    h1 {
+        color: #23455A;
+        border-bottom: 4px solid #9A4D33;
+        padding-bottom: 15px;
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+    .authors-box {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #D8CCC0;
+        padding-bottom: 20px;
+        color: #555;
+    }
+    .authors-box p {
+        margin: 5px 0;
+    }
+    .app-link {
+        color: #9A4D33;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .app-link:hover {
+        text-decoration: underline;
+    }
+    h3 {
+        background-color: #23455A;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 6px;
+        margin-top: 60px;
+        font-size: 1.8em;
+        box-shadow: 0 4px 12px rgba(35, 69, 90, 0.2);
+    }
+    .user-block {
+        background: #f9fbfd;
+        border: 1px solid #e1e8ed;
+        border-left: 8px solid #23455A;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .responses-grid {
+        display: flex;
+        gap: 25px;
+        margin-top: 20px;
+    }
+    .col {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    h4 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+        text-transform: uppercase;
+        padding: 10px 15px;
+        border-left: 6px solid;
+        border-radius: 4px;
+        letter-spacing: 1px;
+    }
+    .resident-header {
+        color: #5D6E42;
+        border-color: #5D6E42;
+        background-color: #E6ECD9;
+    }
+    .expert-header {
+        color: #9A4D33;
+        border-color: #9A4D33;
+        background-color: #F3E4DC;
+    }
+    .content {
+        background: #fff;
+        border: 1px solid #eee;
+        padding: 20px;
+        border-radius: 8px;
+        height: 100%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    strong {
+        color: #23455A;
+    }
+    .content p strong {
+        color: #1a1a1a;
+    }
+    .missing { color: #9a3412; font-style: italic; }
+    
+    @media (max-width: 900px) {
+      .responses-grid {
+          flex-direction: column;
+      }
+      .container {
+          padding: 20px;
+      }
+    }
+    
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; max-width: 100%; }
+      .round { break-inside: avoid; }
+      .responses-grid { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><strong>CLINICAL CASE VIVA: ACUTE JAUNDICE (HEPATOCELLULAR VS OBSTRUCTIVE)</strong></h1>
+    <div class="authors-box">
+        <p><strong>Authors: GEMINI, CHATGPT & ANUPAM SINGH MD (Human in loop)</strong></p>
+        <p>Department of Medicine, Santosh Medical College.</p>
+        <p><a href="https://chatgpt.com/g/g-6a042444a6a881918c86533c13e9dfc6-clinex-viva" target="_blank" class="app-link">Custom GPT for Viva</a> | <a href="https://notebooklm.google.com/notebook/25f56edd-7135-4c70-ae26-60f516eb80ca" target="_blank" class="app-link">Gemini Notebook for Viva</a></p>
+    </div>
+    
+<section class="round">
+  <h3>Round 1</h3>
+  <div class="user-block"><p><strong>USER:</strong> <strong>patient Kusum Devi<br>## Clinical History Summary<br>* **Patient Profile:** 69-year-old female, resident of Ghaziabad, house-wife, from a lower-middle-class background.<br>* **Chief Complaints:** Abdominal distension for 1 month, progressive worsening of distension over the last 10 days leading to abdominal discomfort, heaviness, and exertional/supine breathlessness. Generalized weakness, decreased appetite, and intermittent non-bilious, non-projectile vomiting (on and off) for 1 month. Yellowish discoloration of eyes and skin for 3 months.<br>* **Past Medical History:** Known case of Type 2 Diabetes Mellitus for 8 years (non-compliant with medications for the past 3 months). History of multiple hospital admissions. Discharged from GTB Hospital in November 2025 after undergoing two therapeutic ascetic taps. Later admitted to Santosh Medical College from November 17 to November 30, 2025, with a diagnosis of gross ascites, queried for tubercular etiology vs. peritoneal carcinomatosis.<br>* **Treatment History:** Started empirically on Anti-Tubercular Therapy (ATT) regimen (HRZE) in November 2025 based on low ADA exudative lymphocytic ascites findings. Lost to follow-up post-discharge, but continued taking ATT from a DOTS center.<br>* **Systemic &amp; Personal History:** Jaundice onset noted 3 months ago, gradually progressive. Sleep is disturbed due to abdominal discomfort and breathlessness. No history of smoking or alcohol use. No significant family history of TB, malignancy, or chronic illnesses. Obstetric history reveals two uneventful normal vaginal deliveries.<br>* **Negative History:** No history of fever, weight loss, cough with expectoration, hemoptysis, melena, hematemesis, fresh blood in stool, abdominal pain, chest pain, or burning micturition.<br>*<br><br>Show moreShow less</strong></p></div>
+  <div class="responses-grid">
+    <div class="col chatgpt-col">
+      <h4 class="expert-header">CHATGPT</h4>
+      <div class="content"><p>[PHASE 1 — HISTORY PRESENTATION</p>
+<p>I will assess this as a history presentation], then probe the diagnostic reasoning around ascites, jaundice, abdominal tuberculosis, malignancy, and chronic liver disease.</p>
+<p>[PHASE 1 — HISTORY PRESENTATION</p>
+<p>]<strong>Q1 What is your one-line provisional diagnosis from the history?</strong></p>
+<p><strong>MODEL_ANS1</strong> A 69-year-old diabetic female with progressive ascites, jaundice, anorexia, vomiting, prior exudative lymphocytic ascites, and empirical ATT is a case of ascites with jaundice—likely chronic liver disease/cirrhosis with ascites, with important differentials of tuberculous peritonitis and peritoneal carcinomatosis. Kundu notes that ascites with jaundice suggests chronic liver disease, while “only ascites” points toward peritoneal disease such as tuberculous or malignant peritonitis.</p>
+<p><strong>Q2 What are the common causes of ascites you must consider in this patient?</strong></p>
+<p><strong>MODEL_ANS2</strong> Common causes include cirrhosis of liver, tuberculous peritonitis, malignant peritonitis/peritoneal carcinomatosis, congestive cardiac failure, nephrotic syndrome, hypoproteinaemia, Budd–Chiari syndrome, pancreatic ascites, lymphoma/leukaemia, and constrictive pericarditis. Kundu lists cirrhosis, tuberculous and malignant peritonitis, and CCF as common community causes of ascites.</p>
+<p><strong>Q3 Which historical points are specifically important in a patient presenting with ascites?</strong></p>
+<p><strong>MODEL_ANS3</strong> Ask onset and progression, prior jaundice, haematemesis or melaena, alcoholism, fever, abdominal pain or tenderness, appetite loss, weight loss, cough or haemoptysis, facial or pedal swelling, respiratory distress, bowel habit change, oliguria, and prior tuberculosis. Kundu specifically recommends these points in the history of ascites.</p>
+<p><strong>Q4 Why is her breathlessness important in this history?</strong></p>
+<p><strong>MODEL_ANS4</strong> Breathlessness on exertion and supine breathlessness may occur from tense ascites mechanically limiting diaphragmatic movement; it may also suggest CCF, cor pulmonale, pericardial disease, pleural effusion, anaemia, or decompensated chronic liver disease. Kundu lists dyspnoea with ascites as a clue to tense ascites, CCF, or chronic cor pulmonale.</p>
+<p><strong>Q5 How would you clinically differentiate tuberculous ascites from cirrhotic ascites by history?</strong></p>
+<p><strong>MODEL_ANS5</strong> Tuberculous ascites is suggested by insidious onset, fever, abdominal pain/tenderness, anorexia, weight loss, cough/TB exposure, lymphadenopathy, and exudative lymphocytic ascites. Cirrhotic ascites is suggested by jaundice, haematemesis/melaena, features of portal hypertension, bleeding tendency, past hepatitis/alcohol/metabolic risk, and hypoalbuminaemia. Kundu states that pain/tenderness, fever, and lymphadenopathy suggest peritoneal disease/TB, while ascites with jaundice suggests chronic liver disease.</p>
+<p><strong>Q6 What ascitic fluid features support tuberculous peritonitis?</strong></p>
+<p><strong>MODEL_ANS6</strong> Tuberculous peritonitis usually has exudative ascites: straw-coloured/haemorrhagic/mucinous/chylous fluid, specific gravity &gt;1.016, protein &gt;3 g/dL, lymphocyte predominance, SAAG &lt;1.1 g/dL, possible AFB/PCR positivity, raised ADA, and confirmation by peritoneal biopsy under laparoscopy.</p>
+<p><strong>Q7 What ascitic fluid features support cirrhosis-related ascites?</strong></p>
+<p><strong>MODEL_ANS7</strong> Cirrhotic ascites is typically transudative: clear straw-coloured/light green/bile-stained fluid, specific gravity &lt;1.016, protein &lt;3 g/dL, cells &lt;250/mm³, negative Gram stain/culture, and SAAG ≥1.1 g/dL. Kundu also emphasizes that SAAG ≥1.1 g/dL suggests portal hypertension.</p>
+<p><strong>Q8 You mentioned “low ADA exudative lymphocytic ascites” but ATT was started. What is the issue here?</strong></p>
+<p><strong>MODEL_ANS8</strong> Lymphocytic exudative ascites supports TB as a possibility, but a low ADA weakens the diagnosis of tuberculous peritonitis. Kundu states that ADA is increased in tuberculous peritonitis and that confirmation is by AFB/culture/PCR or peritoneal biopsy under laparoscopy. Therefore, the history should explicitly document the actual ADA value, SAAG, cytology, microbiology, imaging, and whether biopsy was done before empirical ATT.</p>
+<p><strong>Q9 What features in the history would make you suspect peritoneal carcinomatosis?</strong></p>
+<p><strong>MODEL_ANS9</strong> Elderly age, anorexia, persistent vomiting, weight loss, rapid re-accumulation of ascites after therapeutic taps, haemorrhagic ascites, bowel habit change, GI bleeding, breast/ovarian/GI symptoms, pelvic symptoms, Virchow node history, and constitutional decline suggest malignancy. Kundu lists malignant peritonitis as an important cause of ascites, and Alagappan notes malignant disease as a cause of ascites with cytology/cell block/peritoneal biopsy useful in evaluation.</p>
+<p><strong>Q10 What historical details are required for jaundice in this patient?</strong></p>
+<p><strong>MODEL_ANS10</strong> Ask colour of urine, colour of stool, pruritus, fever with chills, abdominal pain/biliary colic, anorexia, nausea/vomiting, bleeding manifestations, drug exposure including ATT, blood transfusion/injections, viral hepatitis risk, alcohol, previous jaundice, and weight loss. Kundu describes obstructive jaundice with dark urine, pale stool, progressive or fluctuating jaundice, pruritus, xanthelasma/xanthoma, bleeding tendency, and possible palpable gallbladder.</p>
+<p><strong>Q11 Why is ATT history especially important in this case?</strong></p>
+<p><strong>MODEL_ANS11</strong> ATT history is critical because compliance, exact regimen, duration, missed doses, DOTS record, adverse effects, and drug-induced hepatitis must be assessed. Rifampicin and isoniazid can cause drug-induced hepatitis/cholestasis, so a patient with progressive jaundice on HRZE requires careful chronology of jaundice relative to ATT initiation. Kundu lists drug-induced hepatitis including rifampicin-INH combination among causes of liver dysfunction/jaundice.</p>
+<p><strong>Q12 What diabetic history is incomplete here?</strong></p>
+<p><strong>MODEL_ANS12</strong> You should add current antidiabetic medications, reason for non-compliance, glycaemic control, hypoglycaemia, diabetic nephropathy symptoms, infections, neuropathy, foot lesions, visual symptoms, and hospital records. Diabetes increases risk of infections including TB and worsens outcomes, and renal disease can contribute to oedema/ascites differentials such as nephrotic syndrome.</p>
+<p><strong>Q13 What important negative histories were well covered, and why do they matter?</strong></p>
+<p><strong>MODEL_ANS13</strong> You covered absence of fever, cough/haemoptysis, GI bleed, abdominal pain, chest pain, urinary symptoms, smoking, alcohol, TB/malignancy family history, and weight loss. These help narrow TB, malignancy, portal hypertension, GI bleeding, cardiac, urinary, and substance-related liver disease. Kundu emphasizes that both positive and important negative symptoms should be recorded in history taking.</p>
+<p><strong>Q14 What important details are still missing in personal, social, and occupational history?</strong></p>
+<p><strong>MODEL_ANS14</strong> You should add diet and protein intake, salt intake, overcrowding, TB contact, sanitation, drinking water, financial capacity for investigations/treatment, functional decline, dependence in daily activities, and exact occupational exposures. Kundu’s history proforma includes occupation, address, personal/social history, treatment history, and menstrual/obstetric history in women.</p>
+<p><strong>Q15 What final historical synthesis would you present before examination?</strong></p>
+<p><strong>MODEL_ANS15</strong> “This is a 69-year-old diabetic, non-alcoholic female with 3 months of progressive jaundice and 1 month of progressive abdominal distension causing discomfort and dyspnoea, with anorexia, weakness and intermittent vomiting; she had prior large-volume ascitic taps and exudative lymphocytic ascites for which empirical HRZE was started, but the aetiology remains unresolved—chronic liver disease with ascites, tuberculous peritonitis, and peritoneal carcinomatosis are the major differentials.” This is aligned with Kundu’s recommended chronological, problem-oriented presentation of chief complaints and history of present illness.</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>: You gave a clear patient profile, chief complaints with duration, chronology of abdominal distension and jaundice, associated anorexia/vomiting/weakness, dyspnoea due to distension, relevant past admissions, prior ascitic taps, empirical ATT history, diabetes with non-compliance, major relevant negatives, personal history, family history, and obstetric history.</p>
+<p><strong>⚠️ MISSING</strong>: The history needs sharper diagnostic detail: exact date of current admission; whether jaundice preceded ATT or worsened after ATT; urine/stool colour and pruritus; actual ascitic fluid report including SAAG, protein, cell count, ADA value, cytology, AFB/culture/PCR; weight loss quantification; bowel habit change; pelvic/ovarian symptoms; breast/GI malignancy screen; TB contact and overcrowding; drug doses and ATT adherence; diabetic medication details; renal/cardiac symptoms; and allergy history. Also correct the term to “ascitic taps,” not “ascetic taps.”</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>: Revise Kundu, Bedside Clinics in Medicine: Long Cases—history-taking format; Short Case—Ascites, especially causes, history points, SAAG, and ascitic fluid differentiation of cirrhosis versus tuberculosis. Also revise Alagappan, Manual of Practical Medicine: Abdomen—Ascites and Infectious Diseases—Gastrointestinal Tuberculosis.</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Obtained</p>
+<p>Examiner Comments</p>
+<p>Chief complaint + presenting features</p>
+<p>5</p>
+<p>4</p>
+<p>Main complaints and durations are clear; chronology needs exact current admission date and clearer relation of jaundice to ATT.</p>
+<p>History of presenting illness (onset, progression, severity)</p>
+<p>8</p>
+<p>6</p>
+<p>Good progression of distension and jaundice; missing stool/urine colour, pruritus, pain characterization, weight trend, bowel habit, and detailed dyspnoea grading.</p>
+<p>Relevant system review</p>
+<p>5</p>
+<p>3</p>
+<p>Good GI/respiratory negatives; needs structured hepatobiliary, cardiac, renal, pelvic, malignancy, and TB review.</p>
+<p>Relevant negatives</p>
+<p>4</p>
+<p>3.5</p>
+<p>Strong negatives for fever, GI bleed, cough/haemoptysis, alcohol, smoking, and urinary symptoms; weight loss and malignancy negatives need quantification.</p>
+<p>Past history, drug history, allergies</p>
+<p>4</p>
+<p>2.5</p>
+<p>Diabetes and ATT history included; drug doses, adherence, adverse effects, allergy history, and prior investigation details are incomplete.</p>
+<p>Family, social, occupational history</p>
+<p>4</p>
+<p>3</p>
+<p>Family and personal history covered; overcrowding, TB exposure, nutrition, sanitation, and financial/functional impact should be added.</p>
+<p>Total</p>
+<p>30</p>
+<p>22</p>
+<p>Good initial history with a clinically relevant differential, but not yet sufficiently discriminating between cirrhosis, abdominal TB, and malignancy.</p>
+<p>Phase 1 complete. Please now present the Physical Examination findings of your case.</p></div>
+    </div>
+    <div class="col gemini-col">
+      <h4 class="resident-header">GEMINI</h4>
+      <div class="content"><p>[PHASE 1 — HISTORY PRESENTATION</p>
+<p>]<strong>Q1 How do you interpret the chronological relationship between starting Anti-Tubercular Therapy (ATT) in November 2025 and the onset of jaundice 3 months later (around February 2026)?</strong><br><strong>MODEL_ANS1</strong> In a patient recently initiated on Anti-Tubercular Therapy, the development of gradually progressive jaundice within 1 to 3 months strongly indicates Drug-Induced Liver Injury (DILI) or drug-induced hepatitis. This is a well-documented serious complication of first-line antitubercular regimens containing hepatotoxic agents (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Jaundice).</p>
+<p><strong>Q2 Which specific components of the first-line ATT regimen (HRZE) are primarily responsible for hepatotoxicity, and which one is associated with the highest potential for severe dose-dependent liver injury?</strong><br><strong>MODEL_ANS2</strong> Isoniazid (INH), Rifampicin, and Pyrazinamide are the hepatotoxic drugs in the standard first-line regimen. Among these, Pyrazinamide is clinically considered to possess the highest dose-dependent hepatotoxic potential, while INH and Rifampicin frequently exhibit idiosyncratic or synergistic toxicity when administered together (Alagappan, Manual of Practical Medicine, Abdomen, Section on Hepatocellular Jaundice).</p>
+<p><strong>Q3 Your history notes that the patient was previously found to have exudative lymphocytic ascites but with a low Adenosine Deaminase (ADA) level. How does this low ADA level impact your clinical reasoning regarding tuberculous peritonitis versus peritoneal carcinomatosis?</strong><br><strong>MODEL_ANS3</strong> Tuberculous peritonitis characteristically presents with an exudative, lymphocytic fluid accompanied by an elevated ADA level. Finding a low ADA level in an elderly patient with exudative lymphocytic ascites significantly reduces the likelihood of tuberculosis and strongly shifts the differential diagnosis toward peritoneal carcinomatosis or abdominal malignancy (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Ascites).</p>
+<p><strong>Q4 In a 69-year-old female presenting with gross ascites highly suspicious for peritoneal carcinomatosis, which primary malignancies should be prioritized during historical screening and subsequent evaluation?</strong><br><strong>MODEL_ANS4</strong> In an elderly female presenting with peritoneal carcinomatosis, the most common primary site is ovarian carcinoma. Other prominent primary sources include gastrointestinal malignancies (stomach, colon, gallbladder, pancreas) and advanced breast carcinoma (Alagappan, Manual of Practical Medicine, Abdomen, Section on Jaundice/Ascites).</p>
+<p><strong>Q5 Why is it necessary to explicitly ask about a history of abdominal pain in a patient with progressive abdominal distension, and what does its absence signify in Kusum Devi&#x27;s case?</strong><br><strong>MODEL_ANS5</strong> Abdominal pain and local tenderness are primary historical markers for acute or active inflammatory and infectious peritonitis (e.g., tuberculous peritonitis, spontaneous bacterial peritonitis, or acute pancreatitis). Its total absence in this patient renders active inflammatory peritonitis less likely and guides the clinician toward painless causes of fluid collection, such as liver cirrhosis, nephrotic syndrome, or non-inflammatory malignant peritoneal seeding (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Ascites).</p>
+<p><strong>Q6 The patient complains of breathlessness that worsens significantly in the supine position (orthopnea). What is the mechanical mechanism behind orthopnea in a case of gross ascites in the absence of primary cardio-respiratory disease?</strong><br><strong>MODEL_ANS6</strong> Massive free fluid accumulation within the peritoneal cavity causes continuous mechanical elevation of the diaphragm. When the patient assumes a supine position, the gravity-dependent shift of abdominal fluid further forces the diaphragm cephalad into the thoracic cavity, reducing resting lung volumes (functional residual capacity), compromising pulmonary compliance, and vastly increasing the metabolic work of breathing, which clinically manifests as orthopnea (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Ascites).</p>
+<p><strong>Q7 The patient has an 8-year history of Type 2 Diabetes Mellitus and has been non-compliant with oral medications for the past 3 months. How does poorly controlled diabetes mellitus impact a patient&#x27;s immunological susceptibility to tuberculosis?</strong><br><strong>MODEL_ANS7</strong> Uncontrolled or poorly controlled diabetes mellitus directly impairs cell-mediated immunity, macrophage phagocytic function, and chemotaxis. This markedly increases the risk of acquiring new Mycobacterium tuberculosis infections or causes the reactivation of latent foci, often leading to more aggressive, non-resolving, or atypical clinical presentations (Kundu, Bedside Clinics in Medicine, Part II, Long Cases, Section on Diabetes Mellitus).</p>
+<p><strong>Q8 Could the patient&#x27;s non-compliance with her diabetic treatment over the last 3 months contribute directly to her progressive liver dysfunction independent of her ATT intake?</strong><br><strong>MODEL_ANS8</strong> Yes. In patients with Type 2 Diabetes Mellitus, chronic severe hyperglycemia and insulin resistance accelerate hepatic free fatty acid influx, driving the progression of non-alcoholic fatty liver disease (NAFLD) to non-alcoholic steatohepatitis (NASH). Advanced NASH can culminate in macronodular or cryptogenic cirrhosis, leading to hepatic decompensation presenting as jaundice and ascites (Alagappan, Manual of Practical Medicine, Abdomen, Section on Non-alcoholic Fatty Liver Disease).</p>
+<p><strong>Q9 The patient reports intermittent non-bilious, non-projectile vomiting for 1 month. How do you interpret this symptom in the concurrent presence of gross ascites and progressive jaundice?</strong><br><strong>MODEL_ANS9</strong> Intermittent vomiting in this clinical context can be attributed to three distinct mechanisms: 1) Direct mechanical compression of the stomach and duodenum by the massive volume of ascitic fluid, causing early satiety and delayed gastric emptying; 2) Systemic accumulation of metabolic toxins (hepatic or uremic) secondary to progressive organ dysfunction; or 3) Direct gastrointestinal side effects and systemic toxicity induced by the daily ingestion of ATT (Alagappan, Manual of Practical Medicine, Abdomen, Section on Acute Alcohol Hepatitis / Fatty Liver).</p>
+<p><strong>Q10 You noted a negative history of fever and weight loss. Why is this negative history critical when evaluating an elderly patient with suspected tuberculosis or malignancy?</strong><br><strong>MODEL_ANS10</strong> Constitutional features like high fever and profound weight loss are classical hallmarks of active systemic tuberculosis and advanced malignancies. However, elderly individuals frequently present with &quot;cryptic&quot; or atypical variants (such as cryptic miliary tuberculosis or slow-growing neoplasms) where these standard systemic signs are entirely absent, requiring clinicians to maintain high suspicion based purely on localized features like ascites (Alagappan, Manual of Practical Medicine, Infectious Diseases, Section on Cryptic Miliary Tuberculosis).</p>
+<p><strong>Q11 Kusum Devi is 69 years old. How does advanced age alter the risk profile and drug metabolism of first-line anti-tubercular therapy?</strong><br><strong>MODEL_ANS11</strong> Advanced age (typically over 50–60 years) is an independent risk factor for anti-tubercular drug-induced hepatotoxicity. This is due to an age-associated physiological decline in hepatic blood flow, decreased cytochrome P450 enzyme activity, and slower drug acetylation/clearance rates, which prolongs drug half-lives and increases toxic metabolite exposure (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Jaundice).</p>
+<p><strong>Q12 Why must a clinician routinely query a patient presenting with progressive jaundice for a history of past blood transfusions, tattooing, or high-risk behaviors?</strong><br><strong>MODEL_ANS12</strong> These specific historical queries screen for potential exposure to parenterally transmitted viral pathogens, predominantly Hepatitis B Virus (HBV) and Hepatitis C Virus (HCV). Both infections are major global causes of chronic active hepatitis, progressive hepatic cirrhosis, and hepatocellular carcinoma, all of which clinically manifest with decompensated jaundice and ascites (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Jaundice).</p>
+<p><strong>Q13 How can you historically attempt to differentiate whether her current worsening jaundice and abdominal distension are due to a malignant progression of a peritoneal carcinomatosis versus an overlay of drug-induced liver injury?</strong><br><strong>MODEL_ANS13</strong> A history of rapid onset of severe anorexia, persistent nausea, and icterus shortly following the introduction of ATT heavily favors a drug-induced etiology. Conversely, a history of unrelenting progressive abdominal fullness, a palpable hard abdominal or shelf-like mass, or a failure of the jaundice to resolve after a temporary cessation of ATT would favor primary malignant progression (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Jaundice).</p>
+<p><strong>Q14 The patient underwent two therapeutic ascitic taps in November 2025. What specific complications related to repeated therapeutic paracentesis should you screen for in the history?</strong><br><strong>MODEL_ANS14</strong> Repeated large-volume therapeutic paracentesis without adequate volume expansion can precipitate: 1) Paracentesis-Induced Circulatory Dysfunction (PICD), leading to functional renal impairment or hepatorenal syndrome; 2) Introduction of secondary pyogenic pathogens causing nosocomial peritonitis; and 3) Exacerbation of systemic protein depletion (hypoalbuminemia), which lowers intravascular oncotic pressure and ironically accelerates fluid re-accumulation (Alagappan, Manual of Practical Medicine, Abdomen, Section on Refractory Ascites).</p>
+<p><strong>Q15 Given her 8-year history of Type 2 Diabetes Mellitus, how would you historically differentiate between primary hepatic/peritoneal ascites versus generalized edema secondary to diabetic nephropathy (nephrotic syndrome) or diabetic cardiomyopathy?</strong><br><strong>MODEL_ANS15</strong> The site of origin and progression of swelling are key indicators. Diabetic nephropathy typically presents as renal edema, which characteristically begins as early morning periorbital/facial puffiness. Diabetic cardiomyopathy presents with cardiac edema, starting as dependent pedal edema associated with early orthopnea or paroxysmal nocturnal dyspnea (PND). Conversely, hepatic or peritoneal diseases present as ascites praecox, where abdominal distension significantly precedes or is out of proportion to lower limb swelling (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Ascites).</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>:</p>
+<p>Detailed chronological logging of multiple prior hospitalizations (GTB Hospital, Santosh Medical College) and therapeutic paracentesis.</p>
+<p>Accurate recording of medical histories including long-standing Type 2 Diabetes Mellitus and empirical anti-tubercular treatment (ATT).</p>
+<p>Comprehensive negative history covering important systemic indicators (melena, hematemesis, fever, weight loss).</p>
+<p><strong>⚠️ MISSING</strong>:</p>
+<p>Specific characterization of the jaundice (e.g., presence or absence of dark-colored mustard oil-like urine, clay-colored stools, or generalized pruritus to differentiate hepatocellular from obstructive variants).</p>
+<p>Mention of any known history of allergies or adverse reactions to previous medications.</p>
+<p>Specific quantification of weight changes or specific changes in urinary output (oliguria) prior to or during the worsening of distension.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>:<br>Refer to Kundu&#x27;s Bedside Clinics in Medicine, Part II (Short Cases on Jaundice and Ascites) to refine the structured approach to cross-examining features of hepatic decompensation versus drug-induced toxicities, paying specific attention to the historical differentiation of transudates and exudates.</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Awarded</p>
+<p>Chief complaint + presenting features</p>
+<p>5</p>
+<p>5.0</p>
+<p>History of presenting illness (onset, progression, severity)</p>
+<p>8</p>
+<p>7.0</p>
+<p>Relevant system review</p>
+<p>5</p>
+<p>4.0</p>
+<p>Relevant negatives</p>
+<p>4</p>
+<p>4.0</p>
+<p>Past history, drug history, allergies</p>
+<p>4</p>
+<p>3.5</p>
+<p>Family, social, occupational history</p>
+<p>4</p>
+<p>4.0</p>
+<p>Total Score</p>
+<p>30</p>
+<p>27.5 / 30</p>
+<p>Please proceed to <strong>PHASE 2 — PHYSICAL EXAMINATION PRESENTATION when you are ready</strong>. Present the detailed general and system-specific physical examination findings of your case.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="round">
+  <h3>Round 2</h3>
+  <div class="user-block"><p><strong>USER:</strong> <strong>Physical Examination Findings<br>(Examined post-paracentesis of 6 liters of ascitic fluid)<br>General Parameters: Patient is conscious, oriented, thin-built (BMI: 14.1 kg/m^2). Mild icterus is present; no pallor, cyanosis, clubbing, generalized lymphadenopathy, or pedal edema.<br>Vitals: Pulse: 78 bpm; BP: 110/60 mmHg; RR: 19/min; SpO_2: 98% on room air; Afebrile.<br>Stigmata of Chronic Liver Disease: No parotid swelling, alopecia, spider naevi, palmar erythema, Dupuytren&#x27;s contracture, or flapped tremors (asterixis).<br>Abdomen Inspection &amp; Palpation: * Uniformly distended with flank fullness, everted umbilicus, and stretched skin with striae albicantes. Abdomen is soft, non-tender. Hernial sites are intact.<br>Abdominal Mass/Lump: A palpable, hard, non-pulsatile, immobile 2 \times 4 cm globular lump is noted in the left lumbar region, roughly 3 cm below the umbilicus, moving slightly with respiration. (Note: This finding is subject to ongoing clinical validation between medical teams, as it was noted on recent physical exam but not explicitly discrete on standard transabdominal ultrasound).<br>Organomegaly: Liver span is 12 cm (firm, non-pulsatile, smooth edge). Spleen and gallbladder are not palpable.<br>Percussion &amp; Auscultation: Tympanic note throughout except dullness over the left lumbar lump. Shifting dullness remains positive despite recent fluid drainage. Normal bowel sounds are present (4–5/minute).<br><br>Show moreShow less</strong></p></div>
+  <div class="responses-grid">
+    <div class="col chatgpt-col">
+      <h4 class="expert-header">CHATGPT</h4>
+      <div class="content"><p>[PHASE 2 — PHYSICAL EXAMINATION PRESENTATION</p>
+<p>]<strong>Q1 What are the clinical findings in your examination that support ascites?</strong></p>
+<p><strong>MODEL_ANS1</strong> Ascites is supported by generalized abdominal distension, flank fullness, stretched shiny skin, everted or flushed umbilicus, abdominal striae, fluid thrill if present, and especially shifting dullness. Kundu states that the bedside confirmation of ascites is shifting dullness, with fullness of flanks, everted umbilicus, fluid thrill, and abdominal girth around the umbilicus as important signs.</p>
+<p><strong>Q2 Why can shifting dullness remain positive even after 6 litres of paracentesis?</strong></p>
+<p><strong>MODEL_ANS2</strong> Shifting dullness needs approximately ½–1 litre of free fluid to be clinically demonstrable; therefore, if residual ascites exceeds this amount, it may remain positive after therapeutic tapping. Kundu also emphasizes that shifting dullness has good bedside sensitivity and specificity for free intraperitoneal fluid.</p>
+<p><strong>Q3 How would you grade ascites clinically in this patient post-paracentesis?</strong></p>
+<p><strong>MODEL_ANS3</strong> Post-paracentesis, if ascites is still clinically obvious but not tense, it would be moderate ascites. Alagappan grades ascites as: + detectable only by careful examination, ++ easily detectable but small volume, +++ obvious but not tense, and ++++ tense ascites.</p>
+<p><strong>Q4 What is the significance of striae albicantes and an everted umbilicus?</strong></p>
+<p><strong>MODEL_ANS4</strong> Striae albicantes suggest chronic stretching or recent reduction in abdominal girth after fluid removal, and an everted/flushed umbilicus with a transverse slit supports ascites. Kundu notes that long-standing ascites is recognized by striae albicantes, divarication of recti, umbilical hernia, and puncture marks.</p>
+<p><strong>Q5 What physical findings should you actively look for to determine the cause of ascites?</strong></p>
+<p><strong>MODEL_ANS5</strong> Look for Virchow’s gland, skin changes of hepatocellular failure, engorged or pulsatile neck veins, prominent abdominal veins, Sister Joseph nodule, non-pitting edema, splenomegaly, hepatomegaly, tenderness, and perform rectal and vaginal examination. Kundu lists these as important physical findings for etiological diagnosis in ascites.</p>
+<p><strong>Q6 Does absence of spider naevi, palmar erythema, Dupuytren’s contracture, and asterixis rule out cirrhosis?</strong></p>
+<p><strong>MODEL_ANS6</strong> No. Their absence reduces clinical evidence of advanced hepatocellular failure, but cirrhosis may still be present. Kundu lists loss of flesh, jaundice, spider naevi, palmar erythema, leukonychia, clubbing, alopecia, Dupuytren’s contracture, bleeding manifestations, fetor hepaticus, encephalopathy, ascites, and edema as features of hepatocellular failure.</p>
+<p><strong>Q7 What does mild icterus with ascites suggest etiologically?</strong></p>
+<p><strong>MODEL_ANS7</strong> Ascites with jaundice suggests chronic liver disease such as cirrhosis, whereas isolated ascites without systemic signs suggests peritoneal disease such as tuberculous or malignant peritonitis. Kundu specifically states that ascites with jaundice is a clinical clue toward chronic liver disease.</p>
+<p><strong>Q8 How should an abdominal lump be described in a case presentation?</strong></p>
+<p><strong>MODEL_ANS8</strong> Describe site, size, shape, overlying skin, consistency, margin, surface, mobility, tenderness, movement with respiration, whether parietal or intra-abdominal, pulsatility, bimanual palpability, and ballottability. Kundu gives these exact parameters for describing an abdominal lump.</p>
+<p><strong>Q9 Your patient has a hard, immobile left lumbar lump. What bedside tests should you do next?</strong></p>
+<p><strong>MODEL_ANS9</strong> You should decide whether it is parietal or intra-abdominal by rising test or leg-lifting test; assess whether you can get above or below it; check surface, margins, tenderness, mobility, movement with respiration, pulsatility by two-finger test, and bimanual palpability/ballottability. Kundu states that the first aim in an abdominal lump is to decide the organ of origin and pathological nature.</p>
+<p><strong>Q10 What are the likely anatomical sources of a left lumbar mass?</strong></p>
+<p><strong>MODEL_ANS10</strong> A left lumbar mass may arise from the left kidney/adrenal, left ureter, descending colon, retroperitoneal nodes, peritoneum/omentum, or adjacent bowel. Kundu lists the left lumbar region contents as left kidney and adrenal, left ureter, and descending colon.</p>
+<p><strong>Q11 How do you distinguish a renal lump clinically?</strong></p>
+<p><strong>MODEL_ANS11</strong> A renal lump is usually bimanually palpable and ballottable, may move slightly with respiration, and may have a band of colonic resonance over it. Kundu states that a kidney lump is bimanually palpable and ballottable because it is a posterior abdominal organ.</p>
+<p><strong>Q12 How do you interpret a firm smooth liver span of 12 cm in this context?</strong></p>
+<p><strong>MODEL_ANS12</strong> A firm liver may suggest cirrhosis, chronic congestion, infiltrative disease, or chronic infection; hard or nodular liver would raise suspicion for malignancy. Kundu notes that points to describe in a palpable liver include size/span, consistency, tenderness, surface, margin, movement with respiration, pulsation, hepatic bruit, and hepatic rub; firm liver favors cirrhosis, while hard tender liver favors malignancy.</p>
+<p><strong>Q13 Why is it important to mention spleen, abdominal veins, and JVP in this case?</strong></p>
+<p><strong>MODEL_ANS13</strong> Splenomegaly and prominent abdominal veins support portal hypertension; raised or pulsatile JVP suggests CCF, pericardial effusion, or constrictive pericarditis. Kundu lists splenomegaly as favoring portal hypertension and engorged pulsatile neck veins as clues to cardiac or pericardial causes of ascites.</p>
+<p><strong>Q14 What is the significance of normal bowel sounds in this patient?</strong></p>
+<p><strong>MODEL_ANS14</strong> Normal bowel sounds make paralytic ileus and peritonitis less likely clinically, though they do not exclude malignancy or tuberculous peritonitis. Kundu describes normal bowel sounds as intermittent gurgles every 5–10 seconds, while peritonitis or paralytic ileus causes a silent abdomen.</p>
+<p><strong>Q15 What additional examinations are mandatory before finalizing the clinical impression?</strong></p>
+<p><strong>MODEL_ANS15</strong> You should perform and document JVP, abdominal vein direction, fluid thrill, abdominal girth, PR examination, PV examination, breast examination, Virchow node, Sister Joseph nodule, respiratory examination for hydrothorax/basal collapse, and CVS examination for cardiac ascites. Kundu specifically states that PR and PV examinations should be done in ascites and that rectal/vaginal examination helps detect rectal or pelvic malignancy.</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>: You presented the examination in a structured way with post-paracentesis context, vitals, nutritional status, icterus, absence of pallor/cyanosis/clubbing/lymphadenopathy/edema, absence of major stigmata of chronic liver disease, abdominal inspection findings, palpation findings, liver span, non-palpable spleen/gallbladder, shifting dullness, and bowel sounds. The left lumbar hard lump was described with site, size, consistency, pulsatility, mobility, and relation to respiration, which is clinically important.</p>
+<p><strong>⚠️ MISSING</strong>: JVP was not documented, though it is essential in ascites to exclude cardiac/pericardial causes. Abdominal veins and direction of flow were not mentioned. Fluid thrill, abdominal girth, spino-umbilical distances, divarication of recti, paracentesis puncture marks, Sister Joseph nodule, Virchow node specifically, breast examination, PR and PV examination were not included. The left lumbar lump needs further bedside characterization: parietal versus intra-abdominal, getting above/below it, surface, margins, tenderness, ballottability, bimanual palpability, colonic resonance, and two-finger test for pulsatility. Respiratory examination for hydrothorax/basal collapse and CVS examination for cardiac ascites should also be added.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>: Revise Kundu, Bedside Clinics in Medicine: Short Case—Ascites, especially bedside diagnosis, etiological clues, shifting dullness, abdominal measurements, and PR/PV examination. Also revise Kundu: Abdominal Lump—description and localization of a mass. Revise Alagappan: Abdomen—general examination, signs of liver cell failure, inspection, percussion, auscultation, and ascites grading.</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Obtained</p>
+<p>Examiner Comments</p>
+<p>General examination (vitals, built, stigmata, JVP, edema)</p>
+<p>8</p>
+<p>6.5</p>
+<p>Good vitals, BMI, icterus, edema, lymph nodes, and liver stigmata; JVP, hydration, scratch marks, leukonychia, Virchow node specifically, and functional/cachexia assessment need documentation.</p>
+<p>System-specific examination (inspection, palpation, percussion, auscultation)</p>
+<p>14</p>
+<p>10.5</p>
+<p>Good abdominal inspection, palpation, liver, spleen/gallbladder, shifting dullness, and bowel sounds. Missing abdominal veins, fluid thrill, girth, percussion map, PR/PV, respiratory/CVS correlation, and full characterization of the lump.</p>
+<p>Accurate grading/interpretation of findings</p>
+<p>8</p>
+<p>5.5</p>
+<p>Correctly identified residual ascites and a clinically significant hard left lumbar lump; interpretation should better distinguish cirrhotic ascites, tuberculous peritonitis, peritoneal carcinomatosis, renal/colonic/omental mass, and cardiac causes.</p>
+<p>Total</p>
+<p>30</p>
+<p>22.5</p>
+<p>Strong bedside structure, but the etiological examination of ascites and characterization of the abdominal lump are incomplete.</p>
+<p>Phase 2 complete. Please now give your integrated case summary.</p></div>
+    </div>
+    <div class="col gemini-col">
+      <h4 class="resident-header">GEMINI</h4>
+      <div class="content"><p>[PHASE 2 — PHYSICAL EXAMINATION PRESENTATION</p>
+<p>]<strong>Q1 The patient&#x27;s BMI is 14.1 kg/m², indicating severe wasting or cachexia. How do you clinically differentiate between malignant cachexia and cachexia secondary to chronic deep-seated infections like tuberculosis?</strong><br><strong>MODEL_ANS1</strong> Malignant cachexia and tubercular cachexia are both driven by pro-inflammatory cytokine cascades (TNF-alpha, IL-1, IL-6). Tubercular cachexia is characteristically accompanied by a chronic low-grade evening rise of temperature and night sweats, whereas malignant cachexia is typically relentless, profound, and often out of proportion to the apparent tumor burden or dietary intake, occurring in an afebrile state as seen in this patient (Kundu, Bedside Clinics in Medicine, Part I, General Examination, Section on Nutrition and Build).</p>
+<p><strong>Q2 You noted the absence of peripheral stigmata of chronic liver disease (such as spider naevi or palmar erythema). If this patient&#x27;s ascites and jaundice were due to advanced macro- or micronodular liver cirrhosis, why might these stigmata be absent or less prominent in an elderly postmenopausal female?</strong><br><strong>MODEL_ANS2</strong> Peripheral stigmata like spider naevi and palmar erythema depend on hyperestrogenism resulting from impaired hepatic metabolism of circulating steroids. In elderly postmenopausal females, baseline ovarian estrogen production has physiological ceased, meaning circulating estrogen levels are extremely low, making these classic hyperestrogenic cutaneous stigmata minimal or entirely absent even in advanced decompensated cirrhosis (Alagappan, Manual of Practical Medicine, Abdomen, Section on Signs of Liver Cell Failure).</p>
+<p><strong>Q3 You reported a palpable 2 x 4 cm hard globular lump in the left lumbar region moving slightly with respiration. What clinical maneuver can you perform at the bedside to differentiate whether this lump is located within the abdominal cavity (intra-abdominal) or inside the abdominal wall musculature (parietal)?</strong><br><strong>MODEL_ANS3</strong> Carnett&#x27;s test (or the head-raising/leg-raising test) is performed. The patient is asked to tense the abdominal wall muscles by lifting their head or legs off the bed while the examiner palpates the mass. If the mass remains palpable or becomes more prominent, it is located within the parietal abdominal wall. If it becomes impalpable or obscured, it is an intra-abdominal mass (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Palpation of Abdominal Mass).</p>
+<p><strong>Q4 Why does an intra-abdominal lump in the left lumbar or umbilical region move slightly with respiration, and what anatomical structures or pathological presentations does this point towards?</strong><br><strong>MODEL_ANS4</strong> Typically, masses directly attached to diaphragmatic organs (liver, spleen) move prominently with respiration. However, a hard lump in the lumbar/periumbilical region that moves slightly with respiration often points toward a primary or secondary peritoneal nodule, or an omental deposit (&quot;omental cake&quot;) from peritoneal carcinomatosis, which undergoes passive mechanical displacement during diaphragmatic descent and intra-abdominal pressure changes (Alagappan, Manual of Practical Medicine, Abdomen, Section on Regions of Abdomen and Palpation).</p>
+<p><strong>Q5 The lump is described as &quot;hard&quot; in consistency. What does a hard, stony, or nodular consistency of an abdominal lump typically imply in clinical semiology compared to a firm consistency?</strong><br><strong>MODEL_ANS5</strong> A hard or stony consistency is highly characteristic of primary or metastatic malignant neoplastic infiltration. In contrast, inflammatory conditions (such as a tubercular plastron, ileocecal mass, or amoebic granuloma) typically yield a firm, rubbery, and frequently tender mass with ill-defined borders (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Examination of an Abdominal Mass).</p>
+<p><strong>Q6 You noted that shifting dullness remains positive even after the recent therapeutic paracentesis of 6 liters of fluid. What is the minimum volume of free intraperitoneal fluid required to clinically elicit shifting dullness, and what does its persistence after a large tap signify?</strong><br><strong>MODEL_ANS6</strong> A minimum volume of approximately 500 mL to 1000 mL of free intraperitoneal fluid is required to clear the flanks and elicit shifting dullness. Its persistence immediately after a 6-liter tap indicates that the patient had gross, massive ascites (totaling 7–8 liters or more) or is experiencing exceptionally rapid fluid re-accumulation, classic for high-turnover exudative malignant states or severe portal hypertension (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Ascites).</p>
+<p><strong>Q7 If shifting dullness is negative but you still suspect a minor volume of free intraperitoneal fluid (e.g., 100–150 mL), which clinical sign can you perform to detect it on examination?</strong><br><strong>MODEL_ANS7</strong> The &quot;puddle sign&quot; can be performed. The patient is placed in the knee-chest position for several minutes to allow free fluid to pool in the most dependent periumbilical zone. The examiner percusses or auscultates the transmitted vibrations of a finger flick across the dependent area. This technique can detect as little as 120 mL of free fluid (Alagappan, Manual of Practical Medicine, Abdomen, Section on Percussion for Ascites).</p>
+<p><strong>Q8 You noted a liver span of 12 cm with a firm, smooth edge. What is the normal physiological range for liver span in an adult female, and what is the pathological interpretation of a firm liver edge?</strong><br><strong>MODEL_ANS8</strong> The normal liver span in adult females ranges from 8 to 11 cm; thus, 12 cm represents mild hepatomegaly. A firm liver edge indicates an increased deposition of connective tissue, cellular infiltration, or chronic venous congestion, commonly seen in early cirrhosis, non-alcoholic steatohepatitis (NASH), chronic active hepatitis, or early neoplastic infiltration (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Hepatomegaly).</p>
+<p><strong>Q9 Why is it crucial to check whether a enlarged or palpable liver is &quot;pulsatile&quot; during abdominal examination, and what does a pulsatile liver signify?</strong><br><strong>MODEL_ANS9</strong> Checking for a pulsatile liver is essential to rule out systemic cardiovascular causes of hepatic congestion. A truly pulsatile liver signifies the direct transmission of elevated right atrial pressure waves down the inferior vena cava and hepatic veins, which is pathognomonic for severe tricuspid regurgitation or advanced congestive cardiac failure (Alagappan, Manual of Practical Medicine, Abdomen, Section on Causes of Pulsatile Liver).</p>
+<p><strong>Q10 You noted that there is no generalized lymphadenopathy. In an elderly female with suspected peritoneal carcinomatosis originating from a pelvic or gastrointestinal tract malignancy, which specific regional or sentinel lymph node stations must be meticulously searched for?</strong><br><strong>MODEL_ANS10</strong> The left supraclavicular lymph node station (Virchow’s node, demonstrating Troisier’s sign) and the periumbilical lymph nodes (Sister Mary Joseph’s nodule) must be meticulously examined. Virchow&#x27;s node receives abdominal lymphatic drainage via the thoracic duct, while periumbilical nodes reflect subperitoneal lymphatic seeding from pelvic or GI tract adenocarcinomas (Kundu, Bedside Clinics in Medicine, Part I, General Examination, Section on Lymphadenopathy).</p>
+<p><strong>Q11 Flapping tremors (asterixis) were absent. Describe the correct clinical methodology to elicit asterixis, and explain what its sudden appearance would signify in this patient.</strong><br><strong>MODEL_ANS11</strong> The patient is asked to extend both arms forward, hyperextend the wrists, separate the fingers, and hold the position with eyes closed for 30–60 seconds. Asterixis appears as brief, arrhythmic, involuntary lapses of posture (flaps). Its appearance would signify advanced metabolic encephalopathy, most commonly hepatic encephalopathy (Grade II or higher) in this context, or severe uremia/hypercapnia (Kundu, Bedside Clinics in Medicine, Part I, General Examination, Section on Tremors).</p>
+<p><strong>Q12 You found mild icterus on general examination. Where is icterus best examined clinically, and what is the biochemical threshold of total serum bilirubin at which icterus becomes clinically detectable to the human eye?</strong><br><strong>MODEL_ANS12</strong> Icterus is best examined in natural daylight over the upper bulbar conjunctiva while the patient looks downward. It can also be appreciated on the blanchable skin of the palms, the ventral surface of the tongue, and the hard palate. It becomes clinically apparent only when the total serum bilirubin level rises above 2 to 2.5 mg/dL (Alagappan, Manual of Practical Medicine, Abdomen, Section on Jaundice).</p>
+<p><strong>Q13 In an elderly diabetic female presenting with progressive jaundice and a hard abdominal mass, why is it essential to evaluate for Courvoisier&#x27;s Law, and what does this law dictate?</strong><br><strong>MODEL_ANS13</strong> Courvoisier&#x27;s Law states that in a patient with progressive obstructive jaundice, if the gallbladder is palpably enlarged, the obstruction is unlikely to be due to a gallstone because chronic cholelithiasis causes gallbladder fibrosis and prevents distension. Instead, it points to neoplastic biliary tract obstruction (e.g., carcinoma of the head of the pancreas or periampullary tumor). Evaluating this helps differentiate stone disease from malignant biliary tract compression (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Jaundice).</p>
+<p><strong>Q14 You noted that the spleen is not palpable. If this patient&#x27;s gross ascites and hepatic firmness were caused purely by portal hypertension secondary to advanced macronodular cirrhosis, what additional vascular and splenic physical findings would you expect?</strong><br><strong>MODEL_ANS14</strong> One would expect to find splenomegaly (resulting from chronic passive venous congestion) and signs of collateral portosystemic circulation, such as dilated, engorged superficial abdominal wall veins radiating from the umbilicus with a direction of blood flow away from the umbilicus (caput medusae) (Kundu, Bedside Clinics in Medicine, Part II, Short Cases, Section on Portal Hypertension).</p>
+<p><strong>Q15 The patient has stretched abdominal skin with &quot;striae albicantes.&quot; What is the clinical difference between striae albicantes and striae purpureae, and what do striae albicantes signify in this patient?</strong><br><strong>MODEL_ANS15</strong> Striae albicantes are white, silvery lines resulting from rapid mechanical stretching of the dermis and rupture of elastic fibers followed by scar formation, common in gross ascites or obesity. Striae purpureae are wide, violaceous/purplish bands characteristic of Cushing&#x27;s syndrome, caused by glucocorticoid-mediated protein catabolism. In this patient, striae albicantes confirm chronic, severe mechanical abdominal wall distension (Alagappan, Manual of Practical Medicine, General Examination, Section on Skin Stigmata).</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>:</p>
+<p>Rigorous verification of vitals and detailed screening for peripheral stigmata of chronic liver disease (CLD).</p>
+<p>Comprehensive description of abdominal status including contour, flank fullness, umbilical status, and liver span quantification.</p>
+<p>Strategic post-paracentesis assessment which optimizes the accessibility of abdominal structures during palpation.</p>
+<p><strong>⚠️ MISSING</strong>:</p>
+<p>Measurement and recording of Jugular Venous Pressure (JVP), which is crucial to completely rule out a right-sided cardiac etiology for gross ascites.</p>
+<p>Explicit mention of the presence or absence of dilated superficial abdominal veins and the determination of their direction of blood flow.</p>
+<p>Digital Rectal Examination (DRE) or Pelvic Examination (PV) findings, which are mandatory when evaluating an elderly female for suspected peritoneal carcinomatosis secondary to ovarian or GI tract malignancies.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>:<br>Refer to Alagappan&#x27;s Manual of Practical Medicine (Chapter 6: Abdomen, Section on Clinical Examination) and Kundu&#x27;s Bedside Clinics in Medicine, Part II to standardize the physical approach to differentiating intra-abdominal masses and mapping collateral circulations.</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Awarded</p>
+<p>General examination (vitals, built, stigmata, JVP, edema)</p>
+<p>8</p>
+<p>7.0</p>
+<p>System-specific examination (inspection, palpation, percussion, auscultation)</p>
+<p>14</p>
+<p>13.0</p>
+<p>Accurate grading/interpretation of findings</p>
+<p>8</p>
+<p>7.0</p>
+<p>Total Score</p>
+<p>30</p>
+<p>27.0 / 30</p>
+<p>Phase 2 complete. Please now give your integrated case summary.</p></div>
+    </div>
+  </div>
+</section>
+
+  </div>
+</body>
+</html>
