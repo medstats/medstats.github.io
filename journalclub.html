@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Club - Index</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #23455A;
+            border-bottom: 3px solid #9A4D33;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .overview {
+            background-color: #DFEAF0;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 8px solid #23455A;
+            margin-bottom: 40px;
+        }
+        .overview h2 {
+            margin-top: 0;
+            color: #23455A;
+        }
+        .deck-list {
+            list-style: none;
+            padding: 0;
+        }
+        .deck-item {
+            background-color: #fff;
+            border: 1px solid #D8CCC0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .deck-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #9A4D33;
+        }
+        .deck-item a {
+            text-decoration: none;
+            color: #23455A;
+            font-size: 1.3em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .deck-item p {
+            margin: 0;
+            color: #666;
+            font-size: 0.95em;
+        }
+        .tag {
+            display: inline-block;
+            margin-top: 10px;
+            color: #9A4D33;
+            font-size: 0.85em;
+            font-weight: bold;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #888;
+            border-top: 1px solid #D8CCC0;
+            padding-top: 20px;
+        }
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 12px;
+            }
+            .container {
+                padding: 24px 18px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><strong>Journal Club</strong></h1>
+
+        <div class="overview">
+            <h2>Critical Appraisal Decks</h2>
+            <p>This index collects the uploaded image-rendered journal club slide decks for high-fidelity viewing in the browser. Each deck opens as a keyboard, touch, and fullscreen-capable slideshow.</p>
+        </div>
+
+        <ul class="deck-list">
+            <li class="deck-item">
+                <a href="cgm_Image_Slideshow.html">Hidden CGM Abnormalities in Controlled Diabetes</a>
+                <p>Journal club presentation on hidden continuous glucose monitoring abnormalities and HbA1c-GMI discordance in apparently controlled type 2 diabetes.</p>
+                <span class="tag">CGM Presentation</span>
+            </li>
+            <li class="deck-item">
+                <a href="tak_Image_Slideshow.html">TAK-003 Tetravalent Dengue Vaccine</a>
+                <p>Critical appraisal of the Takeda dengue vaccine phase 3 trial.</p>
+                <span class="tag">Vaccine Critical Appraisal</span>
+            </li>
+            <li class="deck-item">
+                <a href="reference_renders_Image_Slideshow.html">FLOW Trial</a>
+                <p>Reference-rendered journal club deck for the FLOW trial of semaglutide in chronic kidney disease and type 2 diabetes.</p>
+                <span class="tag">Reference Renders</span>
+            </li>
+            <li class="deck-item">
+                <a href="renders_qa_Image_Slideshow.html">SOUL Trial</a>
+                <p>Image slideshow deck for the SOUL trial appraisal.</p>
+                <span class="tag">Renders QA</span>
+            </li>
+            <li class="deck-item">
+                <a href="slide_renders_custom5_Image_Slideshow.html">BALANCE Trial</a>
+                <p>Critical appraisal deck for 7 versus 14 days of antibiotics for bloodstream infections.</p>
+                <span class="tag">BALANCE Trial</span>
+            </li>
+        </ul>
+
+        <div class="footer">
+            <p>Maintained by the Department of Medicine, Santosh Medical College.</p>
+        </div>
+    </div>
+</body>
+</html>
