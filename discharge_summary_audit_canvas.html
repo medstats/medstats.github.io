@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discharge Summary Audit Dashboard</title>
+  <style>
+    :root {
+      --bg: #f4f6f7;
+      --card: #ffffff;
+      --soft: #dce8ef;
+      --chip: #edf3f6;
+      --text: #33434d;
+      --muted: #6f7c84;
+      --border: #d5dde2;
+      --accent: #2e566b;
+      --accent-dark: #244858;
+      --rule: #9b6454;
+      --series-1: #2e566b;
+      --series-2: #7197ab;
+      --series-3: #d9ac60;
+      --series-4: #c97878;
+      --shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    .audit-app {
+      max-width: 1180px;
+      margin: auto;
+      padding: 24px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .page-title {
+      text-align: center;
+      color: var(--accent);
+      font-size: clamp(2rem,4vw,2.8rem);
+      margin: 0;
+    }
+
+    .title-rule {
+      height: 3px;
+      background: var(--rule);
+      border-radius: 3px;
+    }
+
+    .hero {
+      background: var(--soft);
+      border-left: 7px solid var(--accent);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h2, .card h2, .card h3 {
+      color: var(--accent);
+      margin-top: 0;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      background: var(--chip);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: .85rem;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(6,minmax(0,1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .metric .value {
+      color: var(--accent);
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .callout {
+      background: var(--soft);
+      border-left: 5px solid var(--accent);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+
+    .bars { display: grid; gap: 11px; }
+    .bar-row { display: grid; gap: 5px; }
+
+    .bar-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: .9rem;
+    }
+
+    .track {
+      height: 10px;
+      background: var(--chip);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      background: var(--series-1);
+      border-radius: inherit;
+    }
+
+    .donut-wrap {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .donut {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--series-4) 0 10.99%,
+        var(--series-3) 10.99% 83.52%,
+        var(--series-2) 83.52% 100%
+      );
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .donut::after {
+      content: "";
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: var(--card);
+      position: absolute;
+    }
+
+    .donut-label {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .donut-label strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1.8rem;
+    }
+
+    .legend { display: grid; gap: 10px; }
+
+    .legend-row {
+      display: grid;
+      grid-template-columns: 12px 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dot { width: 10px; height: 10px; border-radius: 3px; }
+
+    .defects { display: grid; gap: 10px; }
+
+    .defect {
+      display: grid;
+      grid-template-columns: minmax(180px,1fr) 2fr 40px;
+      gap: 10px;
+      align-items: center;
+      font-size: .9rem;
+    }
+
+    .defect .fill { background: var(--rule); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--accent);
+      background: var(--chip);
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    details {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .methods {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .method {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+    }
+
+    .num {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--soft);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .priority {
+      display: inline-block;
+      background: var(--soft);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: .78rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .85rem;
+      padding: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .metrics { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .grid-2, .methods, .actions { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .audit-app { padding: 14px; }
+      .metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .donut-wrap { grid-template-columns: 1fr; }
+      .donut { margin: auto; }
+      .defect { grid-template-columns: 1fr 40px; }
+      .defect .track { grid-column: 1/-1; grid-row: 2; }
+    }
+  </style>
+</head>
+<body>
+  <main class="audit-app">
+    <h1 class="page-title">Clinical Audit of Discharge Summaries</h1>
+    <div class="title-rule"></div>
+
+    <section class="hero">
+      <h2>Overview</h2>
+      <p>
+        This dashboard presents a retrospective clinical audit of provisional discharge summaries
+        generated by the Department of General Medicine at Santosh Medical College and Hospital,
+        Ghaziabad.
+      </p>
+      <p>
+        The objective was to assess documentation quality, completeness and patient-safety
+        communication using a standardized nine-parameter grading rubric.
+      </p>
+      <div class="chips">
+        <span class="chip">91 unique summaries</span>
+        <span class="chip">June–July 2026</span>
+        <span class="chip">Maximum score: 18</span>
+        <span class="chip">Human-in-the-loop AI audit</span>
+      </div>
+    </section>
+
+    <section class="metrics">
+      <div class="metric"><div class="value">91</div><div class="label">Summaries audited</div></div>
+      <div class="metric"><div class="value">9.32</div><div class="label">Mean score / 18</div></div>
+      <div class="metric"><div class="value">10</div><div class="label">Median score</div></div>
+      <div class="metric"><div class="value">51.8%</div><div class="label">Mean compliance</div></div>
+      <div class="metric"><div class="value">14</div><div class="label">Highest score</div></div>
+      <div class="metric"><div class="value">10</div><div class="label">Critical summaries</div></div>
+    </section>
+
+    <section class="grid-2">
+      <article class="card">
+        <h2>Headline finding</h2>
+        <div class="callout">
+          <strong>Hospital-course documentation was generally strong.</strong><br>
+          The largest gaps were warning symptoms, pending reports, medication duration and
+          documentation accuracy.
+        </div>
+        <ul>
+          <li>Hospital course individualized: 1.88/2</li>
+          <li>Warning symptoms: 0.47/2</li>
+          <li>Pending reports: 0.52/2</li>
+          <li>Documentation accuracy: 0.66/2</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Overall score distribution</h2>
+        <div class="donut-wrap">
+          <div class="donut" aria-label="Overall score distribution">
+            <div class="donut-label"><strong>91</strong><span>summaries</span></div>
+          </div>
+          <div class="legend">
+            <div class="legend-row"><span class="dot" style="background:var(--series-4)"></span><span>Critical, 0–6</span><strong>10</strong></div>
+            <div class="legend-row"><span class="dot" style="background:var(--series-3)"></span><span>Needs improvement, 7–11</span><strong>66</strong></div>
+            <div class="legend-row"><span class="dot" style="background:var(--series-2)"></span><span>Satisfactory, 12–14</span><strong>15</strong></div>
+            <div class="legend-row"><span class="dot" style="background:var(--series-1)"></span><span>Good, 15–18</span><strong>0</strong></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Mean score by audit criterion</h2>
+        <div class="bars">
+          <div class="bar-row"><div class="bar-head"><span>Hospital course individualized</span><span>1.88</span></div><div class="track"><div class="fill" style="width:94%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Final diagnosis definite</span><span>1.51</span></div><div class="track"><div class="fill" style="width:75.5%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Follow-up date/timeframe</span><span>1.51</span></div><div class="track"><div class="fill" style="width:75.5%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Discharge condition</span><span>0.95</span></div><div class="track"><div class="fill" style="width:47.5%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Medication dose complete</span><span>0.93</span></div><div class="track"><div class="fill" style="width:46.5%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Medication duration complete</span><span>0.90</span></div><div class="track"><div class="fill" style="width:45%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Documentation accuracy</span><span>0.66</span></div><div class="track"><div class="fill" style="width:33%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Pending reports</span><span>0.52</span></div><div class="track"><div class="fill" style="width:26%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Warning symptoms</span><span>0.47</span></div><div class="track"><div class="fill" style="width:23.5%"></div></div></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Frequent themes in general comments</h2>
+        <div class="defects">
+          <div class="defect"><span>Spelling / typographical errors</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>74</strong></div>
+          <div class="defect"><span>Medication details incomplete</span><div class="track"><div class="fill" style="width:85.1%"></div></div><strong>63</strong></div>
+          <div class="defect"><span>Duration missing or ambiguous</span><div class="track"><div class="fill" style="width:83.8%"></div></div><strong>62</strong></div>
+          <div class="defect"><span>Copy-paste / layout duplication</span><div class="track"><div class="fill" style="width:66.2%"></div></div><strong>49</strong></div>
+          <div class="defect"><span>Warning symptoms inadequate</span><div class="track"><div class="fill" style="width:52.7%"></div></div><strong>39</strong></div>
+          <div class="defect"><span>Provisional / syndromic diagnosis</span><div class="track"><div class="fill" style="width:51.4%"></div></div><strong>38</strong></div>
+        </div>
+      </article>
+    </section>
+
+    <details open>
+      <summary>Materials and Methods</summary>
+      <div class="methods">
+        <article class="card method">
+          <div class="num">1</div>
+          <div>
+            <h3>Study design and setting</h3>
+            <p>
+              This study was a retrospective clinical audit of provisional discharge summaries
+              generated by the Department of General Medicine at Santosh Medical College and
+              Hospital, Ghaziabad, India. The primary objective was to evaluate documentation
+              quality and completeness using a standardized scoring rubric.
+            </p>
+          </div>
+        </article>
+
+        <article class="card method">
+          <div class="num">2</div>
+          <div>
+            <h3>Data source and selection criteria</h3>
+            <p>
+              The audit population consisted of provisional discharge summaries generated during
+              the June and July 2026 clinical periods.
+            </p>
+            <ul>
+              <li><strong>Inclusion:</strong> All provisional discharge summaries from General Medicine wards.</li>
+              <li><strong>Exclusion:</strong> Drafts, duplicate summaries and superseded documents.</li>
+              <li>Where multiple versions existed for one IPD number, the latest final version based on the system timestamp was retained.</li>
+            </ul>
+            <p><strong>Final cohort:</strong> 91 unique summaries from 109 screened files.</p>
+          </div>
+        </article>
+
+        <article class="card method">
+          <div class="num">3</div>
+          <div>
+            <h3>Auditing and grading rubric</h3>
+            <p>
+              Each summary was assessed against nine clinical-documentation parameters. Each
+              parameter was graded 0, 1 or 2: 0 indicated absent or poor documentation, 1 indicated
+              incomplete or vague documentation, and 2 indicated complete and clear documentation.
+              The maximum score was 18.
+            </p>
+          </div>
+        </article>
+
+        <article class="card method">
+          <div class="num">4</div>
+          <div>
+            <h3>Technical extraction and auditing</h3>
+            <p>
+              Clinical data extraction and preliminary scoring were performed using an agentic
+              artificial-intelligence pipeline utilizing a multimodal large language model,
+              Gemini 3.5 Flash.
+            </p>
+            <p>
+              Each discharge summary was individually reviewed by Dr. Anupam, who added general
+              comments and cross-checked the agentic output, creating a human-in-the-loop audit process.
+            </p>
+            <ul>
+              <li>Native page-by-page PDF viewing preserved document layout.</li>
+              <li>The audit list was evaluated concurrently by nine parallel subagents.</li>
+              <li>Scores, comments and totals were consolidated into a standardized Excel database.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </details>
+
+    <details>
+      <summary>Nine-parameter grading rubric</summary>
+      <div class="table-wrap" style="margin-top:16px">
+        <table>
+          <thead>
+            <tr><th>Parameter</th><th>Score 2</th><th>Score 1</th><th>Score 0</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Final diagnosis definite</td><td>Definitive etiologic diagnosis</td><td>Syndromic or provisional</td><td>Absent</td></tr>
+            <tr><td>Hospital course individualized</td><td>Specific clinical progression</td><td>Generic/template text</td><td>Absent</td></tr>
+            <tr><td>Medication dose complete</td><td>Strength, dose, route and frequency explicit</td><td>One or more details missing</td><td>Absent</td></tr>
+            <tr><td>Duration complete</td><td>Duration for all medicines</td><td>Partial or mixed</td><td>Absent</td></tr>
+            <tr><td>Follow-up date</td><td>Specific date/timeframe</td><td>Vague OPD advice</td><td>Absent</td></tr>
+            <tr><td>Warning symptoms</td><td>Specific red flags and contacts</td><td>Generic warning text</td><td>Absent</td></tr>
+            <tr><td>Pending reports</td><td>Detailed pending-report list</td><td>General advice to check reports</td><td>Absent</td></tr>
+            <tr><td>Discharge condition</td><td>Vitals and clinical status</td><td>Generic stable statement</td><td>Absent</td></tr>
+            <tr><td>Documentation errors</td><td>No errors</td><td>Minor errors</td><td>Severe error or duplication</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <section>
+      <h2 style="color:var(--accent)">Improvement plan</h2>
+      <div class="actions">
+        <article class="card"><span class="priority">Immediate</span><h3>Structured medication instructions</h3><p>Record drug, strength, dose, route, frequency, duration, indication and relation to previous treatment.</p></article>
+        <article class="card"><span class="priority">Immediate</span><h3>Mandatory warning symptoms</h3><p>Include disease-specific red flags, emergency contact details and where the patient should report.</p></article>
+        <article class="card"><span class="priority">Immediate</span><h3>Pending-report workflow</h3><p>Document “none pending” or list the investigation, expected date, responsible clinician and communication plan.</p></article>
+        <article class="card"><span class="priority">High</span><h3>Objective discharge condition</h3><p>Record vital signs, oxygen need, sensorium, feeding, mobility and devices in situ.</p></article>
+        <article class="card"><span class="priority">High</span><h3>Separate LAMA and transfer templates</h3><p>Create a mandatory minimum safety dataset for non-routine discharges.</p></article>
+        <article class="card"><span class="priority">Medium</span><h3>Audit manual and reliability testing</h3><p>Define examples for scores 0, 1 and 2 and double-audit 10–20% of summaries.</p></article>
+      </div>
+    </section>
+
+    <div class="footer">
+      Department of General Medicine · Santosh Medical College and Hospital · Clinical Audit 2026
+    </div>
+  </main>
+</body>
+</html>
