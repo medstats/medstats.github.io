@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Audit Dashboard - Index</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #23455A;
+            border-bottom: 3px solid #9A4D33;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .overview {
+            background-color: #DFEAF0;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 8px solid #23455A;
+            margin-bottom: 40px;
+        }
+        .overview h2 {
+            margin-top: 0;
+            color: #23455A;
+        }
+        .case-list {
+            list-style: none;
+            padding: 0;
+        }
+        .case-item {
+            background-color: #fff;
+            border: 1px solid #D8CCC0;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .case-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #9A4D33;
+        }
+        .case-item a {
+            text-decoration: none;
+            color: #23455A;
+            font-size: 1.4em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .case-item p {
+            margin: 0;
+            color: #555;
+            font-size: 0.98em;
+            margin-bottom: 12px;
+        }
+        .meta-info {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background-color: #f1f2f6;
+            color: #2f3542;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.82em;
+            font-weight: 600;
+            border: 1px solid #ced6e0;
+        }
+        .badge.critical {
+            background-color: #fadbd8;
+            color: #78281f;
+            border-color: #f5b7b1;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #888;
+            border-top: 1px solid #D8CCC0;
+            padding-top: 20px;
+        }
+        .app-link {
+            color: #9A4D33;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><strong>Clinical Audit Dashboard</strong></h1>
+        
+        <div class="overview">
+            <h2>Overview</h2>
+            <p>The <strong>Clinical Audit Dashboard</strong> is an academic and clinical quality improvement initiative led by the Department of General Medicine at Santosh Medical College and Hospital, Ghaziabad. Under the supervision of <strong>Dr. Anupam Kumar Singh MD</strong>, this platform integrates parallel agentic AI audit workflows with rigorous clinician validation to assess and optimize documentation quality and patient-safety communication on discharge.</p>
+        </div>
+
+        <ul class="case-list">
+            <li class="case-item">
+                <a href="discharge_summary_audit_canvas.html">Retrospective Discharge Summary Audit (91 Summaries)</a>
+                <p>A retrospective audit of 91 unique discharge summaries evaluating documentation completeness against a standardized 9-parameter rubric (maximum score of 18). Parameters include etiologic diagnosis specificity, hospital course individualization, drug dosing/duration completeness, pending report notation, and objective discharge vitals. This report highlights key clinical documentation deficiencies and lists systemic recommendations for electronic medical records (EMR) improvement.</p>
+                <div class="meta-info">
+                    <span class="badge">91 Summaries</span>
+                    <span class="badge">June–July 2026</span>
+                    <span class="badge">Documentation Quality</span>
+                </div>
+            </li>
+            <li class="case-item">
+                <a href="diabetes_audit_dashboard.html">Diabetes Discharge-Care & Prescribing Safety Audit (57 Patients)</a>
+                <p>A targeted clinical safety audit of 57 patients with Type 2 Diabetes Mellitus (T2DM) focusing on chronic kidney disease (CKD) screening, antidiabetic prescribing safety, and patient education. Highlights critical safety indicators including spot Urine Albumin Creatinine Ratio (UACR) screening rates, inappropriate renal prescribing, and unsafe sulfonylurea (Glimepiride/Gliclazide) use in septic or elderly patients.</p>
+                <div class="meta-info">
+                    <span class="badge">57 Patients</span>
+                    <span class="badge">UACR Screening</span>
+                    <span class="badge critical">Prescribing Safety</span>
+                </div>
+            </li>
+        </ul>
+
+        <div class="footer">
+            <p>Department of General Medicine · Santosh Medical College and Hospital, Ghaziabad</p>
+            <p>
+                <a href="agenticviva.html" class="app-link">Clinical Vivas Index</a> | 
+                <a href="https://medstats.github.io" class="app-link">Medstats Home</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
