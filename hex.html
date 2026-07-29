@@ -67,6 +67,34 @@
         border-radius: 8px;
         margin: 25px 0;
     }
+    .summary-block {
+        background: #fdfaf7;
+        border: 1px solid #f3e8df;
+        border-left: 8px solid #9A4D33;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .summary-block h4 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.3em;
+        color: #9A4D33;
+        border-bottom: 2px solid #f3e8df;
+        padding-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .summary-block ul {
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+    .summary-block li {
+        margin-bottom: 6px;
+    }
+    .summary-block p {
+        margin-bottom: 10px;
+    }
     .responses-grid {
         display: flex;
         gap: 25px;
@@ -151,11 +179,11 @@
 <strong>Ms. V.P., 21-year-old unmarried female, resident of Ghaziabad</strong><br><br>
 <strong>Chief Complaints:</strong>
 <ul>
-  <li>Abdominal pain for 3 months</li>
-  <li>Fever for 3 months</li>
-  <li>Excessive menstrual bleeding / polymenometrorrhagia for 3 months</li>
-  <li>Generalized swelling for 2 months</li>
-  <li>Generalized weakness for 2 months</li>
+  <li>**Abdominal pain for 3 months**</li>
+  <li>**Fever for 3 months**</li>
+  <li>**Excessive menstrual bleeding / polymenometrorrhagia for 3 months**</li>
+  <li>**Generalized swelling for 2 months**</li>
+  <li>**Generalized weakness for 2 months**</li>
 </ul>
 <strong>History of Present Illness:</strong><br>
 The patient was asymptomatic around 3 months back, when she developed abdominal pain.<br>
@@ -169,8 +197,27 @@ The patient was asymptomatic around 3 months back, when she developed abdominal 
 Similar complaints 1 year back. Admitted to Santosh Hospital with fever, pain, and swelling. Received 4 units of PRBC transfusion. Bone marrow aspiration and biopsy performed. Referred to AIIMS for splenectomy evaluation. Discontinued treatment after 3-4 months voluntarily and lost to follow-up. No history of DM, HTN, TB, CLD, hepatitis, or previous surgery.<br><br>
 <strong>Drug History:</strong> Intermittent symptomatic meds. No long-term NSAID, anticoagulant, or herbal use.<br><br>
 <strong>Family History:</strong> No family history of hemolytic anemia or blood disorders.
-
       </div>
+
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History Phase)</h4>
+    <p><strong>Case Summary (Positive Findings):</strong></p>
+    <ul>
+      <li><strong>Patient Profile:</strong> 21-year-old unmarried female, resident of Ghaziabad.</li>
+      <li><strong>Hemorrhagic & Hematologic:</strong> Polymenometrorrhagia for 3 months (moderate-to-heavy bleeding stopping only 7-8 days/month, 4-5 pads/day). Severe generalized weakness and easy fatigability for 2 months. Long-standing pica (eating uncooked rice) for 3 years.</li>
+      <li><strong>Inflammatory & Peritoneal:</strong> Intermittent low-to-moderate grade fever with chills/rigors for 3 months, associated with colicky periumbilical and epigastric pain. Marked anorexia and weight loss for 1 year.</li>
+      <li><strong>Fluid Retention:</strong> Generalized edema (anasarca) starting in the feet and progressing to the whole body for 2 months.</li>
+      <li><strong>Past Medical History:</strong> Admitted 1 year ago with similar symptoms, receiving 4 units of PRBC transfusions. Underwent bone marrow aspiration/biopsy and was referred to AIIMS for splenectomy evaluation (indicating splenomegaly with suspected cytopenias).</li>
+    </ul>
+    <p><strong>Probability-Based Differential Diagnoses (on the basis of History):</strong></p>
+    <ol>
+      <li><strong>Visceral Leishmaniasis (Kala-azar) with Secondary Hypersplenism (~35%):</strong> Chronic irregular fever with chills/rigors, wasting, abdominal pain, and marked anemia requiring multiple transfusions in an endemic area. Bone marrow biopsy and splenectomy referral suggest massive splenomegaly with hypersplenism (thrombocytopenia causing menorrhagia, and cytopenias).</li>
+      <li><strong>Chronic Malaria with Tropical Splenomegaly Syndrome (~20%):</strong> Chronic intermittent fever with chills/rigors, progressive splenomegaly (implied by splenectomy referral), severe anemia, and nutritional edema.</li>
+      <li><strong>Hematological Malignancy (e.g., Lymphoma or Leukemia) (~18%):</strong> Young female with chronic B-symptoms (fever, weight loss), abdominal pain, profound anemia, bleeding tendencies (menorrhagia), and prior bone marrow evaluation/splenectomy referral.</li>
+      <li><strong>Systemic Lupus Erythematosus (SLE) with Lupus Nephritis and Thrombocytopenia (~15%):</strong> Chronic fever, abdominal pain (serositis), nephritis (generalized edema), thrombocytopenia (polymenometrorrhagia), and reactive splenomegaly.</li>
+      <li><strong>Intestinal/Peritoneal Tuberculosis (~12%):</strong> Insidious periumbilical colicky pain, chronic fever, anorexia/wasting, and generalized edema from tuberculous hypoalbuminemia. Menorrhagia could be secondary to pelvic TB or clotting dysfunction.</li>
+    </ol>
+  </div>
       <div class="responses-grid">
         <div class="col chatgpt-col">
           <h4 class="expert-header">CHATGPT</h4>
@@ -339,8 +386,24 @@ Similar complaints 1 year back. Admitted to Santosh Hospital with fever, pain, a
   <li>Moderate splenomegaly (palpable spleen extending below the left costal margin)</li>
   <li>Tenderness over epigastric and umbilical regions</li>
 </ul>
-
       </div>
+
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History + Examination Phase)</h4>
+    <p><strong>Case Summary (Positive Findings):</strong></p>
+    <ul>
+      <li><strong>General Survey & Nutrition:</strong> Severe pallor present. Thin built, underweight / moderately malnourished (BMI 17). Sparing of pedal edema or lymphadenopathy.</li>
+      <li><strong>Abdominal Palpation:</strong> Moderate splenomegaly (palpable spleen extending below the left costal margin). Localized tenderness on palpation over the epigastric and periumbilical regions.</li>
+    </ul>
+    <p><strong>Probability-Based Differential Diagnoses (on the basis of History & Examination):</strong></p>
+    <ol>
+      <li><strong>Visceral Leishmaniasis (Kala-azar) with Hypersplenism (~40%):</strong> Febrile young female with severe wasting (BMI 17), severe pallor, moderate splenomegaly, and abdominal tenderness. Hypersplenism explains the cytopenias (severe pallor, bleeding menorrhagia). Epigastric/umbilical tenderness represents splenic stretch or subclinical peritonitis.</li>
+      <li><strong>Hematological Malignancy (e.g., Lymphoma or Leukemia) (~20%):</strong> Chronic B-symptoms, severe wasting (BMI 17), severe pallor (due to marrow infiltration or splenic sequestration), splenomegaly, and abdominal tenderness (from visceral enlargement or mesenteric lymphadenopathy).</li>
+      <li><strong>Systemic Lupus Erythematosus (SLE) with Lupus Nephritis and Serositis (~15%):</strong> Epigastric and periumbilical tenderness represents lupus peritonitis (serositis). Severe pallor from hemolytic anemia, splenomegaly from immune activation, and wasting fit. Edema in history represents lupus nephritis.</li>
+      <li><strong>Hyperreactive Malarial Splenomegaly (HMS) / Chronic Malaria (~15%):</strong> Endemic area, chronic fever with chills, severe pallor, moderate splenomegaly, and abdominal pain.</li>
+      <li><strong>Intestinal and Pelvic Tuberculosis (~10%):</strong> Chronic abdominal pain, periumbilical/epigastric tenderness (suggesting ileocecal/peritoneal involvement), severe wasting (BMI 17), fever, and reactive splenomegaly.</li>
+    </ol>
+  </div>
       <div class="responses-grid">
         <div class="col chatgpt-col">
           <h4 class="expert-header">CHATGPT</h4>

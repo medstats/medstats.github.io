@@ -64,6 +64,34 @@
         border-radius: 8px;
         margin: 25px 0;
     }
+    .summary-block {
+        background: #fdfaf7;
+        border: 1px solid #f3e8df;
+        border-left: 8px solid #9A4D33;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .summary-block h4 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.3em;
+        color: #9A4D33;
+        border-bottom: 2px solid #f3e8df;
+        padding-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .summary-block ul {
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+    .summary-block li {
+        margin-bottom: 6px;
+    }
+    .summary-block p {
+        margin-bottom: 10px;
+    }
     .responses-grid {
         display: flex;
         gap: 25px;
@@ -140,6 +168,27 @@
 <section class="round">
   <h3>Round 1</h3>
   <div class="user-block"><p><strong>USER:</strong> <strong>patient Patient A<br>## Clinical History Summary<br>* **Patient Profile:** 69-year-old female, resident of Ghaziabad, house-wife, from a lower-middle-class background.<br>* **Chief Complaints:** Abdominal distension for 1 month, progressive worsening of distension over the last 10 days leading to abdominal discomfort, heaviness, and exertional/supine breathlessness. Generalized weakness, decreased appetite, and intermittent non-bilious, non-projectile vomiting (on and off) for 1 month. Yellowish discoloration of eyes and skin for 3 months.<br>* **Past Medical History:** Known case of Type 2 Diabetes Mellitus for 8 years (non-compliant with medications for the past 3 months). History of multiple hospital admissions. Discharged from GTB Hospital in November 2025 after undergoing two therapeutic ascetic taps. Later admitted to Santosh Medical College from November 17 to November 30, 2025, with a diagnosis of gross ascites, queried for tubercular etiology vs. peritoneal carcinomatosis.<br>* **Treatment History:** Started empirically on Anti-Tubercular Therapy (ATT) regimen (HRZE) in November 2025 based on low ADA exudative lymphocytic ascites findings. Lost to follow-up post-discharge, but continued taking ATT from a DOTS center.<br>* **Systemic &amp; Personal History:** Jaundice onset noted 3 months ago, gradually progressive. Sleep is disturbed due to abdominal discomfort and breathlessness. No history of smoking or alcohol use. No significant family history of TB, malignancy, or chronic illnesses. Obstetric history reveals two uneventful normal vaginal deliveries.<br>* **Negative History:** No history of fever, weight loss, cough with expectoration, hemoptysis, melena, hematemesis, fresh blood in stool, abdominal pain, chest pain, or burning micturition.<br>*<br><br></strong></p></div>
+
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History Phase)</h4>
+    <p><strong>Case Summary (Positive Findings):</strong></p>
+    <ul>
+      <li><strong>Patient Profile:</strong> 69-year-old diabetic female homemaker, lower-middle-class background.</li>
+      <li><strong>Jaundice:</strong> Slowly progressive jaundice for 3 months, insidious onset.</li>
+      <li><strong>Ascites & Gastrointestinal Symptoms:</strong> Progressive abdominal distension and heaviness for 1 month, causing exertional/supine breathlessness. Associated with anorexia, vomiting, and generalized weakness. History of multiple therapeutic paracenteses in Nov 2025.</li>
+      <li><strong>Past Medical & Treatment History:</strong> Type 2 DM for 8 years (non-compliant). Evaluated in late 2025 for gross ascites (exudative, lymphocytic, low-ADA). Empirically started on ATT (HRZE) for suspected peritoneal tuberculosis.</li>
+      <li><strong>Negatives:</strong> No fever, weight loss, cough, hemoptysis, hematemesis, melena, or focal abdominal pain.</li>
+    </ul>
+    <p><strong>Probability-Based Differential Diagnoses (on the basis of History):</strong></p>
+    <ol>
+      <li><strong>Peritoneal Carcinomatosis / Intra-abdominal Malignancy (~45%):</strong> In an elderly female, progressive ascites, anorexia, vomiting, and jaundice are highly suspicious for malignancy. The prior finding of exudative lymphocytic ascites with low ADA is strongly suggestive of peritoneal carcinomatosis rather than TB. Jaundice may indicate hepatic metastases or biliary compression.</li>
+      <li><strong>Tuberculous Peritonitis (Peritoneal Tuberculosis) (~25%):</strong> Highly prevalent in India. Exudative lymphocytic ascites fits this, hence the empirical ATT. However, the absence of fever, absence of weight loss, and low ADA score make it less likely than peritoneal malignancy.</li>
+      <li><strong>Anti-Tubercular Therapy (ATT)-Induced Hepatotoxicity (~15%):</strong> Started on HRZE in November 2025. Worsening progressive jaundice, vomiting, and anorexia starting 3 months ago are classical signs of drug-induced liver injury (DILI) causing hepatocellular dysfunction.</li>
+      <li><strong>NASH Cirrhosis with Portal Hypertension and Decompensation (~10%):</strong> Long-standing poorly controlled Type 2 DM is a major risk factor. Presentation fits decompensated cirrhosis (ascites, jaundice), though NASH ascites is typically transudative (high SAAG) rather than exudative.</li>
+      <li><strong>Diabetic Nephropathy with Nephrotic Syndrome (~5%):</strong> Chronic diabetes can cause nephrotic syndrome with significant ascites, but this does not explain the progressive jaundice and lymphocytic/exudative fluid findings.</li>
+    </ol>
+  </div>
+
   <div class="responses-grid">
     <div class="col chatgpt-col">
       <h4 class="expert-header">CHATGPT</h4>
@@ -276,6 +325,26 @@
 <section class="round">
   <h3>Round 2</h3>
   <div class="user-block"><p><strong>USER:</strong> <strong>Physical Examination Findings<br>(Examined post-paracentesis of 6 liters of ascitic fluid)<br>General Parameters: Patient is conscious, oriented, thin-built (BMI: 14.1 kg/m^2). Mild icterus is present; no pallor, cyanosis, clubbing, generalized lymphadenopathy, or pedal edema.<br>Vitals: Pulse: 78 bpm; BP: 110/60 mmHg; RR: 19/min; SpO_2: 98% on room air; Afebrile.<br>Stigmata of Chronic Liver Disease: No parotid swelling, alopecia, spider naevi, palmar erythema, Dupuytren&#x27;s contracture, or flapped tremors (asterixis).<br>Abdomen Inspection &amp; Palpation: * Uniformly distended with flank fullness, everted umbilicus, and stretched skin with striae albicantes. Abdomen is soft, non-tender. Hernial sites are intact.<br>Abdominal Mass/Lump: A palpable, hard, non-pulsatile, immobile 2 \times 4 cm globular lump is noted in the left lumbar region, roughly 3 cm below the umbilicus, moving slightly with respiration. (Note: This finding is subject to ongoing clinical validation between medical teams, as it was noted on recent physical exam but not explicitly discrete on standard transabdominal ultrasound).<br>Organomegaly: Liver span is 12 cm (firm, non-pulsatile, smooth edge). Spleen and gallbladder are not palpable.<br>Percussion &amp; Auscultation: Tympanic note throughout except dullness over the left lumbar lump. Shifting dullness remains positive despite recent fluid drainage. Normal bowel sounds are present (4–5/minute).<br><br></strong></p></div>
+
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History + Examination Phase)</h4>
+    <p><strong>Case Summary (Positive Findings):</strong></p>
+    <ul>
+      <li><strong>General Survey & Nutrition:</strong> Conscious, oriented, cachectic with severe malnutrition (BMI 14.1). Mild icterus present. Normal vitals (Pulse 78/min, BP 110/60 mmHg, RR 19/min, afebrile). Absent peripheral edema, lymphadenopathy, or chronic liver disease stigmata.</li>
+      <li><strong>Abdominal Inspection & Palpation:</strong> Uniformly distended post-paracentesis (6L), full flanks, everted umbilicus, striae albicantes. Soft, non-tender.</li>
+      <li><strong>Abdominal Lump:</strong> A palpable, hard, non-pulsatile, immobile 2x4 cm globular lump in the left lumbar region, 3 cm below the umbilicus, moving slightly with respiration.</li>
+      <li><strong>Organomegaly & Percussion:</strong> Liver span is 12 cm, firm with a smooth edge. Spleen and gallbladder are not palpable. Dullness over the left lumbar lump; shifting dullness remains positive. Bowel sounds are normal.</li>
+    </ul>
+    <p><strong>Probability-Based Differential Diagnoses (on the basis of History & Examination):</strong></p>
+    <ol>
+      <li><strong>Peritoneal Carcinomatosis (Secondary to Gastrointestinal or Ovarian Malignancy) (~50%):</strong> Worsening ascites, severe cachexia (BMI 14.1), progressive jaundice, and the physical finding of a hard, immobile left lumbar lump post-paracentesis strongly indicate peritoneal metastases (omental/peritoneal cake or primary bowel mass) in an elderly female. This aligns with prior low-ADA exudative lymphocytic ascites.</li>
+      <li><strong>Peritoneal Tuberculosis (Mass/Plastron form) (~20%):</strong> A tubercular plastron or matted loops of bowel can present as a left lumbar mass. Severe wasting and exudative ascites fit, though the absence of abdominal tenderness, absence of fever, and low ADA make this less likely despite ATT.</li>
+      <li><strong>NASH Cirrhosis with Portal Hypertension and Decompensation (~15%):</strong> Poorly controlled Type 2 DM, firm liver span of 12 cm, jaundice, and ascites are compatible. The left lumbar lump could represent a distended bowel segment or retroperitoneal pathology, but primary peritoneal malignancy is much more likely given the exudative fluid.</li>
+      <li><strong>ATT-Induced Hepatotoxicity (DILI) on a background of subclinical chronic liver disease (~10%):</strong> Firm liver (span 12 cm) and jaundice on a background of ongoing empirical ATT (HRZE) since November 2025.</li>
+      <li><strong>Primary Retroperitoneal Sarcoma or Renal Cell Carcinoma (~5%):</strong> Hard, immobile left lumbar mass could be a primary retroperitoneal tumor or renal tumor, presenting with progressive cachexia and secondary malignant ascites.</li>
+    </ol>
+  </div>
+
   <div class="responses-grid">
     <div class="col chatgpt-col">
       <h4 class="expert-header">CHATGPT</h4>

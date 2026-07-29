@@ -64,6 +64,34 @@
         border-radius: 8px;
         margin: 25px 0;
     }
+    .summary-block {
+        background: #fdfaf7;
+        border: 1px solid #f3e8df;
+        border-left: 8px solid #9A4D33;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .summary-block h4 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.3em;
+        color: #9A4D33;
+        border-bottom: 2px solid #f3e8df;
+        padding-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .summary-block ul {
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+    .summary-block li {
+        margin-bottom: 6px;
+    }
+    .summary-block p {
+        margin-bottom: 10px;
+    }
     .responses-grid {
         display: flex;
         gap: 25px;
@@ -140,6 +168,27 @@
 <section class="round">
   <h3>Round 1</h3>
   <div class="user-block"><p><strong>USER:</strong> <strong>Mr. Y, a 47-year-old Hindu male, resident of Sultanpur, Ghaziabad, daily-wage labourer from a poor socioeconomic background, presented with yellowish discoloration of eyes for 2 months, abdominal distension for 1.5 months, dull abdominal pain/discomfort for 1.5 months, and 1–2 episodes of fever 5 days prior to presentation. He was apparently asymptomatic 2 months back, when he first noticed yellowish discoloration of the eyes, which was insidious in onset and gradually progressive, with no associated itching, flank pain, prior drug intake, or similar past episodes. About 1.5 months ago, he developed abdominal distension, gradual in onset and progressively increasing over time, diffuse in nature, not relieved by passing stool or flatus, and associated with a feeling of heaviness. Around the same time, he also developed diffuse dull aching abdominal pain/discomfort, mild to moderate in intensity, non-radiating, and not associated with any specific aggravating or relieving factor. He had 1–2 episodes of low- to moderate-grade intermittent fever 5 days before presentation, not associated with chills or rigors, and subsided with symptomatic treatment. Around one month prior to the current admission, he had presented to a government hospital in Delhi with abdominal distension, where therapeutic ascitic fluid tapping was done and approximately 3.5 litres of fluid was drained, after which he was advised conservative management; no medical records are available. There is no history of pruritus, recurrent jaundice in the past, IV drug abuse, blood transfusion, hematemesis, melena, altered sensorium, irrelevant talk, decreased urine output, bleeding tendency, easy bruising, chronic fever, night sweats, weight loss, diarrhea, vomiting, constipation, breathlessness, orthopnea, PND, facial puffiness, or generalized swelling. He has no known history of hypertension, type 2 diabetes mellitus, tuberculosis, thyroid disease, asthma, coronary artery disease, renal disease, or any other known comorbidity. He has no known drug intake or drug allergy. His appetite is poor, sleep is normal, and bowel and bladder habits are good. He consumes a mixed vegetarian/non-vegetarian diet, has a history of chronic alcohol intake of about one quarter per day for 10 years, and smokes around 10 bidis per day for 10 years, approximately 5 pack-years. There is no family history of similar illness. Based on history, the provisional diagnosis is chronic liver disease, likely secondary to alcohol-related liver disease, currently presenting with decompensation<br><br></strong></p></div>
+
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History Phase)</h4>
+    <p><strong>Case Summary (Positive Findings):</strong></p>
+    <ul>
+      <li><strong>Patient Profile:</strong> 47-year-old male daily wage labourer of low socioeconomic status, chronic heavy alcohol consumer (one quarter daily for 10 years), and a 5 pack-year smoking history.</li>
+      <li><strong>Jaundice:</strong> Progressive yellowish discoloration of eyes for 2 months, insidious onset, lacking pruritus or flank pain.</li>
+      <li><strong>Ascites & Abdominal Pain:</strong> Progressive abdominal distension and diffuse dull abdominal discomfort for 1.5 months. History of therapeutic ascitic fluid tapping (3.5L) 1 month ago.</li>
+      <li><strong>Systemic Symptoms:</strong> Low-to-moderate grade intermittent fever 5 days prior to presentation, resolving symptomatically. Anorexia (poor appetite).</li>
+      <li><strong>Risk Factors & Negatives:</strong> Significant chronic alcohol abuse. Absence of gastrointestinal bleeding (hematemesis/melena), encephalopathy (no altered sensorium), renal impairment (no oliguria), or significant weight loss/night sweats.</li>
+    </ul>
+    <p><strong>Probability-Based Differential Diagnoses (on the basis of History):</strong></p>
+    <ol>
+      <li><strong>Alcoholic Liver Cirrhosis with Portal Hypertension and Functional Decompensation (Jaundice, Ascites) (~70%):</strong> Patient's heavy daily alcohol consumption (one quarter daily for 10 years, equivalent to ~80-100g pure ethanol/day) is well above the cirrhogenic threshold. Progressive jaundice and ascites requiring therapeutic tapping are classic indicators of decompensation.</li>
+      <li><strong>Post-Viral Liver Cirrhosis (HBV or HCV) with Decompensation (~10%):</strong> Chronic viral hepatitis is highly prevalent in India. It could serve as the primary cause or act synergistically with alcohol to accelerate decompensated cirrhosis.</li>
+      <li><strong>Tuberculous Peritonitis (Peritoneal Tuberculosis) (~8%):</strong> Progressive ascites, abdominal pain, poor appetite, and recent fever in a daily-wage laborer in India is highly suspicious for TB. However, progressive jaundice is atypical unless there is concurrent hepatic involvement or biliary compression.</li>
+      <li><strong>Non-Alcoholic Steatohepatitis (NASH) Cirrhosis (~7%):</strong> An increasingly common cause of cirrhosis and decompensation, though the massive daily alcohol history makes alcohol-related liver disease much more probable.</li>
+      <li><strong>Abdominal Malignancy with Peritoneal Carcinomatosis (~5%):</strong> Ascites, pain, poor appetite, and smoking history in a middle-aged male could suggest peritoneal malignancy, though the lack of significant weight loss and the chronic alcoholism point more to primary cirrhosis.</li>
+    </ol>
+  </div>
+
   <div class="responses-grid">
     <div class="col chatgpt-col">
       <h4 class="expert-header">CHATGPT</h4>
@@ -279,6 +328,26 @@
 <section class="round">
   <h3>Round 2</h3>
   <div class="user-block"><p><strong>USER:</strong> <strong>Patient was awake, conscious, and oriented to time, place, and person, with thin built and malnourished appearance; height was 1.65 m, weight 48 kg, and BMI 17.6 kg/m². Pallor, icterus, and clubbing were present, while cyanosis, lymphadenopathy, and edema were absent. Hair was black, elastic, and non-brittle; bilateral parotid swelling, palmar erythema, spider nevi, flapping tremors, fetor hepaticus, hepatic encephalopathy, and Dupuytren’s contracture were absent. Vitals showed oral temperature 98.2°F, pulse 98/min regular with normal character and volume, BP 102/60 mmHg in the right upper limb in supine position, respiratory rate 20/min thoraco-abdominal, and JVP was not elevated. Oral cavity hygiene was inadequate, dental caries were present, tongue appeared smooth, red, and depapillated, and there were no ulcers or patches on the palate or mucosa. Abdomen was uniformly distended with full flanks; umbilicus was displaced downwards, slightly retracted, and inverted; all quadrants moved equally with respiration, and lower abdominal skin showed dryness with scaling and hyperpigmented scaly patches. On superficial palpation, abdomen was warm and non-tender, with no rigidity or guarding; abdominal girth was 76 cm, spinoumbilical distance 17 cm on both sides, xipho-umbilical distance 18 cm, and umbilicus-to-pubis distance 14 cm, suggesting downward displacement of the umbilicus. On deep palpation, liver and spleen were not palpable. Percussion showed upper border of liver dullness at right 6th intercostal space along the midclavicular line, lower border not palpable, splenic dullness by Castell’s method in the 9th intercostal space at the anterior axillary line, spleen extending 10 cm above the left costal margin by Nixon’s method, dull Traube’s space, shifting dullness present, and fluid thrill present. On auscultation, bowel sounds were present with no venous hum or bruit.<br><br></strong></p></div>
+
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History + Examination Phase)</h4>
+    <p><strong>Case Summary (Positive Findings):</strong></p>
+    <ul>
+      <li><strong>General & Spine Examination:</strong> Chronically ill, malnourished (BMI 17.6, weight 48 kg). Pallor, icterus, and clubbing present. Smooth, red, depapillated tongue indicating nutritional deficiency. Normal vitals (Pulse 98/min, BP 102/60 mmHg, Temp 98.2°F).</li>
+      <li><strong>Abdominal Inspection & Palpation:</strong> Uniformly distended abdomen with full flanks. Umbilicus displaced downwards (retracted and inverted). Abdomen is warm and non-tender without guarding/rigidity. Liver and spleen are not palpable. Lower abdominal skin shows hyperpigmented scaly patches.</li>
+      <li><strong>Abdominal Percussion & Auscultation:</strong> Shifting dullness and fluid thrill present (indicates gross ascites). Dullness over Traube's space, and positive Castell's and Nixon's percussion signs (highly suggestive of splenomegaly). Bowel sounds present; no venous hum or bruit.</li>
+      <li><strong>Stigmata & Systemic Negatives:</strong> Absence of peripheral stigmata of chronic alcoholism (no parotid swelling, Dupuytren's contracture, palmar erythema, spider nevi). Sparing of encephalopathy (no flapping tremors, normal sensorium), hyperestrogenism signs, or elevated JVP/pedal edema.</li>
+    </ul>
+    <p><strong>Probability-Based Differential Diagnoses (on the basis of History & Examination):</strong></p>
+    <ol>
+      <li><strong>Alcoholic Liver Cirrhosis with Portal Hypertension and Functional Decompensation (Child-Pugh Class C) (~75%):</strong> The clinical findings of gross ascites (shifting dullness, fluid thrill, downward umbilicus displacement), jaundice (icterus), pallor, and splenomegaly (deduced from dull Traube's space and positive Nixon's/Castell's percussion despite a non-palpable spleen due to tense ascites) confirm decompensated chronic liver disease with portal hypertension. The heavy daily alcohol intake acts as the primary etiology.</li>
+      <li><strong>Post-Viral Liver Cirrhosis (HBV or HCV) with Decompensation (~10%):</strong> The physical findings are identical to alcoholic cirrhosis. Concomitant viral hepatitis or primary viral etiology is highly possible, particularly in patients lacking standard hyperestrogenism stigmata.</li>
+      <li><strong>Tuberculous Peritonitis (Wet type) (~7%):</strong> Chronic ascites, low-grade fever, and severe malnutrition (BMI 17.6) in a low-income laborer. However, the presence of severe jaundice and splenomegaly strongly argues for primary cirrhosis with portal hypertension.</li>
+      <li><strong>Cardiac Cirrhosis (Congestive Hepatopathy) (~5%):</strong> Severe ascites and jaundice can result from chronic right-sided heart failure or constrictive pericarditis. However, the absence of elevated JVP, pedal edema, or cardiac murmurs makes this diagnosis highly unlikely.</li>
+      <li><strong>Budd-Chiari Syndrome (Hepatic Vein Thrombosis) (~3%):</strong> Presents with progressive ascites and jaundice, but early splenomegaly is usually palpable and the chronic alcoholism history strongly favors alcoholic cirrhosis.</li>
+    </ol>
+  </div>
+
   <div class="responses-grid">
     <div class="col chatgpt-col">
       <h4 class="expert-header">CHATGPT</h4>
