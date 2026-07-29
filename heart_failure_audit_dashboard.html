@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heart Failure Discharge Bundle Audit Dashboard</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --soft: #f2eef9;
+      --chip: #eae4f2;
+      --text: #2c3e50;
+      --muted: #7f8c8d;
+      --border: #dcdde1;
+      --accent: #8e44ad;
+      --accent-dark: #4a235a;
+      --rule: #c0392b;
+      --series-1: #8e44ad;
+      --series-2: #af7ac5;
+      --series-3: #f1c40f;
+      --series-4: #e74c3c;
+      --series-5: #3498db;
+      --shadow: 0 4px 12px rgba(0,0,0,.08);
+      --green: #2ecc71;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .audit-app {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .page-title {
+      text-align: center;
+      color: var(--accent-dark);
+      font-size: clamp(2rem, 5vw, 2.6rem);
+      margin: 0;
+      font-weight: 800;
+    }
+
+    .title-rule {
+      height: 4px;
+      background: var(--accent);
+      border-radius: 4px;
+      width: 100px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--soft) 0%, #ffffff 100%);
+      border-left: 8px solid var(--accent);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h2 {
+      color: var(--accent-dark);
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .chip {
+      background: var(--chip);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .metric {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+
+    .metric:hover {
+      transform: translateY(-2px);
+    }
+
+    .metric .value {
+      color: var(--accent-dark);
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 500;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      color: var(--accent-dark);
+      margin-top: 0;
+      font-size: 1.3rem;
+      border-bottom: 2px solid var(--soft);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .callout {
+      background: #fdf2e9;
+      border-left: 5px solid #e67e22;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      color: #d35400;
+      margin-bottom: 6px;
+    }
+
+    .bars { display: grid; gap: 14px; }
+    .bar-row { display: grid; gap: 6px; }
+
+    .bar-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: .95rem;
+      font-weight: 600;
+    }
+
+    .track {
+      height: 12px;
+      background: var(--soft);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      background: var(--series-1);
+      border-radius: inherit;
+    }
+
+    .donut-wrap {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .donut {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--series-1) 0% 51.6%,
+        var(--series-2) 51.6% 61.3%,
+        var(--series-5) 61.3% 96.8%,
+        #ccc 96.8% 100%
+      );
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .donut::after {
+      content: "";
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--card);
+      position: absolute;
+    }
+
+    .donut-label {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .donut-label strong {
+      display: block;
+      color: var(--accent-dark);
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+
+    .donut-label span {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .legend { display: grid; gap: 12px; }
+
+    .legend-row {
+      display: grid;
+      grid-template-columns: 12px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.92rem;
+    }
+
+    .dot { width: 12px; height: 12px; border-radius: 4px; }
+
+    .defects { display: grid; gap: 14px; }
+
+    .defect {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.2fr) 2fr 50px;
+      gap: 12px;
+      align-items: center;
+      font-size: .95rem;
+      font-weight: 600;
+    }
+
+    .defect .fill { background: var(--rule); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .92rem;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--accent-dark);
+      background: var(--soft);
+      font-weight: 700;
+    }
+
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+
+    details {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .methods {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .method {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+    }
+
+    .num {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--soft);
+      color: var(--accent-dark);
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .priority {
+      display: inline-block;
+      background: var(--soft);
+      color: var(--accent-dark);
+      border-radius: 12px;
+      padding: 4px 10px;
+      font-size: .8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .priority.immediate {
+      background: #fadbd8;
+      color: #900c3f;
+    }
+
+    .priority.high {
+      background: #fdebd0;
+      color: #a04000;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      margin-top: 20px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .methods, .actions { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .audit-app { padding: 16px 10px; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .donut-wrap { grid-template-columns: 1fr; }
+      .donut { margin: auto; }
+      .defect { grid-template-columns: 1fr 50px; }
+      .defect .track { grid-column: 1/-1; grid-row: 2; }
+    }
+  </style>
+</head>
+<body>
+  <main class="audit-app">
+    <h1 class="page-title">Clinical Audit: Heart Failure Discharge Bundle</h1>
+    <div class="title-rule"></div>
+
+    <section class="hero">
+      <h2>Audit Overview</h2>
+      <p>
+        This dashboard presents a retrospective clinical quality audit of <strong>31 patients</strong> diagnosed with Heart Failure (HF) or Cardiomyopathy discharged from the Department of General Medicine at Santosh Medical College and Hospital, Ghaziabad.
+      </p>
+      <p>
+        The audit evaluated documentation completeness and adherence to Guideline-Directed Medical Therapy (GDMT) including <strong>Ejection Fraction (EF) documentation</strong>, HF classification, OHA class reconciliation, and medication safety practices at discharge.
+      </p>
+      <div class="chips">
+        <span class="chip">31 HF Patient Summaries</span>
+        <span class="chip">29 Active Discharges</span>
+        <span class="chip">GDMT Prescribing Bundle</span>
+        <span class="chip">Renal/Potassium Safety Audit</span>
+      </div>
+    </section>
+
+    <section class="metrics">
+      <div class="metric"><div class="value">31</div><div class="label">Summaries Audited</div></div>
+      <div class="metric"><div class="value">96.8%</div><div class="label">EF Documented</div></div>
+      <div class="metric"><div class="value">96.8%</div><div class="label">Precipitant Found</div></div>
+      <div class="metric"><div class="value">65.5%</div><div class="label">Diuretics Prescribed</div></div>
+      <div class="metric"><div class="value">44.8%</div><div class="label">Beta-blocker Prescribed</div></div>
+      <div class="metric"><div class="value">27.6%</div><div class="label">ACEi/ARB/ARNI</div></div>
+    </section>
+
+    <section class="grid-2">
+      <article class="card">
+        <h2>Heart Failure Ejection Fraction (EF) Classification</h2>
+        <div class="donut-wrap">
+          <div class="donut" aria-label="Heart Failure Classification Distribution">
+            <div class="donut-label"><strong>31</strong><span>Patients</span></div>
+          </div>
+          <div class="legend">
+            <div class="legend-row">
+              <span class="dot" style="background:var(--series-1)"></span>
+              <span>HFrEF (EF &le; 40%)</span>
+              <strong>51.6% (16)</strong>
+            </div>
+            <div class="legend-row">
+              <span class="dot" style="background:var(--series-2)"></span>
+              <span>HFmrEF (EF 41-49%)</span>
+              <strong>9.7% (3)</strong>
+            </div>
+            <div class="legend-row">
+              <span class="dot" style="background:var(--series-5)"></span>
+              <span>HFpEF (EF &ge; 50%)</span>
+              <strong>35.5% (11)</strong>
+            </div>
+            <div class="legend-row">
+              <span class="dot" style="background:#ccc"></span>
+              <span>Not Documented (LAMA)</span>
+              <strong>3.2% (1)</strong>
+            </div>
+          </div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-top: 15px; font-style: italic;">
+          *LVEF documentation rate is extremely high at 96.8% (30 out of 31 patients). The single unrecorded case corresponds to a patient who Left Against Medical Advice (LAMA) from the ICU prior to an Echocardiography being performed.
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>Co-Prescription of Cardioprotective Medications</h2>
+        <div class="callout" style="background: #eef3f7; border-left: 5px solid var(--series-5);">
+          <div class="callout-title" style="color: var(--accent-dark);">Aspirin and Statins Profiling (Active Discharges)</div>
+          * <strong>Aspirin Prescribed:</strong> 48.3% (14 out of 29 patients)<br>
+          * <strong>Statin Prescribed:</strong> 55.2% (16 out of 29 patients)<br>
+          Aspirin and Statins were correctly targeted to patients with ischemic cardiomyopathy (Triple Vessel Disease/ACS history). High-dose Statin therapy (Atorvastatin 40mg) was utilized in secondary prevention.
+        </div>
+        <div class="callout" style="background: #fdf2e9; border-left: 5px solid #e67e22;">
+          <div class="callout-title" style="color: #d35400;">Guideline-Directed Medical Therapy (GDMT) Gaps</div>
+          ACEi/ARB/ARNI prescribing rate is low at <strong>27.6% (8/29)</strong>. SGLT2 inhibitor (Dapagliflozin) was prescribed in <strong>37.9% (11/29)</strong> and MRAs in <strong>48.3% (14/29)</strong>, indicating significant clinical room for optimizing GDMT co-prescribing.
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Heart Failure Audit Compliance Rates by Criterion</h2>
+        <div class="bars">
+          <div class="bar-row"><div class="bar-head"><span>Ejection fraction documented (Echo)</span><span>96.8%</span></div><div class="track"><div class="fill" style="width:96.8%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Precipitating factor identified</span><span>96.8%</span></div><div class="track"><div class="fill" style="width:96.8%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Loop Diuretic prescribed on discharge</span><span>65.5%</span></div><div class="track"><div class="fill" style="width:65.5%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Mineralocorticoid Receptor Antagonist (MRA)</span><span>48.3%</span></div><div class="track"><div class="fill" style="width:48.3%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Evidence-based Beta-blocker prescribed</span><span>44.8%</span></div><div class="track"><div class="fill" style="width:44.8%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>SGLT2 inhibitor (Dapagliflozin/Empagliflozin)</span><span>37.9%</span></div><div class="track"><div class="fill" style="width:37.9%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>DASH / Low Salt advice documented</span><span>31.0%</span></div><div class="track"><div class="fill" style="width:31.0%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>ACEi / ARB / ARNI prescribed</span><span>27.6%</span></div><div class="track"><div class="fill" style="width:27.6%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Cardiology follow-up scheduled</span><span>27.6%</span></div><div class="track"><div class="fill" style="width:27.6%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Contraindications documented for held GDMT</span><span>17.2%</span></div><div class="track"><div class="fill" style="width:17.2%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Renal function & K+ follow-up scheduled</span><span>10.3%</span></div><div class="track"><div class="fill" style="width:10.3%"></div></div></div>
+          <div class="bar-row"><div class="bar-head"><span>Daily body weight monitoring advised</span><span>3.4%</span></div><div class="track"><div class="fill" style="width:3.4%"></div></div></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Frequent Patient-Safety Gaps & Discrepancies</h2>
+        <div class="defects">
+          <div class="defect">
+            <span>Daily weight monitoring omitted</span>
+            <div class="track"><div class="fill" style="width:96.6%"></div></div>
+            <strong>28 cases</strong>
+          </div>
+          <div class="defect">
+            <span>Renal/Potassium monitoring omitted</span>
+            <div class="track"><div class="fill" style="width:89.7%"></div></div>
+            <strong>26 cases</strong>
+          </div>
+          <div class="defect">
+            <span>No specific Cardiology OPD review</span>
+            <div class="track"><div class="fill" style="width:72.4%"></div></div>
+            <strong>21 cases</strong>
+          </div>
+          <div class="defect">
+            <span>Held GDMT reason not written</span>
+            <div class="track"><div class="fill" style="width:82.8%"></div></div>
+            <strong>24 cases</strong>
+          </div>
+          <div class="defect">
+            <span>Salt / fluid restriction missing</span>
+            <div class="track"><div class="fill" style="width:69.0%"></div></div>
+            <strong>20 cases</strong>
+          </div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-top: 15px; line-height: 1.4;">
+          <strong>Clinical Risk Note:</strong> Out of 29 standard discharges, only 3 (10.3%) had a documented plan to check kidney function and potassium on follow-up, despite high rates of MRA and loop diuretic co-prescription. Daily weight tracking was only documented in 1 summary.
+        </p>
+      </article>
+    </section>
+
+    <details open>
+      <summary>Materials and Methods</summary>
+      <div class="methods">
+        <article class="card method">
+          <div class="num">1</div>
+          <div>
+            <h3>Audit cohort & setting</h3>
+            <p>
+              A retrospective clinical audit of 31 patients with heart failure or cardiomyopathy admitted to the Department of General Medicine at Santosh Medical College and Hospital, Ghaziabad during June–July 2026.
+            </p>
+          </div>
+        </article>
+
+        <article class="card method">
+          <div class="num">2</div>
+          <div>
+            <h3>Data extraction pipeline</h3>
+            <p>
+              Heart failure cases were identified via diagnostic keywords (CHF, CCF, HFrEF, HFmrEF, HFpEF, DCMP, Cardiomyopathy, LV Dysfunction). PDFs were extracted to text via <code>pdftotext -layout</code>. Audit extraction was performed in parallel using four automated subagents running Gemini 3.5 Flash.
+            </p>
+          </div>
+        </article>
+
+        <article class="card method">
+          <div class="num">3</div>
+          <div>
+            <h3>Active vs Non-standard Discharges</h3>
+            <p>
+              Medication analysis was restricted to <strong>29 active discharges</strong>. One patient who expired in hospital (IP260613159) and one who Left Against Medical Advice (LAMA, IP260627006) were excluded from the prescribing denominators.
+            </p>
+          </div>
+        </article>
+
+        <article class="card method">
+          <div class="num">4</div>
+          <div>
+            <h3>GDMT Class Mapping</h3>
+            <p>
+              Prescriptions were resolved using the local directory (<code>kb.txt</code>) to map commercial brands to drug classes (e.g. Vymada to ARNI, Dytor/Dytor Plus to loop diuretics/MRAs, Met XL/Metolar to beta-blockers, Oxra/Dapa to SGLT2i).
+            </p>
+          </div>
+        </article>
+      </div>
+    </details>
+
+    <details>
+      <summary>Guideline-Directed Medical Therapy (GDMT) Reference</summary>
+      <div class="table-wrap" style="margin-top:16px">
+        <table>
+          <thead>
+            <tr><th>Medication Class</th><th>Target Agent / Brand</th><th>Indication (HFrEF)</th><th>Safety Parameter to Monitor</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>ARNI / ACEi / ARB</strong></td><td>Sacubitril-Valsartan (Vymada) / Telmisartan</td><td>Class I (All patients unless contraindicated)</td><td>Serum Creatinine, Potassium, Blood Pressure (hold if SBP &lt; 90)</td></tr>
+            <tr><td><strong>Beta-blockers</strong></td><td>Metoprolol Succinate (Met XL) / Bisoprolol / Carvedilol</td><td>Class I (Stable HFrEF)</td><td>Heart Rate (hold if HR &lt; 60 bpm), avoid in acute decompensated shock</td></tr>
+            <tr><td><strong>MRA</strong></td><td>Spironolactone (Aldactone) / Eplerenone</td><td>Class I (EF &le; 35%)</td><td>Potassium (hold if K+ &gt; 5.0 mmol/L), Serum Creatinine</td></tr>
+            <tr><td><strong>SGLT2 inhibitors</strong></td><td>Dapagliflozin (Dapa) / Empagliflozin</td><td>Class I (All HFrEF and HFpEF)</td><td>eGFR (avoid if eGFR &lt; 20-30), active urosepsis</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <section>
+      <h2 style="color:var(--accent-dark)">Heart Failure Quality Improvement Action Plan</h2>
+      <div class="actions">
+        <article class="card">
+          <span class="priority immediate">Immediate</span>
+          <h3>Standardized Discharge Vitals & Weight</h3>
+          <p>Require documentation of discharge heart rate, blood pressure, and weight to ensure hemodynamic stability prior to ward discharge.</p>
+        </article>
+        <article class="card">
+          <span class="priority immediate">Immediate</span>
+          <h3>GDMT Checklists</h3>
+          <p>Integrate a "GDMT Discharge Checklist" in EMR templates to prompt clinicians on prescribing ARNI/ACEi, Beta-blockers, MRAs, and SGLT2 inhibitors.</p>
+        </article>
+        <article class="card">
+          <span class="priority high">High Priority</span>
+          <h3>Lab follow-up Alerts</h3>
+          <p>Automate laboratory order templates for follow-up Serum Creatinine and Electrolytes (K+) within 7–10 days of starting/adjusting MRAs or loop diuretics.</p>
+        </article>
+        <article class="card">
+          <span class="priority high">High Priority</span>
+          <h3>Structured Fluid & Salt Advice</h3>
+          <p>Add pre-configured discharge advice blocks detailing salt restriction (&lt; 2g/day) and fluid restriction (1.5L/day) based on clinical congestion.</p>
+        </article>
+        <article class="card">
+          <span class="priority high">High Priority</span>
+          <h3>Daily Weight Tracking Sheets</h3>
+          <p>Provide patients with a "Heart Failure Self-Care Sheet" to record daily morning weights, with clear red flags (e.g. weight gain &gt; 2kg in 3 days).</p>
+        </article>
+        <article class="card">
+          <span class="priority immediate">Immediate</span>
+          <h3>Cardiology OPD Reviews</h3>
+          <p>Ensure all patients diagnosed with HFrEF or valvular/ischemic cardiomyopathy have a scheduled review with Cardiology OPD within 14 days of discharge.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer">
+      Department of General Medicine · Santosh Medical College and Hospital · Clinical Quality Audit 2026
+    </div>
+  </main>
+</body>
+</html>
