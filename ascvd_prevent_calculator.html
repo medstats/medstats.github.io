@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>ASCVD & PREVENT Risk Calculator</title>
+  <style>
+    :root {
+      --navy: #0d4f68;
+      --navy-dark: #083e52;
+      --brick: #9c4b35;
+      --pale-blue: #dfeaf0;
+      --pale-blue-2: #eef5f8;
+      --page: #f6f6f4;
+      --card: #ffffff;
+      --text: #2d3337;
+      --muted: #697279;
+      --border: #d9d8d2;
+      --shadow: 0 8px 28px rgba(21, 48, 60, 0.10);
+      --low: #2c7a66;
+      --borderline: #b0802f;
+      --intermediate: #b76632;
+      --high: #9b3d37;
+      --danger-bg: #fff1ee;
+      --warning-bg: #fff8e8;
+      --success-bg: #edf8f3;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    .page-shell {
+      max-width: 1160px;
+      margin: 18px auto 48px;
+      padding: 0 18px;
+    }
+
+    .page-card {
+      background: var(--card);
+      border: 1px solid rgba(13, 79, 104, 0.06);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 34px 42px 42px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .brick-rule {
+      height: 4px;
+      background: var(--brick);
+      border-radius: 999px;
+      margin: 24px 0 26px;
+    }
+
+    .overview {
+      position: relative;
+      overflow: hidden;
+      background: var(--pale-blue);
+      border-radius: 13px;
+      padding: 26px 30px 24px 40px;
+      margin-bottom: 26px;
+    }
+
+    .overview::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      background: var(--navy);
+    }
+
+    .overview h2,
+    .section-title {
+      color: var(--navy);
+      margin: 0 0 12px;
+    }
+
+    .overview h2 { font-size: 1.35rem; }
+
+    .overview p { margin: 8px 0; }
+
+    .privacy-note {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.66);
+      color: var(--navy-dark);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .section {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 24px;
+      margin-top: 18px;
+    }
+
+    .section-title {
+      font-size: 1.22rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title .number {
+      width: 28px;
+      height: 28px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-size: 0.88rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px 18px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field.span-2 { grid-column: span 2; }
+    .field.span-3 { grid-column: span 3; }
+
+    label,
+    .label-like {
+      display: block;
+      color: var(--navy-dark);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .required::after {
+      content: " *";
+      color: var(--brick);
+    }
+
+    input[type="number"],
+    input[type="text"],
+    select {
+      width: 100%;
+      border: 1px solid #c9d1d5;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--text);
+      padding: 11px 12px;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(13, 79, 104, 0.12);
+    }
+
+    input[aria-invalid="true"] {
+      border-color: #a4413d;
+      background: #fff7f6;
+    }
+
+    .hint {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.79rem;
+    }
+
+    .toggle-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .choice {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 12px;
+      border: 1px solid #c9d1d5;
+      border-radius: 9px;
+      background: #fff;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .choice:has(input:checked) {
+      border-color: var(--navy);
+      background: var(--pale-blue-2);
+      box-shadow: inset 0 0 0 1px var(--navy);
+    }
+
+    .choice input { accent-color: var(--navy); }
+
+    .subpanel {
+      border-radius: 12px;
+      background: var(--pale-blue-2);
+      padding: 18px;
+      margin-top: 16px;
+    }
+
+    .subpanel h3 {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 17px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.05s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:active { transform: translateY(1px); }
+
+    .btn-primary {
+      color: #fff;
+      background: var(--navy);
+      box-shadow: 0 4px 12px rgba(13, 79, 104, 0.20);
+    }
+
+    .btn-primary:hover { background: var(--navy-dark); }
+
+    .btn-secondary {
+      color: var(--navy);
+      background: var(--pale-blue);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      background: #f1f1ef;
+      border: 1px solid var(--border);
+    }
+
+    #alerts {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .alert {
+      padding: 12px 14px;
+      border-radius: 9px;
+      border-left: 5px solid;
+      font-size: 0.92rem;
+    }
+
+    .alert.error {
+      background: var(--danger-bg);
+      border-color: #a4413d;
+    }
+
+    .alert.warning {
+      background: var(--warning-bg);
+      border-color: #b0802f;
+    }
+
+    .alert.info {
+      background: var(--pale-blue-2);
+      border-color: var(--navy);
+    }
+
+    .alert.success {
+      background: var(--success-bg);
+      border-color: var(--low);
+    }
+
+    .results-wrap {
+      display: none;
+      margin-top: 26px;
+    }
+
+    .results-wrap.show { display: block; }
+
+    .results-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .results-heading h2 {
+      margin: 0;
+      color: var(--navy);
+    }
+
+    .results-meta {
+      color: var(--muted);
+      font-size: 0.86rem;
+      text-align: right;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .result-card {
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #fff;
+      overflow: hidden;
+      min-height: 308px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .result-card .card-head {
+      border-top: 7px solid var(--navy);
+      padding: 18px 19px 10px;
+    }
+
+    .result-card h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.03rem;
+    }
+
+    .equation-note {
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 3px;
+    }
+
+    .score-row {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      padding: 0 19px;
+      margin-top: 2px;
+    }
+
+    .score {
+      color: var(--navy-dark);
+      font-size: 2.55rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .score-unit {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      margin: 7px 19px 10px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .badge.low { background: var(--low); }
+    .badge.borderline { background: var(--borderline); }
+    .badge.intermediate { background: var(--intermediate); }
+    .badge.high { background: var(--high); }
+    .badge.na { background: #7b858a; }
+
+    .risk-scale {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.35fr 1.15fr;
+      gap: 3px;
+      height: 10px;
+      margin: 4px 19px 12px;
+    }
+
+    .risk-scale span {
+      display: block;
+      border-radius: 999px;
+      opacity: 0.75;
+    }
+
+    .risk-scale .s-low { background: var(--low); }
+    .risk-scale .s-borderline { background: var(--borderline); }
+    .risk-scale .s-intermediate { background: var(--intermediate); }
+    .risk-scale .s-high { background: var(--high); }
+
+    .risk-marker {
+      position: absolute;
+      top: -5px;
+      width: 3px;
+      height: 20px;
+      background: #1d2225;
+      border-radius: 3px;
+      transform: translateX(-50%);
+      box-shadow: 0 0 0 2px #fff;
+    }
+
+    .interpretation {
+      padding: 0 19px 18px;
+      margin-top: auto;
+      font-size: 0.9rem;
+    }
+
+    .interpretation strong { color: var(--navy-dark); }
+
+    .comparison {
+      margin-top: 17px;
+      border-radius: 13px;
+      background: var(--pale-blue);
+      padding: 20px 22px;
+      border-left: 8px solid var(--navy);
+    }
+
+    .comparison h3 {
+      margin: 0 0 10px;
+      color: var(--navy);
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      background: rgba(255,255,255,0.72);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .metric .k {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .metric .v {
+      margin-top: 2px;
+      color: var(--navy-dark);
+      font-size: 1.12rem;
+      font-weight: 800;
+    }
+
+    .context-list {
+      margin: 13px 0 0;
+      padding-left: 20px;
+    }
+
+    .context-list li { margin: 7px 0; }
+
+    details {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      padding: 14px 17px;
+      margin-top: 18px;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    details p, details li { font-size: 0.9rem; }
+
+    .reference-list a {
+      color: var(--navy);
+      overflow-wrap: anywhere;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.79rem;
+      text-align: center;
+    }
+
+    .print-only { display: none; }
+
+    @media (max-width: 900px) {
+      .page-card { padding: 28px 22px 32px; }
+      .grid, .result-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .field.span-3 { grid-column: span 2; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .result-card:last-child { grid-column: span 2; }
+    }
+
+    @media (max-width: 620px) {
+      .page-shell { padding: 0 10px; margin-top: 8px; }
+      .page-card { padding: 22px 14px 28px; border-radius: 12px; }
+      .overview { padding: 22px 18px 20px 28px; }
+      .section { padding: 18px 14px; }
+      .grid, .grid.two, .result-grid { grid-template-columns: 1fr; }
+      .field.span-2, .field.span-3, .result-card:last-child { grid-column: auto; }
+      .results-heading { align-items: flex-start; flex-direction: column; }
+      .results-meta { text-align: left; }
+      .toggle-row { flex-direction: column; }
+      .choice { width: 100%; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page-shell { margin: 0; max-width: none; padding: 0; }
+      .page-card { box-shadow: none; border: 0; padding: 12mm; }
+      .input-area, .actions, #alerts, details, .footer-note, .privacy-note { display: none !important; }
+      .results-wrap { display: block !important; }
+      .result-grid { grid-template-columns: repeat(3, 1fr); }
+      .result-card { break-inside: avoid; }
+      .comparison { break-inside: avoid; }
+      .print-only { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <article class="page-card">
+      <header>
+        <h1>ASCVD &amp; PREVENT Risk Calculator</h1>
+        <p class="subtitle">Compare the 2013 Pooled Cohort Equation with the AHA PREVENT-ASCVD equation</p>
+      </header>
+
+      <div class="brick-rule"></div>
+
+      <section class="overview" aria-labelledby="overview-title">
+        <h2 id="overview-title">Overview</h2>
+        <p>This calculator estimates <strong>10-year risk of a first atherosclerotic cardiovascular disease event</strong> using two models:</p>
+        <ul>
+          <li><strong>PCE / traditional ASCVD risk:</strong> age 40–79 years.</li>
+          <li><strong>PREVENT-ASCVD:</strong> age 30–79 years, with kidney and treatment variables included.</li>
+          <li><strong>Personalized PREVENT:</strong> adds UACR and HbA1c when both are entered. Social Deprivation Index is treated as unavailable using the published missing-SDI term.</li>
+        </ul>
+        <p>For South Asian adults, the PCE result uses the <strong>White/Other equation</strong>; neither model has been specifically calibrated in an Indian cohort.</p>
+        <span class="privacy-note">🔒 Calculations run locally in your browser. No patient data are transmitted.</span>
+      </section>
+
+      <div class="input-area">
+        <form id="riskForm" novalidate>
+          <section class="section" aria-labelledby="patient-title">
+            <h2 class="section-title" id="patient-title"><span class="number">1</span> Patient details</h2>
+            <div class="grid">
+              <div class="field">
+                <label for="patientId">Patient name / ID</label>
+                <input id="patientId" type="text" autocomplete="off" placeholder="Optional" />
+              </div>
+              <div class="field">
+                <label class="required" for="age">Age</label>
+                <input id="age" type="number" min="30" max="79" step="1" inputmode="numeric" placeholder="30–79 years" required />
+                <div class="hint">PCE requires age 40–79; PREVENT requires age 30–79.</div>
+              </div>
+              <div class="field">
+                <span class="label-like required">Sex</span>
+                <div class="toggle-row" role="radiogroup" aria-label="Sex">
+                  <label class="choice"><input type="radio" name="sex" value="Male" checked /> Male</label>
+                  <label class="choice"><input type="radio" name="sex" value="Female" /> Female</label>
+                </div>
+              </div>
+              <div class="field span-3">
+                <span class="label-like required">Known clinical ASCVD or subclinical atherosclerosis?</span>
+                <div class="toggle-row" role="radiogroup" aria-label="Known ASCVD">
+                  <label class="choice"><input type="radio" name="knownCvd" value="0" checked /> No</label>
+                  <label class="choice"><input type="radio" name="knownCvd" value="1" /> Yes</label>
+                </div>
+                <div class="hint">These primary-prevention equations are not intended for patients with established ASCVD.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" aria-labelledby="core-title">
+            <h2 class="section-title" id="core-title"><span class="number">2</span> Core clinical variables</h2>
+            <div class="grid">
+              <div class="field">
+                <label class="required" for="tc">Total cholesterol</label>
+                <input id="tc" type="number" min="130" max="320" step="0.1" inputmode="decimal" placeholder="130–320 mg/dL" required />
+              </div>
+              <div class="field">
+                <label class="required" for="hdl">HDL cholesterol</label>
+                <input id="hdl" type="number" min="20" max="100" step="0.1" inputmode="decimal" placeholder="20–100 mg/dL" required />
+              </div>
+              <div class="field">
+                <label for="ldl">LDL cholesterol</label>
+                <input id="ldl" type="number" min="0" max="500" step="0.1" inputmode="decimal" placeholder="Optional, mg/dL" />
+                <div class="hint">Used for clinical context only; not entered into either equation.</div>
+              </div>
+              <div class="field">
+                <label class="required" for="sbp">Systolic BP</label>
+                <input id="sbp" type="number" min="90" max="200" step="1" inputmode="numeric" placeholder="90–200 mmHg" required />
+                <div class="hint">PREVENT is validated up to 180 mmHg; PCE up to 200 mmHg.</div>
+              </div>
+              <div class="field">
+                <span class="label-like required">Antihypertensive treatment</span>
+                <div class="toggle-row" role="radiogroup" aria-label="Antihypertensive treatment">
+                  <label class="choice"><input type="radio" name="bpTx" value="1" /> Yes</label>
+                  <label class="choice"><input type="radio" name="bpTx" value="0" checked /> No</label>
+                </div>
+              </div>
+              <div class="field">
+                <span class="label-like required">Current cigarette smoking</span>
+                <div class="toggle-row" role="radiogroup" aria-label="Smoking">
+                  <label class="choice"><input type="radio" name="smoking" value="1" /> Yes</label>
+                  <label class="choice"><input type="radio" name="smoking" value="0" checked /> No</label>
+                </div>
+              </div>
+              <div class="field">
+                <span class="label-like required">Known diabetes</span>
+                <div class="toggle-row" role="radiogroup" aria-label="Diabetes">
+                  <label class="choice"><input type="radio" name="diabetes" value="1" /> Yes</label>
+                  <label class="choice"><input type="radio" name="diabetes" value="0" checked /> No</label>
+                </div>
+                <div class="hint">Use established diagnosis, not HbA1c alone.</div>
+              </div>
+              <div class="field">
+                <span class="label-like required">Current statin use</span>
+                <div class="toggle-row" role="radiogroup" aria-label="Statin use">
+                  <label class="choice"><input type="radio" name="statin" value="1" /> Yes</label>
+                  <label class="choice"><input type="radio" name="statin" value="0" checked /> No</label>
+                </div>
+                <div class="hint">Statin use is included in PREVENT but not in PCE.</div>
+              </div>
+              <div class="field">
+                <label class="required" for="egfr">eGFR</label>
+                <input id="egfr" type="number" min="15" max="140" step="0.1" inputmode="decimal" placeholder="15–140 mL/min/1.73 m²" required />
+              </div>
+            </div>
+
+            <div class="subpanel">
+              <h3>Optional personalized PREVENT inputs</h3>
+              <div class="grid two">
+                <div class="field">
+                  <label for="uacr">Urine albumin–creatinine ratio</label>
+                  <input id="uacr" type="number" min="0.1" max="25000" step="0.1" inputmode="decimal" placeholder="mg/g" />
+                  <div class="hint">Enter 0.1–25,000 mg/g. Both UACR and HbA1c are required for the personalized score in this calculator.</div>
+                </div>
+                <div class="field">
+                  <label for="hba1c">HbA1c</label>
+                  <input id="hba1c" type="number" min="4.5" max="15" step="0.1" inputmode="decimal" placeholder="4.5–15.0%" />
+                </div>
+              </div>
+            </div>
+
+            <div class="subpanel">
+              <h3>Optional risk enhancer</h3>
+              <div class="grid two">
+                <div class="field">
+                  <label for="lpa">Lipoprotein(a)</label>
+                  <input id="lpa" type="number" min="0" max="500" step="0.1" inputmode="decimal" placeholder="Optional, mg/dL" />
+                  <div class="hint">Not part of PCE or PREVENT. A value ≥50 mg/dL is treated as a risk enhancer in current lipid guidance.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn-primary">Calculate risk</button>
+              <button type="button" id="exampleBtn" class="btn-secondary">Load example</button>
+              <button type="reset" class="btn-ghost">Reset</button>
+            </div>
+          </section>
+        </form>
+      </div>
+
+      <div id="alerts" aria-live="polite"></div>
+
+      <section id="results" class="results-wrap" aria-labelledby="results-title">
+        <div class="results-heading">
+          <div>
+            <h2 id="results-title">Risk estimates</h2>
+            <div class="print-only" id="printPatient"></div>
+          </div>
+          <div class="results-meta" id="resultMeta"></div>
+        </div>
+
+        <div class="result-grid">
+          <article class="result-card" id="pceCard">
+            <div class="card-head">
+              <h3>PCE 10-year ASCVD risk</h3>
+              <div class="equation-note">2013 ACC/AHA White/Other equation</div>
+            </div>
+            <div class="score-row"><span class="score" id="pceScore">—</span><span class="score-unit">%</span></div>
+            <span class="badge na" id="pceBadge">Not calculated</span>
+            <div class="risk-scale" aria-hidden="true">
+              <span class="s-low"></span><span class="s-borderline"></span><span class="s-intermediate"></span><span class="s-high"></span>
+              <i class="risk-marker" id="pceMarker" hidden></i>
+            </div>
+            <div class="interpretation" id="pceInterpretation">Complete the form to calculate risk.</div>
+          </article>
+
+          <article class="result-card" id="preventBaseCard">
+            <div class="card-head">
+              <h3>PREVENT-ASCVD base</h3>
+              <div class="equation-note">Cardiovascular, kidney and metabolic model</div>
+            </div>
+            <div class="score-row"><span class="score" id="preventBaseScore">—</span><span class="score-unit">%</span></div>
+            <span class="badge na" id="preventBaseBadge">Not calculated</span>
+            <div class="risk-scale" aria-hidden="true">
+              <span class="s-low"></span><span class="s-borderline"></span><span class="s-intermediate"></span><span class="s-high"></span>
+              <i class="risk-marker" id="preventBaseMarker" hidden></i>
+            </div>
+            <div class="interpretation" id="preventBaseInterpretation">Complete the form to calculate risk.</div>
+          </article>
+
+          <article class="result-card" id="preventEnhancedCard">
+            <div class="card-head">
+              <h3>PREVENT-ASCVD personalized</h3>
+              <div class="equation-note">Base model + UACR + HbA1c; SDI unavailable</div>
+            </div>
+            <div class="score-row"><span class="score" id="preventEnhancedScore">—</span><span class="score-unit">%</span></div>
+            <span class="badge na" id="preventEnhancedBadge">Optional</span>
+            <div class="risk-scale" aria-hidden="true">
+              <span class="s-low"></span><span class="s-borderline"></span><span class="s-intermediate"></span><span class="s-high"></span>
+              <i class="risk-marker" id="preventEnhancedMarker" hidden></i>
+            </div>
+            <div class="interpretation" id="preventEnhancedInterpretation">Enter both UACR and HbA1c to calculate the personalized estimate.</div>
+          </article>
+        </div>
+
+        <section class="comparison" aria-labelledby="compare-title">
+          <h3 id="compare-title">Comparison and clinical context</h3>
+          <div class="comparison-grid">
+            <div class="metric">
+              <div class="k">PREVENT base − PCE</div>
+              <div class="v" id="diffBasePce">—</div>
+            </div>
+            <div class="metric">
+              <div class="k">Personalized − base PREVENT</div>
+              <div class="v" id="diffEnhancedBase">—</div>
+            </div>
+            <div class="metric">
+              <div class="k">Ordinal category comparison</div>
+              <div class="v" id="categoryComparison">—</div>
+            </div>
+          </div>
+          <ul class="context-list" id="contextList"></ul>
+          <div class="actions">
+            <button type="button" id="copyBtn" class="btn-secondary">Copy summary</button>
+            <button type="button" id="printBtn" class="btn-ghost">Print / Save PDF</button>
+          </div>
+        </section>
+      </section>
+
+      <details>
+        <summary>Risk categories and interpretation</summary>
+        <p><strong>PCE categories:</strong> low &lt;5%; borderline 5–&lt;7.5%; intermediate 7.5–&lt;20%; high ≥20%.</p>
+        <p><strong>PREVENT-ASCVD categories:</strong> low &lt;3%; borderline 3–&lt;5%; intermediate 5–&lt;10%; high ≥10%.</p>
+        <p>The category crosswalk comes from the 2026 ACC/AHA dyslipidemia guideline. A calculated percentage supports—but does not replace—clinical judgment, evaluation of risk enhancers, coronary artery calcium where appropriate, or disease-specific treatment recommendations.</p>
+      </details>
+
+      <details>
+        <summary>Method, limitations and equation sources</summary>
+        <ul>
+          <li>PCE uses age, sex, total cholesterol, HDL-C, systolic BP, BP treatment, smoking and diabetes. For South Asian adults this page applies the White/Other equation because no Indian-specific PCE equation exists.</li>
+          <li>PREVENT base uses age, sex, non-HDL-C, HDL-C, systolic BP, diabetes, smoking, eGFR, BP treatment and statin use, including published interaction and spline terms.</li>
+          <li>Personalized PREVENT uses the published full 10-year ASCVD model with UACR and HbA1c. Because US Social Deprivation Index is unavailable, the model’s published missing-SDI indicator is used.</li>
+          <li>The calculator does not establish treatment eligibility by itself. Diabetes, CKD, familial hypercholesterolemia, LDL-C ≥190 mg/dL, established ASCVD and other conditions may require action independent of the displayed estimate.</li>
+          <li>PREVENT was developed in US adults and PCE was developed primarily in US White and Black cohorts. Both require validation and calibration before being treated as precise event probabilities in North Indian populations.</li>
+        </ul>
+        <ol class="reference-list">
+          <li><a href="https://professional.heart.org/en/guidelines-and-statements/about-prevent-calculator" target="_blank" rel="noopener">American Heart Association PREVENT calculator and supporting resources</a></li>
+          <li><a href="https://doi.org/10.1161/CIRCULATIONAHA.123.067626" target="_blank" rel="noopener">Khan SS et al. Development and Validation of the AHA PREVENT Equations. Circulation. 2024.</a></li>
+          <li><a href="https://tools.acc.org/ascvd-risk-estimator/default.aspx" target="_blank" rel="noopener">ACC/AHA ASCVD Risk Estimator using the 2013 Pooled Cohort Equations</a></li>
+          <li><a href="https://doi.org/10.1161/CIR.0000000000001423" target="_blank" rel="noopener">2026 ACC/AHA Guideline on the Management of Dyslipidemia</a></li>
+        </ol>
+      </details>
+
+      <p class="footer-note">Educational and clinical decision-support tool. Verify unusual or treatment-changing results with an official calculator and current guidelines.</p>
+    </article>
+  </main>
+
+  <script>
+    "use strict";
+
+    const PCE_COEFS = {
+      Female: {
+        ln_age: -29.799, ln_age2: 4.884, ln_tc: 13.540,
+        ln_age_ln_tc: -3.114, ln_hdl: -13.578,
+        ln_age_ln_hdl: 3.149, ln_treated_sbp: 2.019,
+        ln_untreated_sbp: 1.957, smoker: 7.574,
+        ln_age_smoker: -1.665, diabetes: 0.661,
+        baseline: 0.96652, mean: -29.1817
+      },
+      Male: {
+        ln_age: 12.344, ln_age2: 0.0, ln_tc: 11.853,
+        ln_age_ln_tc: -2.664, ln_hdl: -7.990,
+        ln_age_ln_hdl: 1.769, ln_treated_sbp: 1.797,
+        ln_untreated_sbp: 1.764, smoker: 7.837,
+        ln_age_smoker: -1.795, diabetes: 0.658,
+        baseline: 0.91436, mean: 61.1816
+      }
+    };
+
+    const PREVENT_BASE = {
+      Female: {
+        age: 0.719883, non_hdl: 0.1176967, hdl: -0.151185,
+        sbp_lt110: -0.0835358, sbp_ge110: 0.3592852,
+        dm: 0.8348585, smoking: 0.4831078,
+        egfr_lt60: 0.4864619, egfr_ge60: 0.0397779,
+        bp_tx: 0.2265309, statin: -0.0592374,
+        bp_tx_sbp_ge110: -0.0395762, statin_non_hdl: 0.0844423,
+        age_non_hdl: -0.0567839, age_hdl: 0.0325692,
+        age_sbp_ge110: -0.1035985, age_dm: -0.2417542,
+        age_smoking: -0.0791142, age_egfr_lt60: -0.1671492,
+        const: -3.819975
+      },
+      Male: {
+        age: 0.7099847, non_hdl: 0.1658663, hdl: -0.1144285,
+        sbp_lt110: -0.2837212, sbp_ge110: 0.3239977,
+        dm: 0.7189597, smoking: 0.3956973,
+        egfr_lt60: 0.3690075, egfr_ge60: 0.0203619,
+        bp_tx: 0.2036522, statin: -0.0865581,
+        bp_tx_sbp_ge110: -0.0322916, statin_non_hdl: 0.114563,
+        age_non_hdl: -0.0300005, age_hdl: 0.0232747,
+        age_sbp_ge110: -0.0927024, age_dm: -0.2018525,
+        age_smoking: -0.0970527, age_egfr_lt60: -0.1217081,
+        const: -3.500655
+      }
+    };
+
+    const PREVENT_PERSONALIZED = {
+      Female: {
+        age: 0.7023067, non_hdl: 0.0898765, hdl: -0.1407316,
+        sbp_lt110: -0.0256648, sbp_ge110: 0.314511,
+        dm: 0.4799217, smoking: 0.4062049,
+        egfr_lt60: 0.3847744, egfr_ge60: 0.0495174,
+        bp_tx: 0.2133861, statin: -0.0678552,
+        bp_tx_sbp_ge110: -0.0451416, statin_non_hdl: 0.0788187,
+        age_non_hdl: -0.0535985, age_hdl: 0.0291762,
+        age_sbp_ge110: -0.0961839, age_dm: -0.2001466,
+        age_smoking: -0.0586472, age_egfr_lt60: -0.1537791,
+        sdi4_6: 0.1413965, sdi7_10: 0.228136,
+        miss_sdi: 0.1588908, ln_uacr: 0.1371824,
+        miss_uacr: 0.0061613, hba1c_dm: 0.123192,
+        hba1c_nodm: 0.1410572, miss_hba1c: 0.005866,
+        const: -4.291503
+      },
+      Male: {
+        age: 0.7128741, non_hdl: 0.1465201, hdl: -0.1125794,
+        sbp_lt110: -0.3387216, sbp_ge110: 0.2980252,
+        dm: 0.399583, smoking: 0.3379111,
+        egfr_lt60: 0.2582604, egfr_ge60: 0.0147769,
+        bp_tx: 0.1686621, statin: -0.1073619,
+        bp_tx_sbp_ge110: -0.0381038, statin_non_hdl: 0.1034169,
+        age_non_hdl: -0.0228755, age_hdl: 0.0267453,
+        age_sbp_ge110: -0.0897449, age_dm: -0.1497464,
+        age_smoking: -0.077206, age_egfr_lt60: -0.1198368,
+        sdi4_6: 0.0651121, sdi7_10: 0.2676683,
+        miss_sdi: 0.1388492, ln_uacr: 0.1375837,
+        miss_uacr: 0.0652944, hba1c_dm: 0.101282,
+        hba1c_nodm: 0.1092726, miss_hba1c: -0.0112852,
+        const: -3.969788
+      }
+    };
+
+    const CATEGORY_ORDER = { Low: 0, Borderline: 1, Intermediate: 2, High: 3 };
+
+    function pceRisk({ age, sex, tc, hdl, sbp, treated, smoker, diabetes }) {
+      if (age < 40 || age > 79) return null;
+      const c = PCE_COEFS[sex];
+      const la = Math.log(age);
+      const ltc = Math.log(tc);
+      const lhdl = Math.log(hdl);
+      const lsbp = Math.log(sbp);
+      const score =
+        c.ln_age * la + c.ln_age2 * la * la +
+        c.ln_tc * ltc + c.ln_age_ln_tc * la * ltc +
+        c.ln_hdl * lhdl + c.ln_age_ln_hdl * la * lhdl +
+        (treated ? c.ln_treated_sbp : c.ln_untreated_sbp) * lsbp +
+        c.smoker * smoker + c.ln_age_smoker * la * smoker +
+        c.diabetes * diabetes;
+      return 100 * (1 - Math.pow(c.baseline, Math.exp(score - c.mean)));
+    }
+
+    function preventTerms({ age, tc, hdl, sbp, diabetes, smoking, egfr, bpTx, statin, uacr, hba1c, personalized }) {
+      const ageT = (age - 55) / 10;
+      const nonHdl = (tc - hdl) * 0.02586 - 3.5;
+      const hdlT = (hdl * 0.02586 - 1.3) / 0.3;
+      const sbpLt110 = (Math.min(sbp, 110) - 110) / 20;
+      const sbpGe110 = (Math.max(sbp, 110) - 130) / 20;
+      const egfrLt60 = (Math.min(egfr, 60) - 60) / -15;
+      const egfrGe60 = (Math.max(egfr, 60) - 90) / -15;
+
+      const t = {
+        age: ageT, non_hdl: nonHdl, hdl: hdlT,
+        sbp_lt110: sbpLt110, sbp_ge110: sbpGe110,
+        dm: diabetes, smoking: smoking,
+        egfr_lt60: egfrLt60, egfr_ge60: egfrGe60,
+        bp_tx: bpTx, statin: statin,
+        bp_tx_sbp_ge110: bpTx * sbpGe110,
+        statin_non_hdl: statin * nonHdl,
+        age_non_hdl: ageT * nonHdl,
+        age_hdl: ageT * hdlT,
+        age_sbp_ge110: ageT * sbpGe110,
+        age_dm: ageT * diabetes,
+        age_smoking: ageT * smoking,
+        age_egfr_lt60: ageT * egfrLt60
+      };
+
+      if (personalized) {
+        Object.assign(t, {
+          sdi4_6: 0,
+          sdi7_10: 0,
+          miss_sdi: 1,
+          ln_uacr: Math.log(uacr),
+          miss_uacr: 0,
+          hba1c_dm: (hba1c - 5.3) * diabetes,
+          hba1c_nodm: (hba1c - 5.3) * (1 - diabetes),
+          miss_hba1c: 0
+        });
+      }
+      return t;
+    }
+
+    function preventRisk(input, personalized = false) {
+      if (input.age < 30 || input.age > 79) return null;
+      const coefs = (personalized ? PREVENT_PERSONALIZED : PREVENT_BASE)[input.sex];
+      const terms = preventTerms({ ...input, personalized });
+      let linearPredictor = coefs.const;
+      for (const [key, value] of Object.entries(terms)) {
+        linearPredictor += coefs[key] * value;
+      }
+      return 100 / (1 + Math.exp(-linearPredictor));
+    }
+
+    function pceCategory(risk) {
+      if (risk == null) return null;
+      if (risk < 5) return "Low";
+      if (risk < 7.5) return "Borderline";
+      if (risk < 20) return "Intermediate";
+      return "High";
+    }
+
+    function preventCategory(risk) {
+      if (risk == null) return null;
+      if (risk < 3) return "Low";
+      if (risk < 5) return "Borderline";
+      if (risk < 10) return "Intermediate";
+      return "High";
+    }
+
+    function interpretation(category, model) {
+      const label = model === "PCE" ? "PCE" : "PREVENT";
+      const text = {
+        Low: `${label} places this patient in the low 10-year ASCVD-risk category. Continue lifestyle optimization and consider clinical risk enhancers when relevant.`,
+        Borderline: `${label} places this patient in the borderline category. A clinician–patient discussion should consider risk enhancers and, when appropriate, coronary artery calcium if treatment remains uncertain.`,
+        Intermediate: `${label} places this patient in the intermediate category. Preventive pharmacotherapy and intensity of risk-factor control should be discussed in the full clinical context.`,
+        High: `${label} places this patient in the high category. The estimate supports intensive, guideline-directed risk-factor reduction unless contraindicated.`
+      };
+      return text[category];
+    }
+
+    function numberValue(id) {
+      const raw = document.getElementById(id).value.trim();
+      return raw === "" ? null : Number(raw);
+    }
+
+    function radioValue(name) {
+      return Number(document.querySelector(`input[name="${name}"]:checked`).value);
+    }
+
+    function sexValue() {
+      return document.querySelector('input[name="sex"]:checked').value;
+    }
+
+    function getInput() {
+      return {
+        patientId: document.getElementById("patientId").value.trim(),
+        age: numberValue("age"),
+        sex: sexValue(),
+        knownCvd: radioValue("knownCvd"),
+        tc: numberValue("tc"),
+        hdl: numberValue("hdl"),
+        ldl: numberValue("ldl"),
+        sbp: numberValue("sbp"),
+        treated: radioValue("bpTx"),
+        bpTx: radioValue("bpTx"),
+        smoker: radioValue("smoking"),
+        smoking: radioValue("smoking"),
+        diabetes: radioValue("diabetes"),
+        statin: radioValue("statin"),
+        egfr: numberValue("egfr"),
+        uacr: numberValue("uacr"),
+        hba1c: numberValue("hba1c"),
+        lpa: numberValue("lpa")
+      };
+    }
+
+    const requiredRanges = {
+      age: [30, 79, "Age must be 30–79 years for PREVENT."],
+      tc: [130, 320, "Total cholesterol must be 130–320 mg/dL."],
+      hdl: [20, 100, "HDL cholesterol must be 20–100 mg/dL."],
+      sbp: [90, 200, "Systolic BP must be 90–200 mmHg."],
+      egfr: [15, 140, "eGFR must be 15–140 mL/min/1.73 m²."]
+    };
+
+    function validate(input) {
+      const errors = [];
+      document.querySelectorAll('input[type="number"]').forEach(el => el.removeAttribute("aria-invalid"));
+
+      for (const [key, [min, max, message]] of Object.entries(requiredRanges)) {
+        const el = document.getElementById(key);
+        if (input[key] == null || !Number.isFinite(input[key])) {
+          errors.push(`${el.previousElementSibling?.textContent?.replace(" *", "") || key} is required.`);
+          el.setAttribute("aria-invalid", "true");
+        } else if (input[key] < min || input[key] > max) {
+          errors.push(message);
+          el.setAttribute("aria-invalid", "true");
+        }
+      }
+
+      if (input.hdl != null && input.tc != null && input.hdl >= input.tc) {
+        errors.push("HDL cholesterol must be lower than total cholesterol.");
+        document.getElementById("hdl").setAttribute("aria-invalid", "true");
+      }
+
+      const oneOptional = (input.uacr == null) !== (input.hba1c == null);
+      if (oneOptional) {
+        errors.push("Enter both UACR and HbA1c, or leave both blank, for the personalized PREVENT model.");
+        if (input.uacr == null) document.getElementById("uacr").setAttribute("aria-invalid", "true");
+        if (input.hba1c == null) document.getElementById("hba1c").setAttribute("aria-invalid", "true");
+      }
+
+      if (input.uacr != null && (input.uacr < 0.1 || input.uacr > 25000)) {
+        errors.push("UACR must be 0.1–25,000 mg/g.");
+        document.getElementById("uacr").setAttribute("aria-invalid", "true");
+      }
+
+      if (input.hba1c != null && (input.hba1c < 4.5 || input.hba1c > 15)) {
+        errors.push("HbA1c must be 4.5–15.0%.");
+        document.getElementById("hba1c").setAttribute("aria-invalid", "true");
+      }
+
+      return errors;
+    }
+
+    function renderAlerts(messages, type = "error") {
+      const box = document.getElementById("alerts");
+      box.innerHTML = "";
+      messages.forEach(message => {
+        const div = document.createElement("div");
+        div.className = `alert ${type}`;
+        div.textContent = message;
+        box.appendChild(div);
+      });
+    }
+
+    function addAlert(message, type = "warning") {
+      const box = document.getElementById("alerts");
+      const div = document.createElement("div");
+      div.className = `alert ${type}`;
+      div.textContent = message;
+      box.appendChild(div);
+    }
+
+    function badgeClass(category) {
+      return category ? category.toLowerCase() : "na";
+    }
+
+    function markerPosition(risk, model) {
+      if (risk == null) return null;
+      // Visual display only; category intervals are compressed into four equal visual segments.
+      if (model === "PCE") {
+        if (risk < 5) return (risk / 5) * 25;
+        if (risk < 7.5) return 25 + ((risk - 5) / 2.5) * 25;
+        if (risk < 20) return 50 + ((risk - 7.5) / 12.5) * 25;
+        return 75 + Math.min((risk - 20) / 30, 1) * 25;
+      }
+      if (risk < 3) return (risk / 3) * 25;
+      if (risk < 5) return 25 + ((risk - 3) / 2) * 25;
+      if (risk < 10) return 50 + ((risk - 5) / 5) * 25;
+      return 75 + Math.min((risk - 10) / 30, 1) * 25;
+    }
+
+    function renderResult(prefix, risk, category, model, unavailableText = "") {
+      const scoreEl = document.getElementById(`${prefix}Score`);
+      const badgeEl = document.getElementById(`${prefix}Badge`);
+      const markerEl = document.getElementById(`${prefix}Marker`);
+      const interpretationEl = document.getElementById(`${prefix}Interpretation`);
+
+      if (risk == null) {
+        scoreEl.textContent = "—";
+        badgeEl.className = "badge na";
+        badgeEl.textContent = "Not available";
+        markerEl.hidden = true;
+        interpretationEl.textContent = unavailableText;
+        return;
+      }
+
+      scoreEl.textContent = risk.toFixed(1);
+      badgeEl.className = `badge ${badgeClass(category)}`;
+      badgeEl.textContent = `${category} risk`;
+      markerEl.hidden = false;
+      markerEl.style.left = `${Math.max(0, Math.min(100, markerPosition(risk, model)))}%`;
+      interpretationEl.innerHTML = `<strong>${category} category.</strong> ${interpretation(category, model)}`;
+    }
+
+    function signed(value) {
+      if (value == null || !Number.isFinite(value)) return "—";
+      return `${value >= 0 ? "+" : ""}${value.toFixed(1)} percentage points`;
+    }
+
+    function calculateAndRender(input) {
+      document.getElementById("alerts").innerHTML = "";
+
+      if (input.knownCvd === 1) {
+        renderAlerts(["PCE and PREVENT are primary-prevention equations and should not be used to guide risk classification in established ASCVD or known subclinical atherosclerosis."], "error");
+        document.getElementById("results").classList.remove("show");
+        return;
+      }
+
+      const pce = pceRisk(input);
+      const preventBase = input.sbp <= 180 ? preventRisk(input, false) : null;
+      const hasPersonalized = input.uacr != null && input.hba1c != null;
+      const preventPersonalized = (hasPersonalized && input.sbp <= 180) ? preventRisk(input, true) : null;
+
+      const pceCat = pceCategory(pce);
+      const baseCat = preventCategory(preventBase);
+      const personalizedCat = preventCategory(preventPersonalized);
+
+      renderResult(
+        "pce", pce, pceCat, "PCE",
+        input.age < 40 ? "PCE 10-year risk is not validated below age 40. PREVENT remains available from age 30." : "PCE could not be calculated with these inputs."
+      );
+      renderResult(
+        "preventBase", preventBase, baseCat, "PREVENT",
+        input.sbp > 180 ? "PREVENT is not displayed because systolic BP exceeds its validated range of 180 mmHg." : "PREVENT could not be calculated with these inputs."
+      );
+      renderResult(
+        "preventEnhanced", preventPersonalized, personalizedCat, "PREVENT",
+        hasPersonalized
+          ? "Personalized PREVENT is not displayed because a required variable is outside the validated range."
+          : "Enter both UACR and HbA1c to calculate the personalized estimate."
+      );
+
+      document.getElementById("diffBasePce").textContent = (pce != null && preventBase != null) ? signed(preventBase - pce) : "Not comparable";
+      document.getElementById("diffEnhancedBase").textContent = preventPersonalized != null ? signed(preventPersonalized - preventBase) : "Optional inputs not entered";
+
+      let categoryText = "Not comparable";
+      const activePreventCat = personalizedCat || baseCat;
+      if (pceCat && activePreventCat) {
+        const delta = CATEGORY_ORDER[activePreventCat] - CATEGORY_ORDER[pceCat];
+        categoryText = delta > 0 ? `PREVENT ${delta} categor${delta === 1 ? "y" : "ies"} higher` : delta < 0 ? `PREVENT ${Math.abs(delta)} categor${Math.abs(delta) === 1 ? "y" : "ies"} lower` : "Same ordinal category";
+      }
+      document.getElementById("categoryComparison").textContent = categoryText;
+
+      const context = [];
+      if (input.age < 40) context.push("PCE is unavailable below age 40; PREVENT is the age-eligible model.");
+      if (input.diabetes === 1) context.push("Known diabetes remains a major treatment and risk-management consideration even when the displayed 10-year percentage is low.");
+      if (input.egfr < 60) context.push("eGFR <60 mL/min/1.73 m² indicates reduced kidney function and is directly incorporated into PREVENT but not PCE.");
+      if (input.uacr != null && input.uacr >= 30) context.push(`Albuminuria is present (UACR ${input.uacr.toFixed(1)} mg/g) and may raise the personalized PREVENT estimate.`);
+      if (input.hba1c != null && input.diabetes === 1) context.push(`HbA1c ${input.hba1c.toFixed(1)}% refines risk within established diabetes; it should not be used here to redefine diabetes status.`);
+      if (input.ldl != null && input.ldl >= 190) context.push("LDL-C ≥190 mg/dL generally warrants evaluation and treatment independent of a calculated 10-year risk score.");
+      if (input.lpa != null && input.lpa >= 50) context.push(`Lp(a) ${input.lpa.toFixed(1)} mg/dL is a risk enhancer not included numerically in either equation.`);
+      if (input.lpa != null && input.lpa >= 30 && input.lpa < 50) context.push(`Lp(a) ${input.lpa.toFixed(1)} mg/dL lies in an intermediate range and may add context to shared decision-making.`);
+      if (input.statin === 1) context.push("Current statin treatment is included in PREVENT but not in PCE, which can contribute to differences between the estimates.");
+      if (pce != null && preventBase != null) context.push("PCE and PREVENT use different derivation cohorts, predictors, coefficients and category thresholds; a numerical difference is expected and does not itself prove that either estimate is more accurate in this patient.");
+      if (context.length === 0) context.push("Interpret the result alongside family history, CKD, inflammatory disease, premature menopause, triglycerides, Lp(a), CAC and other clinically relevant risk enhancers.");
+
+      const contextList = document.getElementById("contextList");
+      contextList.innerHTML = context.map(item => `<li>${item}</li>`).join("");
+
+      const now = new Date();
+      document.getElementById("resultMeta").textContent = `Calculated ${now.toLocaleString()}${input.patientId ? ` • ${input.patientId}` : ""}`;
+      document.getElementById("printPatient").textContent = input.patientId ? `Patient: ${input.patientId}` : "";
+
+      document.getElementById("results").classList.add("show");
+
+      if (input.sbp > 180) {
+        addAlert("Systolic BP exceeds the validated PREVENT range of 180 mmHg. PCE is shown, but PREVENT estimates are withheld.", "warning");
+      }
+      if (input.age >= 30 && input.age <= 79 && input.ldl != null && (input.ldl < 70 || input.ldl > 189)) {
+        addAlert("Current PREVENT-based lipid guidance is primarily framed for LDL-C 70–189 mg/dL. Interpret this score in the appropriate disease-specific pathway.", "warning");
+      }
+      if (input.age >= 40) {
+        addAlert("For a North Indian patient, PCE uses the White/Other equation as an approximation and may be miscalibrated.", "info");
+      }
+      addAlert("This tool supports clinical discussion; it does not replace an official calculator, guideline review or clinician judgment.", "info");
+
+      window.lastResult = { input, pce, pceCat, preventBase, baseCat, preventPersonalized, personalizedCat, context };
+      document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.getElementById("riskForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const input = getInput();
+      const errors = validate(input);
+      if (errors.length) {
+        renderAlerts(errors, "error");
+        document.getElementById("results").classList.remove("show");
+        return;
+      }
+      calculateAndRender(input);
+    });
+
+    document.getElementById("riskForm").addEventListener("reset", () => {
+      setTimeout(() => {
+        document.getElementById("alerts").innerHTML = "";
+        document.getElementById("results").classList.remove("show");
+        document.querySelectorAll('input[aria-invalid="true"]').forEach(el => el.removeAttribute("aria-invalid"));
+        window.lastResult = null;
+      }, 0);
+    });
+
+    document.getElementById("exampleBtn").addEventListener("click", () => {
+      document.getElementById("patientId").value = "Example patient";
+      document.getElementById("age").value = 58;
+      document.querySelector('input[name="sex"][value="Male"]').checked = true;
+      document.querySelector('input[name="knownCvd"][value="0"]').checked = true;
+      document.getElementById("tc").value = 210;
+      document.getElementById("hdl").value = 42;
+      document.getElementById("ldl").value = 136;
+      document.getElementById("sbp").value = 138;
+      document.querySelector('input[name="bpTx"][value="1"]').checked = true;
+      document.querySelector('input[name="smoking"][value="0"]').checked = true;
+      document.querySelector('input[name="diabetes"][value="1"]').checked = true;
+      document.querySelector('input[name="statin"][value="1"]').checked = true;
+      document.getElementById("egfr").value = 68;
+      document.getElementById("uacr").value = 85;
+      document.getElementById("hba1c").value = 7.4;
+      document.getElementById("lpa").value = 56;
+      renderAlerts(["Example values loaded. Select Calculate risk to generate the report."], "success");
+      window.scrollTo({ top: document.getElementById("riskForm").offsetTop - 15, behavior: "smooth" });
+    });
+
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      if (!window.lastResult) return;
+      const r = window.lastResult;
+      const lines = [
+        `ASCVD & PREVENT 10-year risk${r.input.patientId ? ` — ${r.input.patientId}` : ""}`,
+        `PCE: ${r.pce == null ? "not age-eligible" : `${r.pce.toFixed(1)}% (${r.pceCat})`}`,
+        `PREVENT base: ${r.preventBase == null ? "not available" : `${r.preventBase.toFixed(1)}% (${r.baseCat})`}`,
+        `PREVENT personalized: ${r.preventPersonalized == null ? "not calculated" : `${r.preventPersonalized.toFixed(1)}% (${r.personalizedCat})`}`,
+        ...r.context.map(x => `• ${x}`),
+        "Educational decision support; confirm treatment-changing results with official tools and current guidelines."
+      ];
+      try {
+        await navigator.clipboard.writeText(lines.join("\n"));
+        renderAlerts(["Risk summary copied to clipboard."], "success");
+      } catch {
+        renderAlerts(["Clipboard access was unavailable. Select and copy the displayed results manually."], "warning");
+      }
+    });
+  </script>
+</body>
+</html>
