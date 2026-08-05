@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Grand Rounds</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #23455A;
+            border-bottom: 3px solid #9A4D33;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        .authors-box {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #D8CCC0;
+            padding-bottom: 20px;
+            color: #555;
+        }
+        .authors-box p {
+            margin: 5px 0;
+        }
+        .app-link {
+            color: #9A4D33;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .app-link:hover {
+            text-decoration: underline;
+        }
+        /* Updated Round Heading (H3) for better visibility */
+        h3 {
+            background-color: #DFEAF0; /* Lighter navy-soft background */
+            color: #23455A;           /* Dark navy text */
+            padding: 10px 15px;
+            border-left: 10px solid #23455A;
+            border-radius: 4px;
+            margin-top: 50px;
+            font-size: 1.6em;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+        }
+        h4 {
+            margin-top: 35px;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-left: 6px solid;
+            border-radius: 2px;
+        }
+        .user-header {
+            color: #23455A;
+            border-color: #23455A;
+            background-color: #DFEAF0;
+        }
+        .user-text {
+            font-weight: bold;
+            color: #111;
+            background-color: #F4F7FA;
+            padding: 15px 20px;
+            border-left: 6px solid #23455A;
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+        .user-text p, .user-text li, .user-text div, .user-text span {
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .resident-header {
+            color: #5D6E42; /* Olive */
+            border-color: #5D6E42;
+            background-color: #E6ECD9;
+        }
+        .attending-header {
+            color: #9A4D33; /* Rust */
+            border-color: #9A4D33;
+            background-color: #F3E4DC;
+        }
+        .expert-header {
+            color: #B98B34; /* Gold/Ochre */
+            border-color: #B98B34;
+            background-color: #F9F1E5;
+        }
+        strong {
+            color: #23455A;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #D8CCC0;
+            margin: 30px 0;
+        }
+        blockquote {
+            border-left: 5px solid #D8CCC0;
+            padding: 10px 20px;
+            margin: 20px 0;
+            background-color: #fefefe;
+            font-style: italic;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><strong>AI GRAND ROUNDS</strong></h1>
+        <div class="authors-box">
+            <p><strong>Authors: GEMINI (RESIDENT), GROK (ATTENDING), KIMI (EXPERT) & ANUPAM SINGH MD (Human in loop)</strong></p>
+            <p>Department of Medicine, Santosh Medical College.</p>
+            <p><a href="https://medstats.github.io/smcrounds.html" target="_blank" class="app-link">Click here for App</a> | <a href="https://medstats.github.io/agenticgrandrounds.html" target="_blank" class="app-link">Agentic Grand Rounds Index</a></p>
+        </div>
+        
+<h3><strong>Round 1</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 1: History &amp; Presentation (Timestamp: 3 Weeks Prior to Admission)<br />
+A 30-year-old male mechanic (residing in Delhi NCR, no prior renal disease, taking Adderall for ADHD and occasional Naproxen) presents with 3 weeks of progressive swelling, severe fatigue, and oliguria following a mild upper respiratory tract infection.<br />
+HPI:<br />
+- 3 Weeks Ago: Mild URI symptoms (sore throat, dry cough, low-grade fever). Over the following week, developed progressive lower extremity edema and new-onset hypertension. Presented to an outside hospital with serum creatinine 2.87 mg/dL and proteinuria; treated with oral diuretics and labetalol.<br />
+- 1 Week Prior: Rapidly increasing abdominal girth, severe facial and leg edema, and weight gain of +61 lbs (from 270 lbs to 331 lbs). Represented to emergency department with serum creatinine 3.88 mg/dL, BUN 85 mg/dL, K+ 6.0 mEq/L, and 3+ proteinuria.<br />
+- Presumed RPGN: Received empiric pulse IV Methylprednisolone (250 mg x 3 doses) and was transferred to tertiary care.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Key Findings:</strong><br />
+30-year-old male with rapidly progressive acute kidney injury (Creatinine 3.88 mg/dL, K+ 6.0 mEq/L), massive fluid overload (+61 lbs), hypertension, and proteinuria following a URI and occasional NSAID use.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Post-Infectious Glomerulonephritis / IgA Nephropathy (35%):</strong> Classic post-URI presentation with rapid renal decompensation and nephritic/nephrotic overlap.<br />
+2. <strong>ANCA-Associated Vasculitis or Anti-GBM Disease (30%):</strong> High index of suspicion for crescentic RPGN given rapidly doubling creatinine.<br />
+3. <strong>NSAID-Induced AIN with Concurrent Minimal Change Disease (15%):</strong> Naproxen exposure presenting with severe acute proteinuria and AKI.<br />
+4. <strong>Lupus Nephritis / C3 Glomerulopathy (10%):</strong> Immune-complex-mediated GN triggered by a viral illness.<br />
+5. <strong>Decompensated Primary FSGS / Membranous Nephropathy (10%):</strong> Severe acute presentation of primary nephrotic syndrome.</p>
+<p><strong>Prioritized Diagnostic Tests:</strong><br />
+1. <strong>Urinalysis with Sediment Microscopy:</strong> Look for dysmorphic RBCs, RBC casts, and spot urine protein-to-creatinine ratio (UPCR).<br />
+2. <strong>Autoimmune &amp; RPGN Serologies:</strong> ANCA (MPO/PR3), Anti-GBM, ANA, dsDNA, C3, and C4 levels.<br />
+3. <strong>Infectious Workup:</strong> ASO titer, Anti-DNase B, and viral hepatitis/HIV panel.<br />
+4. <strong>Renal Ultrasound:</strong> Assess kidney size, echogenicity, and exclude obstruction.<br />
+5. <strong>Urgent Renal Biopsy:</strong> Essential to establish definitive histopathology and direct therapy.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Solid prioritization of RPGN workup and biopsy, but underweights drug exposures (Adderall vasoconstriction + Naproxen AIN/MCD) and lacks urgency on hyperkalemia/volume management. Empiric steroids without serologies risk masking histology. Expand infectious/complement panel earlier.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Post-streptococcal/IgA nephropathy (post-URI nephritic-nephrotic overlap)<br />
+2. ANCA/anti-GBM crescentic GN<br />
+3. NSAID-induced MCD/AIN with ATN</p>
+<p><strong>Specific points:</strong><br />
+1. Immediate ECG + stabilize K+ (calcium, insulin-glucose, binders); avoid further labetalol if bradycardic.<br />
+2. Strict I/O, loop + thiazide diuresis or ultrafiltration for +61 lb overload.<br />
+3. Hold Adderall/NSAIDs; check CK for rhabdo.<br />
+4. Add ASO, anti-DNase B, SPEP/UPEP, PLA2R Ab, cryos.<br />
+5. Quantify UPCR + 24h protein; smear for schistocytes (TMA).<br />
+6. Biopsy within 24h if stable; IF/EM mandatory.<br />
+7. Hold further steroids pending serologies/biopsy unless pulmonary-renal.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Pharmacist:<br />
+Hello, Clinical Pharmacist here.</p>
+<p><strong>Recommendations:</strong></p>
+<p><strong>Discontinue immediately:</strong><br />
+1. <strong>Naproxen</strong> - NSAIDs worsen AKI, cause MCD/AIN, impair renal perfusion; substitute acetaminophen for pain<br />
+2. <strong>Adderall (amphetamine salts)</strong> - Vasoconstriction exacerbates HTN/renal hypoperfusion; hold until eGFR &gt;60 mL/min</p>
+<p><strong>Dose adjustments needed:</strong><br />
+3. <strong>Methylprednisolone</strong> - No renal adjustment for pulse therapy; taper per RPGN protocol once biopsy confirmed<br />
+4. <strong>Diuretics</strong> - Furosemide 80-120 mg IV q6h + metolazone 5 mg PO; monitor for ototoxicity in AKI<br />
+5. <strong>Hyperkalemia</strong> - Calcium gluconate 1g IV, insulin 10U + D50, sodium zirconium cyclosilicate 10g PO (preferred over kayexalate in oliguria)</p>
+<p><strong>Interactions/Additive toxicities:</strong><br />
+6. Labetalol + steroids may blunt tachycardic response to hypovolemia<br />
+7. Avoid ACEi/ARB in hyperkalemia/AKI; if needed post-recovery, start at 50% dose<br />
+8. Contrast studies contraindicated until eGFR stabilizes</p>
+<p><strong>Renal dosing required for:</strong> anticoagulants (enoxaparin), antibiotics, analgesics</p>
+<p><strong>Monitoring:</strong> Daily K+, Mg2+, phosphate; drug levels if aminoglycosides needed</p>
+
+<h3><strong>Round 2</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 2: Physical Examination &amp; Initial Evaluation (Timestamp: Admission / Day 1)<br />
+Physical Exam: T 36.8°C (afebrile), HR 85 bpm, BP 162/80 mmHg, RR 18/min, SpO2 95% room air. Weight 331 lbs (+61 lbs above baseline).<br />
+Physical Findings: Marked bilateral lower extremity edema (3+ to hips), abdominal distension with flank dullness (ascites), abdominal striae, elevated JVP (10 cm H2O), dullness at lung bases.<br />
+Initial Laboratory Evaluation:<br />
+- <strong>Renal &amp; Electrolytes</strong>: Serum Creatinine 3.9 mg/dL (rising to 6.5 mg/dL), BUN 151 mg/dL, Na 133, K 5.4, Bicarb 15 mEq/L, Anion gap 22.<br />
+- <strong>Proteins &amp; Liver</strong>: Total Protein 5.3 g/dL, Serum Albumin 2.2 g/dL (severe hypoalbuminemia), ALT 40 U/L, AST 69 U/L, Alk Phos 299 U/L.<br />
+- <strong>Urinalysis</strong>: 1+ to 3+ protein, 5–10 RBCs/hpf, 3–5 WBCs/hpf, hyaline and waxy casts. No dysmorphic RBCs or RBC casts. Spot urine protein-to-creatinine ratio 0.23 g/g (measured post-diuresis/steroids).<br />
+- <strong>Hemogram</strong>: WBC 8.89 x 10³/µL, Hb 12.7 g/dL, Platelets 250,000/µL.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong><br />
+Rapid renal deterioration (Creatinine 6.5 mg/dL, BUN 151 mg/dL), severe high anion gap metabolic acidosis (HCO3 15 mEq/L), hypoalbuminemia (2.2 g/dL), and massive anasarca (+61 lbs). Unusually, urinalysis reveals a bland sediment (no RBC casts) and low UPCR (0.23 g/g post-steroids).</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>NSAID/Drug-Induced AIN with Severe ATN (35%):</strong> Naproxen/Adderall exposure, rapidly rising creatinine, waxy casts, and non-nephritic sediment.<br />
+2. <strong>ANCA / Anti-GBM Crescentic RPGN (25%):</strong> Active GN remains top-tier; sediment and proteinuria may be blunted by pulse steroids.<br />
+3. <strong>Minimal Change Disease / FSGS with Acute Tubular Necrosis (20%):</strong> Post-URI trigger,</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Appropriately flags bland sediment + paradoxically low UPCR (steroid/diuretic artifact), correctly elevating AIN/ATN. However, under-emphasizes severe hypoalbuminemia (2.2 g/dL) + anasarca discordance with current UPCR—implies either sampling error, prior heavy proteinuria now masked, or extrarenal losses. Prematurely de-prioritizes immune GN; HAGMA + oliguria demand immediate dialysis readiness. Incomplete volume/acid-base plan.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. NSAID-induced MCD ± AIN/ATN (hypoalbuminemic anasarca + drug exposure + bland sediment)<br />
+2. Post-infectious GN with ATN overlay (URI trigger, steroid-blunted sediment)<br />
+3. Collapsing FSGS or primary podocytopathy with ischemic ATN</p>
+<p><strong>Specific points:</strong><br />
+1. Repeat UPCR/24h urine pre-dialysis; recheck sediment for subtle dysmorphics.<br />
+2. Urgent HD for Cr 6.5, HAGMA, oliguria, +61 lb overload refractory to diuretics.<br />
+3. Full serologies (ANCA, anti-GBM, ASO, complements, PLA2R) + SPEP before further steroids.<br />
+4. Renal US + Doppler; biopsy Day 1–2 once volume/K stabilized.<br />
+5. ABG, lactate, CK; exclude rhabdo/TMA (smear, haptoglobin, LDH).<br />
+6. Hold all nephrotoxins; albumin + loop diuretic trial only if HD delayed.<br />
+7. Quantify ascites; diagnostic paracentesis if febrile/ persisting.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Pharmacist:<br />
+Hello, Clinical Pharmacist here.</p>
+<p><strong>Recommendations:</strong></p>
+<p><strong>Immediate Pharmacotherapy:</strong><br />
+1. <strong>Urgent dialysis initiation</strong> (Cr 6.5, BUN 151, HAGMA bicarb 15, oliguria, massive overload) - pharmacotherapy alone insufficient; HD/CRRT now<br />
+2. <strong>Hyperkalemia (5.4 rising)</strong> - Calcium gluconate 1g IV, insulin 10U + D50, albuterol 10-20mg nebulized, sodium zirconium cyclosilicate 10g PO TID x 48h (avoid kayexalate in dialysis-naïve)<br />
+3. <strong>Volume overload</strong> - Hold diuretics pending HD; if delay, furosemide 200mg IV infusion over 30min (max ototoxic dose) + albumin 25g IV</p>
+<p><strong>Drug Stops:</strong><br />
+4. <strong>Naproxen, Adderall</strong> - Continued cessation; no rechallenge until eGFR &gt;60 for 3+ months<br />
+5. <strong>Labetalol</strong> - Replace with IV nicardipine infusion 5-15mg/hr for BP 162/80; avoid in fluid overload</p>
+<p><strong>Acid-Base Correction:</strong><br />
+6. Sodium bicarbonate 1-2 amps IV push or 150mEq/L infusion; target bicarb &gt;20 pre-dialysis</p>
+<p><strong>Steroid Consideration:</strong><br />
+7. Hold further methylprednisolone until serologies/biopsy; if RPGN confirmed, switch to prednisone 1mg/kg (max 80mg) post-pulse</p>
+<p><strong>Monitoring:</strong> Continuous K+, bicarb, Mg, Phos; urine output hourly; dialysis clearance</p>
+
+<h3><strong>Round 3</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 3: Multi-Modal Serologic &amp; Metabolic Diagnostic Workup (Timestamp: Hospital Days 1-3)<br />
+Diagnostic Workup:<br />
+- <strong>Autoimmune &amp; Infectious Serologies</strong>: Complement C3 and C4 normal. ANA, ANCA (PR3/MPO), anti-GBM, Anti-dsDNA, Cryoglobulins, Hepatitis B/C, and HIV all negative. ASO positive (low/nonspecific).<br />
+- <strong>Metabolic &amp; Vitamin Panel</strong>: <strong>Profoundly low Vitamin B12 (cobalamin &lt;130 pg/mL)</strong> and <strong>severe hyperhomocysteinemia (homocysteine 26–100+ µmol/L)</strong>.<br />
+- <strong>Hemolytic Screen</strong>: Peripheral blood smear shows no overt schistocytes (normocytic RBCs), LDH normal/mildly elevated, haptoglobin normal, ADAMTS13 activity 60% (normal).</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong><br />
+Serologies for immune-mediated RPGN (ANCA, Anti-GBM, Lupus, C3/C4) are completely negative. Striking new findings reveal severe Vitamin B12 deficiency (&lt;130 pg/mL) and profound hyperhomocysteinemia (&gt;100 µmol/L) without overt peripheral schistocytes or TMA.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>NSAID/Adderall-Induced Acute Interstitial Nephritis with Severe ATN (45%):</strong> Drug exposure with negative autoantibodies best explains the rapid non-nephritic acute kidney injury.<br />
+2. <strong>Cobalamin Deficiency-Associated Microvascular/Metabolic Renal Injury (30%):</strong> Severe hyperhomocysteinemia induces marked endothelial dysfunction and renal microvascular thrombosis, even without peripheral hemolysis.<br />
+3. <strong>NSAID-Induced Podocytopathy (MCD/FSGS) with ATN (25%):</strong> Accounts for the severe initial hypoalbuminemia and anasarca, with proteinuria blunted by pulse steroids.</p>
+<p><strong>Next Steps &amp; Management:</strong><br />
+1. <strong>Urgent Renal Biopsy:</strong> Vital to differentiate AIN/ATN, podocytopathy, or occult microthrombi.<br />
+2. <strong>Immediate B12 Repletion:</strong> High-dose parenteral hydroxocobalamin/cyanocobalamin + folate + pyridoxine to lower toxic homocysteine levels.<br />
+3. <strong>Serum Methylmalonic Acid (MMA) &amp; Genetic Workup:</strong> Confirm metabolic pathway disruption (e.g., cblC defect, MTHFR).<br />
+4. <strong>Renal Replacement Therapy:</strong> Continue intermittent hemodialysis for severe volume overload and uremia.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Correctly pivots to B12/homocysteine as pivotal after seronegative workup, but overweights pure AIN while under-linking hyperhomocysteinemia to occult renal TMA/endothelial injury (normal smear does not exclude). Biopsy timing appropriate; genetic/MMA incomplete without urine organic acids. Steroid hold implicit but unstated.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Cobalamin deficiency–mediated renal microvascular injury/TMA (hyperhomocysteinemia-driven)<br />
+2. NSAID-induced AIN/ATN ± MCD (drug exposure + bland sediment)<br />
+3. Inherited cblC defect unmasked by URI/NSAIDs (adult-onset metabolic AKI)</p>
+<p><strong>Specific points:</strong><br />
+1. Parenteral B12 1000 µg IM daily x7 + folate/B6 immediately; trend homocysteine/MMA.<br />
+2. Urine organic acids + plasma acylcarnitines; MTHFR/cblC genetics.<br />
+3. Biopsy STAT with EM for subendothelial deposits/microthrombi.<br />
+4. Continue HD; reassess residual function post-B12.<br />
+5. Repeat hemolysis panel + sFlt-1/PlGF if available (occult TMA).<br />
+6. Hold empiric immunosuppression pending histology.<br />
+7. Nutritional/malabsorption workup (IF Ab, anti-parietal).</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>ERROR from Expert: Unexpected response format: {"error": {"message": "Multi-turn conversations are not supported", "code": 400}}</p>
+
+<h3><strong>Round 4</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 4: Renal Biopsy &amp; Histopathologic Findings (Timestamp: Hospital Days 3-5)<br />
+Percutaneous Renal Biopsy:<br />
+- <strong>Light Microscopy</strong>: Diffuse glomerular capillary loop narrowing with severe endothelial cell swelling ("endotheliosis"), thickening of capillary walls, acute tubular injury with cellular debris, and absence of significant interstitial inflammation, crescents, or hypercellularity.<br />
+- <strong>Immunofluorescence</strong>: Completely negative for IgG, IgA, IgM, C3, C1q, and light chains. Positive for fibrillar fibrin deposition along endothelial surfaces.<br />
+- <strong>Electron Microscopy</strong>: Widespread, dramatic subendothelial widening of the lamina rara interna, endothelial cell detachment, capillary loop wrinkling, and acute endothelial remodeling.<br />
+- <strong>Pathology Unifying Diagnosis</strong>: <strong>Renal-Limited Thrombotic Microangiopathy (TMA) / Endothelial Cell Injury</strong> secondary to <strong>Severe Hyperhomocysteinemia and Vitamin B12 (Cobalamin) Deficiency / Adult-Onset Cobalamin C (cblC) Defect</strong>.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong><br />
+Renal biopsy confirms <strong>Renal-Limited Thrombotic Microangiopathy (TMA)</strong> with severe endotheliosis, subendothelial widening, and endothelial detachment on EM, with negative immunofluorescence, establishing hyperhomocysteinemic endothelial injury.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Adult-Onset Cobalamin C (cblC) Defect (60%):</strong> Inborn error of B12 metabolism causing severe hyperhomocysteinemia and isolated renal TMA, unmasked by URI/NSAIDs.<br />
+2. <strong>Acquired Severe B12 Deficiency-Induced TMA (25%):</strong> Pernicious anemia or malabsorption leading to severe hyperhomocysteinemia-driven vascular toxicity.<br />
+3. <strong>Drug-Exacerbated Microvascular Injury (15%):</strong> Naproxen/Adderall acting as a second hit on a vulnerable, hyperhomocysteinemic endothelium.</p>
+<p><strong>Prioritized Next Steps &amp; Management:</strong><br />
+1. <strong>Targeted Metabolic Therapy:</strong> Start high-dose hydroxocobalamin (1–2 mg IM daily), betaine, and folinic acid to aggressively lower homocysteine.<br />
+2. <strong>Genetic Testing:</strong> Perform <em>MMACHC</em> gene sequencing to confirm adult-onset cblC deficiency.<br />
+3. <strong>Metabolic Profiling:</strong> Send serum methylmalonic acid (MMA), quantitative plasma amino acids, and urine organic acids.<br />
+4. <strong>Etiologic Workup:</strong> Anti-intrinsic factor and anti-parietal cell antibodies to exclude pernicious anemia.<br />
+5. <strong>Renal Support:</strong> Continue hemodialysis for uremia/fluid overload; reassess for renal recovery following metabolic optimization.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Excellent integration of biopsy (endotheliosis, fibrin+, IF-neg, EM subendothelial expansion) with metabolic data; correctly abandons immune GN/AIN. Plan prioritizes hydroxocobalamin/betaine appropriately. Minor gaps: no explicit plasma exchange decision (rarely needed in metabolic TMA), incomplete malabsorption screen, and delayed genetic counseling. Probabilities slightly overstate pure cblC pre-genetics.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Adult-onset cblC (MMACHC) defect unmasked by URI/NSAIDs<br />
+2. Acquired B12 deficiency (pernicious anemia/malabsorption) → hyperHcy-TMA<br />
+3. Hyperhomocysteinemic endothelial injury + drug second-hit (NSAID/Adderall)</p>
+<p><strong>Specific points:</strong><br />
+1. Hydroxocobalamin 1–2 mg IM/IV daily + betaine 3–6 g/day + folinic acid/B6 immediately; target Hcy &lt;50.<br />
+2. STAT MMA, plasma amino acids, urine organic acids; MMACHC ± MTHFR sequencing.<br />
+3. Anti-IF/parietal-cell Abs, gastrin, B12 absorption workup.<br />
+4. No PLEX/eculizumab unless systemic TMA evolves; hold all IS.<br />
+5. Continue HD; serial Cr/Hcy for recovery trajectory (often partial).<br />
+6. Echo + fundoscopy to exclude subclinical systemic microangiopathy.<br />
+7. Family screening + genetic counseling if cblC confirmed.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Pharmacist:<br />
+Hello, Clinical Pharmacist here.</p>
+<p><strong>Recommendations:</strong></p>
+<p><strong>Metabolic Correction (Primary Therapy):</strong><br />
+1. <strong>Hydroxocobalamin</strong> - 1-2 mg IM/IV daily (preferred over cyanocobalamin for cblC); no renal adjustment; monitor K+ for hypokalemia during erythropoiesis<br />
+2. <strong>Betaine</strong> - 3-6 g PO daily divided BID; use anhydrous powder; target homocysteine &lt;50 µmol/L; GI upset common, take with food<br />
+3. <strong>Folinic acid (Leucovorin)</strong> - 5 mg PO daily + Pyridoxine 50-100 mg PO daily; supports homocysteine remethylation</p>
+<p><strong>Drug Interactions/Precautions:</strong><br />
+4. <strong>Hold eculizumab</strong> - No indication for complement inhibition in metabolic TMA; saves cost/infection risk<br />
+5. <strong>Avoid nitrous oxide</strong> - Inactivates B12; caution for procedural sedation<br />
+6. <strong>Monitor for hypokalemia</strong> - Intense B12 repletion → increased K+ uptake; replace aggressively<br />
+7. <strong>No plasma exchange</strong> - Ineffective for metabolic TMA; continue HD only</p>
+<p><strong>Monitoring:</strong><br />
+8. Weekly homocysteine, MMA (trend response); daily K+ during first week<br />
+9. MMACHC genetic confirmation before lifelong betaine dosing<br />
+10. If cblC confirmed: lifelong therapy; switch hydroxocobalamin to weekly maintenance (1 mg IM) after stabilization</p>
+
+<h3><strong>Round 5</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 5: High-Dose Metabolic Therapy &amp; Clinical Recovery (Timestamp: Follow-up &amp; Discharge)<br />
+Management &amp; Outcome:<br />
+- <strong>Management Decision</strong>: Eculizumab and Plasma Exchange withheld (no systemic hemolysis or DIC).<br />
+- <strong>Targeted Metabolic Therapy</strong>: High-dose Parenteral Vitamin B12 (Cyanocobalamin 1000 mcg IM daily), Folate, Pyridoxine, and aggressive loop diuretic therapy.<br />
+- <strong>Clinical Outcome</strong>: Rapid diuresis with complete resolution of anasarca (-61 lbs weight loss), clearance of proteinuria, and dramatic recovery of renal function: <strong>Serum creatinine normalized from 6.5 mg/dL to 0.9 mg/dL</strong> at 4–6 weeks follow-up.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Key Findings:</strong><br />
+Remarkable full clinical recovery with targeted metabolic therapy (high-dose B12, folate, pyridoxine) and diuresis. Anasarca completely resolved (-61 lbs), and serum creatinine normalized from 6.5 to 0.9 mg/dL without immunosuppression or plasmapheresis.</p>
+<p><strong>Final Diagnostic Probabilities:</strong><br />
+1. <strong>Severe Cobalamin Deficiency-Induced Metabolic Renal TMA (60%):</strong> Validated by complete biochemical and renal cure following parenteral B12 repletion.<br />
+2. <strong>Adult-Onset Cobalamin C (cblC) Defect (30%):</strong> High suspicion for an inborn error of cobalamin metabolism unmasked by URI/NSAID stress.<br />
+3. <strong>Drug-Exacerbated Microvascular Injury (10%):</strong> Naproxen/Adderall acting as a synergistic second-hit on hyperhomocysteinemic endothelium.</p>
+<p><strong>Next Steps &amp; Management:</strong><br />
+1. <strong>Outpatient Maintenance:</strong> Transition to long-term IM hydroxocobalamin/cyanocobalamin and oral B-complex supplements.<br />
+2. <strong>Genetic Confirmation:</strong> Await <em>MMACHC</em> gene sequencing to definitively rule in/out adult-onset cblC defect versus acquired malabsorption.<br />
+3. <strong>Surveillance:</strong> Serial monitoring of serum homocysteine, MMA, urine protein, and renal function.<br />
+4. <strong>Renal Protection:</strong> Permanent avoidance of NSAIDs and nephrotoxic drugs; offer genetic counseling if cblC is genetically confirmed.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Excellent closure—full recovery on B12/folate/B6 without PLEX/eculizumab definitively validates metabolic TMA. Plan correctly prioritizes genetics and lifelong repletion. Minor gaps: prefer hydroxocobalamin (not cyano) pending MMACHC; incomplete malabsorption exclusion; no explicit Hcy/MMA targets or family screening.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Acquired B12 deficiency (pernicious/malabsorption) → hyperHcy renal TMA<br />
+2. Adult-onset cblC (MMACHC) defect unmasked by URI/NSAIDs<br />
+3. Hyperhomocysteinemic endotheliopathy + NSAID/Adderall second-hit</p>
+<p><strong>Specific points:</strong><br />
+1. Switch to hydroxocobalamin 1 mg IM weekly lifelong; add betaine if Hcy remains &gt;50.<br />
+2. Finalize MMACHC sequencing + anti-IF/parietal Abs, gastrin.<br />
+3. Trend Hcy/MMA q1–3 mo; target Hcy &lt;20–50 µmol/L.<br />
+4. Permanent NSAID/Adderall ban; nephrology f/u q3–6 mo.<br />
+5. Echo/fundoscopy once for occult systemic microangiopathy.<br />
+6. Genetic counseling + cascade testing if cblC+.<br />
+7. Educate on nitrous oxide avoidance.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Pharmacist:<br />
+Hello, Clinical Pharmacist here.</p>
+<p><strong>Recommendations:</strong></p>
+<p><strong>Maintenance Metabolic Therapy:</strong><br />
+1. <strong>Hydroxocobalamin</strong> - 1 mg IM weekly lifelong (preferred over cyanocobalamin for cblC); superior bioavailability, no renal dosing; monitor for hypokalemia during initial repletion<br />
+2. <strong>Betaine</strong> - Continue 3-6 g/day PO if homocysteine &gt;50 µmol/L or cblC confirmed; titrate to lowest effective dose<br />
+3. <strong>Folate/Pyridoxine</strong> - Folinic acid 5 mg daily + pyridoxine 50 mg daily lifelong; supports remethylation pathway</p>
+<p><strong>Drug Precautions/Interactions:</strong><br />
+4. <strong>Permanent NSAID/Adderall contraindication</strong> - Nephrotoxic synergy with hyperhomocysteinemia; use acetaminophen only<br />
+5. <strong>Avoid nitrous oxide</strong> - Inactivates B12; document allergy<br />
+6. <strong>No eculizumab/PLEX</strong> - Withheld appropriately; reserve for complement-mediated TMA only</p>
+<p><strong>Monitoring Parameters:</strong><br />
+7. Homocysteine q1-3 months (target &lt;50 µmol/L), MMA annually, CBC/B12 levels<br />
+8. Renal function q3-6 months; urine protein screen<br />
+9. MMACHC genetic confirmation before lifelong betaine; cascade family testing if positive<br />
+10. Genetic counseling referral; educate on nitrous oxide avoidance</p>
+
+
+        <h3><strong>Top 15 Takeaways for Clinicians</strong></h3>
+<ol>
+  <li><strong>Definition of Cobalamin-Mediated Renal TMA:</strong> Inborn errors of cobalamin metabolism (such as adult-onset Cobalamin C / cblC defect) or severe acquired Vitamin B12 deficiency can cause renal-limited thrombotic microangiopathy (TMA) driven by intracellular accumulation of homocysteine and methylmalonic acid (MMA).</li>
+  <li><strong>Mechanism of Endothelial Toxicity:</strong> Severe hyperhomocysteinemia (&gt;100 µmol/L) exerts direct toxic oxidative stress on microvascular endothelial cells, inhibiting nitric oxide synthesis, triggering endothelial cell swelling (endotheliosis), and impairing capillary lumen patency.</li>
+  <li><strong>Renal-Limited Presentation Without Systemic Hemolysis:</strong> Cobalamin/homocysteine-mediated TMA can present as pure renal-limited endothelial dysfunction with acute kidney injury, severe anasarca, and heavy proteinuria WITHOUT systemic microangiopathic hemolytic anemia, thrombocytopenia, or peripheral blood schistocytes.</li>
+  <li><strong>Pitfall of Misdiagnosing Glomerulonephritis:</strong> The combination of post-URI onset, rapid AKI, severe edema, and 3+ proteinuria often leads clinicians to misdiagnose post-streptococcal GN or RPGN and administer unnecessary empiric pulse corticosteroids.</li>
+  <li><strong>Normal Complement Profile:</strong> Serum complement levels (C3 and C4) are characteristically normal, distinguishing metabolic TMA from complement-mediated atypical Hemolytic Uremic Syndrome (aHUS).</li>
+  <li><strong>Pathognomonic Electron Microscopy Finding:</strong> Renal biopsy electron microscopy reveals dramatic, widespread subendothelial widening of the lamina rara interna with endothelial cell detachment and capillary loop wrinkling, pathognomonic for severe endothelial injury.</li>
+  <li><strong>Negative Immunofluorescence:</strong> Immunofluorescence demonstrates an absence of immunoglobulins (IgG, IgA, IgM) and complement fractions (C3, C1q), with only endothelial fibrin deposition, excluding immune-complex glomerulonephritis.</li>
+  <li><strong>Inutility of Eculizumab and Plasma Exchange:</strong> Neither plasma exchange (PLEX) nor terminal complement inhibition (eculizumab) is effective for metabolic TMA, as the underlying defect is metabolic rather than antibody- or complement-mediated.</li>
+  <li><strong>Primary Targeted Metabolic Therapy:</strong> High-dose parenteral Vitamin B12 (Hydroxocobalamin 1–2 mg IM daily or Cyanocobalamin) is the essential disease-modifying treatment to bypass the metabolic block and lower homocysteine levels.</li>
+  <li><strong>Role of Adjunctive Remethylation Cofactors:</strong> Concomitant administration of Folate/Folinic Acid, Pyridoxine (Vitamin B6), and Betaine (anhydrous trimethylglycine) supports alternative homocysteine remethylation pathways and accelerates biochemical recovery.</li>
+  <li><strong>Potency of Renal Functional Recovery:</strong> Unlike ischemic or complement-mediated TMA where glomerular injury often leaves permanent sclerosis, metabolic renal TMA exhibits extraordinary potential for complete functional recovery (e.g. serum creatinine returning from 6.5 mg/dL to 0.9 mg/dL).</li>
+  <li><strong>Screening Requirement in Unexplained AKI:</strong> Screening for serum Vitamin B12 and plasma homocysteine should be part of the diagnostic evaluation for cryptogenic acute kidney injury with non-immune endothelial biopsy changes.</li>
+  <li><strong>Role of Environmental Second-Hits:</strong> Intercurrent viral infections, NSAID ingestion, or sympathetic stimulants (such as Adderall/amphetamines) can act as synergistic second-hits that precipitate acute endothelial decompensation in patients with baseline hyperhomocysteinemia.</li>
+  <li><strong>Genetic Evaluation in Young Adults:</strong> Young adults presenting with cobalamin-responsive TMA should undergo genetic sequencing for <em>MMACHC</em> gene mutations to confirm adult-onset Cobalamin C (cblC) deficiency.</li>
+  <li><strong>Avoidance of Nitrous Oxide &amp; Nephrotoxins:</strong> Patients with cobalamin metabolism defects must strictly avoid nitrous oxide anesthesia (which irreversibly inactivates methionine synthase) and long-term NSAID therapy.</li>
+</ol>
+    </div>
+</body>
+</html>
