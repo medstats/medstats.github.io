@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Grand Rounds</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #23455A;
+            border-bottom: 3px solid #9A4D33;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        .authors-box {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #D8CCC0;
+            padding-bottom: 20px;
+            color: #555;
+        }
+        .authors-box p {
+            margin: 5px 0;
+        }
+        .app-link {
+            color: #9A4D33;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .app-link:hover {
+            text-decoration: underline;
+        }
+        /* Updated Round Heading (H3) for better visibility */
+        h3 {
+            background-color: #DFEAF0; /* Lighter navy-soft background */
+            color: #23455A;           /* Dark navy text */
+            padding: 10px 15px;
+            border-left: 10px solid #23455A;
+            border-radius: 4px;
+            margin-top: 50px;
+            font-size: 1.6em;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+        }
+        h4 {
+            margin-top: 35px;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-left: 6px solid;
+            border-radius: 2px;
+        }
+        .user-header {
+            color: #23455A;
+            border-color: #23455A;
+            background-color: #DFEAF0;
+        }
+        .user-text {
+            font-weight: bold;
+            color: #111;
+            background-color: #F4F7FA;
+            padding: 15px 20px;
+            border-left: 6px solid #23455A;
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+        .user-text p, .user-text li, .user-text div, .user-text span {
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .resident-header {
+            color: #5D6E42; /* Olive */
+            border-color: #5D6E42;
+            background-color: #E6ECD9;
+        }
+        .attending-header {
+            color: #9A4D33; /* Rust */
+            border-color: #9A4D33;
+            background-color: #F3E4DC;
+        }
+        .expert-header {
+            color: #B98B34; /* Gold/Ochre */
+            border-color: #B98B34;
+            background-color: #F9F1E5;
+        }
+        strong {
+            color: #23455A;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #D8CCC0;
+            margin: 30px 0;
+        }
+        blockquote {
+            border-left: 5px solid #D8CCC0;
+            padding: 10px 20px;
+            margin: 20px 0;
+            background-color: #fefefe;
+            font-style: italic;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><strong>AI GRAND ROUNDS</strong></h1>
+        <div class="authors-box">
+            <p><strong>Authors: GEMINI (RESIDENT), GROK (ATTENDING), KIMI (EXPERT) & ANUPAM SINGH MD (Human in loop)</strong></p>
+            <p>Department of Medicine, Santosh Medical College.</p>
+            <p><a href="https://medstats.github.io/smcrounds.html" target="_blank" class="app-link">Click here for App</a> | <a href="https://medstats.github.io/agenticgrandrounds.html" target="_blank" class="app-link">Agentic Grand Rounds Index</a></p>
+        </div>
+        <h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Resident: Attending: Expert: User: Stage 1: History &amp; Presentation (Timestamp: 6 Weeks Prior to Admission)<br />
+An 80-year-old female retired cworker (residing in Delhi NCR, 50-pack-year smoking history, past history of HTN and dyslipidemia) presents with a 6-week history of subacute progressive fatigue, lightheadedness, nausea, low-grade fevers, early satiety, dysphagia, and unintentional 6 kg weight loss.<br />
+HPI:<br />
+- 6 Weeks Ago: Transient episode of nausea, vomiting, diarrhea, and fever (38.9°C) resolving spontaneously, followed by progressive exertional fatigue and solid-food dysphagia.<br />
+- 2 Weeks Prior: Evaluated at a regional hospital for severe lightheadedness and weakness. Found to have profound pancytopenia (Hb 8.2 g/dL, WBC 2.7 x 10³/µL, Platelets 57,000/µL) and schistocytes on peripheral blood smear.<br />
+- Presumed TTP: Given peripheral schistocytes and cytopenias, TTP was suspected. A tunneled internal jugular catheter was placed, and therapeutic Plasma Exchange (PLEX) was initiated. UGI endoscopy confirmed esophageal candidiasis, treated with oral Fluconazole.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Key Findings:</strong> 80-year-old female (50 pack-year smoker) presenting with 6 weeks of constitutional symptoms, weight loss, solid-food dysphagia, esophageal candidiasis, and pancytopenia with microangiopathic hemolytic anemia (schistocytes), currently empirically treated for TTP.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Disseminated Gastric / Solid Malignancy with Marrow Infiltration &amp; Secondary MAHA (35%):</strong> Dysphagia, early satiety, weight loss, and smoking history strongly suggest a primary GI or metastatic neoplasm driving secondary thrombotic microangiopathy.<br />
+2. <strong>Primary Hematologic Malignancy (MDS / AML / Lymphoma) (30%):</strong> Profound pancytopenia, advanced age, and opportunistic infection point toward primary bone marrow failure or infiltration.<br />
+3. <strong>Disseminated Infection (e.g., Tuberculosis, Histoplasmosis, Leishmaniasis) (20%):</strong> Endemic location (India), fevers, cytopenias, and immunosuppression make chronic infection high priority.<br />
+4. <strong>Primary TTP / TMA (15%):</strong> Schistocytes and cytopenias fit, but prominent B-symptoms and mucosal candidiasis suggest an underlying primary trigger.</p>
+<p><strong>Prioritized Next Diagnostic Tests:</strong><br />
+1. <strong>Bone Marrow Aspirate &amp; Biopsy:</strong> Flow cytometry, cytogenetics, and histopathology/cultures (AFB, fungal).<br />
+2. <strong>CT Chest, Abdomen, and Pelvis with IV contrast:</strong> Evaluate for occult malignancy, lymphadenopathy, or organomegaly.<br />
+3. <strong>ADAMTS13 Activity &amp; Inhibitor Assay:</strong> Differentiate primary TTP from secondary MAHA.<br />
+4. <strong>Hemolysis Panel:</strong> Serum LDH, haptoglobin, reticulocyte count, and direct Coombs test.<br />
+5. <strong>Infectious Workup:</strong> Serum rK39 antigen (Kala-azar) and QuantiFERON-TB Gold.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Solid prioritization of secondary MAHA over primary TTP given B-symptoms, candidiasis, and smoking history. However, plan underweights urgent endoscopy/biopsy for dysphagia/early satiety and omits peripheral smear review + ADAMTS13 before further PLEX. Risk of catheter infection in elderly smoker not addressed.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Metastatic solid tumor (GI/lung) with marrow infiltration + paraneoplastic MAHA<br />
+2. Primary marrow process (MDS/AML)<br />
+3. Disseminated TB/fungal infection (endemic)</p>
+<p><strong>Specific points:</strong><br />
+1. Hold PLEX pending ADAMTS13; schistocytes alone ≠ TTP.<br />
+2. Urgent EGD with biopsy (dysphagia + candidiasis may mask malignancy).<br />
+3. CT CAP + PET if mass found.<br />
+4. BM bx with cultures/cytogenetics immediately.<br />
+5. Quantiferon, fungal serologies, LDH/haptoglobin/retic.<br />
+6. Discontinue empiric PLEX if ADAMTS13 &gt;10%.<br />
+7. Nutrition/supportive care; avoid further central access.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p>Senior Clinical Reasoning Expert: <strong>Best Current Unifying Diagnosis:</strong> Secondary thrombotic microangiopathy (MAHA) driven by an occult malignancy — most likely advanced esophageal/gastric adenocarcinoma or metastatic lung cancer with bone marrow infiltration.<br />
+<strong>Top Differentials:</strong><br />
+1. <strong>Malignancy-associated MAHA + myelophthisis (Most likely):</strong> Fits perfectly — elderly smoker, 6kg weight loss, early satiety, solid-food dysphagia, B-symptoms, and candidiasis (a marker of immunosuppression/obstruction). Pancytopenia reflects marrow infiltration; schistocytes reflect tumor-associated microangiopathy.<br />
+2. <strong>Primary Marrow Failure (MDS/AML):</strong> Fits cytopenias and age, but does not explain the profound dysphagia, early satiety, and significant weight loss as elegantly.<br />
+3. <strong>Disseminated Infection (TB/Fungal/Visceral Leishmaniasis):</strong> Fits endemic exposure and fevers, but schistocytes and solid-food dysphagia are less typical.<br />
+4. <strong>Primary TTP (Least likely):</strong> The initial working diagnosis, but the subacute constitutional prodrome, B-symptoms, and dysphagia make a secondary trigger far more probable.<br />
+<strong>Key Pivot in the Case:</strong> The combination of <em>solid-food dysphagia + early satiety + weight loss + candidiasis</em> in an elderly smoker. This pivots the frame from a primary hematologic emergency (TTP) to a systemic malignancy with secondary hematologic consequences.<br />
+<strong>Most Important Next Diagnostic/Management Move:</strong> <strong>Urgent EGD with targeted biopsies</strong> (do not assume candidiasis is the sole pathology) <strong>and ADAMTS13 activity level before further PLEX.</strong> Hold plasma exchange if ADAMTS13 &gt;10% and remove the tunneled line to mitigate infection risk.<br />
+<strong>Teaching Pearl:</strong> <em>Not all schistocytes are TTP.</em> In the elderly with B-symptoms and dysphagia, microangiopathy is often a paraneoplastic signal. Always hunt for the driver — treat the tumor, not just the smear.</p>
+
+<h3><strong>Round 2</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 2: Physical &amp; Laboratory Evaluation (Timestamp: Admission / Day 1)<br />
+Physical Exam: T 36.8°C (afebrile), HR 72 bpm, BP 150/65 mmHg, RR 18/min, SpO2 97% on 2L NC. Pale conjunctivae, grade 2/6 systolic murmur at LSB, no petechiae, purpura, lymphadenopathy, or splenomegaly.<br />
+Initial Laboratory Evaluation:<br />
+- <strong>Pancytopenia</strong>: Hb 7.5 g/dL, Hematocrit 24.8%, WBC 2.74 x 10³/µL (neutrophils 21%, lymphocytes 72%, bands 6%), Platelets 43,000/µL. Reticulocyte count 3.0% (Reticulocyte Index 0.65%, hypoproliferative).<br />
+- <strong>Hemolytic &amp; Microangiopathic Panel</strong>: Haptoglobin 113 mg/dL (NORMAL, not low), Total Bilirubin 0.7 mg/dL (normal), LDH 326 U/L (mildly elevated), Ferritin 564 µg/L, D-dimer 1166 ng/mL.<br />
+- <strong>ADAMTS13 Activity</strong>: <strong>76% (Normal, ref ≥70%)</strong> — definitively ruling out TTP.<br />
+- <strong>Nutritional &amp; Autoimmune</strong>: B12, Folate, Homocysteine, Copper, SPEP, Free Light Chains, DAT/IAT (Coombs), Dengue NS1, Leptspira Antibody,Malaria antigen, HIV, HBV, HCV all normal/negative.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong> Severe pancytopenia with a hypoproliferative reticulocyte index (0.65%), normal haptoglobin, and normal ADAMTS13 activity (76%), definitively ruling out TTP and active hemolysis.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Solid Malignancy with Bone Marrow Myelophthisis (55%):</strong> Occult GI (esophageal/gastric) or pulmonary neoplasm unifies subacute constitutional symptoms, dysphagia, early satiety, immunosuppression, and non-hemolytic marrow failure.<br />
+2. <strong>Primary Hematologic Malignancy (MDS / AML) (25%):</strong> Highly plausible given advanced age, profound hypoproliferative cytopenias, and opportunistic fungal infection.<br />
+3. <strong>Disseminated Granulomatous Infection (TB / Deep Fungi) (15%):</strong> Endemic exposure, fevers, and marrow suppression; can present subacutely with constitutional decay.<br />
+4. <strong>Aplastic Anemia (5%):</strong> Explains hypoproliferative pancytopenia, though less unyielding of the GI prodrome and B-symptoms.</p>
+<p><strong>Prioritized Next Diagnostic &amp; Management Steps:</strong><br />
+1. <strong>Discontinue PLEX</strong> immediately and remove central access to mitigate infection risk.<br />
+2. <strong>Bone Marrow Aspirate &amp; Biopsy:</strong> Flow cytometry, cytogenetics, and histopathology/cultures (AFB, fungal) to evaluate for myelophthisis versus primary dysplasia.<br />
+3. <strong>Urgent Upper GI Endoscopy (EGD):</strong> Targeted biopsy of esophageal/gastric mucosa to rule out occult carcinoma.<br />
+4. <strong>CT Chest, Abdomen, &amp; Pelvis:</strong> Evaluate for primary GI/lung malignancy, lymphadenopathy, and occult metastases.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Correctly halts PLEX post-normal ADAMTS13 and prioritizes BM/EGD/CT. Underemphasizes smear morphology review and infectious marrow stains; omits nutrition optimization and smear for leucoerythroblastosis. Hypoproliferative indices + normal haptoglobin shift firmly from TMA to infiltrative/failure process.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Myelophthisic anemia from occult GI/lung adenocarcinoma<br />
+2. Primary MDS/AML with opportunistic candidiasis<br />
+3. Disseminated TB/fungal marrow infiltration</p>
+<p><strong>Specific points:</strong><br />
+1. Immediate tunneled catheter removal.<br />
+2. Urgent BM bx: flow, cytogenetics, AFB/fungal stains/cultures.<br />
+3. EGD with biopsies (candidiasis may overlay carcinoma).<br />
+4. CT CAP ± PET for staging/occult primary.<br />
+5. Peripheral smear review for nucleated RBCs/teardrops.<br />
+6. Quantiferon + fungal serologies; hold empiric antimicrobials pending data.<br />
+7. Supportive transfusions/nutrition; avoid further lines.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best unifying diagnosis:</strong> Marrow failure from occult malignancy — most concerning for upper GI adenocarcinoma (esophageal/gastric) with myelophthisis; metastatic lung cancer remains possible.<br />
+<strong>Why fits:</strong> Age/smoking, weight loss, early satiety, solid-food dysphagia, candidiasis, and hypoproliferative pancytopenia. <strong>Why not TTP:</strong> ADAMTS13 76%, normal haptoglobin/bilirubin, only mild LDH, and retic index 0.65 argue against active MAHA.<br />
+<strong>Top differentials:</strong><br />
+1. <strong>Occult GI/lung malignancy with marrow infiltration</strong> — best explains systemic + GI symptoms.<br />
+2. <strong>MDS/AML</strong> — fits age, cytopenias, candidiasis; less explanatory for dysphagia/early satiety.<br />
+3. <strong>Disseminated TB/fungal infection</strong> — endemic, fevers, cytopenias; less specific for solid-food dysphagia.<br />
+4. <strong>Aplastic anemia</strong> — possible but less unifying.<br />
+<strong>Key pivot:</strong> Normal ADAMTS13 plus hypoproliferative indices reframes this from TTP to infiltrative marrow failure.<br />
+<strong>Next move:</strong> Urgent bone marrow aspirate/biopsy with flow, cytogenetics, AFB/fungal stains/cultures, plus EGD with biopsies and CT CAP. Stop PLEX/remove line.<br />
+<strong>Pearl:</strong> Schistocytes without hemolysis or ADAMTS13 deficiency should trigger a search for marrow invasion, not more plasma exchange.</p>
+
+<h3><strong>Round 3</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 3: Abdominopelvic Imaging &amp; Smear Re-Evaluation (Timestamp: Hospital Days 1-3)<br />
+Diagnostic Workup:<br />
+- <strong>Abdomen/Pelvis CT</strong>: Bilateral adnexal soft-tissue masses (4.8 cm right with calcifications, 6.3 cm left). Normal spleen and liver. No pelvic or retroperitoneal lymphadenopathy. Tumor markers (CA-125, CA 19-9, CEA) normal.<br />
+- <strong>Peripheral Blood Smear Morphologic Re-Evaluation</strong>: Confirms anisopoikilocytosis, moderate schistocytes, giant platelets, hypogranular/hypolobated neutrophils (Pelger-Huët anomaly), and 1% circulating CD34+ myeloblasts without microangiopathic intravascular hemolysis features.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong> Bilateral adnexal masses (4.8 cm right, 6.3 cm left) with normal CA-125/CEA/CA19-9, alongside peripheral dysplastic features (Pelger-Huët anomaly, giant platelets, and 1% circulating CD34+ blasts) in an elderly female with hypoproliferative pancytopenia and GI symptoms.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Primary MDS / AML (50%):</strong> Pelger-Huët neutrophils, giant platelets, and circulating blasts strongly favor primary myelodysplasia/leukemia. Adnexal lesions may represent extramedullary myeloid tumors (granulocytic sarcoma) or coexisting pathology.<br />
+2. <strong>Gastric Adenocarcinoma with Krukenberg Tumors &amp; Myelophthisis (35%):</strong> Solid-food dysphagia, early satiety, and bilateral adnexal masses classic for primary upper GI malignancy metastasizing to ovaries and bone marrow.<br />
+3. <strong>Disseminated Granulomatous Infection (TB / Deep Fungi) (10%):</strong> Can present with bilateral adnexal/tubo-ovarian masses, B-symptoms, and marrow suppression in endemic regions.<br />
+4. <strong>Primary Epithelial Ovarian Malignancy (5%):</strong> Less likely given normal tumor markers and dysplastic smear features, but remains possible.</p>
+<p><strong>Prioritized Next Diagnostic Steps:</strong><br />
+1. <strong>Bone Marrow Aspirate &amp; Biopsy:</strong> Cytogenetics, flow cytometry, NGS panel for MDS/AML, and AFB/fungal cultures.<br />
+2. <strong>Urgent Upper GI Endoscopy (EGD):</strong> Biopsy gastric/esophageal mucosa to detect primary Krukenberg source.<br />
+3. <strong>Pelvic MRI:</strong> Further characterize adnexal tissue architecture.<br />
+4.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Appropriately elevates MDS/AML given Pelger-Huët, giant platelets, and circulating blasts; correctly retains Krukenberg in DDx. Plan incomplete—omits chest imaging, full cytogenetic/NGS urgency, and risks delaying EGD while pursuing MRI. Normal markers do not exclude mucinous GI primary.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Primary MDS/AML (± myeloid sarcoma of adnexa)<br />
+2. Gastric adenocarcinoma (Krukenberg) + myelophthisis<br />
+3. Metastatic lung ca (smoker) with ovarian/marrow deposits</p>
+<p><strong>Specific points:</strong><br />
+1. Urgent BM aspirate/biopsy + flow/cytogenetics/NGS (MDS panel) + cultures.<br />
+2. Immediate EGD + biopsies (dysphagia + possible Krukenberg source).<br />
+3. Add CT chest; consider PET if primary occult.<br />
+4. Pelvic MRI only after BM/EGD; Gyn-onc consult for masses.<br />
+5. Peripheral flow to quantify blasts; smear for dysplasia scoring.<br />
+6. Supportive care; no empiric chemo pending lineage confirmation.<br />
+7. Remove any residual central access.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best unifying diagnosis:</strong> Primary myelodysplastic syndrome (MDS) with excess blasts / evolving AML, with bilateral adnexal myeloid sarcoma (granulocytic sarcoma) as the likely explanation for the pelvic masses.<br />
+<strong>Why fits:</strong> Pelger-Huët anomaly, giant platelets, hypogranular neutrophils, and 1% circulating CD34+ blasts are classic dysplastic features. Myeloid sarcoma can present as isolated adnexal masses with normal tumor markers, preceding or accompanying marrow disease.<br />
+<strong>Top differentials:</strong><br />
+1. <strong>MDS/AML with myeloid sarcoma (Most likely):</strong> Unifies cytopenias, dysplasia, blasts, and adnexal lesions.<br />
+2. <strong>Gastric adenocarcinoma with Krukenberg tumors + myelophthisis:</strong> Fits dysphagia/early satiety and bilateral adnexal masses, but does not explain Pelger-Huët or circulating blasts.<br />
+3. <strong>Disseminated TB/fungal infection:</strong> Can cause adnexal masses and marrow suppression, but dysplastic smear features argue against.<br />
+<strong>Key pivot:</strong> The peripheral smear re-evaluation — Pelger-Huët + giant platelets + circulating blasts — shifts the frame from metastatic solid tumor to primary myeloid neoplasm with extramedullary disease.<br />
+<strong>Next move:</strong> Urgent bone marrow aspirate/biopsy with flow cytometry, cytogenetics, and NGS; biopsy of adnexal mass (image-guided or laparoscopic) to confirm myeloid sarcoma; EGD to exclude coexisting gastric primary.<br />
+<strong>Pearl:</strong> <em>Myeloid sarcoma can precede marrow involvement by months.</em> Bilateral adnexal masses with normal CA-125 in a cytopenic elderly patient should prompt biopsy — chloromas mimic ovarian cancer but demand entirely different therapy.</p>
+
+<h3><strong>Round 4</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 4: Bone Marrow Aspirate, Biopsy &amp; Cytogenetics (Timestamp: Hospital Days 3-5)<br />
+Bone Marrow Biopsy &amp; Cytogenetics:<br />
+- <strong>Morphology</strong>: Hypercellular marrow (50–60%) with left-shifted myeloid maturation, marked multilineage dysplasia (small hypolobated megakaryocytes and hyperchromatic forms), and 10% CD34+ CD117+ myeloblasts (flow cytometry CD13+ CD33+ MPO+ CD34+ CD117+ HLA-DR+).<br />
+- <strong>Cytogenetics &amp; FISH</strong>: Complex karyotype showing Trisomy 8, Monosomy 5, and 5q deletion in 65% of metaphases.<br />
+- <strong>Next-Generation Sequencing (NGS)</strong>: High-risk driver mutations in <em>DNMT3A</em> (p.Arg882Cys, VAF 36.8%) and <em>TP53</em> (p.Val216Met, VAF 16.0% and p.Val143Met, VAF 29.4%).<br />
+- <strong>Pathology Unifying Diagnosis</strong>: <strong>Myelodysplastic Syndrome with Excess Blasts 2 (MDS-EB2)</strong>.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+
+<h4 class="resident-header">Resident:</h4>
+<p><strong>Updated Key Findings:</strong> Bone marrow biopsy confirms Myelodysplastic Syndrome with Excess Blasts 2 (MDS-EB2) with 10% blasts, multilineage dysplasia, complex cytogenetics (Trisomy 8, Monosomy 5, 5q-), and high-risk <em>TP53</em> and <em>DNMT3A</em> mutations. </p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Primary MDS-EB2 with Extramedullary Myeloid Sarcoma of Adnexa (85%):</strong> Definitive marrow pathology confirms MDS-EB2. Bilateral adnexal masses in this context represent extramedullary manifestation (chloroma/granulocytic sarcoma).<br />
+2. <strong>Coexisting Primary Gastric Adenocarcinoma with Krukenberg Tumors (10%):</strong> High-risk MDS confirmed, but persistent dysphagia and early satiety raise concern for a synchronous primary GI neoplasm.<br />
+3. <strong>Disseminated Granulomatous Infection in High-Risk MDS (5%):</strong> Opportunistic tubo-ovarian infection secondary to profound dysplastic neutropenia.</p>
+<p><strong>Prioritized Next Diagnostic &amp; Management Steps:</strong><br />
+1. <strong>Targeted Image-Guided Biopsy of Adnexal Mass:</strong> Immunohistochemistry (MPO, CD34, CD117) to prove extramedullary myeloid sarcoma versus epithelial malignancy.<br />
+2. <strong>Urgent EGD:</strong> Biopsy esophageal/gastric mucosa to evaluate persistent dysphagia and exclude synchronous primary GI malignancy.<br />
+3. <strong>Initiate Hypomethylating Agent (HMA) Therapy:</strong> Azacitidine ± Venetoclax following diagnostic confirmation.<br />
+4. <strong>Gyn-Oncology &amp; Hematology Consultations:</strong> Multidisciplinary planning for extramedullary myeloid disease.<br />
+5. <strong>Supportive Care:</strong> Transfusion thresholds, antifungal prophylaxis.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Accurately pins primary diagnosis to MDS-EB2; soundly links adnexal masses to myeloid sarcoma vs synchronous Krukenberg. Plan effectively targets mass biopsy and EGD. Needs clearer risk-stratification (IPSS-M) to frame HMA strategy and explicit warning on Venetoclax toxicity in multi-mutated/elderly patients.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. MDS-EB2 with adnexal myeloid sarcoma (chloroma)<br />
+2. Synchronous gastric adenocarcinoma (Krukenberg) + MDS-EB2<br />
+3. MDS-EB2 with benign/infectious adnexal pathology</p>
+<p><strong>Specific points:</strong><br />
+1. Immediate core biopsy of adnexal mass: IHC for MPO, CD34, CD117, lysozyme.<br />
+2. EGD with biopsies (must resolve upper GI symptoms).<br />
+3. IPSS-M score calculation (very high risk: complex, -5, <em>TP53</em>, <em>DNMT3A</em>).<br />
+4. Start Azacitidine; hold Venetoclax pending performance status/organ function and infection risk.<br />
+5. Infection prophylaxis (mold-active antifungal, fluoroquinolone, acyclovir).<br />
+6. Gyn-oncology consult for symptom control/possible surgical intervention if mass effect/torsion.<br />
+7. Palliative/goals-of-care discussion given poor prognosis (<em>TP53</em> + complex karyotype).</p>
+<p><strong>Definitive Primary Diagnosis:</strong> <strong>High-Risk Myelodysplastic Syndrome with Excess Blasts 2 (MDS-EB2)</strong> (Complex karyotype with -5/5q-, <em>TP53</em> and <em>DNMT3A</em> mutations).</p>
+<p><strong>Unified Clinical Picture:</strong> The subacute B-symptoms, cytopenias, candidiasis, and pseudomicroangiopathy were secondary to primary marrow failure from high-risk MDS. The bilateral adnexal masses represent <strong>extramedullary myeloid sarcoma (granulocytic sarcoma)</strong> — a recognized, aggressive manifestation of high-risk MDS/AML.</p>
+<p><strong>Top Differential for Adnexal Masses:</strong><br />
+1. <strong>Extramedullary Myeloid Sarcoma (85%):</strong> Driven by high-risk cytogenetics and <em>TP53</em> mutation; fits presentation with blasts/dysplasia.<br />
+2. <strong>Synchronous Gastric Adenocarcinoma with Krukenberg Tumors (10%):</strong> Explains dysphagia/early satiety, but secondary to MDS.<br />
+3. <strong>Atypical Tubo-ovarian Infection (5%):</strong> Secondary to neutropenia.</p>
+<p><strong>Key Pivot:</strong> Identification of 10% blasts, multilineage dysplasia, -5/5q-, and <em>TP53</em> mutations seals MDS-EB2 and strongly implicates myeloid sarcoma as the cause of the adnexal tumors.</p>
+<p><strong>Next Diagnostic &amp; Management Steps:</strong><br />
+1. <strong>Core Biopsy of Adnexal Mass:</strong> Confirm myeloid sarcoma (MPO, CD34, CD117, CD68).<br />
+2. <strong>EGD:</strong> Evaluate dysphagia/early satiety to rule out synchronous GI lesion.<br />
+3. <strong>Therapy:</strong> Hypomethylating agent (Azacitidine); calculate IPSS-M (Very High Risk).<br />
+4. <strong>Supportive Care:</strong> Antimicrobial prophylaxis, transfusions, and early goals-of-care discussion given poor median survival with <em>TP53</em>-mutated MDS.</p>
+<p><strong>Teaching Pearl:</strong> <em>Extramedullary myeloid sarcoma can present as pelvic masses mimicking ovarian cancer.</em> In high-risk MDS, always tissue-diagnose new soft-tissue masses before assuming a second primary.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Correctly locks MDS-EB2 as primary diagnosis and prioritizes adnexal biopsy + EGD. Over-eager on immediate Venetoclax (high toxicity in elderly <em>TP53</em>-mutated disease); under-specifies IPSS-M/IPSS-R scoring and infection prophylaxis intensity. Goals-of-care discussion delayed.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. MDS-EB2 + adnexal myeloid sarcoma<br />
+2. MDS-EB2 + synchronous Krukenberg (gastric primary)<br />
+3. MDS-EB2 + infectious adnexal mass</p>
+<p><strong>Specific points:</strong><br />
+1. Image-guided adnexal core bx: IHC MPO/CD117/CD34/lysozyme stat.<br />
+2. EGD + biopsy to close dysphagia workup.<br />
+3. Calculate IPSS-M (very high-risk: complex karyotype, -5/5q-, biallelic <em>TP53</em>).<br />
+4. Start azacitidine monotherapy; defer venetoclax pending PS/infection clearance.<br />
+5. Mold-active antifungal + antibacterial prophylaxis.<br />
+6. Gyn-onc + palliative care co-management.<br />
+7. Transfuse judiciously; no further central lines.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best unifying diagnosis:</strong> High-risk MDS-EB2 (complex karyotype, biallelic <em>TP53</em>, <em>DNMT3A</em>) with extramedullary myeloid sarcoma of bilateral adnexa.<br />
+<strong>Why fits:</strong> 10% blasts, multilineage dysplasia, -5/5q-, and <em>TP53</em> mutations define MDS-EB2. Adnexal masses with normal CA-125 in this context are classic chloromas. Dysphagia/candidiasis reflect neutropenic immunosuppression.<br />
+<strong>Top differentials:</strong><br />
+1. <strong>MDS-EB2 + myeloid sarcoma (Most likely):</strong> Unifies marrow failure, dysplasia, blasts, and adnexal masses.<br />
+2. <strong>Synchronous gastric adenocarcinoma (Krukenberg):</strong> Explains dysphagia/early satiety but not dysplasia/blasts; must exclude via EGD.<br />
+3. <strong>Infectious adnexal mass:</strong> Possible in neutropenia but less likely given bilateral solid appearance.<br />
+<strong>Key pivot:</strong> Marrow morphology + cytogenetics/NGS — 10% blasts, -5/5q-, <em>TP53</em> — seals MDS-EB2 and reframes adnexal masses as extramedullary disease.<br />
+<strong>Next move:</strong> Image-guided adnexal core biopsy (MPO/CD117/CD34) to confirm myeloid sarcoma; EGD to exclude synchronous gastric primary; calculate IPSS-M; initiate azacitidine; early palliative care given dismal <em>TP53</em>-mutated prognosis.<br />
+<strong>Pearl:</strong> <em>TP53</em>-mutated MDS with complex karyotype behaves like AML — treat aggressively but anchor goals-of-care early; extramedullary disease signals systemic relapse risk.</p>
+
+<h3><strong>Round 5</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 5: Targeted Hypomethylating Therapy &amp; Clinical Course (Timestamp: Follow-up &amp; Discharge)<br />
+Management &amp; Outcome:<br />
+- <strong>Management Decision</strong>: Discontinuation of PLEX. High-risk IPSS-R score (7.5). Initiated on <strong>Azacitidine</strong> (75 mg/m² IV daily x 7 days every 28 days).<br />
+- <strong>Clinical Outcome</strong>:<br />
+  - Achieved temporary hematologic response after 3 cycles (resolution of neutropenia and transfusion independence for 6 months).<br />
+  - Disease progression to 15% blasts at 6 months. Succumbed to acute exacerbation of heart failure and neutropenic fever 9 months after diagnosis.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Final Key Findings:</strong> High-risk MDS-EB2 (IPSS-R 7.5, <em>TP53</em>, complex karyotype) initially achieved a 6-month hematologic response to Azacitidine, followed by leukemic progression (15% blasts) and death from neutropenic fever and acute heart failure at 9 months.</p>
+<p><strong>Final Probability-Based Diagnoses:</strong><br />
+1. <strong>High-Risk MDS-EB2 with Extramedullary Progression (85%):</strong> Primary driver of initial presentation (pseudo-TTP/myelophthisis), adnexal involvement, and eventual disease relapse.<br />
+2. <strong>Neutropenic Sepsis (10%):</strong> Primary immediate terminal cause secondary to severe disease progression and marrow failure.<br />
+3. <strong>Acute Decompensated Heart Failure (5%):</strong> Contributory terminal event triggered by septic and metabolic stress.</p>
+<p><strong>Clinical Takeaways &amp; Recommendations:</strong><br />
+1. <strong>Avoid PLEX Anchor Bias:</strong> Normal ADAMTS13 (76%) and hypoproliferative indices successfully redirected management away from TTP toward primary marrow pathology.<br />
+2. <strong>Recognize High-Risk Cytogenetics:</strong> <em>TP53</em> mutations and complex karyotype predict short-lived responses to hypomethylating agents, underscoring the aggressive natural history of MDS-EB2.<br />
+3. <strong>Multidisciplinary Management:</strong> Early integration of palliative care alongside active HMA therapy is critical in <em>TP53</em>-mutated myeloid neoplasms to align treatment goals with prognosis.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Accurate closure on MDS-EB2 natural history and HMA limitations. Overstates "extramedullary progression" without confirmatory adnexal histology; under-emphasizes missed early goals-of-care and cardiac risk stratification in elderly smoker. Terminal events correctly linked to progressive marrow failure.</p>
+<p><strong>Top 3 DDx (final):</strong><br />
+1. High-risk MDS-EB2 (TP53/complex) ± myeloid sarcoma<br />
+2. MDS-EB2 with synchronous occult solid tumor<br />
+3. Therapy-related complications (neutropenic sepsis + HF)</p>
+<p><strong>Specific points:</strong><br />
+1. Confirm adnexal histology retrospectively if tissue available.<br />
+2. IPSS-M re-scoring at progression; consider clinical trial/allo-HCT eligibility earlier.<br />
+3. Mandatory early palliative integration for TP53-mutated disease.<br />
+4. Baseline echo/cardiology co-management given smoking/HTN and HF terminal event.<br />
+5. Mold-active prophylaxis duration through all cycles.<br />
+6. Document ADAMTS13-driven PLEX cessation as key diagnostic pivot.<br />
+7. Autopsy consideration for definitive extramedullary status.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Final unifying diagnosis:</strong> High-risk MDS-EB2 (IPSS-R 7.5, complex karyotype, biallelic <em>TP53</em>, <em>DNMT3A</em>) with probable extramedullary myeloid sarcoma of adnexa; terminal events were neutropenic sepsis and acute heart failure from progressive marrow failure.<br />
+<strong>Why fits:</strong> Dysplasia, 10% blasts, -5/5q-, and <em>TP53</em> mutations define MDS-EB2. Transient HMA response followed by progression at 6 months is classic for <em>TP53</em>-mutated disease. Adnexal masses likely chloromas; dysphagia/candidiasis reflected neutropenia.<br />
+<strong>Top differentials:</strong><br />
+1. <strong>MDS-EB2 ± myeloid sarcoma (Most likely):</strong> Unifies all findings.<br />
+2. <strong>Synchronous gastric adenocarcinoma:</strong> Never excluded by EGD; remains possible contributor to dysphagia.<br />
+3. <strong>Therapy-related complications:</strong> Sepsis/HF were terminal, not primary.<br />
+<strong>Key pivot:</strong> Normal ADAMTS13 + hypoproliferative indices redirected from TTP to marrow pathology; cytogenetics/NGS sealed high-risk biology.<br />
+<strong>Most important move (retrospective):</strong> Earlier goals-of-care discussion and consideration of allo-HCT/clinical trial at diagnosis given dismal <em>TP53</em> prognosis.<br />
+<strong>Pearl:</strong> <em>TP53</em>-mutated MDS is a "bad actor" — HMA responses are brief; anchor prognosis early and prioritize quality of life alongside disease-directed therapy.</p>
+
+
+        <h3><strong>Top 15 Takeaways for Clinicians</strong></h3>
+<ol>
+  <li><strong>Pitfall of Pseudo-TTP (Schistocytosis without Hemolysis):</strong> Schistocytes on a peripheral blood smear are not pathognomonic for TTP; in bone marrow production failure, abnormal red cell dysmorphism and mechanical fragmentation occur without true microangiopathic intravascular destruction.</li>
+  <li><strong>Key Role of Normal ADAMTS13 Activity:</strong> An ADAMTS13 activity level &ge;70% (76% in this case) definitively excludes Thrombotic Thrombocytopenic Purpura (TTP) and mandates immediate discontinuation of therapeutic plasma exchange (PLEX).</li>
+  <li><strong>Discriminatory Power of Serum Haptoglobin:</strong> Normal or elevated serum haptoglobin (113 mg/dL) and normal bilirubin in a cytopenic patient argue strongly against intravascular microangiopathic hemolysis.</li>
+  <li><strong>Hypoproliferative Reticulocyte Index:</strong> A low reticulocyte index (&lt;2.0%, calculated as 0.65% here) indicates bone marrow hypoproliferation and failure rather than peripheral destructive consumption.</li>
+  <li><strong>Dysplastic Smear Signatures:</strong> Morphologic features such as Pelger-Huët hypolobated/hypogranular neutrophils, giant platelets, and circulating immature blasts serve as key red flags for primary myelodysplasia.</li>
+  <li><strong>Classification of MDS with Excess Blasts 2 (MDS-EB2):</strong> MDS-EB2 is defined by 10% to 19% myeloblasts in the bone marrow or 5% to 19% blasts in the peripheral blood, representing a high-risk myeloid neoplasm prone to leukemic transformation.</li>
+  <li><strong>Extramedullary Myeloid Sarcoma (Chloroma):</strong> Myeloid neoplasms can present as extramedullary soft-tissue masses (e.g., bilateral adnexal masses mimicking Krukenberg tumors or ovarian carcinoma) with normal gynecologic tumor markers (CA-125, CEA).</li>
+  <li><strong>High-Risk Cytogenetic Profile:</strong> Complex cytogenetics involving Monosomy 5 (-5), 5q deletion (5q-), and Trisomy 8 (+8) portend a dismal prognosis and high IPSS-R/IPSS-M risk scores.</li>
+  <li><strong>Impact of TP53 Driver Mutations:</strong> Somatic mutations in <em>TP53</em> (often biallelic) represent an adverse prognostic driver in MDS, conferring inherent resistance to conventional therapies and rapid leukemic progression.</li>
+  <li><strong>Role of DNMT3A Mutations:</strong> Co-occurring mutations in <em>DNMT3A</em> impair epigenetic DNA methylation and cooperate with <em>TP53</em> to drive clonal expansion and aggressive myeloid disease.</li>
+  <li><strong>Mechanism of Hypomethylating Agents (Azacitidine):</strong> Azacitidine (an inhibitor of DNA methyltransferases) acts as disease-modifying hypomethylating therapy to induce hematologic responses and transfusion independence in high-risk MDS.</li>
+  <li><strong>Transient Response in TP53-Mutated MDS:</strong> Hypomethylating agent therapy in <em>TP53</em>-mutated MDS typically yields short-lived hematologic responses (median 6–9 months) before disease relapse occurs.</li>
+  <li><strong>Neutropenia &amp; Opportunistic Infections:</strong> Severe neutropenia in MDS predisposes to mucosal fungal infections such as Candida esophagitis, which can manifest as dysphagia, odynophagia, and weight loss.</li>
+  <li><strong>Prompt Line Removal &amp; Catheter Safety:</strong> Tunneled central lines placed for misdiagnosed TTP must be removed promptly upon excluding TTP to eliminate a major vector for bacteremia and neutropenic sepsis.</li>
+  <li><strong>Early Palliative Goals-of-Care Integration:</strong> Because <em>TP53</em>-mutated MDS-EB2 carries a dismal overall survival, early alignment of treatment goals, symptom management, and palliative hospice care is essential.</li>
+</ol>
+    </div>
+</body>
+</html>
