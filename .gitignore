@@ -1,0 +1,5 @@
+# Ignore raw PNG slide render directories to keep GitHub Pages deployments lightning-fast (<15s)
+*_Slide_Images/
+*_slide_renders/
+*_Images_Soffice/
+*.png_tmp/
