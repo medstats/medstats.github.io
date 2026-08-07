@@ -3,98 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentic Grand Rounds - Index</title>
+    <title>Agentic Grand Rounds - Clinical Reasoning Showcase</title>
     <style>
+        :root {
+            --primary: #23455A;
+            --accent: #9A4D33;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --highlight: #38bdf8;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
             line-height: 1.6;
-            color: #333;
+        }
+
+        .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
-            background-color: #f9f9f9;
         }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #23455A;
-            border-bottom: 3px solid #9A4D33;
-            padding-bottom: 10px;
+
+        header {
             text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 20px;
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 30px;
         }
-        .overview {
-            background-color: #DFEAF0;
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 8px solid #23455A;
+
+        h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--highlight);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .intro-box {
+            background: rgba(30, 41, 59, 0.7);
+            border-left: 4px solid var(--accent);
+            padding: 20px 25px;
+            border-radius: 0 8px 8px 0;
             margin-bottom: 40px;
+            backdrop-filter: blur(10px);
         }
-        .overview h2 {
-            margin-top: 0;
-            color: #23455A;
+
+        .intro-box p {
+            margin: 0 0 10px 0;
+            color: #cbd5e1;
         }
+
+        .intro-box p:last-child {
+            margin-bottom: 0;
+        }
+
         .case-list {
             list-style: none;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
+
         .case-item {
-            background-color: #fff;
-            border: 1px solid #D8CCC0;
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
+
         .case-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-color: #9A4D33;
+            transform: translateY(-3px);
+            border-color: var(--highlight);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
         }
+
         .case-item a {
+            color: var(--highlight);
             text-decoration: none;
-            color: #23455A;
-            font-size: 1.3em;
-            font-weight: bold;
+            font-size: 1.3rem;
+            font-weight: 600;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
+
+        .case-item a:hover {
+            text-decoration: underline;
+        }
+
         .case-item p {
+            color: var(--text-muted);
             margin: 0;
-            color: #666;
-            font-size: 0.95em;
+            font-size: 0.98rem;
         }
+
         .footer {
             text-align: center;
-            margin-top: 50px;
-            font-size: 0.9em;
-            color: #888;
-            border-top: 1px solid #D8CCC0;
+            margin-top: 60px;
             padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
+
         .app-link {
-            color: #9A4D33;
+            display: inline-block;
+            margin-top: 15px;
+            background-color: var(--accent);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .app-link:hover {
+            background-color: #b3593b;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1><strong>Agentic Grand Rounds</strong></h1>
-        
-        <div class="overview">
-            <h2>Overview</h2>
-            <p><strong>Agentic Grand Rounds</strong> represents a frontier in medical education where multi-agent Large Language Model (LLM) orchestration is used to simulate complex clinical reasoning. Each case is a staged discussion between specialized AI roles:</p>
-            <ul>
+        <header>
+            <h1>AGENTIC GRAND ROUNDS</h1>
+            <div class="subtitle">Multi-LLM Collaborative Clinical Decision Making</div>
+        </header>
+
+        <div class="intro-box">
+            <p>Welcome to <strong>Agentic Grand Rounds</strong>. This showcase features real clinical cases solved through a staged, multi-role discussion framework simulating a hospital medical team:</p>
+            <ul style="color: #cbd5e1; margin-bottom: 15px; padding-left: 20px;">
                 <li><strong>Gemini (Resident):</strong> Initial case analysis, differential diagnosis, and proposed investigations.</li>
                 <li><strong>Grok (Attending):</strong> Critical appraisal of the resident's plan, Bayesian refinement, and focus on "don't miss" diagnoses.</li>
-                <li><strong>ChatGPT (Expert):</strong> Unifying diagnosis, key pivot identification, and high-yield teaching pearls.</li>
+                <li><strong>ChatGPT / Kimi (Expert):</strong> Unifying diagnosis, key pivot identification, and high-yield teaching pearls.</li>
             </ul>
             <p>This "Human-in-the-loop" framework (supervised by Anupam Singh MD) aims to sharpen diagnostic precision and explore the nuances of medical logic in a transparent, collaborative environment.</p>
         </div>
@@ -102,155 +155,155 @@
         <ul class="case-list">
             <li class="case-item">
                 <a href="bip.html">The Biphasic Relapse: Stress-Triggered Cytopenias, Transient Aphasia, Schistocytosis, and the Biomarker Paradox</a>
-                <p>A 30-year-old male restaurant cook and outdoorsman presents with a 2-week history of fatigue, exertional dyspnea, high fevers, night sweats, skin rash, and dark red-tinged urine following tick exposure. Three years prior, a motor vehicle accident with abdominal contusion was followed 2 days later by an abrupt, self-limited episode of severe thrombocytopenia (platelets 22,000/µL), anemia (hemoglobin 13.0 g/dL), and gross hematuria that resolved spontaneously. Physical examination reveals erythema migrans plaques on the right knee and left patella with petechiae on the flank. Laboratory evaluation reveals severe microangiopathic hemolytic anemia (hemoglobin 5.8 g/dL, reticulocytes 16.2%, LDH 1,122 U/L, undetectable haptoglobin), severe consumption thrombocytopenia (15,000/µL), normal renal function (creatinine 1.01 mg/dL), normal coagulation profile, and negative Coombs testing, with schistocytes on peripheral smear yielding a high-risk PLASMIC score (6/7). On Hospital Day 3, sudden expressive aphasia and right arm pronator drift develop. A high-stakes diagnostic dissection navigating stress-induced microvascular thrombosis, enzyme biomarker paradoxes, genetic variant analysis, and long-term plasma prophylaxis.</p>
+                <p>A 30-year-old outdoorsman presents with fever, rash, Coombs-negative MAHA, severe thrombocytopenia (15,000/µL), and transient expressive aphasia following tick exposure. Features a biphasic relapse history and a high-risk PLASMIC score (6/7). A high-stakes dissection of enzyme biomarker paradoxes, genetic variants, and plasma prophylaxis.</p>
             </li>
             <li class="case-item">
                 <a href="pbr.html">The Postpartum Bruise: Spontaneous Ecchymoses, Hemarthroses, and the Incubated Coagulation Assay</a>
-                <p>A 32-year-old woman presents 8 weeks postpartum following an uncomplicated pregnancy with a 3-week history of spontaneous extensive ecchymoses on her arms, legs, and back, and 1 week of severe pain and swelling in her right elbow and both knees. Physical examination reveals large confluent ecchymoses over her limbs and back with painful, warm hemarthroses restricting elbow and knee range of motion. Laboratory evaluation reveals a completely normal complete blood count (hemoglobin 12.1 g/dL, normal platelets 356,000/µL), normal prothrombin time (PT 12.0s, INR 1.0), normal fibrinogen (534 mg/dL), normal liver and renal function, and normal LDH (180 U/L), alongside an isolated, severely prolonged activated partial thromboplastin time (aPTT 85.0s). Coagulation mixing studies demonstrate an initial failure to correct (55s) that progressively worsens after 30-minute incubation at 37°C (64s). A high-stakes diagnostic dissection navigating acquired coagulation cascade inhibitors, bypassing hemostatic agents, and targeted B-cell immunomodulation.</p>
+                <p>A 32-year-old woman presents 8 weeks postpartum with extensive spontaneous ecchymoses and acute knee/elbow hemarthroses. Labs reveal normal platelets (356,000/µL), normal PT, and an isolated severely prolonged aPTT (85.0s) failing to correct on incubated mixing. A diagnostic dissection of acquired coagulation factor inhibitors and bypassing agents.</p>
             </li>
             <li class="case-item">
                 <a href="smg.html">The Pelvic Surge: Subacute B-Symptoms, Massive Pelvic Splenomegaly, Coombs-Negative Hemolysis, and Coagulopathy</a>
-                <p>A 51-year-old woman presents with a 2-month history of progressive fatigue, night sweats, left-upper-quadrant fullness, early satiety, pedal edema, and exertional dyspnea. Physical examination reveals an anxious, febrile woman (38.3°C) with mild scleral icterus and massive firm non-tender splenomegaly extending below the pelvic brim (30 cm on CT). Laboratory evaluation reveals severe normocytic anemia (hemoglobin 7.2 g/dL, nadir 5.7 g/dL) with marked reticulocytosis (9.2%), elevated LDH (1,540 U/L), undetectable haptoglobin (<6 mg/dL), indirect hyperbilirubinemia (2.4 mg/dL), and negative direct Coombs testing. Coagulation testing reveals a severely prolonged aPTT (63.9s) that fails to correct on 1:1 mixing study, driven by strongly positive Lupus Anticoagulant and IgM Anticardiolipin autoantibodies (>150 MPL units), alongside an IgM monoclonal protein (0.12 g/dL) and severe immunoparesis. A high-stakes diagnostic dissection navigating massive splenomegaly, paraneoplastic autoimmune phenomena, intrasinusoidal B-cell lymphoproliferative disorders, and therapeutic splenectomy.</p>
+                <p>A 51-year-old woman presents with subacute B-symptoms, massive pelvic splenomegaly (30 cm), Coombs-negative hemolytic anemia (Hb 7.2 g/dL, reticulocytes 9.2%), IgM kappa paraproteinemia, and acquired Lupus Anticoagulant (aPTT 63.9s). A high-stakes dissection of paraneoplastic autoantibodies, intrasinusoidal B-cell lymphoma, and splenectomy.</p>
             </li>
             <li class="case-item">
                 <a href="shr.html">The Shear Crisis: Transient Aphasia, Gross Hematuria, Severe Thrombocytopenia, and Multiorgan Dysfunction</a>
-                <p>A 59-year-old male bank executive presents with a 3-week history of fatigue, light-headedness, and progressive bifrontal headache, followed by watery diarrhea with hematochezia 2 weeks prior, sudden 3-minute dizziness and fall, 5-minute transient nonfluent aphasia, and dark red-tinged urine. Physical examination reveals conjunctival icterus and hypertension (165/95 mmHg) without focal neurologic deficits. Laboratory evaluation reveals severe microangiopathic hemolytic anemia (hemoglobin 8.3 g/dL, reticulocytes 13.2%, LDH 1,401 U/L, undetectable haptoglobin), profound consumption thrombocytopenia (7,000/µL), indirect hyperbilirubinemia (3.7 mg/dL), mild acute kidney injury (creatinine 1.97 mg/dL), elevated troponin T (80 ng/L), and negative direct Coombs testing. Peripheral blood smear reveals numerous schistocytes (~5/hpf) establishing MAHA with a high-risk clinical score (6/7). A high-stakes diagnostic dissection navigating microvascular thrombosis, target-directed nanobody therapy, and B-cell immunomodulation.</p>
+                <p>A 59-year-old male executive presents with bloody diarrhea, transient aphasia, gross hematuria, severe Coombs-negative MAHA (Hb 8.3 g/dL, reticulocytes 13.2%), profound thrombocytopenia (7,000/µL), and mild AKI with high-risk PLASMIC score (6/7). A high-stakes dissection navigating microvascular thrombosis, target-directed nanobody therapy, and B-cell immunomodulation.</p>
             </li>
             <li class="case-item">
                 <a href="hcl.html">The Missing Monocytes: Subacute Pneumonia, Post-Antibiotic Exanthem, Splenomegaly, and the Flip-Flop Fungus Sign</a>
-                <p>A 51-year-old male bank employee presents with a 3-week history of exertional dyspnea, nonproductive cough, severe fatigue, 5-kg weight loss, and a new painless exanthem following antibiotic treatment for left lower lobe pneumonia. Physical examination reveals painless blanching erythematous papules on the face, torso, and limbs with costal margin splenomegaly. Laboratory evaluation reveals severe pancytopenia (total WBC 350/µL, hemoglobin 10.9 g/dL, platelets 119,000/µL) with profound absolute monocytopenia (1%), elevated liver enzymes (ALP 739 U/L), extreme hyperferritinemia (1,820 µg/L), and elevated CRP (94 mg/L). 18F-FDG PET-CT reveals a 17-mm spiculated left lower lobe lung nodule with hypermetabolic supraclavicular and mediastinal lymphadenopathy (pathognomonic "Flip-Flop Fungus Sign"). A high-stakes diagnostic dissection navigating opportunistic mycobacterial infections, purine analog chemotherapy, and cell-mediated immune deficiencies.</p>
+                <p>A 51-year-old male presents with subacute pneumonia, post-antibiotic exanthem, splenomegaly, severe pancytopenia (WBC 350/µL) with profound monocytopenia (1%), hyperferritinemia, and PET-CT showing the "Flip-Flop Fungus Sign". A diagnostic dissection of opportunistic mycobacterial infections, purine analogs, and cell-mediated immunodeficiency.</p>
             </li>
             <li class="case-item">
                 <a href="egp2.html">The Eosinophilic Surge: Exertional Dyspnea, Anosmia, Migratory Pulmonary Opacities, and Cardiac Biomarker Elevation</a>
-                <p>A 91-year-old male retired military veteran with a history of obstructive airway disease, coronary artery disease, and 30-pack-year smoking history presents with an 8-month history of progressive exertional dyspnea, 15.9 kg weight loss, chronic sinus congestion, rhinorrhea, and anosmia. Physical examination reveals severe diffuse pulmonary wheezing and exertional desaturation to 70% on room air. Laboratory evaluation reveals a massive leukocytosis (37,780/µL) driven by extreme blood eosinophilia (absolute eosinophil count 27,390/µL), elevated high-sensitivity troponin T (56 ng/L), NT-proBNP (4,300 pg/mL), elevated serum IgG (3,099 mg/dL), and positive Aspergillus fumigatus IgE, with normal serum vitamin B12 and tryptase levels. High-resolution CT chest reveals diffuse bronchial-wall thickening, mucus plugging, tree-in-bud opacities, subcarinal lymphadenopathy, and bilateral pleural effusions. A high-stakes diagnostic dissection navigating systemic hypereosinophilic syndromes, ANCA serology variants, clonal hematopoiesis, and targeted anti-IL-5 receptor alpha monoclonal antibody therapy.</p>
+                <p>A 91-year-old veteran presents with chronic dyspnea, weight loss, sinus congestion, extreme blood eosinophilia (27,390/µL), elevated troponin T (56 ng/L), and chest CT showing tree-in-bud opacities and bronchial thickening. A diagnostic dissection navigating hypereosinophilic syndromes, ANCA variants, and targeted anti-IL-5Rα therapy.</p>
             </li>
             <li class="case-item">
                 <a href="prc.html">The Aplastic Surge: Refractory Post-Transplant Anemia, Severe Reticulocytopenia, and Iron Overload</a>
-                <p>A 74-year-old male retired consultant presents 3 months following orthotopic heart transplantation with progressive severe transfusion-dependent normocytic anemia (hemoglobin nadir 5.6 g/dL) and mild pancytopenia. Despite multiple immunosuppressive drug adjustments for presumed medication-induced myelosuppression, the anemia worsens, requiring 6 units of packed red blood cells. Laboratory evaluation reveals profound reticulocytopenia (&lt;0.5%), normal serum haptoglobin (142 mg/dL), negative Coombs testing, a massive hypoxia-driven erythropoietin surge (465 mIU/mL), severe iron overload (transferrin saturation 93%, ferritin 1229 µg/L), and splenomegaly (16.7 cm). A high-stakes diagnostic dissection navigating post-transplant hypoproliferative cytopenias, selective maturation arrest, quantitative viral genomics, passive antibody replacement, and allograft preservation.</p>
+                <p>A 74-year-old heart transplant recipient presents with severe transfusion-dependent anemia (Hb 5.6 g/dL), profound reticulocytopenia (&lt;0.5%), extreme erythropoietin surge (465 mIU/mL), and severe iron overload. A diagnostic dissection of post-transplant maturation arrest, viral genomics, and passive antibody therapy.</p>
             </li>
             <li class="case-item">
                 <a href="cdm.html">The Ascending Sensory Level: Refractory Immunotherapy, Normal Spine Imaging, and Central Cord Conduction Loss</a>
-                <p>A 57-year-old woman with a past surgical history of gastric bypass 4 years prior and chronic low back pain presents with an 18-month progressive history of severe sensory loss, paresthesias, and quadriparesis (0-1/5 leg strength, 3/5 arm strength) resulting in loss of bowel/bladder control and wheelchair dependence. Presumptive diagnosis of chronic inflammatory demyelinating polyneuropathy (CIDP) led to 6 months of intravenous immunoglobulin (IVIG) without response. Neurological examination reveals hyperreflexia (3+ reflexes) and a pinprick sensory level at T4, while electrophysiological studies show normal sensory action potentials, reduced motor amplitudes, and absent tibial somatosensory evoked potentials (P37 wave). Laboratory evaluation reveals normal vitamin B12, normal methylmalonic acid, mild leukopenia, and normocytic anemia. A high-stakes diagnostic dissection navigating metabolic tractopathies, competitive trace metal toxicity, occult enterocyte trapping, and targeted parenteral micronutrient rescue.</p>
+                <p>A 57-year-old woman presents with an 18-month progressive quadriparesis, T4 sensory level, and CIDP-like presentation refractory to IVIG. Normal spine MRI and nerve potentials contrast with absent somatosensory evoked potentials. A diagnostic dissection of metabolic tractopathies, trace metal toxicity, and targeted micronutrient rescue.</p>
             </li>
             <li class="case-item">
                 <a href="pcy.html">The Fragile Smear: Subacute Weight Loss, Solid-Food Dysphagia, Severe Pancytopenia, and Peripheral Red Cell Fragmentation</a>
-                <p>An 80-year-old female retired church worker presents with a 6-week history of progressive fatigue, anorexia, 6 kg weight loss, fevers, solid-food dysphagia, and severe pancytopenia (hemoglobin 7.5 g/dL, WBC 2.74 x 10³/µL, platelets 43,000/µL). Examination of a peripheral blood smear reveals prominent red cell fragments and schistocytes, leading to an initial misdiagnosis of thrombotic thrombocytopenic purpura (TTP) and initiation of plasma exchange. Laboratory testing reveals normal haptoglobin (113 mg/dL), normal bilirubin, a hypoproliferative reticulocyte index (0.65%), and normal ADAMTS13 activity (76%), while abdominopelvic CT demonstrates bilateral adnexal masses (4.8 cm and 6.3 cm). A high-stakes diagnostic dissection navigating pseudo-TTP, dysplastic smear signatures, extramedullary myeloid lesions, complex cytogenetics, and epigenetic targeted therapy.</p>
+                <p>An 80-year-old woman presents with weight loss, dysphagia, severe pancytopenia (Hb 7.5 g/dL, platelets 43,000/µL), and peripheral red cell fragmentation mimicking TTP. Normal ADAMTS13 and adnexal mass findings force a diagnostic pivot to dysplastic smear signatures and extramedullary myeloid lesions.</p>
             </li>
             <li class="case-item">
                 <a href="g4h.html">The Sellar Shadow: Refractory Sinusitis, Cranial Nerve VI Palsy, and Severe Polyuria</a>
-                <p>A 53-year-old male sales executive presents with a 1-year history of progressive nasal congestion, severe evening headaches, binocular horizontal diplopia (right sixth nerve palsy), polydipsia, and voluminous polyuria measuring up to 6 liters daily. Water deprivation testing confirms central diabetes insipidus. Contrast-enhanced MRI reveals diffuse sellar mass enlargement (19 mm) with infundibular stalk thickening and extensive T2-hypointense sphenoid mucosal thickening with adjacent bone sclerosis. Laboratory workup reveals normal serum immunoglobulin levels, normal complement, and a weakly positive MPO-ANCA. A high-stakes diagnostic dissection navigating skull-base infiltrative lesions, seronegative autoimmune mimics, transsphenoidal histopathology, and targeted B-cell depletion.</p>
+                <p>A 53-year-old sales executive presents with refractory nasal congestion, sixth nerve palsy, central diabetes insipidus (6L polyuria daily), sellar mass (19 mm), and sphenoid bone sclerosis. A diagnostic dissection of sellar infiltrative lesions, seronegative autoimmune mimics, and B-cell depletion.</p>
             </li>
             <li class="case-item">
                 <a href="cbl.html">The Widened Subendothelium: Severe Post-Infectious Anasarca, Oliguric Renal Failure, and Normal Complement Serologies</a>
-                <p>A 30-year-old male mechanic presents with 3 weeks of rapidly progressive oliguric acute kidney injury, new-onset hypertension, severe hypoalbuminemia, and massive dynamic fluid retention (+61 lbs weight gain) following a mild upper respiratory infection. Serum creatinine escalates rapidly from 2.87 mg/dL to 6.5 mg/dL with 3+ proteinuria, but serum complement levels (C3 and C4) and autoimmune serologies remain completely normal. Peripheral blood smear reveals no overt schistocytes. A high-stakes nephropathology dissection navigating post-infectious glomerulonephritis mimics, electron microscopy lamina rara interna expansion, metabolic pathways, and targeted parenteral cofactor replacement.</p>
+                <p>A 30-year-old mechanic presents with post-infectious oliguric AKI (creatinine 6.5 mg/dL), severe hypoalbuminemia, anasarca (+61 lbs), 3+ proteinuria, and completely normal complement levels (C3/C4). A nephropathology dissection navigating post-infectious glomerulonephritis mimics and electron microscopy subendothelial expansion.</p>
             </li>
             <li class="case-item">
                 <a href="stk.html">The Refractory Cascade: Recurrent Multifocal Strokes, Confluent Leukoencephalopathy, and a Solitary Pulmonary Nodule</a>
-                <p>A 68-year-old male retired engineer with a 40-pack-year smoking history and atrial fibrillation presents with a 2-month history of subacute progressive cognitive decline, aphasia, confusion, urinary incontinence, and recurrent focal neurological deficits. Serial brain MRIs demonstrate scattered acute ischemic micro-infarcts across multiple cerebral territories and progressive confluent white matter T2/FLAIR hyperintensities despite full-dose therapeutic anticoagulation and antiplatelet therapy. Systemic imaging reveals a spiculated pulmonary mass. A high-stakes diagnostic dissection navigating stroke-of-undetermined-source workup, cerebrospinal fluid pleocytosis, D-dimer surges, and small-vessel neuropathology.</p>
+                <p>A 68-year-old engineer with atrial fibrillation presents with subacute cognitive decline and recurrent acute ischemic micro-infarcts across multiple cerebral territories despite full therapeutic anticoagulation. CT reveals a solitary pulmonary nodule. A diagnostic dissection of non-bacterial thrombotic endocarditis and hypercoagulable malignancy.</p>
             </li>
             <li class="case-item">
                 <a href="syn.html">The Radial Fissures: Polyserositis, Symmetrical Polyarthritis, and Interstitial Lung Disease</a>
-                <p>A 54-year-old female schoolteacher presents with a 6-month history of subacute exertional dyspnea, dry cough, symmetrical wrist and small joint polyarthritis, cold-induced digital cyanosis, hyperkeratotic scaling skin along the radial margins of her digits, and constitutional symptoms. Physical examination reveals bibasilar inspiratory velcro crackles, a pericardial friction rub, and periungual capillary loop dilation. HRCT chest demonstrates subpleural ground-glass opacities, traction bronchiectasis, and bilateral pleural effusions. A high-stakes diagnostic dissection navigating multi-organ connective tissue disease, cytoplasmic autoantibody staining, and targeted immunosuppression.</p>
+                <p>A 54-year-old schoolteacher presents with exertional dyspnea, symmetrical polyarthritis, Raynaud's phenomenon, hyperkeratotic scaling skin along radial digit margins ("mechanic's hands"), and HRCT ground-glass opacities. A diagnostic dissection of multi-organ connective tissue disease and cytoplasmic autoantibodies.</p>
             </li>
             <li class="case-item">
                 <a href="utt.html">The Inhibitor-Negative Paradox: Fetal Loss, Profound Thrombocytopenia, and Postpartum Microangiopathy</a>
-                <p>A 31-year-old primigravida at 22 weeks gestation presents for emergency labor induction following intrauterine fetal demise, low-grade fever, sinus tachycardia, and mild hypertension. Initial laboratory evaluation reveals profound thrombocytopenia of 9,000/µL, microangiopathic hemolytic anemia with schistocytes, undetectable haptoglobin, LDH 1,616 U/L, reticulocytosis 15.1%, and acute kidney injury with normal coagulation parameters. A high-stakes diagnostic dissection navigating pregnancy-associated microangiopathies, enzymatic cleavage assays, and non-immune hereditary pathways.</p>
+                <p>A 31-year-old primigravida at 22 weeks gestation presents with fetal demise, low-grade fever, profound thrombocytopenia (9,000/µL), microangiopathic hemolytic anemia, and AKI with normal coagulation parameters. A diagnostic dissection navigating pregnancy-associated microangiopathies and non-immune hereditary pathways.</p>
             </li>
             <li class="case-item">
                 <a href="plc.html">Bizarre Upper-Lobe Cysts and Bilateral Pneumothoraces in a Young Inhalational User</a>
-                <p>A 27-year-old male presents to the emergency department with a 3-month history of subacute progressive cough, white sputum, and exertional dyspnea, culminating in abrupt bilateral pleuritic chest pain and secondary spontaneous pneumothoraces requiring bilateral chest tube placement. HRCT chest reveals numerous bizarre, stellate, multiloculated thin- and thick-walled cysts with peribronchiolar nodules predominantly involving the upper and middle lung zones with striking costophrenic angle and basal sparing. A high-stakes diagnostic dissection evaluating cystic lung disease, inhalational antigenic triggers, and targeted histopathologic markers.</p>
+                <p>A 27-year-old inhalational user presents with progressive cough, dyspnea, and abrupt bilateral spontaneous pneumothoraces. HRCT chest reveals bizarre, stellate, multiloculated cysts predominantly in the upper/middle lung zones with basal sparing. A diagnostic dissection evaluating cystic lung disease and inhalational antigenic triggers.</p>
             </li>
             <li class="case-item">
                 <a href="noc.html">The Prophylaxis Gap: Multifocal Pyomyositis, Cavitary Pulmonary Nodules, and a Cerebellar Ring Lesion</a>
-                <p>A 62-year-old male heart transplant recipient on Tacrolimus, Mycophenolate Mofetil, and non-Bactrim (Atovaquone) antimicrobial prophylaxis presents with 3 weeks of progressive, painful soft tissue masses on his back (12 cm x 6 cm right paraspinal mass) and right thigh, severe myalgias, shuffling gait, fever, and dry cough following a rural outdoor trip. Imaging reveals multiloculated intramuscular pyomyositis, a 2.2 cm cavitary left upper lobe lung nodule, and a 1.4 cm ring-enhancing cerebellar brain lesion. A high-stakes diagnostic dissection navigating opportunist pathogen gaps in transplant immunosuppression.</p>
+                <p>A 62-year-old heart transplant recipient on non-Bactrim prophylaxis presents with severe multifocal pyomyositis (12 cm paraspinal mass), a cavitary lung nodule, and a cerebellar ring-enhancing lesion following a rural trip. A diagnostic dissection navigating opportunistic pathogen gaps in transplant immunosuppression.</p>
             </li>
             <li class="case-item">
                 <a href="myx.html">The Great Vasculitis Mimic: Splinter Hemorrhages, Livedo Racemosa, and Transient Neurological Events</a>
-                <p>A 29-year-old female PhD student presents with a 1-year history of episodic red-purple skin lesions on her hands and feet, localized throbbing digital pain, transient visual scotomas ("flashes of light"), exertional dyspnea, 5 kg weight loss, and subungual splinter hemorrhages. Multiple specialists evaluated her over 12 months for systemic vasculitis and antiphospholipid syndrome, but skin biopsy was non-specific and inflammatory markers were normal. A high-stakes diagnostic dissection unveiling a non-inflammatory embolic source.</p>
+                <p>A 29-year-old female presents with episodic digital cyanosis, localized throbbing pain, transient visual scotomas, subungual splinter hemorrhages, and weight loss, previously misdiagnosed as vasculitis for 12 months. A high-stakes diagnostic dissection unveiling a non-inflammatory embolic source.</p>
             </li>
             <li class="case-item">
                 <a href="src.html">The Tattoo Eruption: New-Onset Seizure, Severe Calcitriol-Mediated Hypercalcemia, and Cavitary Lung Lesions</a>
-                <p>A 46-year-old woman presents via ambulance after a first-time witnessed tonic-clonic seizure with mouth frothing and respiratory failure requiring emergency endotracheal intubation. Examination reveals inflamed, raised papular lesions erupting directly over an old arm tattoo. Laboratory testing reveals severe hypercalcemia of 13.8 mg/dL with suppressed PTH and markedly elevated active vitamin D levels, cholestatic liver enzymes, hepatosplenomegaly, and a 3.4 cm cavitary upper lobe lung lesion on CT. A high-stakes diagnostic dissection navigating disseminated infection versus multi-organ systemic disease.</p>
+                <p>A 46-year-old woman presents after a witnessed seizure with inflamed papules erupting over an old tattoo, severe hypercalcemia (13.8 mg/dL), suppressed PTH, elevated active vitamin D, and a 3.4 cm cavitary lung lesion. A diagnostic dissection of granulomatous tattoo reactions versus systemic disease.</p>
             </li>
             <li class="case-item">
                 <a href="egp.html">The Multi-Organ Eruption: Severe Airway Disease, Angioedema, and Pulmonary Micro-Nodules</a>
-                <p>A 46-year-old woman with multiple sclerosis presents with 4 weeks of progressive exertional dyspnea, productive white cough, 2 weeks of a pruritic exanthem, non-hereditary lip swelling, and chronic sinus air-fluid levels. Laboratory testing reveals severe leukocytosis with an absolute white cell subtype elevation above 3,000 cells/µL, BAL fluid involvement of 30%, and diffuse centrilobular micro-nodularity on chest CT. A complex diagnostic dissection navigating ANCA-negative systemic disease versus drug-unmasked hypersensitivity syndromes.</p>
+                <p>A 46-year-old woman presents with progressive dyspnea, productive cough, pruritic exanthem, non-hereditary lip swelling, extreme blood eosinophilia (&gt;3,000/µL), and BAL eosinophilia (30%). A diagnostic dissection navigating ANCA-negative systemic hypereosinophilic disease versus drug hypersensitivity.</p>
             </li>
             <li class="case-item">
                 <a href="mls.html">The Non-Vascular Stroke: Focal Motor Seizures, Hearing Loss, and Persistent Hyperlactatemia</a>
-                <p>A 37-year-old woman with young-onset diabetes presents with episodic left-sided facial and limb weakness, focal myoclonic hand jerking, ear buzzing, and right peripheral vision flashes. MRI brain reveals extensive cortical hyperintensity crossing classical arterial boundaries without vessel occlusion. A high-stakes diagnostic chase uncovering a non-atherosclerotic metabolic stroke syndrome.</p>
+                <p>A 37-year-old woman with young-onset diabetes presents with episodic facial/limb weakness, myoclonic hand jerking, and brain MRI showing cortical hyperintensity crossing arterial boundaries. A diagnostic chase uncovering a non-atherosclerotic metabolic stroke syndrome.</p>
             </li>
             <li class="case-item">
                 <a href="tbm.html">The Subacute Shadow: Extreme Opening Pressure, Hypoglycorrhachia, and Basilar Arteritis</a>
-                <p>A 73-year-old active woman presents with 3 weeks of progressive confusion, high fevers, and headache, failing broad-spectrum antibacterial coverage. Initial lumbar puncture reveals an opening pressure of 50 cm H2O, profound hypoglycorrhachia, and severe protein elevation. A high-stakes diagnostic chase navigating initial negative rapid PCRs, EVD CSF diversion, and advanced metagenomic sequencing.</p>
+                <p>A 73-year-old woman presents with 3 weeks of progressive confusion, fevers, opening pressure &gt;50 cm H2O, profound hypoglycorrhachia, and elevated CSF protein. A diagnostic chase navigating initial negative PCRs, EVD CSF diversion, and metagenomic sequencing.</p>
             </li>
             <li class="case-item">
                 <a href="lmn.html">The Flight Attendant's Fall: Ascending Numbness, Painless Adenopathy, and High-Protein CSF</a>
-                <p>A 51-year-old international flight attendant presents with 8 months of progressive leg numbness, loss of grip strength, 12 kg weight loss, dyspnea, and widespread painless lymphadenopathy. A high-stakes diagnostic chase navigating CIDP mimics, POEMS considerations, and multi-compartment flow cytometry to uncover a rare neuro-oncologic infiltration.</p>
+                <p>A 51-year-old flight attendant presents with 8 months of progressive leg numbness, loss of grip strength, 12 kg weight loss, and widespread painless lymphadenopathy. A diagnostic chase navigating CIDP mimics, POEMS syndrome, and neuro-oncologic infiltration.</p>
             </li>
             <li class="case-item">
                 <a href="vxs.html">The Refractory Flare: Macrocytic Cytopenias, Ear Swelling, and Sterile Vasoplegic Shock</a>
-                <p>A 72-year-old man presents with a 5-year history of steroid-dependent "seronegative RA", neutrophilic skin plaques, ear chondritis, macrocytic pancytopenia, deep vein thrombosis, and unexplained vasoplegic shock. A high-stakes diagnostic pursuit uncovering a newly characterized somatic autoinflammatory disorder of hematopoietic aging.</p>
+                <p>A 72-year-old man presents with steroid-dependent polyarthritis, neutrophilic skin plaques, ear chondritis, macrocytic pancytopenia, DVT, and vasoplegic shock. A diagnostic pursuit uncovering a somatic autoinflammatory disorder of hematopoietic aging.</p>
             </li>
             <li class="case-item">
                 <a href="wnv.html">The Monsoon Exanthem: High Fever, Morbilliform Rash, and Sudden Ascending Weakness</a>
-                <p>A 54-year-old female consultant presents with high-grade fevers, a diffuse morbilliform exanthem, diplopia, and acute ascending leg and abdominal weakness during peak monsoon season. A high-stakes diagnostic chase navigating autoimmune demyelination mimics, anterior horn cell motor tropism, and specialized CSF serologies.</p>
+                <p>A 54-year-old female presents during monsoon season with high fevers, morbilliform exanthem, diplopia, and acute ascending weakness. A diagnostic chase navigating autoimmune demyelination mimics and neurotropic viral motor neuronitis.</p>
             </li>
             <li class="case-item">
                 <a href="fce.html">The Abrupt Drop: Bending in the Garden, Sudden Paraplegia, and Misleading Nerve Enhancement</a>
-                <p>A 60-year-old active man bends down in his garden and instantly develops severe shooting leg pain, distal paraplegia, saddle anesthesia, and acute urinary retention reaching maximal deficit in 35 minutes. A high-stakes diagnostic pursuit navigating initial Guillain-Barré mimics, non-response to IVIG, and specialized neuroimaging to uncover an acute vascular collapse.</p>
+                <p>A 60-year-old man bends down in his garden and instantly develops severe shooting leg pain, distal paraplegia, saddle anesthesia, and acute urinary retention within 35 minutes. A diagnostic pursuit navigating Guillain-Barré mimics and spinal vascular collapse.</p>
             </li>
             <li class="case-item">
                 <a href="cfg.html">The Cold Network: Retiform Purpura, Digital Necrosis, and Silent Inflammatory Markers</a>
-                <p>A 66-year-old female counselor presents with an excruciatingly painful purpuric rash, livedo racemosa, digital ischemia, and ischemic forearm neuropathy following a post-viral episode. A high-stakes diagnostic chase navigating silent inflammatory markers, consumption coagulopathy, and specialized plasma dynamics to unmask a rare occlusive microvascular vasculopathy.</p>
+                <p>A 66-year-old female presents with an excruciatingly painful purpuric rash, livedo racemosa, digital ischemia, and forearm neuropathy following a post-viral episode. A diagnostic chase navigating silent inflammatory markers and occlusive microvascular vasculopathy.</p>
             </li>
             <li class="case-item">
                 <a href="sam.html">The Subcarinal Threat: Breathlessness, Pulmonary Artery Stenosis, and Silent Hematuria</a>
-                <p>A 22-year-old female student presents with subacute progressive dyspnea, microscopic hematuria, and a large subcarinal mass causing critical extrinsic compression of the main pulmonary artery. A high-stakes diagnostic pursuit navigating necrotizing granulomas, negative mycobacterial panels, and specific autoantibody signals to unmask a rare vasculitic masquerader.</p>
+                <p>A 22-year-old female student presents with progressive dyspnea, microscopic hematuria, and a large subcarinal mass causing critical extrinsic compression of the main pulmonary artery. A diagnostic pursuit navigating necrotizing granulomas and vasculitic masqueraders.</p>
             </li>
             <li class="case-item">
                 <a href="mms.html">The Unyielding Joint: Monoarthritis, Purulent Breakdown, and Sudden Cardiac Collapse</a>
-                <p>A 49-year-old woman on biologic therapy for rheumatoid arthritis presents with chronic culture-negative elbow monoarthritis progressing to a draining sinus, acute respiratory failure, and cardiogenic shock with EF 10%. A high-stakes diagnostic chase navigating hyperinflammation, bone marrow granulomas, and subtle immune signals to unmask an aggressive multi-system threat.</p>
+                <p>A 49-year-old woman on biologic therapy for rheumatoid arthritis presents with chronic culture-negative elbow monoarthritis, a draining sinus, acute respiratory failure, and cardiogenic shock. A diagnostic chase navigating hyperinflammation and multi-system infection.</p>
             </li>
             <li class="case-item">
                 <a href="dn.html">The Shadow Great Mimicker: Encephalopathy, Macular Deficit, and Scrotal Swelling</a>
-                <p>A 27-year-old male with untreated HIV (CD4 49) presents with subacute encephalopathy, acute visual loss, multi-station lymphadenopathy, and scrotal swelling. A high-stakes diagnostic journey navigating dual opportunistic infections, misleading CSF PCR signals, and acid-fast negative biopsy stains to unmask a complex multi-organ pathogen.</p>
+                <p>A 27-year-old male with untreated HIV presents with subacute encephalopathy, acute visual loss, multi-station lymphadenopathy, and scrotal swelling. A diagnostic journey navigating dual opportunistic infections and acid-fast negative biopsy stains.</p>
             </li>
             <li class="case-item">
                 <a href="eos.html">A Red Flag: Transient Vision Loss, Ataxic Gait, and Splinter Hemorrhages</a>
-                <p>A 64-year-old truck driver presents with sudden transient diplopia, altered mental status, splinter hemorrhages, and a striking absolute eosinophil count exceeding 6,000/µL. A high-stakes diagnostic pursuit unmasking a cardioembolic threat hiding behind a preserved ejection fraction.</p>
+                <p>A 64-year-old truck driver presents with sudden transient diplopia, altered mental status, splinter hemorrhages, and absolute eosinophils &gt;6,000/µL. A high-stakes diagnostic pursuit unmasking a cardioembolic threat hiding behind a preserved ejection fraction.</p>
             </li>
             <li class="case-item">
                 <a href="cop.html">The Essential Element: Rapid Anemia, Dark Urine, and Suppressed Alkaline Phosphatase</a>
-                <p>A 21-year-old woman presents with severe fatigue, dark tea-colored urine, profound anemia (Hb 3.9 g/dL), leukemoid leukocytosis (47,300/µL), and Coombs-negative intravascular hemolysis. A high-stakes diagnostic journey linking refractory hemolysis and hepatic dysfunction to a critical metabolic trace element.</p>
+                <p>A 21-year-old woman presents with severe fatigue, dark tea-colored urine, profound anemia (Hb 3.9 g/dL), leukemoid leukocytosis (47,300/µL), and Coombs-negative intravascular hemolysis. A diagnostic journey linking hemolysis to a trace element metabolic defect.</p>
             </li>
             <li class="case-item">
                 <a href="thromb.html">Taken Out of Context: Severe Thrombocytopenia, Fever, and Atypical Headache</a>
-                <p>A 25-year-old woman with known mitral valve prolapse presents with fever, arthralgias, severe thrombocytopenia (22,000/µL), microangiopathic hemolytic anemia, and an atypical headache. A high-stakes diagnostic pursuit unraveling a profound hematologic masquerader.</p>
+                <p>A 25-year-old woman with known mitral valve prolapse presents with fever, arthralgias, severe thrombocytopenia (22,000/µL), microangiopathic hemolytic anemia, and an atypical headache. A high-stakes diagnostic pursuit unraveling a hematologic masquerader.</p>
             </li>
             <li class="case-item">
                 <a href="fevpan.html">The Wolf at the Door: Febrile Storm and Rapid Pancytopenia</a>
-                <p>A 29-year-old man presents with a 1-week history of intermittent high fevers, drenching night sweats, and pleuritic left upper abdominal pain, followed by precipitous pancytopenia and neurological deterioration. A high-stakes diagnostic chase navigating autoimmune, hematologic, and hyperinflammatory threats.</p>
+                <p>A 29-year-old man presents with intermittent high fevers, drenching night sweats, pleuritic left upper quadrant pain, precipitous pancytopenia, and neurological deterioration. A diagnostic chase navigating autoimmune and hyperinflammatory threats.</p>
             </li>
             <li class="case-item">
                 <a href="artox.html">The Daily Grind: Gait Instability, Polycythemia, and a Revised Hip</a>
-                <p>A 56-year-old woman presents with subacute gait ataxia, glove-and-stocking paresthesias, cognitive decline, and an unexplained rise in hemoglobin to 18.8 g/dL following revision hip arthroplasty. A high-stakes diagnostic chase through hematologic, neurologic, and orthopedic mysteries as the team unravels a hidden cause of multisystem disease.</p>
+                <p>A 56-year-old woman presents with subacute gait ataxia, glove-and-stocking paresthesias, cognitive decline, and an unexplained rise in hemoglobin to 18.8 g/dL following revision hip arthroplasty. A diagnostic chase unmasking a hidden cause of multisystem disease.</p>
             </li>
             <li class="case-item">
                 <a href="cn.html">The Cycling Storm: Recurrent Abdominal Pain and Neutropenia</a>
-                <p>A 26-year-old woman with four admissions in three months for abdominal pain, fever, and septic shock. A diagnostic chase where an anchoring "gastroenteritis" label and positive dengue/brucella serologies obscure a striking cyclical leucopenic pattern on serial CBCs, unmasked by a confirmatory genetic test.</p>
+                <p>A 26-year-old woman with four admissions in three months for abdominal pain, fever, and septic shock. A diagnostic chase where an anchoring "gastroenteritis" label obscures a striking cyclical leucopenic pattern unmasked by genetic testing.</p>
             </li>
             <li class="case-item">
                 <a href="vsc.html">The Silent Storm: Breathless, Bleeding, and Shutting Down</a>
-                <p>A 35-year-old man arrives with critical respiratory failure, a hemoglobin dangerously low at 4.5 g/dL, and kidneys failing at eGFR 2. A diagnostic chase across pulmonary-renal syndromes where a decades-old false-positive blood test and subtle dermatologic signs hidden in plain sight force a critical pivot in clinical reasoning.</p>
+                <p>A 35-year-old man arrives with critical respiratory failure, hemoglobin 4.5 g/dL, and kidneys failing at eGFR 2. A diagnostic chase across pulmonary-renal syndromes where subtle dermatologic signs hidden in plain sight force a critical pivot.</p>
             </li>
             <li class="case-item">
                 <a href="eosinophilia.html">The Red Flag Embolus: A Multisystem Race</a>
-                <p>A 64-year-old truck driver presents with sudden vision loss, ataxic gait, and splinter hemorrhages. A diagnostic race between high-stakes embolic syndromes where a striking "Red Flag" lab finding unmasks a silent cardiac threat hiding behind a preserved ejection fraction.</p>
+                <p>A 64-year-old truck driver presents with sudden vision loss, ataxic gait, and splinter hemorrhages. A diagnostic race between high-stakes embolic syndromes where a striking "Red Flag" lab finding unmasks a silent cardiac threat.</p>
             </li>
             <li class="case-item">
                 <a href="calcium.html">Bones, Stones, and Clonal Clues: A Hypercalcemic Dilemma</a>
-                <p>A 78-year-old man presents with extreme hypercalcemia (17.1 mg/dL) and severe renal failure. A diagnostic maze where lytic bone lesions and a monoclonal IgM protein initially point to a classic hematologic malignancy, forcing the team to reconcile striking biochemical anomalies with hidden systemic pathology.</p>
+                <p>A 78-year-old man presents with extreme hypercalcemia (17.1 mg/dL) and severe renal failure. A diagnostic maze where lytic bone lesions and a monoclonal IgM protein initially point to a classic hematologic malignancy.</p>
             </li>
             <li class="case-item">
                 <a href="dinnerdip.html">The After-Dinner Dip: A Postprandial Puzzle</a>
@@ -258,7 +311,7 @@
             </li>
             <li class="case-item">
                 <a href="nemaline.html">Breathless and Weak: A Late-Onset Diagnostic Puzzle</a>
-                <p>A 58-year-old woman presents with progressive dyspnea and dysphagia. A high-stakes diagnostic journey where cardiopulmonary failure and neuromuscular decline collide, leading the team through a maze of vascular, autoimmune, and rare protein-related pathologies.</p>
+                <p>A 58-year-old woman presents with progressive dyspnea and dysphagia. A high-stakes diagnostic journey where cardiopulmonary failure and neuromuscular decline collide, leading through a maze of rare pathologies.</p>
             </li>
             <li class="case-item">
                 <a href="craving.html">Salt Cravings and Stolen Secrets: A Tubulopathy Tale</a>
@@ -282,27 +335,27 @@
             </li>
             <li class="case-item">
                 <a href="chatter_parathyroid_rounds_20260511_121500.html">The Lytic Lesion Mystery: Bone vs. Cancer</a>
-                <p>A 44-year-old immigrant presents with a pathologic clavicle fracture and widespread lytic bone lesions. A diagnostic mystery where the radiographic appearance of metastatic cancer collides with striking biochemical anomalies, forcing a critical pivot in clinical reasoning.</p>
+                <p>A 44-year-old immigrant presents with a pathologic clavicle fracture and widespread lytic bone lesions. A diagnostic mystery where metastatic cancer radiographically collides with striking biochemical anomalies.</p>
             </li>
             <li class="case-item">
                 <a href="crohn.html">The Persistent Pivot: Chronic Pain and High Stakes</a>
-                <p>A 54-year-old immigrant presents with two years of worsening back pain and striking inflammatory markers (ESR >100). A diagnostic race between high-stakes infections and systemic inflammatory syndromes where therapeutic failure and a sudden surgical crisis unmask a hidden multisystem process.</p>
+                <p>A 54-year-old immigrant presents with two years of worsening back pain and striking inflammatory markers (ESR &gt;100). A diagnostic race between high-stakes infections and systemic inflammatory syndromes.</p>
             </li>
             <li class="case-item">
                 <a href="beat.html">The Beat Goes On: A Conduction System Mystery</a>
-                <p>A 45-year-old man presents with a life-threatening electrical storm. A diagnostic journey where a past history of "asthma" and subtle clues in the cardiac conduction system serve as beacons, guiding the team through a maze of inflammatory and genetic cardiomyopathies to unmask a silent systemic threat.</p>
+                <p>A 45-year-old man presents with a life-threatening electrical storm. A diagnostic journey where a past history of "asthma" and subtle cardiac conduction clues guide the team through inflammatory cardiomyopathies.</p>
             </li>
             <li class="case-item">
                 <a href="jog.html">A Complementary Affair: The Unfolding Mystery</a>
-                <p>A 57-year-old man with a decades-long autoimmune history presents with progressive fatigue and breathlessness. As the case unfolds, new renal impairment, a striking rash, and darkening urine transform a seemingly straightforward workup into a multisystem diagnostic chase across vasculitides, connective tissue diseases, and lymphoproliferative disorders.</p>
+                <p>A 57-year-old man with a long autoimmune history presents with progressive fatigue, dyspnea, acute renal impairment, a striking rash, and dark urine. A multisystem diagnostic chase across vasculitides and lymphoproliferative disorders.</p>
             </li>
             <li class="case-item">
                 <a href="neuro.html">Mid-Air Crisis: A Sudden Silence at 30,000 Feet</a>
-                <p>A 49-year-old woman experiences sudden right-sided hemiplegia and global aphasia during a transatlantic flight. An emergency landing triggers a hyperacute stroke response and a successful mechanical thrombectomy, but as she regains her speech, a hidden history of chest pain and dyspnea prior to the stroke launches a diagnostic pursuit through pulmonary-renal-cardiac connections, venous anomalies, and an occult systemic driver.</p>
+                <p>A 49-year-old woman experiences sudden right hemiplegia and global aphasia during a transatlantic flight. Following mechanical thrombectomy, a prior history of chest pain and dyspnea launches a pursuit through pulmonary-renal-cardiac connections.</p>
             </li>
             <li class="case-item">
                 <a href="obs.html">The Riddle of the Unyielding Midgut: Postprandial Pain, Fever, and Tachycardia</a>
-                <p>A 57-year-old female presents with three months of progressive postprandial periumbilical pain, vomiting, dropping hemoglobin, and persistent resting tachycardia. A diagnostic chase where a thick-walled gallbladder on ultrasound threatens to anchor the clinical team, and a co-existing thyroid abnormality complicates the vascular picture before advanced imaging reveals the true nature of her midgut obstruction.</p>
+                <p>A 57-year-old female presents with 3 months of postprandial periumbilical pain, vomiting, dropping hemoglobin, and resting tachycardia. A diagnostic chase where gallbladder ultrasound findings threaten to anchor the team before advanced imaging reveals midgut obstruction.</p>
             </li>
         </ul>
 
