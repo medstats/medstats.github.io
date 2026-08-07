@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Grand Rounds</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #23455A;
+            border-bottom: 3px solid #9A4D33;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        .authors-box {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #D8CCC0;
+            padding-bottom: 20px;
+            color: #555;
+        }
+        .authors-box p {
+            margin: 5px 0;
+        }
+        .app-link {
+            color: #9A4D33;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .app-link:hover {
+            text-decoration: underline;
+        }
+        /* Updated Round Heading (H3) for better visibility */
+        h3 {
+            background-color: #DFEAF0; /* Lighter navy-soft background */
+            color: #23455A;           /* Dark navy text */
+            padding: 10px 15px;
+            border-left: 10px solid #23455A;
+            border-radius: 4px;
+            margin-top: 50px;
+            font-size: 1.6em;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+        }
+        h4 {
+            margin-top: 35px;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-left: 6px solid;
+            border-radius: 2px;
+        }
+        .user-header {
+            color: #23455A;
+            border-color: #23455A;
+            background-color: #DFEAF0;
+        }
+        .user-text {
+            font-weight: bold;
+            color: #111;
+            background-color: #F4F7FA;
+            padding: 15px 20px;
+            border-left: 6px solid #23455A;
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+        .user-text p, .user-text li, .user-text div, .user-text span {
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .resident-header {
+            color: #5D6E42; /* Olive */
+            border-color: #5D6E42;
+            background-color: #E6ECD9;
+        }
+        .attending-header {
+            color: #9A4D33; /* Rust */
+            border-color: #9A4D33;
+            background-color: #F3E4DC;
+        }
+        .expert-header {
+            color: #B98B34; /* Gold/Ochre */
+            border-color: #B98B34;
+            background-color: #F9F1E5;
+        }
+        strong {
+            color: #23455A;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #D8CCC0;
+            margin: 30px 0;
+        }
+        blockquote {
+            border-left: 5px solid #D8CCC0;
+            padding: 10px 20px;
+            margin: 20px 0;
+            background-color: #fefefe;
+            font-style: italic;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><strong>AI GRAND ROUNDS</strong></h1>
+        <div class="authors-box">
+            <p><strong>Authors: GEMINI (RESIDENT), GROK (ATTENDING), KIMI (EXPERT) & ANUPAM SINGH MD (Human in loop)</strong></p>
+            <p>Department of Medicine, Santosh Medical College.</p>
+            <p><a href="https://medstats.github.io/smcrounds.html" target="_blank" class="app-link">Click here for App</a> | <a href="https://medstats.github.io/agenticgrandrounds.html" target="_blank" class="app-link">Agentic Grand Rounds Index</a></p>
+        </div>
+        <h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 1: History of Transient Neurologic Events, Diarrhea &amp; Gross Hematuria (Timestamp: 3 Weeks Prior to Admission)<br />
+A 59-year-old male bank executive (residing in Delhi NCR, history of hypertension, dyslipidemia, obesity, OSA on CPAP, 7-pack-year smoking history, moderate alcohol use) presents with 3 weeks of fatigue, light-headedness, and progressive bifrontal headache, followed by sudden transient dizziness, fall, transient nonfluent aphasia, and dark red-tinged urine.<br />
+HPI:<br />
+- 2 Weeks Ago: 5 days of watery diarrhea with 1 episode of hematochezia.<br />
+- Day of Admission: Sudden 3-minute episode of dizziness causing a fall (no loss of consciousness), followed by a 5-minute episode of nonfluent aphasia. Noted new dark, red-tinged urine. No fevers, abdominal pain, nausea, vomiting, rash, or bruising.<br />
+- Current Medications: Carvedilol, Lisinopril, Rosuvastatin, Naproxen.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Key Findings:</strong> A 59-year-old male presenting with antecedent bloody diarrhea, acute focal neurological events (transient nonfluent aphasia, fall), and new gross hematuria, on a background of regular NSAID use.</p>
+<p>This presentation strongly points toward microvascular occlusion and end-organ dysfunction involving the brain and kidneys following a GI prodrome.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Thrombotic Microangiopathy (STEC-HUS / aHUS / TTP):</strong> 55% – Classic sequence of post-diarrheal renal involvement paired with transient neurological deficits.<br />
+2. <strong>Embolic TIA/Stroke with Renal Infarction (e.g., Endocarditis / Cardioembolic):</strong> 20% – Simultaneous brain and renal ischemia.<br />
+3. <strong>Systemic Vasculitis (e.g., ANCA-associated / IgA vasculitis):</strong> 15% – Multisystem GI, renal, and CNS involvement.<br />
+4. <strong>NSAID-induced Glomerulonephritis/AKI with independent TIA:</strong> 10% – Naproxen toxicity amidst underlying cardiovascular risk factors.</p>
+<p><strong>Prioritized Tests:</strong><br />
+1. <strong>CBC &amp; Peripheral Blood Smear:</strong> Check for microangiopathic hemolytic anemia (schistocytes) and thrombocytopenia.<br />
+2. <strong>Hemolysis Panel &amp; CMP:</strong> Creatinine, LDH, haptoglobin, and indirect bilirubin.<br />
+3. <strong>Urinalysis with Microscopy:</strong> Identify dysmorphic RBCs or casts.<br />
+4. <strong>Brain MRI/MRA:</strong> Evaluate for acute ischemic lesions or microvascular damage.<br />
+5. <strong>ADAMTS13 Activity Level &amp; Stool Shiga-Toxin PCR:</strong> Differentiate TTP from STEC-HUS/aHUS.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Solid TMA prioritization post-diarrheal prodrome with neuro-renal involvement, but underweights cardioembolic sources given vascular risks/OSA/smoking; NSAID link overstated without AKI confirmation. Add echo/blood cultures earlier; defer ADAMTS13 until smear confirms MAHA.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. STEC-HUS (post-infectious TMA)<br />
+2. Cardioembolic TIA + renal emboli (AF/endocarditis)<br />
+3. aHUS/TTP spectrum</p>
+<p><strong>Specific points:</strong><br />
+1. Urgent CBC/smear for schistocytes/thrombocytopenia.<br />
+2. LDH/haptoglobin/bili + Cr for hemolysis/AKI.<br />
+3. UA microscopy + culture to confirm glomerular hematuria.<br />
+4. Telemetry/ECG + TTE for embolic source.<br />
+5. MRI brain + CTA head/neck for infarcts/vasculopathy.<br />
+6. Stool Shiga toxin/PCR + blood cultures.<br />
+7. Hold naproxen; trend BP/platelets q6h.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best Unifying Diagnosis:</strong> Shiga toxin–mediated HUS (STEC-HUS) — a thrombotic microangiopathy unifying the bloody diarrheal prodrome, transient cortical ischemia (aphasia), and glomerular hematuria.</p>
+<p><strong>Top Differentials &amp; Fit:</strong><br />
+1. <strong>STEC-HUS:</strong> Fits the sequence perfectly — enteric prodrome → renal + neurologic microvascular injury. Neuro involvement occurs in severe HUS, not just TTP.<br />
+2. <strong>TTP/aHUS spectrum:</strong> Fits identically; distinguished only by ADAMTS13 activity (&lt;10% = TTP) and stool studies. Cannot be separated clinically yet.<br />
+3. <strong>Cardioembolic disease (AF/endocarditis):</strong> Explains simultaneous brain–kidney ischemia and vascular risk profile, but does not explain the diarrheal prodrome; keep on the differential until smear results return.</p>
+<p><strong>Key Pivot:</strong> The peripheral smear. Schistocytes + thrombocytopenia + hemolysis confirm TMA and collapse the differential; a normal smear redirects urgently toward embolic workup (echo, telemetry, cultures).</p>
+<p><strong>Next Move:</strong> STAT CBC with smear, LDH/haptoglobin/bilirubin, creatinine, and UA. If MAHA confirmed, send ADAMTS13 <em>before</em> initiating plasma exchange — do not delay PLEX if TTP is clinically plausible. Concurrently obtain ECG/telemetry and TTE.</p>
+<p><strong>Teaching Pearl:</strong> Neurologic symptoms do not exclude HUS — severe STEC-HUS frequently involves the CNS; let the smear, not the syndrome label, drive the algorithm.</p>
+
+<h3><strong>Round 2</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 2: Physical Exam &amp; Severe Thrombocytopenic Microangiopathic Anemia (Timestamp: Admission / Day 1)<br />
+Physical Exam: Afebrile (36.3°C), HR 58 bpm (bradycardia on carvedilol), BP 165/95 mmHg, RR 15/min, SpO2 97% on room air. Conjunctival icterus present, oral mucosa dry, no oral bleeding. No lymphadenopathy or rash. Heart/lung exams normal. Abdomen soft, non-tender, no hepatosplenomegaly. Neurologic exam alert, oriented x3, nonfocal.<br />
+Initial Laboratory Workup:<br />
+- <strong>CBC &amp; Reticulocytes</strong>: Total WBC 9,940/µL (normal differential), Hemoglobin <strong>8.3 g/dL</strong> (Hct 25.6%, MCV 94.8 fL), <strong>Platelets 7,000/µL</strong> (severe thrombocytopenia!). Reticulocytes <strong>13.2%</strong> (marked reticulocytosis!).<br />
+- <strong>Hemolysis &amp; Hepatic Biomarkers</strong>: Total Bilirubin <strong>3.7 mg/dL</strong> (Direct 0.4 mg/dL = unconjugated hyperbilirubinemia), LDH <strong>1,401 U/L</strong>, Haptoglobin <strong>undetectable (&lt;10 mg/dL)</strong>. AST 104 U/L, ALT 25 U/L. Troponin T <strong>80 ng/L</strong>.<br />
+- <strong>Renal &amp; Coagulation</strong>: BUN 24 mg/dL, <strong>Creatinine 1.97 mg/dL</strong>. PT 15.6s (INR 1.2), aPTT 30.9s, Fibrinogen 312 mg/dL (normal). Urinalysis: 3+ blood, <strong>72 nondysmorphic RBCs/hpf</strong>.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong> Confirmed Microangiopathic Hemolytic Anemia (MAHA) with severe thrombocytopenia (7,000/µL), high LDH (1,401 U/L), undetectable haptoglobin, mild AKI (Cr 1.97 mg/dL), myocardial injury (troponin 80 ng/L), and normal coags following a diarrheal prodrome.</p>
+<p>Profound thrombocytopenia (&lt;30,000/µL) paired with transient neurological deficits strongly shifts likelihood toward TTP over typical STEC-HUS.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Thrombotic Thrombocytopenic Purpura (TTP):</strong> 50% – Marked thrombocytopenia, cardiac/neurologic involvement, and mild renal impairment strongly favor immune or congenital TTP.<br />
+2. <strong>STEC-HUS:</strong> 30% – Classic diarrheal prodrome and AKI, though profound thrombocytopenia is less typical.<br />
+3. <strong>Atypical HUS (aHUS):</strong> 15% – Complement-mediated TMA triggered by an enteric infection.<br />
+4. <strong>Secondary TMA (Drug-induced/Autoimmune):</strong> 5% – Less likely given the clinical sequence.</p>
+<p><strong>Prioritized Next Steps:</strong><br />
+1. <strong>Peripheral Blood Smear:</strong> Confirm schistocytes.<br />
+2. <strong>ADAMTS13 Activity &amp; Inhibitor Screen:</strong> Draw STAT <em>before</em> blood product therapy.<br />
+3. <strong>Stool Shiga Toxin PCR:</strong> Rule out STEC.<br />
+4. <strong>Urgent Management:</strong> Initiate Therapeutic Plasma Exchange (TPE) and high-dose glucocorticoids immediately given high risk of mortality; hold naproxen and monitor cardiac telemetry.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Correct pivot to TTP on profound thrombocytopenia + mild AKI + neuro/cardiac injury, but overstates certainty pre-smear; STEC-HUS still viable post-diarrhea. Initiate PLEX empirically—do not await ADAMTS13. Nondysmorphic RBCs weaken pure glomerular TMA; troponin mandates ACS rule-out.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Immune TTP (ADAMTS13 deficiency)<br />
+2. STEC-HUS<br />
+3. aHUS (complement-mediated)</p>
+<p><strong>Specific points:</strong><br />
+1. Confirm schistocytes on STAT smear.<br />
+2. Draw ADAMTS13/inhibitor pre-PLEX; start TPE + steroids now.<br />
+3. Stool Shiga toxin/PCR + blood cultures.<br />
+4. Serial troponin/ECG/telemetry; hold carvedilol if bradycardic.<br />
+5. Daily Cr/LDH/platelets; avoid platelet transfusion.<br />
+6. CT/MRI brain if neuro recurs; TTE for emboli.<br />
+7. Discontinue naproxen; BP control &lt;140/90.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best Unifying Diagnosis:</strong> Immune TTP — severe thrombocytopenia (7,000/µL) with disproportionately mild renal injury, neurologic events, and cardiac involvement (troponin 80) is the classic TTP phenotype. The diarrheal prodrome is a recognized trigger of immune TTP flares.</p>
+<p><strong>Top Differentials &amp; Fit:</strong><br />
+1. <strong>Immune TTP:</strong> Best fit — platelets &lt;30K with Cr &lt;2.0 strongly favors TTP over HUS; neuro + cardiac microthrombi complete the pentad.<br />
+2. <strong>STEC-HUS:</strong> Diarrheal prodrome fits, but profound thrombocytopenia with only mild AKI argues against it; STEC-HUS is typically renal-dominant.<br />
+3. <strong>aHUS:</strong> Remains possible if ADAMTS13 is normal; consider complement blockade later.</p>
+<p><strong>Key Pivot:</strong> The platelet-to-creatinine discordance. Severe thrombocytopenia with mild AKI shifts probability decisively from HUS toward TTP — this is the PLASMIC logic in action (score ≥6, high risk).</p>
+<p><strong>Next Move:</strong> Do NOT wait for ADAMTS13. Start therapeutic plasma exchange + corticosteroids immediately — untreated TTP mortality approaches 90%. Draw ADAMTS13 pre-PLEX, avoid platelet transfusion, hold naproxen, and monitor telemetry for cardiac ischemia.</p>
+<p><strong>Teaching Pearl:</strong> In TMA, the kidney-to-platelet ratio is your compass: renal-dominant injury suggests HUS; platelet-dominant consumption with neuro/cardiac features demands empiric PLEX for TTP — time is brain, heart, and life.</p>
+
+<h3><strong>Round 3</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 3: Direct Antiglobulin Test (Coombs), Smear &amp; PLASMIC Score (MAHA Confirmation) (Timestamp: Hospital Days 1-2)<br />
+Diagnostic Evaluations:<br />
+- <strong>Direct Antiglobulin Test (DAT / Coombs)</strong>: Negative (rules out autoimmune hemolytic anemia / Evans syndrome).<br />
+- <strong>Neuroimaging &amp; ECG</strong>: Head/Neck CT Angiography normal (no intracranial hemorrhage or arterial occlusion). CXR normal. ECG: Sinus bradycardia with 1st degree AV block.<br />
+- <strong>Peripheral Blood Smear</strong>: Demonstrated <strong>numerous Schistocytes / red-cell fragments (~5 per high-power field)</strong>, polychromasia, nucleated RBCs, and large platelets — establishing <strong>Microangiopathic Hemolytic Anemia (MAHA)</strong>!<br />
+- <strong>PLASMIC Score Calculation</strong>: Score = <strong>6 / 7</strong> (Platelets &lt;30k, Hemolysis+, INR &lt;1.5, Creatinine &lt;2.0, No cancer, No transplant) -&gt; <strong>High Probability of Severe ADAMTS13 Deficiency (iTTP)</strong>.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong> Smear-confirmed Microangiopathic Hemolytic Anemia (MAHA) with abundant schistocytes (~5/HPF), negative Direct Coombs test, and a <strong>PLASMIC Score of 6/7</strong>, indicating a high probability of severe ADAMTS13 deficiency.</p>
+<p>The clinical and laboratory profile overwhelmingly confirms Thrombotic Microangiopathy, with high specificity for Immune TTP.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Immune TTP (iTTP):</strong> 75% – High PLASMIC score, severe thrombocytopenia, mild AKI, negative DAT, and CNS/cardiac microthrombi strongly favor iTTP.<br />
+2. <strong>Atypical HUS (aHUS):</strong> 15% – Complement-mediated TMA remains possible if ADAMTS13 activity returns ≥10%.<br />
+3. <strong>STEC-HUS:</strong> 10% – Antecedent bloody diarrhea, though severe platelet consumption with preserved renal function makes this less likely.</p>
+<p><strong>Prioritized Next Steps:</strong><br />
+1. <strong>Immediate Intervention:</strong> Initiate Therapeutic Plasma Exchange (TPE) daily alongside high-dose methylprednisolone without delay.<br />
+2. <strong>Targeted Therapy:</strong> Add Caplacizumab (anti-vWF nanobody) and consider Rituximab early.<br />
+3. <strong>Diagnostic Confirmation:</strong> Await pending ADAMTS13 activity/inhibitor assay and Stool Shiga-toxin PCR.<br />
+4. <strong>Cardiac &amp; Hematologic Monitoring:</strong> Continuous telemetry, serial troponins, and daily CBC/LDH. <br />
+5. <strong>Transfusion Strategy:</strong> Strictly avoid prophylactic platelet transfusions due to risk of worsening microvascular thrombosis.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Excellent PLASMIC application and empiric TPE urgency; correctly deprioritizes STEC given platelet-Cr discordance. Caplacizumab/rituximab addition is guideline-concordant for iTTP, but confirm ADAMTS13 draw pre-TPE and exclude active bleed before anti-vWF. Mild troponin/AV block still warrants ACS exclusion.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Immune TTP (high-PLASMIC MAHA)<br />
+2. aHUS (if ADAMTS13 ≥10%)<br />
+3. STEC-HUS (residual post-diarrheal risk)</p>
+<p><strong>Specific points:</strong><br />
+1. Launch daily TPE + methylprednisolone immediately.<br />
+2. Draw ADAMTS13 activity/inhibitor pre-first exchange.<br />
+3. Add caplacizumab if no ICH/major bleed; early rituximab.<br />
+4. Stool Shiga toxin/PCR + complement panel (C3/C4/AH50).<br />
+5. Serial ECG/troponin/telemetry; hold beta-blocker.<br />
+6. Daily smear/LDH/platelets/Cr; no platelets unless life-threatening bleed.<br />
+7. BP target &lt;140/90; discontinue all nephrotoxins.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best Unifying Diagnosis:</strong> Immune TTP (iTTP) — smear-confirmed MAHA, negative DAT, PLASMIC 6/7, severe thrombocytopenia with mild AKI, and neuro-cardiac microthrombi form a near-diagnostic constellation.</p>
+<p><strong>Top Differentials &amp; Fit:</strong><br />
+1. <strong>iTTP:</strong> Overwhelming fit — PLASMIC 6 predicts severe ADAMTS13 deficiency with ~90% specificity; DAT negativity excludes Evans syndrome.<br />
+2. <strong>aHUS:</strong> Only viable if ADAMTS13 returns ≥10%; keep complement studies pending.<br />
+3. <strong>STEC-HUS:</strong> Diarrheal prodrome persists as a confounder, but platelet-dominant disease with preserved renal function argues strongly against it.</p>
+<p><strong>Key Pivot:</strong> The negative DAT combined with schistocytosis. This pairing mechanically confirms MAHA (not immune hemolysis), and the PLASMIC score then stratifies it to TTP — converting a syndromic suspicion into an actionable, time-critical diagnosis.</p>
+<p><strong>Next Move:</strong> Continue daily TPE + corticosteroids without interruption; add caplacizumab now (no ICH on CTA) and early rituximab for durable remission. Track response with daily platelet counts — platelet recovery &gt;150K × 2 days defines clinical response. Await ADAMTS13 to confirm and guide duration.</p>
+<p><strong>Teaching Pearl:</strong> PLASMIC is a treatment trigger, not a verdict — a high score mandates empiric PLEX before ADAMTS13 results return, because in TTP the confirmatory test must never delay the life-saving one.</p>
+
+<h3><strong>Round 4</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 4: Confirmatory Serologies, Urgent Therapeutic Plasma Exchange (TPE) &amp; Immunosuppression (Timestamp: Hospital Days 3-5)<br />
+Emergency Management &amp; Confirmatory Testing:<br />
+- Transferred to tertiary care center for urgent <strong>Therapeutic Plasma Exchange (TPE)</strong> daily + high-dose <strong>Methylprednisolone</strong> (1 g IV daily x 3 days, then 2.5 mg/kg daily).<br />
+- Stool Culture &amp; Shiga Toxin PCR: Negative (rules out STEC-HUS).<br />
+- <strong>ADAMTS13 Functional Assay</strong>: <strong>ADAMTS13 Activity &lt;2%</strong> (normal &gt;67%) and <strong>ADAMTS13 Inhibitor Autoantibody &gt;8.0 Bethesda Units</strong> — pathognomonic confirmation of <strong>Immune-Mediated Thrombotic Thrombocytopenic Purpura (iTTP)</strong>!<br />
+- Anti-CD20 Immunosuppression: Started <strong>Rituximab</strong> (375 mg/m² weekly x 4 doses).</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong> Definitive confirmation of <strong>Immune Thrombotic Thrombocytopenic Purpura (iTTP)</strong> with severe ADAMTS13 deficiency (&lt;2%) and high-titer autoantibody inhibitor (&gt;8.0 BU). STEC-HUS has been definitively excluded by negative stool studies.</p>
+<p><strong>Differential Diagnoses:</strong><br />
+1. <strong>Immune TTP (iTTP):</strong> 98% – Pathognomonic confirmation with ADAMTS13 activity &lt;2% and autoantibody inhibitor &gt;8.0 BU.<br />
+2. <strong>Congenital TTP (Upshaw-Schulman):</strong> 1% – Excluded by high autoantibody inhibitor titer.<br />
+3. <strong>aHUS / Alternative TMA:</strong> 1% – Effectively excluded by severe ADAMTS13 deficiency.</p>
+<p><strong>Prioritized Management &amp; Next Steps:</strong><br />
+1. <strong>Continue Daily TPE:</strong> Maintain plasma exchange until platelet count is &gt;150,000/µL for at least 2 consecutive days, followed by LDH normalization.<br />
+2. <strong>Corticosteroid Taper:</strong> Complete pulse IV methylprednisolone, then transition to oral prednisone (1 mg/kg/day) with a slow taper after platelet recovery.<br />
+3. <strong>Complete Rituximab Course:</strong> Administer remaining weekly doses (375 mg/m² x 4) to clear inhibitor-producing B-cell clones and reduce relapse risk.<br />
+4. <strong>Caplacizumab Evaluation:</strong> Consider adding caplacizumab (if available) to rapidly halt microvascular thrombosis and lower TPE duration.<br />
+5. <strong>Serial Monitoring:</strong> Daily CBC, LDH, creatinine, and troponin with continuous telemetry until cardiac and hematologic stability is achieved.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Plan correctly locks onto confirmed iTTP and continues TPE/steroids/rituximab per guidelines. Caplacizumab omission is a gap—add promptly to accelerate platelet recovery and cut TPE days. Congenital TTP already excluded by inhibitor; no need to list. Monitor for TPE complications (citrate toxicity, allergy) and infection risk post-ritux.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Confirmed immune TTP (ADAMTS13 &lt;2% + inhibitor)<br />
+2. iTTP with residual cardiac microthrombi<br />
+3. Secondary TMA mimic (effectively excluded)</p>
+<p><strong>Specific points:</strong><br />
+1. Continue daily TPE to platelets &gt;150k ×2 days + LDH normal.<br />
+2. Add caplacizumab 11 mg daily (IV then SC) if no major bleed.<br />
+3. Complete rituximab 375 mg/m² weekly ×4; check CD19 depletion.<br />
+4. Taper steroids post-response; PCP prophylaxis.<br />
+5. Serial ADAMTS13 activity q1–2 wk for inhibitor clearance.<br />
+6. Telemetry + troponin until normalized; echo if persistent elevation.<br />
+7. Vaccinate pre-ritux; counsel lifelong relapse surveillance.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best Unifying Diagnosis:</strong> Confirmed immune TTP — ADAMTS13 &lt;2% with inhibitor &gt;8 BU is pathognomonic; the case is now closed diagnostically and shifts entirely to therapeutic optimization and relapse prevention.</p>
+<p><strong>Top Differentials &amp; Fit:</strong><br />
+1. <strong>iTTP:</strong> Definitive — inhibitor presence excludes congenital TTP; negative Shiga toxin excludes STEC-HUS.<br />
+2. <strong>Refractory/relapsing iTTP:</strong> The relevant forward-looking concern — high inhibitor titer (&gt;8 BU) predicts slower response and higher relapse risk, justifying aggressive B-cell depletion.<br />
+3. <strong>TPE-refractory disease:</strong> Watch for platelet non-response by day 5–7, which would prompt escalation (e.g., twice-daily TPE, cyclophosphamide, or bortezomib).</p>
+<p><strong>Key Pivot:</strong> The inhibitor titer. It not only confirms autoimmunity but prognosticates — high-titer disease demands early rituximab (already started) and argues for caplacizumab to bridge the vulnerable pre-response window when fatal thrombotic events cluster.</p>
+<p><strong>Next Move:</strong> Add caplacizumab immediately if not yet given — it reduces time to platelet recovery, TPE days, and mortality. Continue daily TPE until platelets &gt;150K × 2 days, then serial ADAMTS13 monitoring to detect subclinical relapse before thrombocytopenia recurs.</p>
+<p><strong>Teaching Pearl:</strong> In iTTP, treatment has three phases — rescue (TPE), shield (caplacizumab), and cure (rituximab); omitting the shield leaves patients unprotected during the deadliest early window.</p>
+
+<h3><strong>Round 5</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 5: Refractory Thrombocytopenia, Anti-vWF Nanobody (Caplacizumab) &amp; Complete Recovery (Timestamp: Follow-up &amp; Discharge)<br />
+Refractory Course &amp; Targeted Therapy:<br />
+- By Hospital Day 9: Platelets remained severely depressed (&lt;20,000/µL) despite daily TPE, steroids, and Rituximab.<br />
+- Anti-vWF Nanobody Therapy: Initiated <strong>Caplacizumab</strong> (11 mg IV/SC daily) on Day 10 to block von Willebrand factor multimer-platelet aggregation.<br />
+- Clinical Recovery: Platelets surpassed 50,000/µL within 48 hours of Caplacizumab, reached &gt;150,000/µL by Day 19, and daily TPE was safely discontinued. Discharged on steroid taper + Caplacizumab.<br />
+- Outcome: At 3-month follow-up, all medications discontinued, ADAMTS13 activity recovered to normal, and patient remains in <strong>complete remission</strong>.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong> Initially refractory immune TTP successfully rescued with the addition of Caplacizumab on Day 10, leading to complete clinical resolution, sustained platelet recovery, and complete serologic remission (normalized ADAMTS13 activity) at 3-month follow-up.</p>
+<p><strong>Diagnosis:</strong><br />
+1. <strong>Resolved Immune TTP in Complete Remission:</strong> 95% – Complete hematologic and immunologic recovery off all therapies.<br />
+2. <strong>Impending / Subclinical Relapse Risk:</strong> 5% – Late autoimmune relapse risk inherent to iTTP history.</p>
+<p><strong>Prioritized Long-Term Steps:</strong><br />
+1. <strong>Serial ADAMTS13 Surveillance:</strong> Measure ADAMTS13 activity every 3–6 months for 1–2 years to monitor for subclinical drops.<br />
+2. <strong>Pre-emptive B-cell Therapy:</strong> Plan pre-emptive Rituximab if ADAMTS13 activity drops &lt;20% to prevent overt clinical relapse.<br />
+3. <strong>Patient Education:</strong> Counsel on early warning signs (dark urine, petechiae, neurologic symptoms) requiring an urgent CBC.<br />
+4. <strong>Post-Rituximab Immunization:</strong> Assess B-cell recovery (CD19 count) and update inactivated vaccines as clinically indicated.</p>
+<p>This case nicely illustrates the power of Caplacizumab as a life-saving bridge to control microthrombosis while rituximab clears autoantibody production.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Solid remission confirmation and surveillance plan; correctly flags ADAMTS13 monitoring for pre-emptive ritux. Underemphasizes infection risk post-B-cell depletion and cardiac sequelae (prior troponin rise). Caplacizumab duration was appropriate but counsel on bleeding risk if restarted. Relapse education incomplete without trigger avoidance (infection, pregnancy).</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. iTTP in sustained complete remission<br />
+2. Subclinical ADAMTS13 relapse risk<br />
+3. Post-TMA residual microvascular injury (cardiac/renal)</p>
+<p><strong>Specific points:</strong><br />
+1. ADAMTS13 q3mo ×1yr then q6mo; pre-emptive ritux if &lt;20%.<br />
+2. CD19/IgG monitoring; re-vaccinate (pneumococcal, influenza) post-recovery.<br />
+3. Echo/troponin if residual symptoms; BP/lipid optimization.<br />
+4. Lifelong trigger counseling (infection, surgery, pregnancy).<br />
+5. Avoid NSAIDs/estrogen; medic-alert for TTP history.<br />
+6. PCP prophylaxis until CD4 recovery if prolonged steroids.<br />
+7. Multidisciplinary follow-up (heme + cardio).</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best Unifying Diagnosis:</strong> iTTP in complete remission — hematologic, clinical, and immunologic recovery (normalized ADAMTS13) achieved through the full three-phase strategy: TPE rescue, caplacizumab shield, rituximab cure.</p>
+<p><strong>Top Differentials &amp; Fit:</strong><br />
+1. <strong>Sustained remission:</strong> Most likely — normal ADAMTS13 off therapy at 3 months is the strongest predictor of durable response.<br />
+2. <strong>Subclinical relapse:</strong> The key residual risk — 30–40% of iTTP patients relapse, typically heralded by falling ADAMTS13 weeks before thrombocytopenia; this is the surveillance target.<br />
+3. <strong>Refractory disease (retrospectively):</strong> The Day 9 platelet failure was classic caplacizumab-responsive disease — TPE clears antibody but cannot stop ongoing vWF-platelet aggregation; the nanobody closed that gap.</p>
+<p><strong>Key Pivot:</strong> Day 10 caplacizumab initiation. Platelets doubled within 48 hours — mechanistic proof that unopposed vWF multimers, not antibody burden alone, drove the refractory phase.</p>
+<p><strong>Next Move:</strong> Structured ADAMTS13 surveillance every 3 months for 2 years, with pre-emptive rituximab if activity falls below 20% — treating the serologic relapse before the clinical one.</p>
+<p><strong>Teaching Pearl:</strong> Refractory TTP is often a pharmacologic gap, not treatment failure — TPE removes antibody but caplacizumab neutralizes the substrate; when platelets stall despite exchange, block the vWF-platelet axis rather than escalating immunosuppression blindly.</p>
+
+
+        <h3><strong>Top 15 Takeaways for Clinicians</strong></h3>
+<ol>
+  <li><strong>Pathognomonic MAHA Smear Findings:</strong> Identifying schistocytes (&ge;2 per high-power field), polychromasia, and nucleated red blood cells on peripheral smear mechanically confirms Microangiopathic Hemolytic Anemia (MAHA) and mandates immediate evaluation for thrombotic microangiopathies.</li>
+  <li><strong>The Platelet-to-Creatinine Discordance:</strong> Severe, profound consumption thrombocytopenia (&lt;30,000/&micro;L) accompanied by relatively preserved renal function (Creatinine &lt;2.0 mg/dL) strongly favors Immune TTP over renal-dominant HUS or aHUS.</li>
+  <li><strong>PLASMIC Score as a Life-Saving Treatment Trigger:</strong> A PLASMIC score &ge;6 predicts severe ADAMTS13 deficiency (&lt;10%) with &gt;90% specificity and mandates immediate initiation of Therapeutic Plasma Exchange (TPE) without waiting for confirmatory ADAMTS13 lab results.</li>
+  <li><strong>Three-Phase iTTP Treatment Strategy:</strong> Modern iTTP therapy comprises three distinct pillars: <strong>Rescue</strong> (Therapeutic Plasma Exchange), <strong>Shield</strong> (Caplacizumab anti-vWF nanobody), and <strong>Cure</strong> (Rituximab B-cell depletion).</li>
+  <li><strong>Mechanism of Caplacizumab (Anti-vWF Nanobody):</strong> Caplacizumab binds the A1 domain of von Willebrand factor multimers, blocking vWF-platelet interaction and microvascular thrombosis while plasma exchange and immunosuppression clear autoantibodies.</li>
+  <li><strong>Role of Early Rituximab B-Cell Depletion:</strong> High ADAMTS13 inhibitor autoantibody titers (&gt;8.0 Bethesda Units) predict prolonged TPE dependence; initiating Rituximab early clears inhibitor-producing B-cell clones and lowers relapse rates.</li>
+  <li><strong>Avoidance of Platelet Transfusions in TTP:</strong> Platelet transfusions are contraindicated in TTP unless life-threatening hemorrhage occurs, as exogenous platelets fuel systemic microthrombus formation and worsen end-organ ischemia.</li>
+  <li><strong>Cardiac Microvascular Injury in TTP:</strong> Elevated cardiac troponin and ECG conduction abnormalities signal myocardial microthrombi and predict higher mortality, requiring continuous telemetry and blood pressure optimization.</li>
+  <li><strong>Distinguishing iTTP from STEC-HUS:</strong> While a diarrheal prodrome can trigger iTTP flares, negative Shiga-toxin testing, absence of severe acute kidney injury, and profound thrombocytopenia confirm iTTP over STEC-HUS.</li>
+  <li><strong>Negative Coombs Test Requirement:</strong> A negative Direct Antiglobulin Test (DAT/Coombs) is essential to exclude autoimmune hemolytic anemia (Evans syndrome) before establishing a diagnosis of non-immune MAHA.</li>
+  <li><strong>Refractory TTP Resolution with Nanobody Therapy:</strong> In patients stalling on TPE and steroids (Day 5–10), initiating Caplacizumab rapidly restores platelet counts within 48 hours by neutralizing persistent ultra-large vWF multimers.</li>
+  <li><strong>Therapeutic Plasma Exchange Discontinuation Criteria:</strong> Daily TPE should be continued until platelet counts exceed 150,000/&micro;L for at least 2 consecutive days alongside LDH normalization.</li>
+  <li><strong>Serial ADAMTS13 Surveillance:</strong> Monitoring ADAMTS13 activity every 3 months for 1–2 years enables detection of subclinical serologic drops (&lt;20%) weeks before overt clinical thrombocytopenia recurs.</li>
+  <li><strong>Pre-emptive B-Cell Immunosuppression:</strong> Administering pre-emptive Rituximab when ADAMTS13 activity drops &lt;20% during remission prevents overt clinical TTP relapse and avoids emergency plasma exchange.</li>
+  <li><strong>Patient Education & Trigger Avoidance:</strong> Educating patients on early relapse symptoms (dark urine, petechiae, focal weakness) and avoiding unmonitored surgical or infectious triggers is essential for long-term survival.</li>
+</ol>
+    </div>
+</body>
+</html>
