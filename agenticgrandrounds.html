@@ -3,148 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentic Grand Rounds - Clinical Reasoning Showcase</title>
+    <title>Agentic Grand Rounds - Index</title>
     <style>
-        :root {
-            --primary: #23455A;
-            --accent: #9A4D33;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --highlight: #38bdf8;
-        }
-
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            padding: 40px 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-        }
-
-        .container {
+            color: #333;
             max-width: 900px;
             margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 30px;
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
         h1 {
-            color: #fff;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
+            color: #23455A;
+            border-bottom: 3px solid #9A4D33;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
         }
-
-        .subtitle {
-            color: var(--highlight);
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .intro-box {
-            background: rgba(30, 41, 59, 0.7);
-            border-left: 4px solid var(--accent);
-            padding: 20px 25px;
-            border-radius: 0 8px 8px 0;
+        .overview {
+            background-color: #DFEAF0;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 8px solid #23455A;
             margin-bottom: 40px;
-            backdrop-filter: blur(10px);
         }
-
-        .intro-box p {
-            margin: 0 0 10px 0;
-            color: #cbd5e1;
+        .overview h2 {
+            margin-top: 0;
+            color: #23455A;
         }
-
-        .intro-box p:last-child {
-            margin-bottom: 0;
-        }
-
         .case-list {
             list-style: none;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
         }
-
         .case-item {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 25px;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #fff;
+            border: 1px solid #D8CCC0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-
         .case-item:hover {
-            transform: translateY(-3px);
-            border-color: var(--highlight);
-            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #9A4D33;
         }
-
         .case-item a {
-            color: var(--highlight);
             text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 600;
+            color: #23455A;
+            font-size: 1.3em;
+            font-weight: bold;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
-
-        .case-item a:hover {
-            text-decoration: underline;
-        }
-
         .case-item p {
-            color: var(--text-muted);
             margin: 0;
-            font-size: 0.98rem;
+            color: #666;
+            font-size: 0.95em;
         }
-
         .footer {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #888;
+            border-top: 1px solid #D8CCC0;
             padding-top: 20px;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.9rem;
         }
-
         .app-link {
-            display: inline-block;
-            margin-top: 15px;
-            background-color: var(--accent);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 6px;
+            color: #9A4D33;
             text-decoration: none;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-
-        .app-link:hover {
-            background-color: #b3593b;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>AGENTIC GRAND ROUNDS</h1>
-            <div class="subtitle">Multi-LLM Collaborative Clinical Decision Making</div>
-        </header>
-
-        <div class="intro-box">
+        <h1><strong>Agentic Grand Rounds</strong></h1>
+        
+        <div class="overview">
+            <h2>About This Initiative</h2>
             <p>Welcome to <strong>Agentic Grand Rounds</strong>. This showcase features real clinical cases solved through a staged, multi-role discussion framework simulating a hospital medical team:</p>
-            <ul style="color: #cbd5e1; margin-bottom: 15px; padding-left: 20px;">
+            <ul>
                 <li><strong>Gemini (Resident):</strong> Initial case analysis, differential diagnosis, and proposed investigations.</li>
                 <li><strong>Grok (Attending):</strong> Critical appraisal of the resident's plan, Bayesian refinement, and focus on "don't miss" diagnoses.</li>
                 <li><strong>ChatGPT / Kimi (Expert):</strong> Unifying diagnosis, key pivot identification, and high-yield teaching pearls.</li>
@@ -361,7 +308,7 @@
 
         <div class="footer">
             <p>Maintained by the Department of Medicine, Santosh Medical College.</p>
-            <p><a href="https://medstats.github.io/smcrounds.html" class="app-link">Launch SMC Rounds App</a></p>
+            <p><a href="https://medstats.github.io/smcrounds.html" class="app-link">Click here for App</a> | <a href="https://medstats.github.io/agenticgrandrounds.html" class="app-link">Agentic Grand Rounds Index</a></p>
         </div>
     </div>
 </body>
