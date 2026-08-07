@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Grand Rounds</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #23455A;
+            border-bottom: 3px solid #9A4D33;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        .authors-box {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #D8CCC0;
+            padding-bottom: 20px;
+            color: #555;
+        }
+        .authors-box p {
+            margin: 5px 0;
+        }
+        .app-link {
+            color: #9A4D33;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .app-link:hover {
+            text-decoration: underline;
+        }
+        /* Updated Round Heading (H3) for better visibility */
+        h3 {
+            background-color: #DFEAF0; /* Lighter navy-soft background */
+            color: #23455A;           /* Dark navy text */
+            padding: 10px 15px;
+            border-left: 10px solid #23455A;
+            border-radius: 4px;
+            margin-top: 50px;
+            font-size: 1.6em;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+        }
+        h4 {
+            margin-top: 35px;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-left: 6px solid;
+            border-radius: 2px;
+        }
+        .user-header {
+            color: #23455A;
+            border-color: #23455A;
+            background-color: #DFEAF0;
+        }
+        .user-text {
+            font-weight: bold;
+            color: #111;
+            background-color: #F4F7FA;
+            padding: 15px 20px;
+            border-left: 6px solid #23455A;
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+        .user-text p, .user-text li, .user-text div, .user-text span {
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .resident-header {
+            color: #5D6E42; /* Olive */
+            border-color: #5D6E42;
+            background-color: #E6ECD9;
+        }
+        .attending-header {
+            color: #9A4D33; /* Rust */
+            border-color: #9A4D33;
+            background-color: #F3E4DC;
+        }
+        .expert-header {
+            color: #B98B34; /* Gold/Ochre */
+            border-color: #B98B34;
+            background-color: #F9F1E5;
+        }
+        strong {
+            color: #23455A;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #D8CCC0;
+            margin: 30px 0;
+        }
+        blockquote {
+            border-left: 5px solid #D8CCC0;
+            padding: 10px 20px;
+            margin: 20px 0;
+            background-color: #fefefe;
+            font-style: italic;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><strong>AI GRAND ROUNDS</strong></h1>
+        <div class="authors-box">
+            <p><strong>Authors: GEMINI (RESIDENT), GROK (ATTENDING), KIMI (EXPERT) & ANUPAM SINGH MD (Human in loop)</strong></p>
+            <p>Department of Medicine, Santosh Medical College.</p>
+            <p><a href="https://medstats.github.io/smcrounds.html" target="_blank" class="app-link">Click here for App</a> | <a href="https://medstats.github.io/agenticgrandrounds.html" target="_blank" class="app-link">Agentic Grand Rounds Index</a></p>
+        </div>
+        <h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 1: History of Subacute B-Symptoms, Anemia &amp; Massive Splenomegaly (Timestamp: 2 Months Prior to Admission)<br />
+A 51-year-old woman (residing in Delhi NCR, homemaker, past history of treated follicular thyroid carcinoma S/P thyroidectomy &amp; radioiodine, migraine, depression/anxiety) presents with a 2-month history of fatigue, night sweats, left-upper-quadrant fullness, early satiety, pedal edema, and exertional dyspnea.<br />
+HPI:<br />
+- 1 Month Ago (1st Admission): Examination revealed massive splenomegaly extending to the pelvic brim (30 cm x 10 cm on CT) and ascites. Transfused 2 units PRBCs. HIV negative.<br />
+- Day 5 of 1st Admission: Prolonged aPTT noted that failed to correct on 1:1 mixing study. Transfused 3 units FFP + 2 units PRBCs. Bone marrow biopsy performed.<br />
+- Current Readmission: Recurrent fever (38.6°C), night sweats, progressive fatigue, and worsening pedal edema requiring transfer.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Key Findings:</strong><br />
+A 51-year-old female from Delhi NCR presenting with subacute B-symptoms, severe anemia, ascites, massive splenomegaly (30 cm), and a prolonged aPTT failing to correct on 1:1 mixing study, indicating a circulating anticoagulant/inhibitor.</p>
+<p><strong>Differential Diagnoses &amp; Reasoning:</strong><br />
+1. <strong>Splenic Lymphoproliferative Disorder (e.g., SMZL/DLBCL) or Primary Myelofibrosis (45%)</strong>: Primary suspect given massive splenomegaly, B-symptoms, ascites, and paraneoplastic autoimmune phenomena (circulating inhibitor).<br />
+2. <strong>Visceral Leishmaniasis / Kala-azar (35%)</strong>: Endemic in India; classically presents with massive splenomegaly, persistent fever, cytopenias, and hypergammaglobulinemia causing coagulation study interference.<br />
+3. <strong>Disseminated Tuberculosis or HLH (15%)</strong>: Infectious/inflammatory driver fitting prolonged fever, cytopenias, splenomegaly, and severe dysregulation.<br />
+4. <strong>Metastatic Follicular Thyroid Carcinoma (5%)</strong>: Known history, though isolated massive splenic metastasis is extremely rare.</p>
+<p><strong>Recommended Prioritized Tests:</strong><br />
+1. <strong>Bone Marrow Aspirate &amp; Biopsy Results</strong>: Flow cytometry, IHC, cytogenetics, and smears for LD bodies.<br />
+2. <strong>rK39 Immunochromatographic Test / Leishmania PCR</strong>.<br />
+3. <strong>Lupus Anticoagulant Panel &amp; Specific Factor Assays</strong> (Factor VIII/IX/XI) to characterize the inhibitor.<br />
+4. <strong>Ascitic Fluid Analysis</strong>: Cell count, SAAG, cytology, and GeneXpert MTB/Rif.<br />
+5. <strong>HLH Workup</strong>: Serum ferritin, triglycerides, and fibrinogen levels.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Solid prioritization of BM and rK39, but underweights inhibitor characterization and ignores tropical co-infections endemic to Delhi NCR. Mixing-study failure needs immediate LA/factor workup before attributing to hypergammaglobulinemia. Ascites SAAG/cytology is essential; HLH labs are premature without ferritin trigger threshold.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Visceral leishmaniasis (with secondary inhibitor)<br />
+2. Splenic marginal-zone lymphoma<br />
+3. Primary myelofibrosis / prefibrotic PMF</p>
+<p><strong>Specific points:</strong><br />
+1. Expedite LA panel + FVIII/FIX assays + Bethesda titer.<br />
+2. Add Leishmania PCR on BM/aspirate, not just rK39.<br />
+3. Quantify JAK2/CALR/MPL and BCR-ABL on BM.<br />
+4. CT chest/abdomen for nodal disease + PET if lymphoma likely.<br />
+5. Repeat aPTT post-FFP to assess inhibitor kinetics.<br />
+6. TB QuantiFERON + ascitic GeneXpert.<br />
+7. Hold empiric steroids until infection excluded.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best unifying diagnosis:</strong> Visceral leishmaniasis (kala-azar). Months of fever and night sweats, massive splenomegaly, anemia, hypoalbuminemic ascites/edema, and a lupus-type inhibitor (described with chronic VL) cohere elegantly</p>
+
+<h3><strong>Round 2</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 2: Physical Exam &amp; Severe Coombs-Negative Hemolytic Anemia (Timestamp: Admission / Day 1)<br />
+Physical Exam: Anxious, febrile (38.3°C), HR 105 bpm, BP 110/68 mmHg, RR 18/min, SpO2 96% on room air. Mild scleral icterus. No peripheral lymphadenopathy. Abdomen: Soft, non-tender; <strong>massive firm non-tender splenomegaly extending below the pelvic brim</strong>. Legs: Bilateral pitting pedal edema.<br />
+Initial Laboratory Workup:<br />
+- <strong>CBC &amp; Reticulocytes</strong>: WBC 4,600/µL (67% neutrophils, 24% lymphocytes, 6% monocytes), <strong>Hemoglobin 7.2 g/dL</strong> (Hct 21.4%, MCV 89 fL, nadir 5.7 g/dL), Platelets 156,000/µL. <strong>Reticulocytes 9.2%</strong> (marked reticulocytosis!). Smear: 3+ Anisocytosis, 1+ Polychromasia, occasional Schistocytes.<br />
+- <strong>Hemolysis &amp; Paraprotein Biomarkers</strong>: Total Bilirubin <strong>2.4 mg/dL</strong> (Direct 0.7 mg/dL = indirect hyperbilirubinemia), <strong>LDH 1,540 U/L</strong>, <strong>Haptoglobin undetectable (&lt;6 mg/dL)</strong>. AST 44 U/L, ALT 19 U/L. Direct Coombs test &amp; cold agglutinins negative.<br />
+- <strong>Serum Protein Electrophoresis</strong>: <strong>IgM kappa monoclonal paraprotein (0.12 g/dL)</strong> with severe immunoparesis (IgG 268 mg/dL, IgA 7 mg/dL).</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong><br />
+Coexistence of massive splenomegaly, Coombs-negative severe hemolysis (reticulocytes 9.2%, LDH 1540 U/L, undetectable haptoglobin, schistocytes), an IgM kappa monoclonal paraprotein (0.12 g/dL) with profound immunoparesis, and a prolonged uncorrected aPTT.</p>
+<p><strong>Differential Diagnoses &amp; Reasoning:</strong><br />
+1. <strong>Splenic Lymphoproliferative Disorder (e.g., SMZL or WM/Lymphoplasmacytic Lymphoma) (50%)</strong>: Explains the IgM paraprotein, immunoparesis, massive splenomegaly, B-symptoms, and secondary Coombs-negative/hypersplenic hemolysis.<br />
+2. <strong>Visceral Leishmaniasis (30%)</strong>: Geographically highly relevant; classically causes massive splenomegaly, B-symptoms, secondary hemolysis, and reactive monoclonal/polyclonal gammopathies with autoantibodies.<br />
+3. <strong>Primary Myelofibrosis (15%)</strong>: Presents with massive splenomegaly, B-symptoms, and extramedullary hematopoiesis with fragmented red cells.<br />
+4. <strong>Thrombotic Microangiopathy / Atypical AIHA (5%)</strong>: Drug/paraneoplastic-induced microangiopathic hemolysis accounting for schistocytes and negative DCT.</p>
+<p><strong>Prioritized Next Tests:</strong><br />
+1. <strong>Bone Marrow Aspirate/Biopsy</strong>: Histology, flow cytometry, <em>MYD88</em> L265P mutation, and <em>Leishmania</em> PCR/smear.<br />
+2. <strong>Serum Free Light Chain (SFLC) Assay</strong> &amp; peripheral blood flow cytometry.<br />
+3. <strong>ADAMTS13 Activity</strong> &amp; peripheral smear re-evaluation for TMA.<br />
+4. <strong>rK39 Rapid Diagnostic Test / Leishmania PCR</strong>.<br />
+5. <strong>Lupus Anticoagulant &amp; Factor VIII/IX Activity Assays</strong>.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Overweights WM/SMZL given tiny IgM (0.12 g/dL) insufficient for hyperviscosity or primary hemolysis; under-explores parasite-driven cold-agglutinin-negative hemolysis and inhibitor. ADAMTS13 premature without more schistocytes/thrombocytopenia. BM remains pivotal but must include explicit LD-body stains + MYD88 only if LPL still viable.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Visceral leishmaniasis (secondary IgM, inhibitor, hypersplenism)<br />
+2. Splenic marginal-zone lymphoma<br />
+3. Prefibrotic myelofibrosis with extramedullary hemolysis</p>
+<p><strong>Specific points:</strong><br />
+1. Urgent BM: Giemsa for amastigotes, Leishmania PCR, flow, JAK2/CALR.<br />
+2. Quantify cold-agglutinin titer + thermal amplitude despite neg screen.<br />
+3. Full LA panel + specific factor assays/Bethesda.<br />
+4. rK39 + blood/BM Leishmania PCR in parallel.<br />
+5. SFLC ratio + urine immunofixation for clone significance.<br />
+6. Haptoglobin/LDH serials post-transfusion; avoid empiric steroids.<br />
+7. PET-CT only after infection excluded.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best unifying diagnosis:</strong> Visceral leishmaniasis. It elegantly explains the massive splenomegaly, chronic B-symptoms, secondary hypersplenic hemolysis, polyclonal/monoclonal immune dysregulation with severe immunoparesis, and the lupus-like inhibitor causing the uncorrected aPTT. The schistocytes point to a microangiopathic component from severe hypersplenism rather than a primary TMA, especially given normal platelets.</p>
+<p><strong>Top differentials:</strong><br />
+1. <strong>Splenic marginal-zone lymphoma</strong> — fits splenomegaly + IgM, but the tiny 0.12 g/dL paraprotein and profound hemolysis out of proportion argue against primary clone.<br />
+2. <strong>Primary myelofibrosis</strong> — massive spleen + B-symptoms, yet no teardrop cells/leukoerythroblastosis or marrow fibrosis clues yet.<br />
+3. <strong>Lymphoplasmacytic lymphoma/Waldenström</strong> — IgM + immunoparesis, but paraprotein too small and hemolysis atypically Coombs-negative.<br />
+4. <strong>Atypical TMA</strong> — schistocytes + hemolysis, but normal platelets and absence of renal dysfunction make it less likely.</p>
+<p><strong>Key pivot:</strong> The uncorrected aPTT (circulating inhibitor) + Coombs-negative hemolysis strongly shift the case from a pure clonal B-cell disorder toward an infectious/paraneoplastic mimic such as VL.</p>
+<p><strong>Most important next move:</strong> Immediate bone marrow Giemsa stain for Leishman-Donovan bodies plus Leishmania PCR, simultaneously with rK39 serology and lupus anticoagulant/factor assays. This single test can unify splenomegaly, hemolysis, paraprotein, and coagulopathy in an endemic region.</p>
+<p><strong>Teaching pearl:</strong> In a patient from a VL-endemic area presenting with massive splenomegaly, pancytopenia/hemolysis, monoclonal gammopathy, and acquired inhibitor, exclude kala-azar before labeling the process lymphoma—VL is the great hematologic masquerader.</p>
+
+<h3><strong>Round 3</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 3: Mixing Study, Lupus Anticoagulant &amp; Abdominal CT Imaging (Timestamp: Hospital Days 1-2)<br />
+Coagulation Studies &amp; Autoantibodies:<br />
+- PT 14.7s (INR 1.3), <strong>aPTT 63.9s</strong> (severely prolonged!). Fibrinogen 499 mg/dL, D-Dimer 2,101 ng/mL.<br />
+- Mixing Study: 1:1 mixing with normal plasma failed to correct the prolonged aPTT (persisted &gt;60s).<br />
+- Autoantibody Panel: <strong>Lupus Anticoagulant POSITIVE</strong>; <strong>IgM Anticardiolipin Autoantibodies &gt;150 MPL units</strong> (strongly positive!).<br />
+Contrast CT Imaging: <strong>Massive homogeneous splenomegaly (30 cm in length)</strong> extending into the pelvic brim, with enlarged lymph nodes in the splenic hilum and para-aortic region. No focal splenic lesions.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong><br />
+Massive 30 cm homogeneous splenomegaly with hilar/para-aortic lymphadenopathy, severe Coombs-negative hemolysis, small IgM kappa paraprotein, and high-titer <strong>Antiphospholipid Antibodies (Lupus Anticoagulant positive, IgM Anticardiolipin &gt;150 MPL)</strong> driving the uncorrected aPTT prolongation.</p>
+<p><strong>Differential Diagnoses &amp; Reasoning:</strong><br />
+1. <strong>Visceral Leishmaniasis with secondary Antiphospholipid Syndrome (55%)</strong>: Endemic trigger in Delhi NCR capable of producing massive splenomegaly, reactive IgM paraproteinemia, severe Coombs-negative hemolysis, and secondary high-titer antiphospholipid antibodies.<br />
+2. <strong>Splenic Lymphoproliferative Disorder (e.g., SMZL or DLBCL) (30%)</strong>: Homogeneous massive splenomegaly, lymphadenopathy, and IgM paraprotein with paraneoplastic autoantibody production.<br />
+3. <strong>Primary Myelofibrosis (10%)</strong>: Explains massive splenomegaly, extramedullary disease, and secondary autoantibodies, though marked aCL titers are atypical.<br />
+4. <strong>Primary Antiphospholipid Syndrome / SLE (5%)</strong>: Explains severe hemolysis and high-titer aCL/LA, but a 30 cm spleen is extremely rare.</p>
+<p><strong>Prioritized Next Steps:</strong><br />
+1. <strong>Bone Marrow Aspirate &amp; Biopsy</strong>: Giemsa stain for LD bodies, <em>Leishmania</em> PCR, flow cytometry, and <em>JAK2</em>/<em>MYD88</em> mutation analysis.<br />
+2. <strong>rK39 Rapid Diagnostic Test &amp; Peripheral Blood Leishmania PCR</strong>.<br />
+3. <strong>Factor Assays (VIII, IX, XI, XII)</strong>: Exclude true factor deficiencies before invasive procedures.<br />
+4. <strong>Autoimmune Panel</strong>: ANA, anti-dsDNA, C3/C4 levels.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Appropriately elevates VL with secondary APS, but overcalls primary APS/SLE (spleen size incompatible) and under-emphasizes need for immediate factor assays before any procedure. BM plan solid; add explicit amastigote stains. ANA panel low-yield without other SLE features.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Visceral leishmaniasis (secondary APS + IgM clone)<br />
+2. Splenic marginal-zone lymphoma (paraneoplastic aPL)<br />
+3. Lymphoplasmacytic lymphoma / WM variant</p>
+<p><strong>Specific points:</strong><br />
+1. Urgent BM Giemsa + Leishmania PCR/rK39.<br />
+2. Factor VIII/IX/XI assays + Bethesda before biopsy.<br />
+3. MYD88 L265P + BRAF on BM/flow.<br />
+4. Serial aPL titers; avoid anticoagulation absent thrombosis.<br />
+5. PET-CT for nodal FDG avidity post-infection exclusion.<br />
+6. Hold steroids/IVIG until VL ruled out.<br />
+7. Quantify cryoglobulins given IgM + aCL.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best unifying diagnosis:</strong> Visceral leishmaniasis with secondary antiphospholipid antibodies and an IgM paraprotein. Endemic kala-azar explains the massive homogeneous splenomegaly, B-symptoms, hypersplenic Coombs-negative hemolysis, high-titer aCL/LA, and small reactive IgM clone.</p>
+<p><strong>Top differentials:</strong><br />
+1. <strong>Splenic marginal-zone lymphoma</strong> – fits splenomegaly, nodes, IgM, and paraneoplastic aPL, but profound immunoparesis and hemolysis exceed the tiny paraprotein.<br />
+2. <strong>Primary myelofibrosis</strong> – massive spleen + hemolysis, yet lacks teardrop/leukoerythroblastosis and strongly positive aPL is unusual.<br />
+3. <strong>Primary APS/SLE</strong> – explains aPL + hemolysis, but a 30 cm spleen and IgM paraprotein are atypical.</p>
+<p><strong>Key pivot:</strong> Extremely high-titer antiphospholipid antibodies with an uncorrected mixing study strongly point to a secondary (infectious or lymphoproliferative) driver rather than primary APS.</p>
+<p><strong>Next move:</strong> Bone marrow Giemsa for Leishman-Donovan bodies + Leishmania PCR and rK39, performed only after confirming adequate factor VIII/IX/XI levels. Flow cytometry/MYD88 can run in parallel.</p>
+<p><strong>Teaching pearl:</strong> In endemic regions, visceral leishmaniasis frequently produces high-titer antiphospholipid antibodies, lupus anticoagulant, and monoclonal gammopathy—mimicking APS or lymphoma—so always exclude kala-azar before labeling the process autoimmune or malignant.</p>
+
+<h3><strong>Round 4</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 4: Bone Marrow Biopsy, Flow Cytometry &amp; Pathologic Unification (Timestamp: Hospital Days 3-5)<br />
+Bone Marrow Histopathology &amp; Flow Cytometry:<br />
+- Bone Marrow Histopathology: Nodular and intrasinusoidal aggregates of small B-lymphocytes comprising ~10% of marrow cellularity (excluding Hairy-Cell Leukemia, which shows diffuse interstitial infiltration).<br />
+- Flow Cytometry (Marrow &amp; Blood): Clonal B-cell population expressing kappa light chain, <strong>CD19+</strong>, but <strong>CD5-, CD23-, CD10-, and CD103-</strong>. Smear: Occasional mildly enlarged lymphocytes with non-circumferential villous cytoplasmic projections ("villous lymphocytes").<br />
+- Unifying Diagnosis: <strong>Splenic Marginal-Zone Lymphoma (SMZL)</strong> presenting with massive splenomegaly, IgM kappa paraproteinemia, Coombs-negative autoimmune hemolytic anemia (driven by warm IgM autoantibodies / splenic sequestration), and secondary Antiphospholipid Syndrome (Lupus Anticoagulant).</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong><br />
+Bone marrow histopathology and flow cytometry establish intrasinusoidal CD19+ CD5- CD10- CD23- CD103- B-cell infiltration (~10%) with circulating villous lymphocytes, confirming <strong>Splenic Marginal-Zone Lymphoma (SMZL)</strong> complicated by secondary Antiphospholipid Syndrome (LA positive, high-titer aCL), IgM kappa paraproteinemia, and severe Coombs-negative hemolysis.</p>
+<p><strong>Differential Diagnoses &amp; Reasoning:</strong><br />
+1. <strong>Splenic Marginal-Zone Lymphoma (SMZL) with Secondary APS &amp; AIHA (95%)</strong>: Pathologically confirmed by characteristic intrasinusoidal infiltration, immunophenotype, villous lymphocytes, and massive splenomegaly.<br />
+2. <strong>Lymphoplasmacytic Lymphoma / Waldenström Variant (3%)</strong>: Overlapping IgM secretion, but CD5-/CD10-/CD103- phenotype and intrasinusoidal pattern favor SMZL.<br />
+3. <strong>Visceral Leishmaniasis (Infectious Mimic) (2%)</strong>: Effectively ruled out by definitive diagnostic histopathology.</p>
+<p><strong>Recommended Next Steps in Management:</strong><br />
+1. <strong>Molecular &amp; Cytogenetic Profiling</strong>: Test for <em>NOTCH2</em>, <em>KLF2</em> mutations, and 7q deletion to assist risk stratification.<br />
+2. <strong>Hepatitis C Virus (HCV) Serology</strong>: Screen for HCV as a potentially reversible underlying driver of SMZL.<br />
+3. <strong>Serum Cryoglobulin Level</strong>: Evaluate for cryoglobulinemia secondary to the monoclonal IgM kappa paraprotein.<br />
+4. <strong>Initiate Target Therapy</strong>: Commencing Rituximab monotherapy (or chemoimmunotherapy) to treat the underlying B-cell clone and clear paraneoplastic autoantibodies.<br />
+5. <strong>Thromboprophylaxis Assessment</strong>: Monitor for thrombosis versus bleeding risk before initiating anticoagulation.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Path confirmation of SMZL is robust (intrasinusoidal CD5-/CD103- clone + villous lymphocytes), yet plan under-addresses concurrent infection exclusion and hemolysis kinetics before rituximab. HCV screen essential; empiric therapy premature without full staging/cryoglobulin data. APS thrombosis risk needs formal Caprini scoring.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. SMZL (secondary APS + IgM-driven AIHA)<br />
+2. SMZL/LPL overlap (MYD88-neg variant)<br />
+3. HCV-associated SMZL</p>
+<p><strong>Specific points:</strong><br />
+1. Add MYD88 L265P + NOTCH2/KLF2/del7q on BM.<br />
+2. Urgent HCV RNA + cryoglobulins + RF.<br />
+3. PET-CT for extranodal burden pre-therapy.<br />
+4. Serial hemolysis markers; consider brief steroids only if life-threatening.<br />
+5. Hold full anticoagulation; ASA if no bleed.<br />
+6. Rituximab monotherapy first-line; defer bendamustine.<br />
+7. Repeat aPL titers 12 weeks post-treatment.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best unifying diagnosis:</strong> Splenic marginal-zone lymphoma (SMZL). Intrasinusoidal/nodular marrow infiltration, CD19+ CD5- CD10- CD23- CD103- immunophenotype, circulating villous lymphocytes, massive splenomegaly, IgM kappa paraprotein, Coombs-negative hemolysis, and secondary antiphospholipid antibodies unify the case.</p>
+<p><strong>Top differentials:</strong><br />
+1. <strong>Lymphoplasmacytic lymphoma/WM</strong> – overlaps IgM, but intrasinusoidal pattern, villous morphology, and absent CD103 argue against it.<br />
+2. <strong>Hairy-cell leukemia variant</strong> – splenomegaly + cytopenias, yet CD103 negativity and nodular pattern exclude it.<br />
+3. <strong>Visceral leishmaniasis</strong> – strong mimic earlier, now definitively excluded by diagnostic marrow histology and flow.</p>
+<p><strong>Key pivot:</strong> Bone marrow biopsy showing classic SMZL histology turned the picture from an infectious/autoimmune mimic into a clonal B-cell disorder driving secondary APS and hemolysis.</p>
+<p><strong>Most important next move:</strong> Screen for HCV and cryoglobulins, add MYD88/NOTCH2/KLF2 testing, then initiate rituximab-based therapy after hemolysis stabilization and infection exclusion. Anticoagulation should await individualized thrombosis-bleeding assessment.</p>
+<p><strong>Teaching pearl:</strong> SMZL commonly masquerades as infection or primary autoimmune disease through paraproteinemia, autoimmune hemolysis, and antiphospholipid antibodies; intrasinusoidal marrow infiltration with villous lymphocytes is the diagnostic clue that should prompt early B-cell directed therapy rather than empiric steroids.</p>
+
+<h3><strong>Round 5</strong></h3>
+
+
+<h4 class="user-header">User:</h4>
+<div class="user-text">
+<p>Stage 5: Therapeutic Splenectomy &amp; Chemoimmunotherapy Outcome (Timestamp: Follow-up &amp; Discharge)<br />
+Management &amp; Surgical Intervention:<br />
+- Primary Treatment: Therapeutic &amp; Diagnostic <strong>Splenectomy</strong> performed (spleen weighed <strong>2.42 kg</strong>!). Pathological examination confirmed classic Splenic Marginal-Zone Lymphoma.<br />
+- Post-Operative Course: Complete resolution of fevers and night sweats; hemoglobin and hematocrit normalized within 6 weeks, and aPTT normalized.<br />
+- Relapse &amp; Long-Term Outcome: At 15 Months: Recurrence of fatigue, anemia, IgM paraprotein, retroperitoneal lymphadenopathy, and DVT. Successfully treated with <strong>Rituximab + CVP (Cyclophosphamide, Vincristine, Prednisone)</strong> chemotherapy + LMWH anticoagulation, achieving complete hematologic and clinical response.</p>
+</div>
+
+<h4 class="resident-header">Resident:</h4>
+<p>Hello, Chief Resident here.</p>
+<p><strong>Updated Key Findings:</strong><br />
+Pathologically confirmed SMZL (2.42 kg spleen) with complete resolution of secondary APS/hemolysis post-splenectomy. Relapse at 15 months with retroperitoneal lymphadenopathy, IgM paraprotein, and DVT achieved complete response following Rituximab-CVP and LMWH.</p>
+<p><strong>Differential Diagnoses &amp; Reasoning:</strong><br />
+1. <strong>Relapsed SMZL, in Complete Remission post-R-CVP (95%)</strong>: Classic pattern of extra-splenic nodal recurrence post-splenectomy, demonstrating complete clinical/hematologic response to chemoimmunotherapy.<br />
+2. <strong>Histologic Transformation to DLBCL (4%)</strong>: Known risk during SMZL relapse; sustained response to R-CVP makes aggressive transformation less likely.<br />
+3. <strong>Resolved Secondary Antiphospholipid Syndrome (1%)</strong>: Paraneoplastic autoantibody production fully suppressed following clearance of the underlying B-cell clone.</p>
+<p><strong>Prioritized Next Steps in Management:</strong><br />
+1. <strong>Serial IgM &amp; SPEP/SFLC Monitoring</strong>: Track clonal disease burden and screen for early biochemical relapse.<br />
+2. <strong>Surveillance CT Imaging (Abdomen/Pelvis)</strong>: Assess nodal response duration and monitor retroperitoneal disease.<br />
+3. <strong>Repeat Antiphospholipid Panel (LA/aCL)</strong>: Determine if autoantibodies cleared to guide the duration of long-term anticoagulation.<br />
+4. <strong>Post-Splenectomy Prophylaxis &amp; Immunoglobulins</strong>: Maintain immunizations against encapsulated pathogens and monitor IgG levels post-Rituximab.</p>
+
+<h4 class="attending-header">Attending:</h4>
+<p>Hello Attending Consultant here</p>
+<p><strong>Critique:</strong> Surveillance plan appropriate post-R-CVP CR, but under-specifies aPL re-testing timing, anticoagulation duration (provoked DVT in active disease), and transformation vigilance. Ig monitoring good; add MRD if available. Post-splenectomy vaccines must be confirmed complete.</p>
+<p><strong>Top 3 DDx:</strong><br />
+1. Relapsed SMZL now in CR (post-splenectomy + R-CVP)<br />
+2. SMZL with residual secondary APS risk<br />
+3. Occult histologic transformation (low probability given R-CVP response)</p>
+<p><strong>Specific points:</strong><br />
+1. Repeat LA/aCL/β2GP1 at 12 weeks off therapy; stop LMWH if negative.<br />
+2. Confirm post-splenectomy vaccines (pneumo/mening/Hib) + boosters.<br />
+3. q3mo SPEP/SFLC + IgM for 2 yrs, then q6mo.<br />
+4. CT or PET at 6 mo to document nodal CR durability.<br />
+5. Watch for transformation (rising LDH, new B-symptoms → biopsy).<br />
+6. Pneumocystis prophylaxis if prolonged steroids/Ritux.<br />
+7. Thrombophilia panel only if unprovoked recurrence.</p>
+
+<h4 class="expert-header">Expert:</h4>
+<p>Hello, Expert Clinician here.</p>
+<p><strong>Best unifying diagnosis:</strong> Splenic marginal-zone lymphoma (SMZL) with secondary antiphospholipid syndrome and warm-type autoimmune hemolytic anemia. The massive spleen, villous lymphocytes, IgM kappa paraprotein, aPL positivity, dramatic response to splenectomy, and later extra-splenic relapse treated successfully with R-CVP confirm this unified picture.</p>
+<p><strong>Top differentials:</strong><br />
+1. <strong>Lymphoplasmacytic lymphoma/WM</strong> – overlaps IgM, but intrasinusoidal marrow pattern and villous morphology favor SMZL.<br />
+2. <strong>Visceral leishmaniasis</strong> – early mimic now excluded by histology and sustained response to B-cell therapy.<br />
+3. <strong>Histologic transformation to DLBCL</strong> – less likely given complete response to R-CVP.</p>
+<p><strong>Key pivot:</strong> Bone marrow biopsy revealing classic SMZL turned an infectious/autoimmune mimic into a clonal B-cell disorder driving paraneoplastic APS and hemolysis.</p>
+<p><strong>Next move:</strong> Continue surveillance IgM/SPEP and imaging; repeat antiphospholipid panel after therapy to determine whether long-term anticoagulation remains necessary; ensure complete post-splenectomy vaccination and monitor for transformation.</p>
+<p><strong>Teaching pearl:</strong> SMZL often presents as a paraneoplastic autoimmune syndrome (AIHA + APS + paraprotein) and can initially masquerade as infection; splenectomy is diagnostic/therapeutic early, but relapse is typically nodal and responds well to rituximab-based chemoimmunotherapy.</p>
+
+
+        <h3><strong>Top 15 Takeaways for Clinicians</strong></h3>
+<ol>
+  <li><strong>Classic Presentation of Splenic Marginal-Zone Lymphoma (SMZL):</strong> SMZL typically presents in older adults with massive, symptomatic splenomegaly (often extending into the pelvis), severe anemia, B-symptoms, and minimal peripheral lymphadenopathy.</li>
+  <li><strong>Intrasinusoidal Marrow Infiltration Pattern:</strong> Pathological examination of bone marrow trephine biopsy revealing nodular and intrasinusoidal aggregates of small CD20+ B-lymphocytes is highly characteristic of SMZL and excludes diffuse interstitial Hairy-Cell Leukemia.</li>
+  <li><strong>Diagnostic Peripheral Villous Lymphocytes:</strong> Peripheral blood smear demonstrating circulating small-to-medium lymphocytes with unipolar, non-circumferential villous cytoplasmic projections ("villous lymphocytes") provides a crucial morphological clue for SMZL.</li>
+  <li><strong>Pathognomonic SMZL Immunophenotype:</strong> Clonal B cells in SMZL express CD19, CD20, and kappa light chain restriction, while characteristically lacking CD5, CD10, CD23, and CD103.</li>
+  <li><strong>Paraneoplastic Autoimmune Hemolytic Anemia (AIHA):</strong> SMZL frequently triggers Coombs-negative or warm IgM-mediated autoimmune hemolytic anemia (marked reticulocytosis, elevated LDH, undetectable haptoglobin) alongside splenic sequestration.</li>
+  <li><strong>Secondary Antiphospholipid Syndrome (APS):</strong> Neoplastic B-cell clones in SMZL often secrete monoclonal IgM paraproteins with autoantibody activity, resulting in high-titer Lupus Anticoagulant and IgM Anticardiolipin antibodies causing an uncorrected prolonged aPTT.</li>
+  <li><strong>Interference of Lupus Anticoagulants on Coagulation Assays:</strong> Acquired circulating lupus anticoagulants bind phospholipid reagents in vitro, prolonging aPTT and masking intrinsic factor activities (Factors VIII, XI, XII) without true factor deficiency.</li>
+  <li><strong>Therapeutic and Diagnostic Value of Splenectomy:</strong> Splenectomy serves as both a primary diagnostic procedure and highly effective first-line therapy for SMZL, offering prompt resolution of cytopenias, B-symptoms, and autoimmune phenomena.</li>
+  <li><strong>Role of Hepatitis C Virus (HCV) Screening:</strong> All patients with marginal-zone lymphoma must be screened for Hepatitis C virus, as antiviral eradication of HCV can induce complete lymphoma regression in HCV-positive SMZL cases.</li>
+  <li><strong>Mandatory Post-Splenectomy Immunization:</strong> Prior to or immediately following splenectomy, patients must receive vaccinations against encapsulated bacterial pathogens (<em>Streptococcus pneumoniae</em>, <em>Neisseria meningitidis</em>, <em>Haemophilus influenzae</em> type b).</li>
+  <li><strong>Distinction from Visceral Leishmaniasis (Kala-Azar):</strong> In tropical and endemic regions, chronic Visceral Leishmaniasis produces massive splenomegaly, polyclonal hypergammaglobulinemia, and acquired autoantibodies, requiring bone marrow Giemsa staining and rK39 serology to exclude.</li>
+  <li><strong>Distinction from Waldenström's Macroglobulinemia (LPL):</strong> While both entities produce IgM paraproteinemia, Waldenström's typically features serum IgM &gt;3 g/dL with prominent hyperviscosity, whereas SMZL presents with massive splenomegaly and small paraproteins (&lt;1 g/dL).</li>
+  <li><strong>Management of Extra-Splenic Nodal Relapse:</strong> Nodal or retroperitoneal relapse post-splenectomy responds exceptionally well to Rituximab-based chemoimmunotherapy (e.g. Rituximab + CVP or Bendamustine), achieving durable complete remissions.</li>
+  <li><strong>Prognostic Molecular Markers:</strong> Somatic mutations in <em>NOTCH2</em> and <em>KLF2</em> or 7q deletions correlate with clinical outcomes and assist in stratifying long-term relapse risk in SMZL.</li>
+  <li><strong>Surveillance of Paraneoplastic Autoantibodies:</strong> Serial quantitative monitoring of serum IgM, SPEP, and antiphospholipid antibody titers enables detection of subclinical lymphoma recurrence before overt cytopenias manifest.</li>
+</ol>
+    </div>
+</body>
+</html>
