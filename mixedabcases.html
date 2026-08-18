@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <title>Mixed Acid–Base Disorders — 10 Worked Cases</title>
+  <style>
+    :root {
+      --teal: #224559;
+      --teal-dark: #173747;
+      --teal-soft: #eef4f6;
+      --rust: #9b4b30;
+      --rust-soft: #f8efeb;
+      --bg: #f3f6f6;
+      --card: #ffffff;
+      --text: #263238;
+      --muted: #68757b;
+      --border: #dce4e6;
+      --success: #2d6a58;
+      --success-soft: #edf7f3;
+      --warning: #9b6a21;
+      --warning-soft: #fff7e8;
+      --danger: #a33f36;
+      --danger-soft: #fff0ee;
+      --shadow: 0 14px 40px rgba(34, 69, 89, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    button, input { font: inherit; }
+
+    .shell {
+      width: min(1180px, calc(100% - 28px));
+      margin: 28px auto 60px;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 34px clamp(22px, 4vw, 48px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--rust);
+    }
+
+    .eyebrow {
+      color: var(--rust);
+      font-size: .78rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--teal);
+      font-size: clamp(2rem, 5vw, 3.45rem);
+      line-height: 1.04;
+      letter-spacing: -.04em;
+    }
+
+    .hero p {
+      max-width: 850px;
+      color: var(--muted);
+      margin: 16px 0 0;
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 780;
+      transition: transform .12s ease, opacity .12s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--teal); color: #fff; }
+    .btn-soft { background: var(--teal-soft); color: var(--teal-dark); }
+    .btn-rust { background: var(--rust-soft); color: var(--rust); }
+
+    .quick-index {
+      margin-top: 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 28px rgba(34, 69, 89, .05);
+      padding: 22px;
+    }
+
+    .section-title {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--teal);
+      font-size: 1.12rem;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 5px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--rust);
+      flex: 0 0 auto;
+    }
+
+    .subtext {
+      color: var(--muted);
+      margin: 7px 0 0 16px;
+      font-size: .88rem;
+    }
+
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .index-link {
+      text-decoration: none;
+      color: var(--teal-dark);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: #fff;
+      min-height: 78px;
+      display: block;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+
+    .index-link:hover {
+      border-color: #b7c8cd;
+      box-shadow: 0 7px 18px rgba(34, 69, 89, .07);
+      transform: translateY(-1px);
+    }
+
+    .index-link .n {
+      color: var(--rust);
+      font-size: .76rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .index-link strong {
+      display: block;
+      margin-top: 3px;
+      font-size: .89rem;
+      line-height: 1.3;
+    }
+
+    .cases {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .case-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 28px rgba(34, 69, 89, .05);
+      overflow: hidden;
+      scroll-margin-top: 18px;
+    }
+
+    .case-head {
+      padding: 21px 22px 18px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: start;
+      gap: 14px;
+    }
+
+    .case-num {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: var(--rust-soft);
+      color: var(--rust);
+      font-weight: 900;
+      font-size: 1.03rem;
+    }
+
+    .case-title {
+      margin: 0;
+      color: var(--teal);
+      font-size: 1.14rem;
+      line-height: 1.25;
+    }
+
+    .case-subtitle {
+      color: var(--muted);
+      font-size: .87rem;
+      margin-top: 5px;
+    }
+
+    .diagnosis-pill {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      font-size: .76rem;
+      font-weight: 800;
+      text-align: center;
+      max-width: 270px;
+    }
+
+    .case-body {
+      border-top: 1px solid var(--border);
+      padding: 20px 22px 22px;
+    }
+
+    .vignette {
+      padding: 15px 16px;
+      border-left: 4px solid var(--rust);
+      background: #fbfcfc;
+      border-radius: 0 12px 12px 0;
+      color: #344248;
+    }
+
+    .vignette strong { color: var(--teal-dark); }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .lab {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 9px 10px;
+      background: #fff;
+      min-width: 0;
+    }
+
+    .lab span {
+      display: block;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .lab strong {
+      color: var(--teal-dark);
+      font-size: .96rem;
+      display: block;
+      margin-top: 2px;
+      word-break: break-word;
+    }
+
+    .answer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: .83rem;
+    }
+
+    .solution {
+      display: none;
+      margin-top: 18px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .case-card.open .solution { display: block; }
+
+    .overall {
+      border: 1px solid #d6e1e4;
+      background: linear-gradient(135deg, #f4f9fa, #edf5f5);
+      border-radius: 14px;
+      padding: 15px 16px;
+      margin-bottom: 12px;
+    }
+
+    .overall .label {
+      color: var(--rust);
+      text-transform: uppercase;
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .06em;
+    }
+
+    .overall .text {
+      color: var(--teal-dark);
+      font-weight: 850;
+      margin-top: 4px;
+      font-size: 1.01rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 11px;
+      align-items: start;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 13px 14px;
+      background: #fff;
+    }
+
+    .step-num {
+      width: 31px;
+      height: 31px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--rust-soft);
+      color: var(--rust);
+      font-weight: 900;
+      font-size: .84rem;
+    }
+
+    .step h3 {
+      margin: 0;
+      color: var(--teal-dark);
+      font-size: .94rem;
+    }
+
+    .step-main {
+      margin-top: 2px;
+      font-weight: 730;
+      color: #334148;
+      font-size: .9rem;
+    }
+
+    .step-detail {
+      color: var(--muted);
+      font-size: .82rem;
+      margin-top: 5px;
+    }
+
+    .formula {
+      margin-top: 7px;
+      padding: 8px 10px;
+      border-radius: 9px;
+      background: #f5f7f7;
+      color: #506066;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .78rem;
+      overflow-x: auto;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: .68rem;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .good { background: var(--success-soft); color: var(--success); }
+    .warn { background: var(--warning-soft); color: var(--warning); }
+    .bad { background: var(--danger-soft); color: var(--danger); }
+    .info { background: var(--teal-soft); color: var(--teal-dark); }
+
+    .teaching {
+      margin-top: 12px;
+      background: var(--rust-soft);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #6f3d2c;
+      font-size: .86rem;
+    }
+
+    .teaching strong { color: var(--rust); }
+
+    .references {
+      margin-top: 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 8px 28px rgba(34, 69, 89, .05);
+    }
+
+    .references ul {
+      margin: 14px 0 0 18px;
+      padding: 0;
+      color: var(--muted);
+      font-size: .87rem;
+    }
+
+    .references li { margin: 7px 0; }
+    .references a { color: var(--teal); }
+
+    .disclaimer {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    @media (max-width: 980px) {
+      .index-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lab-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      .shell { width: min(100% - 18px, 1180px); margin-top: 10px; }
+      .hero { border-radius: 18px; padding: 28px 20px; }
+      .case-head { grid-template-columns: auto 1fr; }
+      .diagnosis-pill { grid-column: 1 / -1; justify-self: start; margin-left: 56px; }
+      .case-body { padding: 18px 15px 20px; }
+      .lab-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .step { grid-template-columns: 31px 1fr; }
+      .tag { grid-column: 2; justify-self: start; }
+    }
+
+    @media (max-width: 460px) {
+      .index-grid { grid-template-columns: 1fr; }
+      .diagnosis-pill { margin-left: 0; }
+      .case-head { grid-template-columns: 40px 1fr; padding: 18px 15px; }
+      .hero-actions .btn { flex: 1 1 auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">ABG Teaching Cases</div>
+      <h1>Mixed Acid–Base Disorders</h1>
+      <p>
+        Ten worked clinical vignettes using the same 8-step sequence as the ABG Analyzer:
+        internal consistency → pH → primary process → expected compensation → anion gap →
+        albumin correction/delta ratio → mixed-disorder check → oxygenation.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="expandAll">Expand all solutions</button>
+        <button class="btn btn-soft" id="collapseAll">Collapse all</button>
+        <button class="btn btn-rust" id="randomCase">Random case</button>
+      </div>
+    </section>
+
+    <section class="quick-index">
+      <h2 class="section-title">Case index</h2>
+      <p class="subtext">Each case is internally consistent and intentionally constructed to demonstrate a specific mixed disorder.</p>
+      <div class="index-grid" id="caseIndex"></div>
+    </section>
+
+    <section class="cases" id="cases"></section>
+
+    <section class="references">
+      <h2 class="section-title">Calculation rules used</h2>
+      <ul>
+        <li>Metabolic acidosis: Winter's formula — expected PaCO₂ = 1.5 × HCO₃⁻ + 8 ± 2 mmHg.</li>
+        <li>Metabolic alkalosis: expected PaCO₂ rises about 0.6–0.75 mmHg per 1 mEq/L rise in HCO₃⁻.</li>
+        <li>Respiratory acidosis: HCO₃⁻ rises about 1–2 mEq/L per 10 mmHg PaCO₂ acutely and 3–4 chronically.</li>
+        <li>Respiratory alkalosis: HCO₃⁻ falls about 1–2 mEq/L per 10 mmHg PaCO₂ acutely and 4–5 chronically.</li>
+        <li>Corrected AG = AG + 2.5 × (4 − albumin). Delta ratio = (corrected AG − normal AG)/(24 − HCO₃⁻).</li>
+        <li>Delta ratio: &lt;0.4 predominantly NAGMA; 0.4–0.8 mixed HAGMA + NAGMA; 0.8–2 predominantly HAGMA; &gt;2 HAGMA + metabolic alkalosis/elevated baseline HCO₃⁻.</li>
+      </ul>
+      <p class="disclaimer">
+        Educational examples only. Formula cutoffs are approximations and should be interpreted with the clinical setting,
+        timing of samples, treatment already given, albumin, renal function and laboratory method.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const cases = [
+      {
+        id: 1,
+        title: "Salicylate toxicity",
+        diagnosis: "HAGMA + respiratory alkalosis",
+        vignette: "A 30-year-old presents with tinnitus, nausea, tachypnea and altered behavior after taking an unknown number of analgesic tablets. He is warm, sweaty and breathing rapidly.",
+        values: { pH: 7.42, pCO2: 24, hco3: 15, na: 140, cl: 100, albumin: 4.0, pO2: 78, fio2: 0.21, age: 30 },
+        primary: "metabolic_acidosis",
+        overall: "High-anion-gap metabolic acidosis with an additional primary respiratory alkalosis.",
+        teaching: "A near-normal pH does not mean a normal ABG. Salicylate toxicity classically produces simultaneous respiratory alkalosis and HAGMA."
+      },
+      {
+        id: 2,
+        title: "DKA after large-volume normal saline",
+        diagnosis: "HAGMA + NAGMA",
+        vignette: "A 28-year-old with DKA receives insulin and 5–6 L of 0.9% saline. Glucose and ketones are improving, but bicarbonate remains low and chloride has risen markedly.",
+        values: { pH: 7.30, pCO2: 25, hco3: 12, na: 142, cl: 112, albumin: 4.0, pO2: 82, fio2: 0.21, age: 28 },
+        primary: "metabolic_acidosis",
+        overall: "Residual HAGMA from DKA plus hyperchloremic normal-anion-gap metabolic acidosis after saline, with appropriate respiratory compensation.",
+        teaching: "The delta ratio reveals the additional NAGMA. Rising chloride during DKA treatment is the major clue."
+      },
+      {
+        id: 3,
+        title: "DKA with persistent vomiting",
+        diagnosis: "HAGMA + metabolic alkalosis",
+        vignette: "A 35-year-old with diabetic ketoacidosis has had repeated vomiting for 24 hours. Ketones are strongly positive and the patient is dehydrated, but bicarbonate is higher than expected for the size of the anion gap.",
+        values: { pH: 7.33, pCO2: 35, hco3: 18, na: 140, cl: 94, albumin: 4.0, pO2: 90, fio2: 0.21, age: 35 },
+        primary: "metabolic_acidosis",
+        overall: "High-anion-gap metabolic acidosis with concurrent metabolic alkalosis; respiratory compensation is appropriate.",
+        teaching: "A bicarbonate below 24 does not exclude metabolic alkalosis. Delta ratio >2 can uncover alkalosis hidden by the HAGMA."
+      },
+      {
+        id: 4,
+        title: "Septic shock with ventilatory failure",
+        diagnosis: "HAGMA + respiratory acidosis",
+        vignette: "A 70-year-old with septic shock develops worsening lactic acidosis and progressive respiratory muscle fatigue. He is drowsy and hypoxemic despite supplemental oxygen.",
+        values: { pH: 7.10, pCO2: 60, hco3: 18, na: 138, cl: 102, albumin: 3.2, pO2: 55, fio2: 0.40, age: 70 },
+        primary: "metabolic_acidosis",
+        overall: "High-anion-gap metabolic acidosis with additional respiratory acidosis from inadequate ventilation.",
+        teaching: "In metabolic acidosis, a PaCO₂ above Winter's expected range is not compensation—it is a second respiratory acidosis."
+      },
+      {
+        id: 5,
+        title: "COPD on loop diuretics",
+        diagnosis: "Chronic respiratory acidosis + metabolic alkalosis",
+        vignette: "A 72-year-old with severe COPD and chronic CO₂ retention is treated with high-dose furosemide for edema. He becomes weak and has hypochloremia.",
+        values: { pH: 7.42, pCO2: 60, hco3: 38, na: 140, cl: 94, albumin: 3.8, pO2: 58, fio2: 0.28, age: 72 },
+        primary: "chronic_respiratory_acidosis",
+        overall: "Chronic respiratory acidosis with superimposed metabolic alkalosis, likely chloride/depletion related.",
+        teaching: "The pH can be near normal because the two disorders oppose each other. HCO₃⁻ is substantially higher than expected for chronic respiratory compensation alone."
+      },
+      {
+        id: 6,
+        title: "Cirrhosis with vomiting",
+        diagnosis: "Respiratory alkalosis + metabolic alkalosis",
+        vignette: "A 55-year-old with decompensated cirrhosis has chronic hyperventilation and then develops several days of vomiting and poor oral intake.",
+        values: { pH: 7.65, pCO2: 28, hco3: 30, na: 138, cl: 98, albumin: 3.0, pO2: 80, fio2: 0.21, age: 55 },
+        primary: "chronic_respiratory_alkalosis",
+        overall: "Chronic respiratory alkalosis with a strong superimposed metabolic alkalosis.",
+        teaching: "In chronic respiratory alkalosis, bicarbonate should fall. A bicarbonate of 30 mEq/L is therefore clearly not compensation."
+      },
+      {
+        id: 7,
+        title: "Pregnancy with severe diarrhea",
+        diagnosis: "NAGMA + respiratory alkalosis",
+        vignette: "A 32-year-old at 30 weeks' gestation has profuse watery diarrhea. She is tachypneic but hemodynamically stable. Pregnancy contributes a respiratory alkalosis while GI bicarbonate loss adds metabolic acidosis.",
+        values: { pH: 7.37, pCO2: 25, hco3: 14, na: 140, cl: 114, albumin: 3.5, pO2: 95, fio2: 0.21, age: 32 },
+        primary: "metabolic_acidosis",
+        overall: "Normal-anion-gap metabolic acidosis with additional respiratory alkalosis.",
+        teaching: "Again, the almost-normal pH hides two primary disorders. The normal AG and high chloride point to bicarbonate loss rather than HAGMA."
+      },
+      {
+        id: 8,
+        title: "Diarrhea plus opioid hypoventilation",
+        diagnosis: "NAGMA + respiratory acidosis",
+        vignette: "A 48-year-old with several days of high-output diarrhea receives excessive opioid analgesia and becomes somnolent with shallow breathing.",
+        values: { pH: 7.12, pCO2: 45, hco3: 14, na: 140, cl: 114, albumin: 4.0, pO2: 70, fio2: 0.21, age: 48 },
+        primary: "metabolic_acidosis",
+        overall: "Normal-anion-gap metabolic acidosis with additional respiratory acidosis due to hypoventilation.",
+        teaching: "The PaCO₂ should be around 29 mmHg by Winter's formula. A PaCO₂ of 45 is a dangerous second process."
+      },
+      {
+        id: 9,
+        title: "Pneumonia with sepsis",
+        diagnosis: "HAGMA + respiratory alkalosis",
+        vignette: "A 68-year-old with severe pneumonia has fever, lactate elevation, tachypnea and increasing oxygen requirement. He is not yet fatigued and is hyperventilating strongly.",
+        values: { pH: 7.47, pCO2: 20, hco3: 14, na: 138, cl: 102, albumin: 2.8, pO2: 60, fio2: 0.40, age: 68 },
+        primary: "metabolic_acidosis",
+        overall: "High-anion-gap metabolic acidosis with additional respiratory alkalosis, plus significant oxygenation impairment.",
+        teaching: "Sepsis can produce lactic HAGMA and a separate respiratory alkalosis from increased respiratory drive."
+      },
+      {
+        id: 10,
+        title: "Triple disorder: lactate + vomiting + hyperventilation",
+        diagnosis: "HAGMA + metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 62-year-old with severe infection has lactic acidosis, repeated vomiting and marked tachypnea. The pH is strikingly alkalemic despite an elevated anion gap.",
+        values: { pH: 7.58, pCO2: 22, hco3: 20, na: 140, cl: 92, albumin: 3.6, pO2: 70, fio2: 0.30, age: 62 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + metabolic alkalosis + respiratory alkalosis.",
+        teaching: "Winter's formula detects the respiratory alkalosis, while delta ratio >2 detects the additional metabolic alkalosis."
+      }
+    ];
+
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n, d = 1) => Number(n).toFixed(d).replace(/\.0$/, "");
+
+    function calcPH(hco3, pCO2) {
+      return 6.1 + Math.log10(hco3 / (0.03 * pCO2));
+    }
+
+    function calcAG(v) {
+      const raw = v.na - v.cl - v.hco3;
+      const corrected = raw + 2.5 * (4 - v.albumin);
+      return { raw, corrected };
+    }
+
+    function deltaInfo(v, correctedAG, normalAG = 12) {
+      const deltaAG = correctedAG - normalAG;
+      const deltaHCO3 = 24 - v.hco3;
+      if (correctedAG <= normalAG + 2 || deltaHCO3 <= 0) {
+        return {
+          applicable: false,
+          text: "Delta ratio is not interpreted because a clear HAGMA is not present."
+        };
+      }
+      const ratio = deltaAG / deltaHCO3;
+      let text = "";
+      if (ratio < 0.4) text = "Predominantly NAGMA; the high-gap contribution is small.";
+      else if (ratio < 0.8) text = "Mixed HAGMA + NAGMA.";
+      else if (ratio <= 2) text = "Predominantly HAGMA.";
+      else text = "HAGMA with concurrent metabolic alkalosis or elevated baseline HCO₃⁻.";
+      return { applicable: true, ratio, text, deltaAG, deltaHCO3 };
+    }
+
+    function compensation(c) {
+      const v = c.values;
+
+      if (c.primary === "metabolic_acidosis") {
+        const center = 1.5 * v.hco3 + 8;
+        const low = center - 2, high = center + 2;
+        let interpretation = "";
+        if (v.pCO2 < low) interpretation = "PaCO₂ is below the expected range → additional respiratory alkalosis.";
+        else if (v.pCO2 > high) interpretation = "PaCO₂ is above the expected range → additional respiratory acidosis.";
+        else interpretation = "PaCO₂ is within the expected range → appropriate respiratory compensation.";
+        return {
+          title: "Winter's formula",
+          main: interpretation,
+          detail: `Expected PaCO₂ = 1.5 × ${fmt(v.hco3)} + 8 = ${fmt(center)} mmHg (range ${fmt(low)}–${fmt(high)}); actual PaCO₂ = ${fmt(v.pCO2)} mmHg.`,
+          formula: `Expected PaCO₂ = 1.5 × HCO₃⁻ + 8 ± 2`
+        };
+      }
+
+      if (c.primary === "chronic_respiratory_acidosis") {
+        const deltaCO2 = v.pCO2 - 40;
+        const expected = 24 + 3.5 * (deltaCO2 / 10);
+        return {
+          title: "Chronic respiratory acidosis compensation",
+          main: `Expected HCO₃⁻ is about ${fmt(expected)} mEq/L; actual HCO₃⁻ is ${fmt(v.hco3)} → additional metabolic alkalosis.`,
+          detail: `Using +3.5 mEq/L HCO₃⁻ per 10 mmHg chronic rise in PaCO₂: 24 + 3.5 × (${fmt(v.pCO2)}−40)/10 = ${fmt(expected)}.`,
+          formula: `Expected HCO₃⁻ ≈ 24 + 3.5 × (PaCO₂ − 40)/10`
+        };
+      }
+
+      if (c.primary === "chronic_respiratory_alkalosis") {
+        const deltaCO2 = 40 - v.pCO2;
+        const expected = 24 - 5 * (deltaCO2 / 10);
+        return {
+          title: "Chronic respiratory alkalosis compensation",
+          main: `Expected HCO₃⁻ is about ${fmt(expected)} mEq/L; actual HCO₃⁻ is ${fmt(v.hco3)} → additional metabolic alkalosis.`,
+          detail: `Using −5 mEq/L HCO₃⁻ per 10 mmHg chronic fall in PaCO₂: 24 − 5 × (40−${fmt(v.pCO2)})/10 = ${fmt(expected)}.`,
+          formula: `Expected HCO₃⁻ ≈ 24 − 5 × (40 − PaCO₂)/10`
+        };
+      }
+    }
+
+    function oxygenation(v) {
+      const PB = 760, R = 0.8;
+      const PAO2 = v.fio2 * (PB - 47) - v.pCO2 / R;
+      const aa = PAO2 - v.pO2;
+      const pf = v.pO2 / v.fio2;
+      let band = "";
+      if (pf >= 300) band = "P/F ≥300";
+      else if (pf >= 200) band = "P/F 200–299";
+      else if (pf >= 100) band = "P/F 100–199";
+      else band = "P/F <100";
+      return { PAO2, aa, pf, band };
+    }
+
+    function pHLabel(pH) {
+      if (pH < 7.35) return ["Acidemia", "bad"];
+      if (pH > 7.45) return ["Alkalemia", "warn"];
+      return ["pH in reference range", "good"];
+    }
+
+    function primaryText(c) {
+      if (c.primary === "metabolic_acidosis") {
+        return "Metabolic acidosis is present because HCO₃⁻ is reduced. The compensation step determines whether the respiratory response is appropriate or represents a second primary disorder.";
+      }
+      if (c.primary === "chronic_respiratory_acidosis") {
+        return "Chronic respiratory acidosis is present from sustained hypercapnia; bicarbonate should rise only to the expected chronic-compensation range.";
+      }
+      if (c.primary === "chronic_respiratory_alkalosis") {
+        return "Chronic respiratory alkalosis is present from sustained hypocapnia; bicarbonate should fall with renal compensation.";
+      }
+      return "";
+    }
+
+    function mixedText(c, delta) {
+      if (delta.applicable) {
+        return `${c.overall} Delta ratio = ${fmt(delta.ratio, 2)} (${delta.text})`;
+      }
+      return c.overall;
+    }
+
+    function stepCard(n, title, main, detail, tag, tagClass = "info", formula = "") {
+      return `
+        <div class="step">
+          <div class="step-num">${n}</div>
+          <div>
+            <h3>${title}</h3>
+            <div class="step-main">${main}</div>
+            <div class="step-detail">${detail}${formula ? `<div class="formula">${formula}</div>` : ""}</div>
+          </div>
+          <div class="tag ${tagClass}">${tag}</div>
+        </div>`;
+    }
+
+    function renderCase(c) {
+      const v = c.values;
+      const impliedPH = calcPH(v.hco3, v.pCO2);
+      const phDiff = Math.abs(v.pH - impliedPH);
+      const ag = calcAG(v);
+      const delta = deltaInfo(v, ag.corrected);
+      const comp = compensation(c);
+      const ox = oxygenation(v);
+      const [pHState, pHClass] = pHLabel(v.pH);
+
+      const agState = ag.corrected > 14 ? "High AG" : (ag.corrected < 10 ? "Low AG" : "Normal AG");
+      const agClass = ag.corrected > 14 ? "warn" : "good";
+
+      const deltaDetail = delta.applicable
+        ? `ΔAG = ${fmt(ag.corrected)} − 12 = ${fmt(delta.deltaAG)}; ΔHCO₃ = 24 − ${fmt(v.hco3)} = ${fmt(delta.deltaHCO3)}. ${delta.text}`
+        : delta.text;
+
+      const deltaFormula = delta.applicable
+        ? `Delta ratio = (${fmt(ag.corrected)} − 12) / (24 − ${fmt(v.hco3)}) = ${fmt(delta.ratio, 2)}`
+        : "";
+
+      const steps = [
+        stepCard(
+          1, "Internal consistency",
+          phDiff <= 0.02 ? "Reported pH is internally consistent with PaCO₂ and HCO₃⁻." : "Internal inconsistency detected.",
+          `Henderson–Hasselbalch calculated pH = ${fmt(impliedPH, 3)}; reported pH = ${fmt(v.pH, 2)}; ΔpH = ${fmt(phDiff, 3)}.`,
+          phDiff <= 0.02 ? "Consistent" : "Check values",
+          phDiff <= 0.02 ? "good" : "bad",
+          `pH = 6.1 + log₁₀(HCO₃⁻ / (0.03 × PaCO₂))`
+        ),
+        stepCard(
+          2, "Acidemia or alkalemia",
+          pHState,
+          `Reported pH = ${fmt(v.pH, 2)}. A pH in the reference range does not exclude a mixed disorder when PaCO₂ and HCO₃⁻ are both abnormal.`,
+          pHState,
+          pHClass
+        ),
+        stepCard(
+          3, "Primary acid–base process",
+          primaryText(c),
+          `PaCO₂ = ${fmt(v.pCO2)} mmHg; HCO₃⁻ = ${fmt(v.hco3)} mEq/L.`,
+          "Pattern",
+          "info"
+        ),
+        stepCard(
+          4, "Expected compensation",
+          comp.main,
+          comp.detail,
+          comp.main.includes("additional") ? "Mixed" : "Compensated",
+          comp.main.includes("additional") ? "warn" : "good",
+          comp.formula
+        ),
+        stepCard(
+          5, "Anion gap",
+          `Raw anion gap = ${fmt(ag.raw)} mEq/L → ${agState}.`,
+          `Na ${fmt(v.na)} − (Cl ${fmt(v.cl)} + HCO₃⁻ ${fmt(v.hco3)}) = ${fmt(ag.raw)} mEq/L.`,
+          agState,
+          agClass,
+          `AG = Na⁺ − (Cl⁻ + HCO₃⁻)`
+        ),
+        stepCard(
+          6, "Albumin correction & delta ratio",
+          `Albumin-corrected AG = ${fmt(ag.corrected)} mEq/L.${delta.applicable ? ` Delta ratio = ${fmt(delta.ratio, 2)}.` : ""}`,
+          deltaDetail,
+          delta.applicable ? "Delta assessed" : "Delta N/A",
+          delta.applicable ? "warn" : "info",
+          `Corrected AG = ${fmt(ag.raw)} + 2.5 × (4 − ${fmt(v.albumin)}) = ${fmt(ag.corrected)}${deltaFormula ? `<br>${deltaFormula}` : ""}`
+        ),
+        stepCard(
+          7, "Mixed disorder check",
+          mixedText(c, delta),
+          "The final mixed diagnosis combines deviation from expected compensation with anion-gap/delta analysis.",
+          "Final pattern",
+          "warn"
+        ),
+        stepCard(
+          8, "Oxygenation",
+          `P/F ratio ${fmt(ox.pf, 0)} (${ox.band}); A–a gradient ${fmt(ox.aa)} mmHg.`,
+          `Calculated PAO₂ = ${fmt(ox.PAO2)} mmHg using FiO₂ ${Math.round(v.fio2 * 100)}%, PB 760 mmHg and R 0.8. Oxygenation values describe gas exchange; they do not by themselves diagnose ARDS.`,
+          ox.band,
+          ox.pf < 300 ? "warn" : "good",
+          `PAO₂ = FiO₂ × (760 − 47) − PaCO₂/0.8; P/F = PaO₂/FiO₂`
+        )
+      ].join("");
+
+      return `
+        <article class="case-card" id="case-${c.id}">
+          <div class="case-head">
+            <div class="case-num">${c.id}</div>
+            <div>
+              <h2 class="case-title">${c.title}</h2>
+              <div class="case-subtitle">Worked mixed acid–base vignette</div>
+            </div>
+            <div class="diagnosis-pill">${c.diagnosis}</div>
+          </div>
+
+          <div class="case-body">
+            <div class="vignette"><strong>Vignette:</strong> ${c.vignette}</div>
+
+            <div class="lab-grid">
+              <div class="lab"><span>pH</span><strong>${fmt(v.pH, 2)}</strong></div>
+              <div class="lab"><span>PaCO₂</span><strong>${fmt(v.pCO2)} mmHg</strong></div>
+              <div class="lab"><span>HCO₃⁻</span><strong>${fmt(v.hco3)} mEq/L</strong></div>
+              <div class="lab"><span>Na⁺</span><strong>${fmt(v.na)}</strong></div>
+              <div class="lab"><span>Cl⁻</span><strong>${fmt(v.cl)}</strong></div>
+              <div class="lab"><span>Albumin</span><strong>${fmt(v.albumin)} g/dL</strong></div>
+              <div class="lab"><span>PaO₂</span><strong>${fmt(v.pO2)} mmHg</strong></div>
+              <div class="lab"><span>FiO₂</span><strong>${Math.round(v.fio2 * 100)}%</strong></div>
+            </div>
+
+            <div class="answer-bar">
+              <div class="hint">Try interpreting it before revealing the calculation.</div>
+              <button class="btn btn-primary reveal" data-id="${c.id}">Show 8-step solution</button>
+            </div>
+
+            <div class="solution">
+              <div class="overall">
+                <div class="label">Overall interpretation</div>
+                <div class="text">${c.overall}</div>
+              </div>
+              <div class="steps">${steps}</div>
+              <div class="teaching"><strong>Teaching point:</strong> ${c.teaching}</div>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    function render() {
+      $("caseIndex").innerHTML = cases.map(c => `
+        <a class="index-link" href="#case-${c.id}">
+          <span class="n">Case ${c.id}</span>
+          <strong>${c.title}</strong>
+        </a>
+      `).join("");
+
+      $("cases").innerHTML = cases.map(renderCase).join("");
+
+      document.querySelectorAll(".reveal").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const card = $("case-" + btn.dataset.id);
+          card.classList.toggle("open");
+          btn.textContent = card.classList.contains("open") ? "Hide solution" : "Show 8-step solution";
+        });
+      });
+    }
+
+    $("expandAll").addEventListener("click", () => {
+      document.querySelectorAll(".case-card").forEach(card => card.classList.add("open"));
+      document.querySelectorAll(".reveal").forEach(btn => btn.textContent = "Hide solution");
+    });
+
+    $("collapseAll").addEventListener("click", () => {
+      document.querySelectorAll(".case-card").forEach(card => card.classList.remove("open"));
+      document.querySelectorAll(".reveal").forEach(btn => btn.textContent = "Show 8-step solution");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    $("randomCase").addEventListener("click", () => {
+      const c = cases[Math.floor(Math.random() * cases.length)];
+      const card = $("case-" + c.id);
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    render();
+  </script>
+</body>
+</html>
