@@ -485,6 +485,39 @@
       .step-detail { margin-left: 43px; }
       .actions { grid-template-columns: 1fr; }
     }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      padding: 30px 20px;
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .footer-author {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: -0.01em;
+    }
+
+    .footer-dept {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--teal-dark);
+      margin-top: 3px;
+    }
+
+    .footer-sub {
+      font-size: .84rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
@@ -634,6 +667,14 @@
       <div class="disclaimer">This tool is intended for clinicians and medical education. It should not be used as the sole basis for diagnosis or treatment. Always interpret ABG results with the clinical context, sample type, laboratory reference ranges, ventilator settings, and altitude.</div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-author">Anupam Singh MD</div>
+      <div class="footer-dept">Department of Medicine, Santosh Medical College</div>
+      <div class="footer-sub">Interactive Clinical Tool · Arterial Blood Gas Analysis</div>
+    </div>
+  </footer>
 
   <script>
     (() => {
