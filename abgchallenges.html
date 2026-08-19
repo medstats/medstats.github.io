@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <title>ABG Clinical Challenges — 30 Worked Cases</title>
+  <style>
+    :root {
+      --teal: #224559;
+      --teal-dark: #173747;
+      --teal-soft: #eef4f6;
+      --rust: #9b4b30;
+      --rust-soft: #f8efeb;
+      --bg: #f3f6f6;
+      --card: #ffffff;
+      --text: #263238;
+      --muted: #68757b;
+      --border: #dce4e6;
+      --success: #2d6a58;
+      --success-soft: #edf7f3;
+      --warning: #9b6a21;
+      --warning-soft: #fff7e8;
+      --danger: #a33f36;
+      --danger-soft: #fff0ee;
+      --shadow: 0 14px 40px rgba(34, 69, 89, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    button, input { font: inherit; }
+
+    .shell {
+      width: min(1180px, calc(100% - 28px));
+      margin: 28px auto 60px;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 34px clamp(22px, 4vw, 48px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--rust);
+    }
+
+    .eyebrow {
+      color: var(--rust);
+      font-size: .78rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--teal);
+      font-size: clamp(2rem, 5vw, 3.45rem);
+      line-height: 1.04;
+      letter-spacing: -.04em;
+    }
+
+    .hero p {
+      max-width: 850px;
+      color: var(--muted);
+      margin: 16px 0 0;
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 780;
+      transition: transform .12s ease, opacity .12s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--teal); color: #fff; }
+    .btn-soft { background: var(--teal-soft); color: var(--teal-dark); }
+    .btn-rust { background: var(--rust-soft); color: var(--rust); }
+
+    .quick-index {
+      margin-top: 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 28px rgba(34, 69, 89, .05);
+      padding: 22px;
+    }
+
+    .section-title {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--teal);
+      font-size: 1.12rem;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 5px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--rust);
+      flex: 0 0 auto;
+    }
+
+    .subtext {
+      color: var(--muted);
+      margin: 7px 0 0 16px;
+      font-size: .88rem;
+    }
+
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .index-link {
+      text-decoration: none;
+      color: var(--teal-dark);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: #fff;
+      min-height: 78px;
+      display: block;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+
+    .index-link:hover {
+      border-color: #b7c8cd;
+      box-shadow: 0 7px 18px rgba(34, 69, 89, .07);
+      transform: translateY(-1px);
+    }
+
+    .index-link .n {
+      color: var(--rust);
+      font-size: .76rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .index-link strong {
+      display: block;
+      margin-top: 3px;
+      font-size: .89rem;
+      line-height: 1.3;
+    }
+
+    .cases {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .case-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 28px rgba(34, 69, 89, .05);
+      overflow: hidden;
+      scroll-margin-top: 18px;
+    }
+
+    .case-head {
+      padding: 21px 22px 18px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: start;
+      gap: 14px;
+    }
+
+    .case-num {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: var(--rust-soft);
+      color: var(--rust);
+      font-weight: 900;
+      font-size: 1.03rem;
+    }
+
+    .case-title {
+      margin: 0;
+      color: var(--teal);
+      font-size: 1.14rem;
+      line-height: 1.25;
+    }
+
+    .case-subtitle {
+      color: var(--muted);
+      font-size: .87rem;
+      margin-top: 5px;
+    }
+
+    .diagnosis-pill {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      font-size: .76rem;
+      font-weight: 800;
+      text-align: center;
+      max-width: 270px;
+    }
+
+    .case-body {
+      border-top: 1px solid var(--border);
+      padding: 20px 22px 22px;
+    }
+
+    .vignette {
+      padding: 15px 16px;
+      border-left: 4px solid var(--rust);
+      background: #fbfcfc;
+      border-radius: 0 12px 12px 0;
+      color: #344248;
+    }
+
+    .vignette strong { color: var(--teal-dark); }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .lab {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 9px 10px;
+      background: #fff;
+      min-width: 0;
+    }
+
+    .lab span {
+      display: block;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .lab strong {
+      color: var(--teal-dark);
+      font-size: .96rem;
+      display: block;
+      margin-top: 2px;
+      word-break: break-word;
+    }
+
+    .answer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: .83rem;
+    }
+
+    .solution {
+      display: none;
+      margin-top: 18px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .case-card.open .solution { display: block; }
+
+    .overall {
+      border: 1px solid #d6e1e4;
+      background: linear-gradient(135deg, #f4f9fa, #edf5f5);
+      border-radius: 14px;
+      padding: 15px 16px;
+      margin-bottom: 12px;
+    }
+
+    .overall .label {
+      color: var(--rust);
+      text-transform: uppercase;
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .06em;
+    }
+
+    .overall .text {
+      color: var(--teal-dark);
+      font-weight: 850;
+      margin-top: 4px;
+      font-size: 1.01rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 11px;
+      align-items: start;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 13px 14px;
+      background: #fff;
+    }
+
+    .step-num {
+      width: 31px;
+      height: 31px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--rust-soft);
+      color: var(--rust);
+      font-weight: 900;
+      font-size: .84rem;
+    }
+
+    .step h3 {
+      margin: 0;
+      color: var(--teal-dark);
+      font-size: .94rem;
+    }
+
+    .step-main {
+      margin-top: 2px;
+      font-weight: 730;
+      color: #334148;
+      font-size: .9rem;
+    }
+
+    .step-detail {
+      color: var(--muted);
+      font-size: .82rem;
+      margin-top: 5px;
+    }
+
+    .formula {
+      margin-top: 7px;
+      padding: 8px 10px;
+      border-radius: 9px;
+      background: #f5f7f7;
+      color: #506066;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .78rem;
+      overflow-x: auto;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: .68rem;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .good { background: var(--success-soft); color: var(--success); }
+    .warn { background: var(--warning-soft); color: var(--warning); }
+    .bad { background: var(--danger-soft); color: var(--danger); }
+    .info { background: var(--teal-soft); color: var(--teal-dark); }
+
+    .teaching {
+      margin-top: 12px;
+      background: var(--rust-soft);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #6f3d2c;
+      font-size: .86rem;
+    }
+
+    .teaching strong { color: var(--rust); }
+
+    .curator {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--teal-dark);
+    }
+
+    .mechanism-box {
+      margin-top: 12px;
+      background: #f6f9fa;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #415158;
+      font-size: .86rem;
+    }
+
+    .mechanism-box strong {
+      color: var(--teal-dark);
+    }
+
+    .adapted-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .references {
+      margin-top: 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 8px 28px rgba(34, 69, 89, .05);
+    }
+
+    .references ul {
+      margin: 14px 0 0 18px;
+      padding: 0;
+      color: var(--muted);
+      font-size: .87rem;
+    }
+
+    .references li { margin: 7px 0; }
+    .references a { color: var(--teal); }
+
+    .disclaimer {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    @media (max-width: 980px) {
+      .index-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lab-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      .shell { width: min(100% - 18px, 1180px); margin-top: 10px; }
+      .hero { border-radius: 18px; padding: 28px 20px; }
+      .case-head { grid-template-columns: auto 1fr; }
+      .diagnosis-pill { grid-column: 1 / -1; justify-self: start; margin-left: 56px; }
+      .case-body { padding: 18px 15px 20px; }
+      .lab-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .step { grid-template-columns: 31px 1fr; }
+      .tag { grid-column: 2; justify-self: start; }
+    }
+
+    @media (max-width: 460px) {
+      .index-grid { grid-template-columns: 1fr; }
+      .diagnosis-pill { margin-left: 0; }
+      .case-head { grid-template-columns: 40px 1fr; padding: 18px 15px; }
+      .hero-actions .btn { flex: 1 1 auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">ABG Teaching Cases</div>
+      <h1>ABG Clinical Challenges</h1>
+      <p>
+        Thirty worked clinical vignettes using the same 8-step sequence as the ABG Analyzer:
+        internal consistency → pH → primary process → expected compensation → anion gap →
+        albumin correction/delta ratio → mixed-disorder check → oxygenation.
+        <br><span class="curator"><strong>Curated by Anupam Singh MD</strong>, Professor, Department of Medicine, Santosh Medical College</span>
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="expandAll">Expand all solutions</button>
+        <button class="btn btn-soft" id="collapseAll">Collapse all</button>
+        <button class="btn btn-rust" id="randomCase">Random case</button>
+      </div>
+    </section>
+
+    <section class="quick-index">
+      <h2 class="section-title">Case index</h2>
+      <p class="subtext">Each stem hides the acid–base diagnosis. Work through the data first; the final interpretation is deliberately shown only after the complete 8-step solution.</p>
+      <div class="index-grid" id="caseIndex"></div>
+    </section>
+
+    <section class="cases" id="cases"></section>
+
+    <section class="references">
+      <h2 class="section-title">Calculation rules used</h2>
+      <ul>
+        <li>Metabolic acidosis: Winter's formula — expected PaCO₂ = 1.5 × HCO₃⁻ + 8 ± 2 mmHg.</li>
+        <li>Metabolic alkalosis: expected PaCO₂ rises about 0.6–0.75 mmHg per 1 mEq/L rise in HCO₃⁻.</li>
+        <li>Respiratory acidosis: HCO₃⁻ rises about 1–2 mEq/L per 10 mmHg PaCO₂ acutely and 3–4 chronically.</li>
+        <li>Respiratory alkalosis: HCO₃⁻ falls about 1–2 mEq/L per 10 mmHg PaCO₂ acutely and 4–5 chronically.</li>
+        <li>Corrected AG = AG + 2.5 × (4 − albumin). Delta ratio = (corrected AG − normal AG)/(24 − HCO₃⁻).</li>
+        <li>Delta ratio: &lt;0.4 predominantly NAGMA; 0.4–0.8 mixed HAGMA + NAGMA; 0.8–2 predominantly HAGMA; &gt;2 HAGMA + metabolic alkalosis/elevated baseline HCO₃⁻.</li>
+      </ul>
+      <p class="adapted-note">
+        Cases 21–30 are literature-inspired teaching adaptations. Demographics, wording and selected laboratory values have been deliberately modified while preserving the teaching physiology.
+      </p>
+      <p class="disclaimer">
+        Educational examples only. Formula cutoffs are approximations and should be interpreted with the clinical setting,
+        timing of samples, treatment already given, albumin, renal function and laboratory method.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const cases = [
+      {
+        id: 1,
+        title: "Salicylate toxicity",
+        diagnosis: "HAGMA + respiratory alkalosis",
+        vignette: "A 30-year-old presents with tinnitus, nausea, tachypnea and altered behavior after taking an unknown number of analgesic tablets. He is warm, sweaty and breathing rapidly.",
+        values: { pH: 7.42, pCO2: 24, hco3: 15, na: 140, cl: 100, albumin: 4.0, pO2: 78, fio2: 0.21, age: 30 },
+        primary: "metabolic_acidosis",
+        overall: "High-anion-gap metabolic acidosis with an additional primary respiratory alkalosis.",
+        teaching: "A near-normal pH does not mean a normal ABG. Salicylate toxicity classically produces simultaneous respiratory alkalosis and HAGMA."
+      },
+      {
+        id: 2,
+        title: "DKA after large-volume normal saline",
+        diagnosis: "HAGMA + NAGMA",
+        vignette: "A 28-year-old with DKA receives insulin and 5–6 L of 0.9% saline. Glucose and ketones are improving, but bicarbonate remains low and chloride has risen markedly.",
+        values: { pH: 7.30, pCO2: 25, hco3: 12, na: 142, cl: 112, albumin: 4.0, pO2: 82, fio2: 0.21, age: 28 },
+        primary: "metabolic_acidosis",
+        overall: "Residual HAGMA from DKA plus hyperchloremic normal-anion-gap metabolic acidosis after saline, with appropriate respiratory compensation.",
+        teaching: "The delta ratio reveals the additional NAGMA. Rising chloride during DKA treatment is the major clue."
+      },
+      {
+        id: 3,
+        title: "DKA with persistent vomiting",
+        diagnosis: "HAGMA + metabolic alkalosis",
+        vignette: "A 35-year-old with diabetic ketoacidosis has had repeated vomiting for 24 hours. Ketones are strongly positive and the patient is dehydrated, but bicarbonate is higher than expected for the size of the anion gap.",
+        values: { pH: 7.33, pCO2: 35, hco3: 18, na: 140, cl: 94, albumin: 4.0, pO2: 90, fio2: 0.21, age: 35 },
+        primary: "metabolic_acidosis",
+        overall: "High-anion-gap metabolic acidosis with concurrent metabolic alkalosis; respiratory compensation is appropriate.",
+        teaching: "A bicarbonate below 24 does not exclude metabolic alkalosis. Delta ratio >2 can uncover alkalosis hidden by the HAGMA."
+      },
+      {
+        id: 4,
+        title: "Septic shock with ventilatory failure",
+        diagnosis: "HAGMA + respiratory acidosis",
+        vignette: "A 70-year-old with septic shock develops worsening lactic acidosis and progressive respiratory muscle fatigue. He is drowsy and hypoxemic despite supplemental oxygen.",
+        values: { pH: 7.10, pCO2: 60, hco3: 18, na: 138, cl: 102, albumin: 3.2, pO2: 55, fio2: 0.40, age: 70 },
+        primary: "metabolic_acidosis",
+        overall: "High-anion-gap metabolic acidosis with additional respiratory acidosis from inadequate ventilation.",
+        teaching: "In metabolic acidosis, a PaCO₂ above Winter's expected range is not compensation—it is a second respiratory acidosis."
+      },
+      {
+        id: 5,
+        title: "COPD on loop diuretics",
+        diagnosis: "Chronic respiratory acidosis + metabolic alkalosis",
+        vignette: "A 72-year-old with severe COPD and chronic CO₂ retention is treated with high-dose furosemide for edema. He becomes weak and has hypochloremia.",
+        values: { pH: 7.42, pCO2: 60, hco3: 38, na: 140, cl: 94, albumin: 3.8, pO2: 58, fio2: 0.28, age: 72 },
+        primary: "chronic_respiratory_acidosis",
+        overall: "Chronic respiratory acidosis with superimposed metabolic alkalosis, likely chloride/depletion related.",
+        teaching: "The pH can be near normal because the two disorders oppose each other. HCO₃⁻ is substantially higher than expected for chronic respiratory compensation alone."
+      },
+      {
+        id: 6,
+        title: "Cirrhosis with vomiting",
+        diagnosis: "Respiratory alkalosis + metabolic alkalosis",
+        vignette: "A 55-year-old with decompensated cirrhosis has chronic hyperventilation and then develops several days of vomiting and poor oral intake.",
+        values: { pH: 7.65, pCO2: 28, hco3: 30, na: 138, cl: 98, albumin: 3.0, pO2: 80, fio2: 0.21, age: 55 },
+        primary: "chronic_respiratory_alkalosis",
+        overall: "Chronic respiratory alkalosis with a strong superimposed metabolic alkalosis.",
+        teaching: "In chronic respiratory alkalosis, bicarbonate should fall. A bicarbonate of 30 mEq/L is therefore clearly not compensation."
+      },
+      {
+        id: 7,
+        title: "Pregnancy with severe diarrhea",
+        diagnosis: "NAGMA + respiratory alkalosis",
+        vignette: "A 32-year-old at 30 weeks' gestation has profuse watery diarrhea for 2 days. She is tachypneic but hemodynamically stable, with no prior renal disease.",
+        values: { pH: 7.37, pCO2: 25, hco3: 14, na: 140, cl: 114, albumin: 3.5, pO2: 95, fio2: 0.21, age: 32 },
+        primary: "metabolic_acidosis",
+        overall: "Normal-anion-gap metabolic acidosis with additional respiratory alkalosis.",
+        teaching: "Again, the almost-normal pH hides two primary disorders. The normal AG and high chloride point to bicarbonate loss rather than HAGMA."
+      },
+      {
+        id: 8,
+        title: "Diarrhea plus opioid hypoventilation",
+        diagnosis: "NAGMA + respiratory acidosis",
+        vignette: "A 48-year-old with several days of high-output diarrhea receives excessive opioid analgesia and becomes somnolent with shallow breathing.",
+        values: { pH: 7.12, pCO2: 45, hco3: 14, na: 140, cl: 114, albumin: 4.0, pO2: 70, fio2: 0.21, age: 48 },
+        primary: "metabolic_acidosis",
+        overall: "Normal-anion-gap metabolic acidosis with additional respiratory acidosis due to hypoventilation.",
+        teaching: "The PaCO₂ should be around 29 mmHg by Winter's formula. A PaCO₂ of 45 is a dangerous second process."
+      },
+      {
+        id: 9,
+        title: "Pneumonia with sepsis",
+        diagnosis: "HAGMA + respiratory alkalosis",
+        vignette: "A 68-year-old with severe pneumonia has fever, lactate elevation, tachypnea and increasing oxygen requirement. He is not yet fatigued and is hyperventilating strongly.",
+        values: { pH: 7.47, pCO2: 20, hco3: 14, na: 138, cl: 102, albumin: 2.8, pO2: 60, fio2: 0.40, age: 68 },
+        primary: "metabolic_acidosis",
+        overall: "High-anion-gap metabolic acidosis with additional respiratory alkalosis, plus significant oxygenation impairment.",
+        teaching: "Sepsis can produce lactic HAGMA and a separate respiratory alkalosis from increased respiratory drive."
+      },
+      {
+        id: 10,
+        title: "Severe infection with vomiting and marked tachypnea",
+        diagnosis: "HAGMA + metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 62-year-old with severe infection has lactate elevation, repeated vomiting and marked tachypnea. The pH is strikingly alkalemic despite an elevated anion gap.",
+        values: { pH: 7.58, pCO2: 22, hco3: 20, na: 140, cl: 92, albumin: 3.6, pO2: 70, fio2: 0.30, age: 62 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + metabolic alkalosis + respiratory alkalosis.",
+        teaching: "Winter's formula detects the respiratory alkalosis, while delta ratio >2 detects the additional metabolic alkalosis."
+      },
+      {
+        id: 11,
+        title: "DKA with diarrhea and new fever",
+        diagnosis: "HAGMA + NAGMA + respiratory alkalosis",
+        vignette: "A 24-year-old with DKA has ongoing profuse diarrhea. Several hours into treatment he develops fever, tachypnea and increasing inflammatory markers. Ketones remain positive and chloride is high.",
+        values: { pH: 7.37, pCO2: 18, hco3: 10, na: 140, cl: 112, albumin: 4.0, pO2: 75, fio2: 0.30, age: 24 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + normal-anion-gap metabolic acidosis + respiratory alkalosis.",
+        teaching: "Delta ratio 0.43 identifies an additional NAGMA, while PaCO₂ well below Winter's range identifies an additional respiratory alkalosis. A near-normal pH hides all three processes."
+      },
+      {
+        id: 12,
+        title: "Shock after saline resuscitation with somnolence",
+        diagnosis: "HAGMA + NAGMA + respiratory acidosis",
+        vignette: "A 67-year-old with shock receives several litres of 0.9% saline. Lactate remains elevated. After opioid analgesia he becomes somnolent with shallow respirations; chloride is now markedly increased.",
+        values: { pH: 7.04, pCO2: 38, hco3: 10, na: 140, cl: 112, albumin: 4.0, pO2: 68, fio2: 0.28, age: 67 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + hyperchloremic NAGMA + respiratory acidosis.",
+        teaching: "The low delta ratio shows a second metabolic acidosis, while failure to lower PaCO₂ to the Winter range exposes superimposed ventilatory failure."
+      },
+      {
+        id: 13,
+        title: "Pregnant patient with ketosis and persistent vomiting",
+        diagnosis: "HAGMA + metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 30-year-old at 28 weeks' gestation presents with poor intake, ketonemia and repeated vomiting. She is tachypneic, volume depleted and has low serum chloride.",
+        values: { pH: 7.48, pCO2: 25, hco3: 18, na: 140, cl: 92, albumin: 4.0, pO2: 95, fio2: 0.21, age: 30 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + metabolic alkalosis + respiratory alkalosis.",
+        teaching: "Delta ratio 3.0 indicates that bicarbonate is too high for the rise in AG, while PaCO₂ is substantially below Winter's expected range."
+      },
+      {
+        id: 14,
+        title: "Alcohol-related illness with vomiting and sedation",
+        diagnosis: "HAGMA + metabolic alkalosis + respiratory acidosis",
+        vignette: "A 46-year-old with heavy alcohol use presents after prolonged poor intake and repeated vomiting. He later receives sedating medication and becomes hypoventilated.",
+        values: { pH: 7.18, pCO2: 50, hco3: 18, na: 140, cl: 92, albumin: 4.0, pO2: 72, fio2: 0.28, age: 46 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + metabolic alkalosis + respiratory acidosis.",
+        teaching: "The delta ratio detects hidden metabolic alkalosis from vomiting; PaCO₂ above Winter's range demonstrates an additional respiratory acidosis."
+      },
+      {
+        id: 15,
+        title: "Sepsis with diarrhea on assisted ventilation",
+        diagnosis: "HAGMA + NAGMA + respiratory alkalosis",
+        vignette: "A 58-year-old with septic shock has lactate elevation and several days of diarrhea. After intubation, minute ventilation is high. Albumin is reduced and chloride is elevated.",
+        values: { pH: 7.40, pCO2: 20, hco3: 12, na: 138, cl: 108, albumin: 3.2, pO2: 70, fio2: 0.40, age: 58 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + NAGMA + respiratory alkalosis.",
+        teaching: "This is a classic 'normal pH' trap. Albumin correction raises the AG to 20, delta ratio 0.67 shows NAGMA, and PaCO₂ below Winter's range shows respiratory alkalosis."
+      },
+      {
+        id: 16,
+        title: "Advanced kidney disease with diarrhea and COPD flare",
+        diagnosis: "HAGMA + NAGMA + respiratory acidosis",
+        vignette: "A 71-year-old with advanced CKD and COPD presents with several days of diarrhea and worsening wheeze. He is drowsy, tachycardic and retaining CO₂.",
+        values: { pH: 7.05, pCO2: 45, hco3: 12, na: 140, cl: 110, albumin: 4.0, pO2: 60, fio2: 0.28, age: 71 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + NAGMA + respiratory acidosis.",
+        teaching: "Uremic acids raise the AG, diarrhea adds NAGMA, and PaCO₂ is far above the expected compensatory value because of concurrent ventilatory failure."
+      },
+      {
+        id: 17,
+        title: "DKA with vomiting after intubation",
+        diagnosis: "HAGMA + metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 39-year-old with DKA and repeated vomiting is intubated for agitation. Shortly afterward the set minute ventilation is high and the patient develops marked hypocapnia.",
+        values: { pH: 7.48, pCO2: 22, hco3: 16, na: 142, cl: 94, albumin: 4.0, pO2: 110, fio2: 0.35, age: 39 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + metabolic alkalosis + respiratory alkalosis.",
+        teaching: "A delta ratio of 2.5 supports concurrent metabolic alkalosis, while PaCO₂ 22 is much lower than Winter's expected 30–34 mmHg."
+      },
+      {
+        id: 18,
+        title: "Postoperative shock with NG suction and opioid exposure",
+        diagnosis: "HAGMA + metabolic alkalosis + respiratory acidosis",
+        vignette: "A 63-year-old postoperative patient has persistent nasogastric losses and then develops hypotension with rising lactate. Repeated opioid doses are followed by shallow breathing.",
+        values: { pH: 7.15, pCO2: 48, hco3: 16, na: 140, cl: 92, albumin: 3.6, pO2: 72, fio2: 0.30, age: 63 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + metabolic alkalosis + respiratory acidosis.",
+        teaching: "The corrected AG is 33 and delta ratio 2.63 indicates alkalosis from gastric losses; PaCO₂ above Winter's range reveals opioid-related respiratory acidosis."
+      },
+      {
+        id: 19,
+        title: "Analgesic overdose with profuse diarrhea",
+        diagnosis: "HAGMA + NAGMA + respiratory alkalosis",
+        vignette: "A 27-year-old presents with tinnitus, vomiting, tachypnea and confusion after an analgesic overdose. He has also had profuse diarrhea for two days and appears volume depleted.",
+        values: { pH: 7.43, pCO2: 17, hco3: 11, na: 139, cl: 109, albumin: 4.0, pO2: 88, fio2: 0.21, age: 27 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + NAGMA + respiratory alkalosis.",
+        teaching: "The near-normal pH is deceptive: delta ratio 0.54 supports an additional NAGMA, and PaCO₂ 17 is well below Winter's expected range."
+      },
+      {
+        id: 20,
+        title: "Cirrhosis with starvation, vomiting and tachypnea",
+        diagnosis: "HAGMA + metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 52-year-old with advanced cirrhosis has eaten very little for several days, has recurrent vomiting and is markedly tachypneic. Ketones are positive and albumin is low.",
+        values: { pH: 7.52, pCO2: 24, hco3: 19, na: 138, cl: 91, albumin: 3.0, pO2: 82, fio2: 0.21, age: 52 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: HAGMA + metabolic alkalosis + respiratory alkalosis.",
+        teaching: "Albumin correction raises the AG to 30.5, delta ratio 3.7 points to metabolic alkalosis, and PaCO₂ is far below Winter's expected range."
+      },
+      {
+        id: 21,
+        title: "Progressive weakness with hypokalemia",
+        diagnosis: "NAGMA + respiratory acidosis",
+        vignette: "A 31-year-old woman presents with two weeks of progressive generalized weakness and reduced deep-tendon reflexes. K⁺ is 2.7 mEq/L. Urine Na⁺, K⁺ and Cl⁻ give a small positive urine anion gap.",
+        values: { pH: 7.10, pCO2: 30, hco3: 9, na: 137, cl: 118, albumin: 4.0, pO2: 88, fio2: 0.21, age: 31 },
+        primary: "metabolic_acidosis",
+        overall: "Normal-anion-gap metabolic acidosis with superimposed respiratory acidosis.",
+        teaching: "The hyperchloremia identifies NAGMA, while PaCO₂ is far above Winter's expected range. A positive urine anion gap raises concern for impaired renal ammonium excretion."
+      },
+      {
+        id: 22,
+        title: "Acute confusion with unexplained tachypnea",
+        diagnosis: "HAGMA + respiratory alkalosis",
+        vignette: "A 33-year-old is brought to emergency after being found confused at home. She is tachypneic and mildly volume depleted. The osmolar gap is normal and no reliable medication history is initially available.",
+        values: { pH: 7.53, pCO2: 20, hco3: 16, na: 139, cl: 102, albumin: 4.0, pO2: 96, fio2: 0.21, age: 33 },
+        primary: "metabolic_acidosis",
+        overall: "High-anion-gap metabolic acidosis with an additional respiratory alkalosis; salicylate toxicity should be actively considered.",
+        teaching: "A low PaCO₂ is not automatically 'compensation.' Here it falls well below Winter's range while the anion gap is elevated."
+      },
+      {
+        id: 23,
+        title: "Severe flank pain with repeated vomiting",
+        diagnosis: "Metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 42-year-old man with acute colicky flank pain and microscopic hematuria has vomited repeatedly over several hours. He is anxious, tachycardic and breathing rapidly.",
+        values: { pH: 7.61, pCO2: 35, hco3: 34, na: 141, cl: 95, albumin: 4.0, pO2: 98, fio2: 0.21, age: 42 },
+        primary: "metabolic_alkalosis",
+        overall: "Metabolic alkalosis with an additional respiratory alkalosis.",
+        teaching: "Both bicarbonate and PaCO₂ are moving in the alkalinizing direction. Vomiting and pain can therefore produce additive severe alkalemia."
+      },
+      {
+        id: 24,
+        title: "Unexpected alkalemia after intubation",
+        diagnosis: "Post-hypercapnic metabolic alkalosis",
+        vignette: "A 69-year-old with long-standing hypercapnic lung disease has a known baseline PaCO₂ near 80–85 mmHg. Soon after intubation, PaCO₂ falls rapidly, but the bicarbonate remains markedly elevated.",
+        values: { pH: 7.46, pCO2: 58, hco3: 40, na: 139, cl: 90, albumin: 4.0, pO2: 110, fio2: 0.40, age: 69 },
+        primary: "chronic_respiratory_acidosis",
+        overall: "Post-hypercapnic metabolic alkalosis after abrupt reduction of PaCO₂ in a chronically hypercapnic patient.",
+        teaching: "Renal bicarbonate retention acquired during chronic hypercapnia does not disappear immediately when ventilation suddenly lowers PaCO₂."
+      },
+      {
+        id: 25,
+        title: "Increasing somnolence during pneumonia treatment",
+        diagnosis: "Acute-on-chronic respiratory acidosis",
+        vignette: "A 64-year-old with severe COPD is admitted with fever and lobar pneumonia. Baseline PaCO₂ is about 60 mmHg with HCO₃⁻ around 31. Twelve hours later he becomes increasingly somnolent.",
+        values: { pH: 7.24, pCO2: 80, hco3: 33, na: 136, cl: 91, albumin: 4.0, pO2: 70, fio2: 0.40, age: 64 },
+        primary: "acute_on_chronic_respiratory_acidosis",
+        primaryTextOverride: "The history establishes chronic CO₂ retention, followed by a new acute rise in PaCO₂ with acidemia. This is an acute respiratory deterioration on a chronically compensated background.",
+        compOverride: {
+          main: "The acute PaCO₂ rise from ~60 to 80 mmHg should increase HCO₃⁻ by only about 2 mEq/L; the observed change from ~31 to 33 mEq/L fits an acute increment on chronic hypercapnia.",
+          detail: "The prior gas is essential. Looking only at the second sample can obscure the acute-on-chronic physiology.",
+          formula: "Acute component: ΔHCO₃⁻ ≈ +1 mEq/L per 10 mmHg acute rise in PaCO₂",
+          tag: "Acute-on-chronic",
+          level: "warn"
+        },
+        overall: "Acute-on-chronic respiratory acidosis causing hypercapnic encephalopathy.",
+        teaching: "Serial gases and the known baseline are more informative than applying a single acute or chronic rule to the second ABG alone."
+      },
+      {
+        id: 26,
+        title: "Episodic ataxia after carbohydrate-rich meals",
+        diagnosis: "HAGMA + NAGMA",
+        vignette: "A 47-year-old with prior extensive small-bowel resection develops episodic slurred speech and gait unsteadiness after large carbohydrate meals. Routine L-lactate is normal.",
+        values: { pH: 7.31, pCO2: 27, hco3: 13, na: 138, cl: 106, albumin: 4.0, pO2: 92, fio2: 0.21, age: 47 },
+        primary: "metabolic_acidosis",
+        overall: "Mixed high-anion-gap and normal-anion-gap metabolic acidosis, strongly suggestive of D-lactic acidosis in the appropriate short-bowel setting.",
+        teaching: "The neurologic pattern after carbohydrate intake plus a normal routine L-lactate should prompt a specific D-lactate assay."
+      },
+      {
+        id: 27,
+        title: "Weakness after several days of poor intake",
+        diagnosis: "HAGMA + metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 49-year-old man with heavy alcohol use stopped drinking two days ago after developing epigastric discomfort, repeated vomiting and almost no food intake. He is tremulous and tachypneic.",
+        values: { pH: 7.50, pCO2: 28, hco3: 21, na: 137, cl: 85, albumin: 3.6, pO2: 88, fio2: 0.21, age: 49 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: high-anion-gap metabolic acidosis + metabolic alkalosis + respiratory alkalosis.",
+        teaching: "A very high delta ratio uncovers vomiting-related alkalosis, while PaCO₂ below Winter's range adds respiratory alkalosis from withdrawal, pain or another stimulus."
+      },
+      {
+        id: 28,
+        title: "Acute gastroenteritis with orthostatic symptoms",
+        diagnosis: "NAGMA + metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 36-year-old has two days of frequent large-volume watery stools together with repeated vomiting. She is lightheaded on standing, tachycardic and mildly tachypneic.",
+        values: { pH: 7.49, pCO2: 30, hco3: 22, na: 138, cl: 104, albumin: 4.0, pO2: 95, fio2: 0.21, age: 36 },
+        primary: "acute_respiratory_alkalosis",
+        step7Override: "The ABG alone resembles acute respiratory alkalosis with appropriate bicarbonate change. The history, however, supplies two opposing metabolic processes that can largely cancel in the serum bicarbonate: diarrhea lowers HCO₃⁻ while vomiting raises it.",
+        overall: "Triple disorder: normal-anion-gap metabolic acidosis from diarrhea + metabolic alkalosis from vomiting + acute respiratory alkalosis.",
+        teaching: "Opposing metabolic disorders can cancel numerically. A seemingly 'normal' bicarbonate does not exclude two simultaneous metabolic processes."
+      },
+      {
+        id: 29,
+        title: "Post-transplant ICU deterioration",
+        diagnosis: "HAGMA + metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 57-year-old several days after major thoracic surgery develops sepsis and oliguria. He had been receiving loop diuretics and is spontaneously breathing with pressure support. Lactate is 6.6 mmol/L and albumin is low.",
+        values: { pH: 7.46, pCO2: 31, hco3: 21.5, na: 140, cl: 100, albumin: 2.7, pO2: 75, fio2: 0.35, age: 57 },
+        primary: "metabolic_acidosis",
+        overall: "Triple disorder: high-anion-gap metabolic acidosis + metabolic alkalosis + mild respiratory alkalosis.",
+        teaching: "Albumin correction is crucial. Diuretic-associated chloride depletion and hypoalbuminemia can conceal a substantial acid load from lactate and renal failure."
+      },
+      {
+        id: 30,
+        title: "Abdominal sepsis with prolonged poor intake",
+        diagnosis: "Lactic HAGMA + starvation ketoacidosis + metabolic alkalosis + respiratory alkalosis",
+        vignette: "A 58-year-old presents with several days of abdominal pain, persistent vomiting and very poor intake. She is tachycardic and hypotensive; imaging suggests a perforated intra-abdominal viscus. Glucose is only mildly elevated.",
+        values: { pH: 7.55, pCO2: 25, hco3: 21, na: 133, cl: 91, albumin: 3.3, pO2: 90, fio2: 0.28, age: 58 },
+        primary: "metabolic_acidosis",
+        overall: "Four concurrent contributors: respiratory alkalosis + lactic high-anion-gap acidosis + starvation ketoacidosis + metabolic alkalosis from vomiting.",
+        teaching: "Do not attribute every perioperative or septic HAGMA to lactate. A gap larger than the measured lactate plus prolonged fasting should trigger a search for ketones and other acids."
+      }
+    ];
+
+    const clinicalNotes = {
+      "1": {
+            "mechanism": "Salicylate stimulates the medullary respiratory center while uncoupling oxidative metabolism, producing organic acids.",
+            "management": "Recognizing the dual process supports early alkalinization, potassium correction and toxicology/dialysis assessment; avoid losing the patient's high minute ventilation during airway management."
+      },
+      "2": {
+            "mechanism": "Ketoacids cause HAGMA, while chloride-rich saline and urinary ketoanion loss can leave a hyperchloremic acidosis as the gap closes.",
+            "management": "Continue treating DKA rather than chasing bicarbonate alone; consider balanced crystalloids and follow ketones/anion gap."
+      },
+      "3": {
+            "mechanism": "Ketoacid accumulation lowers bicarbonate, while repeated gastric HCl loss and contraction raise bicarbonate.",
+            "management": "Treat insulin deficiency and dehydration while also replacing chloride and potassium and controlling vomiting."
+      },
+      "4": {
+            "mechanism": "Lactate accumulation from shock adds metabolic acid while respiratory muscle failure prevents appropriate CO₂ clearance.",
+            "management": "Source control/resuscitation must be paired with ventilatory support; bicarbonate alone does not correct the ventilation problem."
+      },
+      "5": {
+            "mechanism": "Chronic CO₂ retention raises renal bicarbonate, and loop diuretics add chloride/potassium depletion and contraction alkalosis.",
+            "management": "Review diuretic need and volume status; replace KCl/chloride when appropriate and consider acetazolamide in selected volume-overloaded patients."
+      },
+      "6": {
+            "mechanism": "Cirrhosis can chronically increase ventilatory drive, while vomiting causes chloride-responsive metabolic alkalosis.",
+            "management": "Treat vomiting, volume/chloride and potassium deficits, and look for triggers of hyperventilation such as infection or hypoxemia."
+      },
+      "7": {
+            "mechanism": "Pregnancy lowers PaCO₂ physiologically, while diarrheal bicarbonate loss causes hyperchloremic acidosis.",
+            "management": "Replace fluid and electrolytes and treat the diarrheal cause; do not dismiss the case because the pH is near normal."
+      },
+      "8": {
+            "mechanism": "Diarrhea causes bicarbonate loss, while opioid-induced hypoventilation adds CO₂ retention.",
+            "management": "Restore ventilation/reverse opioid effect when indicated and simultaneously replace GI fluid, bicarbonate precursors and potassium losses."
+      },
+      "9": {
+            "mechanism": "Sepsis raises lactate and independently increases respiratory drive before respiratory fatigue develops.",
+            "management": "Treat infection and perfusion early while supporting oxygenation; a falling PaCO₂ may reflect sepsis physiology rather than 'good compensation' alone."
+      },
+      "10": {
+            "mechanism": "Lactic acid lowers bicarbonate, vomiting removes HCl, and sepsis/pain drives hyperventilation.",
+            "management": "Treat all three drivers: source control/perfusion, chloride/K replacement and protection of adequate ventilation."
+      },
+      "11": {
+            "mechanism": "DKA supplies ketoacids, diarrhea adds bicarbonate loss, and infection can generate an additional respiratory alkalosis.",
+            "management": "Insulin/ketone clearance, infection treatment and balanced fluid/electrolyte replacement are all required."
+      },
+      "12": {
+            "mechanism": "Shock produces lactate, saline increases chloride, and sedative/opioid hypoventilation raises PaCO₂.",
+            "management": "Correct shock and ventilation and avoid further unnecessary chloride loading; consider balanced fluids after initial resuscitation."
+      },
+      "13": {
+            "mechanism": "Ketosis produces HAGMA, vomiting creates chloride-depletion alkalosis, and pregnancy increases baseline ventilatory drive.",
+            "management": "Treat ketosis promptly, restore volume/K/Cl and assess maternal-fetal status and the trigger for poor intake."
+      },
+      "14": {
+            "mechanism": "Alcoholic/starvation ketosis adds HAGMA, vomiting adds alkalosis and sedatives can cause respiratory acidosis.",
+            "management": "Give thiamine before carbohydrate when appropriate, restore volume/electrolytes and protect ventilation while treating withdrawal safely."
+      },
+      "15": {
+            "mechanism": "Sepsis/lactate, diarrheal bicarbonate loss and excessive spontaneous or set minute ventilation can coexist.",
+            "management": "Treat infection and diarrhea, reassess ventilator targets and avoid interpreting a normal pH as resolution."
+      },
+      "16": {
+            "mechanism": "Uremic acids raise the gap, diarrhea adds hyperchloremic acidosis and COPD causes CO₂ retention.",
+            "management": "Assess dialysis indications, replace GI losses and support ventilation; each process needs separate treatment."
+      },
+      "17": {
+            "mechanism": "Ketoacidosis and vomiting coexist, while excessive ventilator minute ventilation can drive PaCO₂ below the needed compensatory range.",
+            "management": "Continue DKA therapy and chloride/K replacement while avoiding unnecessary iatrogenic hyperventilation."
+      },
+      "18": {
+            "mechanism": "Hypoperfusion raises lactate, NG losses remove HCl and opioids reduce alveolar ventilation.",
+            "management": "Correct the surgical/shock source, reassess NG losses and chloride/K deficits, and reverse or reduce respiratory depressants."
+      },
+      "19": {
+            "mechanism": "Salicylate produces HAGMA and respiratory alkalosis, while diarrhea adds a hyperchloremic bicarbonate-loss acidosis.",
+            "management": "Alkalinize and correct potassium, replace GI losses and assess for hemodialysis based on toxicity severity."
+      },
+      "20": {
+            "mechanism": "Starvation/ketosis adds HAGMA, vomiting adds alkalosis and cirrhosis can increase respiratory drive.",
+            "management": "Use thiamine/carbohydrate when indicated, restore chloride/K and search for infection, bleeding or other drivers of hyperventilation."
+      },
+      "21": {
+            "mechanism": "A renal acidification defect can cause hyperchloremic acidosis and potassium wasting; inadequate ventilation then adds CO₂ retention.",
+            "management": "Urine pH/UAG helps localize renal versus GI bicarbonate loss; aggressively correct K⁺, give alkali when appropriate and address hypoventilation."
+      },
+      "22": {
+            "mechanism": "Salicylate directly stimulates ventilation and increases ketone/lactate generation, producing respiratory alkalosis plus HAGMA.",
+            "management": "The pattern should trigger a salicylate level and early alkalinization strategy even before the ingestion history is complete."
+      },
+      "23": {
+            "mechanism": "Vomiting removes gastric HCl and contracts extracellular volume, while severe pain/anxiety can independently cause hyperventilation.",
+            "management": "Analgesia/antiemetics plus chloride and potassium replacement treat the mechanisms rather than the pH number alone."
+      },
+      "24": {
+            "mechanism": "Kidneys retain bicarbonate during chronic hypercapnia; after abrupt ventilatory correction, that bicarbonate persists for hours to days.",
+            "management": "Avoid excessive over-ventilation, correct chloride/K and volume deficits, and consider acetazolamide if chloride loading is undesirable."
+      },
+      "25": {
+            "mechanism": "Chronic CO₂ retention is compensated renally; pneumonia or excessive oxygen/sedation can acutely worsen alveolar ventilation and add a rapid PaCO₂ rise.",
+            "management": "Treat the pulmonary trigger, titrate oxygen, use NIV/invasive support as indicated and avoid sedatives that further suppress ventilation."
+      },
+      "26": {
+            "mechanism": "Colonic bacteria generate D-lactate after carbohydrate delivery in short bowel; urinary sodium-D-lactate loss can add a hyperchloremic component.",
+            "management": "Order a specific D-lactate assay, restrict the precipitating carbohydrate load, hydrate and treat contributing bacterial overgrowth when appropriate."
+      },
+      "27": {
+            "mechanism": "Alcoholic/starvation ketogenesis raises the gap, vomiting removes HCl and withdrawal/pain stimulates ventilation.",
+            "management": "Give thiamine and carbohydrate/fluids appropriately, replace K/Mg/Cl, control vomiting and manage withdrawal while excluding sepsis or pancreatitis."
+      },
+      "28": {
+            "mechanism": "Diarrhea lowers bicarbonate while vomiting raises it, so the two metabolic effects can cancel; pain/volume stress may add respiratory alkalosis.",
+            "management": "History is decisive: replace volume/K, treat both vomiting and diarrhea and avoid declaring the metabolic state normal from bicarbonate alone."
+      },
+      "29": {
+            "mechanism": "Sepsis/lactate and AKI add unmeasured acids, while loop diuresis, relative hypochloremia and hypoalbuminemia exert alkalinizing effects; tachypnea lowers PaCO₂.",
+            "management": "Treat sepsis and AKI, reassess diuretics/volume and chloride/K, and use albumin-corrected AG so the hidden acid load is not missed."
+      },
+      "30": {
+            "mechanism": "Bowel ischemia/sepsis produces lactate, prolonged fasting produces ketones, vomiting removes HCl and pain/sepsis drives hyperventilation.",
+            "management": "Urgent source control and resuscitation come first; also check ketones, provide carbohydrate/nutrition when safe, replace electrolytes and follow serial lactate/gap."
+      }
+};
+
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n, d = 1) => Number(n).toFixed(d).replace(/\.0$/, "");
+
+    function calcPH(hco3, pCO2) {
+      return 6.1 + Math.log10(hco3 / (0.03 * pCO2));
+    }
+
+    function calcAG(v) {
+      const raw = v.na - v.cl - v.hco3;
+      const corrected = raw + 2.5 * (4 - v.albumin);
+      return { raw, corrected };
+    }
+
+    function deltaInfo(v, correctedAG, normalAG = 12) {
+      const deltaAG = correctedAG - normalAG;
+      const deltaHCO3 = 24 - v.hco3;
+      if (correctedAG <= normalAG + 2 || deltaHCO3 <= 0) {
+        return {
+          applicable: false,
+          text: "Delta ratio is not interpreted because a clear HAGMA is not present."
+        };
+      }
+      const ratio = deltaAG / deltaHCO3;
+      let text = "";
+      if (ratio < 0.4) text = "Predominantly NAGMA; the high-gap contribution is small.";
+      else if (ratio < 0.8) text = "Mixed HAGMA + NAGMA.";
+      else if (ratio <= 2) text = "Predominantly HAGMA.";
+      else text = "HAGMA with concurrent metabolic alkalosis or elevated baseline HCO₃⁻.";
+      return { applicable: true, ratio, text, deltaAG, deltaHCO3 };
+    }
+
+    function compensation(c) {
+      const v = c.values;
+
+      if (c.compOverride) return c.compOverride;
+
+      if (c.primary === "metabolic_acidosis") {
+        const center = 1.5 * v.hco3 + 8;
+        const low = center - 2, high = center + 2;
+        let interpretation = "";
+        if (v.pCO2 < low) interpretation = "PaCO₂ is below the expected range → additional respiratory alkalosis.";
+        else if (v.pCO2 > high) interpretation = "PaCO₂ is above the expected range → additional respiratory acidosis.";
+        else interpretation = "PaCO₂ is within the expected range → appropriate respiratory compensation.";
+        return {
+          title: "Winter's formula",
+          main: interpretation,
+          detail: `Expected PaCO₂ = 1.5 × ${fmt(v.hco3)} + 8 = ${fmt(center)} mmHg (range ${fmt(low)}–${fmt(high)}); actual PaCO₂ = ${fmt(v.pCO2)} mmHg.`,
+          formula: `Expected PaCO₂ = 1.5 × HCO₃⁻ + 8 ± 2`
+        };
+      }
+
+      if (c.primary === "metabolic_alkalosis") {
+        const expected = 40 + 0.7 * (v.hco3 - 24);
+        const low = expected - 5, high = expected + 5;
+        let interpretation = "";
+        if (v.pCO2 < low) interpretation = "PaCO₂ is lower than expected → additional respiratory alkalosis.";
+        else if (v.pCO2 > high) interpretation = "PaCO₂ is higher than expected → additional respiratory acidosis.";
+        else interpretation = "PaCO₂ is within the expected range → appropriate respiratory compensation.";
+        return {
+          title: "Metabolic alkalosis compensation",
+          main: interpretation,
+          detail: `Expected PaCO₂ ≈ 40 + 0.7 × (${fmt(v.hco3)} − 24) = ${fmt(expected)} mmHg (practical range ${fmt(low)}–${fmt(high)}); actual PaCO₂ = ${fmt(v.pCO2)} mmHg.`,
+          formula: `Expected PaCO₂ ≈ 40 + 0.7 × (HCO₃⁻ − 24)`
+        };
+      }
+
+      if (c.primary === "acute_respiratory_alkalosis") {
+        const deltaCO2 = 40 - v.pCO2;
+        const expected = 24 - 2 * (deltaCO2 / 10);
+        const low = expected - 2, high = expected + 2;
+        let interpretation = "";
+        if (v.hco3 < low) interpretation = "HCO₃⁻ is lower than expected → additional metabolic acidosis.";
+        else if (v.hco3 > high) interpretation = "HCO₃⁻ is higher than expected → additional metabolic alkalosis.";
+        else interpretation = "HCO₃⁻ is within the expected acute compensation range.";
+        return {
+          title: "Acute respiratory alkalosis compensation",
+          main: interpretation,
+          detail: `Expected HCO₃⁻ ≈ 24 − 2 × (40 − ${fmt(v.pCO2)})/10 = ${fmt(expected)} mEq/L; actual HCO₃⁻ = ${fmt(v.hco3)} mEq/L.`,
+          formula: `Acute respiratory alkalosis: HCO₃⁻ falls ≈2 mEq/L per 10 mmHg fall in PaCO₂`
+        };
+      }
+
+      if (c.primary === "chronic_respiratory_acidosis") {
+        const deltaCO2 = v.pCO2 - 40;
+        const expected = 24 + 3.5 * (deltaCO2 / 10);
+        return {
+          title: "Chronic respiratory acidosis compensation",
+          main: `Expected HCO₃⁻ is about ${fmt(expected)} mEq/L; actual HCO₃⁻ is ${fmt(v.hco3)} → additional metabolic alkalosis.`,
+          detail: `Using +3.5 mEq/L HCO₃⁻ per 10 mmHg chronic rise in PaCO₂: 24 + 3.5 × (${fmt(v.pCO2)}−40)/10 = ${fmt(expected)}.`,
+          formula: `Expected HCO₃⁻ ≈ 24 + 3.5 × (PaCO₂ − 40)/10`
+        };
+      }
+
+      if (c.primary === "chronic_respiratory_alkalosis") {
+        const deltaCO2 = 40 - v.pCO2;
+        const expected = 24 - 5 * (deltaCO2 / 10);
+        return {
+          title: "Chronic respiratory alkalosis compensation",
+          main: `Expected HCO₃⁻ is about ${fmt(expected)} mEq/L; actual HCO₃⁻ is ${fmt(v.hco3)} → additional metabolic alkalosis.`,
+          detail: `Using −5 mEq/L HCO₃⁻ per 10 mmHg chronic fall in PaCO₂: 24 − 5 × (40−${fmt(v.pCO2)})/10 = ${fmt(expected)}.`,
+          formula: `Expected HCO₃⁻ ≈ 24 − 5 × (40 − PaCO₂)/10`
+        };
+      }
+    }
+
+    function oxygenation(v) {
+      const PB = 760, R = 0.8;
+      const PAO2 = v.fio2 * (PB - 47) - v.pCO2 / R;
+      const aa = PAO2 - v.pO2;
+      const pf = v.pO2 / v.fio2;
+      let band = "";
+      if (pf >= 300) band = "P/F ≥300";
+      else if (pf >= 200) band = "P/F 200–299";
+      else if (pf >= 100) band = "P/F 100–199";
+      else band = "P/F <100";
+      return { PAO2, aa, pf, band };
+    }
+
+    function pHLabel(pH) {
+      if (pH < 7.35) return ["Acidemia", "bad"];
+      if (pH > 7.45) return ["Alkalemia", "warn"];
+      return ["pH in reference range", "good"];
+    }
+
+    function primaryText(c) {
+      if (c.primaryTextOverride) return c.primaryTextOverride;
+      if (c.primary === "metabolic_acidosis") {
+        return "Metabolic acidosis is present because HCO₃⁻ is reduced. The compensation step determines whether the respiratory response is appropriate or represents a second primary disorder.";
+      }
+      if (c.primary === "chronic_respiratory_acidosis") {
+        return "Chronic respiratory acidosis is present from sustained hypercapnia; bicarbonate should rise only to the expected chronic-compensation range.";
+      }
+      if (c.primary === "chronic_respiratory_alkalosis") {
+        return "Chronic respiratory alkalosis is present from sustained hypocapnia; bicarbonate should fall with renal compensation.";
+      }
+      if (c.primary === "metabolic_alkalosis") {
+        return "Metabolic alkalosis is present because HCO₃⁻ is elevated. The PaCO₂ response should move upward; failure to do so suggests an additional respiratory process.";
+      }
+      if (c.primary === "acute_respiratory_alkalosis") {
+        return "Acute respiratory alkalosis is suggested by alkalemia with a reduced PaCO₂. The expected immediate bicarbonate fall can be tested against the measured value.";
+      }
+      if (c.primary === "acute_on_chronic_respiratory_acidosis") {
+        return "Serial values show a new acute rise in PaCO₂ on top of chronic CO₂ retention.";
+      }
+      return "";
+    }
+
+    function mixedText(c, delta) {
+      if (delta.applicable) {
+        return `${c.overall} Delta ratio = ${fmt(delta.ratio, 2)} (${delta.text})`;
+      }
+      return c.overall;
+    }
+
+    function stepCard(n, title, main, detail, tag, tagClass = "info", formula = "") {
+      return `
+        <div class="step">
+          <div class="step-num">${n}</div>
+          <div>
+            <h3>${title}</h3>
+            <div class="step-main">${main}</div>
+            <div class="step-detail">${detail}${formula ? `<div class="formula">${formula}</div>` : ""}</div>
+          </div>
+          <div class="tag ${tagClass}">${tag}</div>
+        </div>`;
+    }
+
+    function renderCase(c) {
+      const v = c.values;
+      const impliedPH = calcPH(v.hco3, v.pCO2);
+      const phDiff = Math.abs(v.pH - impliedPH);
+      const ag = calcAG(v);
+      const delta = deltaInfo(v, ag.corrected);
+      const comp = compensation(c);
+      const ox = oxygenation(v);
+      const [pHState, pHClass] = pHLabel(v.pH);
+
+      const agState = ag.corrected > 14 ? "High AG" : (ag.corrected < 10 ? "Low AG" : "Normal AG");
+      const agClass = ag.corrected > 14 ? "warn" : "good";
+
+      const deltaDetail = delta.applicable
+        ? `ΔAG = ${fmt(ag.corrected)} − 12 = ${fmt(delta.deltaAG)}; ΔHCO₃ = 24 − ${fmt(v.hco3)} = ${fmt(delta.deltaHCO3)}. ${delta.text}`
+        : delta.text;
+
+      const deltaFormula = delta.applicable
+        ? `Delta ratio = (${fmt(ag.corrected)} − 12) / (24 − ${fmt(v.hco3)}) = ${fmt(delta.ratio, 2)}`
+        : "";
+
+      const steps = [
+        stepCard(
+          1, "Internal consistency",
+          phDiff <= 0.02 ? "Reported pH is internally consistent with PaCO₂ and HCO₃⁻." : "Internal inconsistency detected.",
+          `Henderson–Hasselbalch calculated pH = ${fmt(impliedPH, 3)}; reported pH = ${fmt(v.pH, 2)}; ΔpH = ${fmt(phDiff, 3)}.`,
+          phDiff <= 0.02 ? "Consistent" : "Check values",
+          phDiff <= 0.02 ? "good" : "bad",
+          `pH = 6.1 + log₁₀(HCO₃⁻ / (0.03 × PaCO₂))`
+        ),
+        stepCard(
+          2, "Acidemia or alkalemia",
+          pHState,
+          `Reported pH = ${fmt(v.pH, 2)}. A pH in the reference range does not exclude a mixed disorder when PaCO₂ and HCO₃⁻ are both abnormal.`,
+          pHState,
+          pHClass
+        ),
+        stepCard(
+          3, "Primary acid–base process",
+          primaryText(c),
+          `PaCO₂ = ${fmt(v.pCO2)} mmHg; HCO₃⁻ = ${fmt(v.hco3)} mEq/L.`,
+          "Pattern",
+          "info"
+        ),
+        stepCard(
+          4, "Expected compensation",
+          comp.main,
+          comp.detail,
+          comp.tag || (comp.main.includes("additional") ? "Mixed" : "Compensated"),
+          comp.level || (comp.main.includes("additional") ? "warn" : "good"),
+          comp.formula
+        ),
+        stepCard(
+          5, "Anion gap",
+          `Raw anion gap = ${fmt(ag.raw)} mEq/L → ${agState}.`,
+          `Na ${fmt(v.na)} − (Cl ${fmt(v.cl)} + HCO₃⁻ ${fmt(v.hco3)}) = ${fmt(ag.raw)} mEq/L.`,
+          agState,
+          agClass,
+          `AG = Na⁺ − (Cl⁻ + HCO₃⁻)`
+        ),
+        stepCard(
+          6, "Albumin correction & delta ratio",
+          `Albumin-corrected AG = ${fmt(ag.corrected)} mEq/L.${delta.applicable ? ` Delta ratio = ${fmt(delta.ratio, 2)}.` : ""}`,
+          deltaDetail,
+          delta.applicable ? "Delta assessed" : "Delta N/A",
+          delta.applicable ? "warn" : "info",
+          `Corrected AG = ${fmt(ag.raw)} + 2.5 × (4 − ${fmt(v.albumin)}) = ${fmt(ag.corrected)}${deltaFormula ? `<br>${deltaFormula}` : ""}`
+        ),
+        stepCard(
+          7, "Mixed disorder check",
+          c.step7Override || (delta.applicable
+            ? `More than one primary process is likely. Delta ratio ${fmt(delta.ratio, 2)} must be integrated with the compensation result and clinical history.`
+            : "Integrate the compensation pattern with the clinical history; opposing primary processes may partly cancel and produce deceptively normal values."),
+          "Do not stop at the pH. Reconcile the direction and magnitude of PaCO₂, HCO₃⁻, chloride, anion gap and the clinical timeline before naming the final pattern.",
+          "Synthesize",
+          "warn"
+        ),
+        stepCard(
+          8, "Oxygenation",
+          `P/F ratio ${fmt(ox.pf, 0)} (${ox.band}); A–a gradient ${fmt(ox.aa)} mmHg.`,
+          `Calculated PAO₂ = ${fmt(ox.PAO2)} mmHg using FiO₂ ${Math.round(v.fio2 * 100)}%, PB 760 mmHg and R 0.8. Oxygenation values describe gas exchange; they do not by themselves diagnose ARDS.`,
+          ox.band,
+          ox.pf < 300 ? "warn" : "good",
+          `PAO₂ = FiO₂ × (760 − 47) − PaCO₂/0.8; P/F = PaO₂/FiO₂`
+        )
+      ].join("");
+
+      return `
+        <article class="case-card" id="case-${c.id}">
+          <div class="case-head">
+            <div class="case-num">${c.id}</div>
+            <div>
+              <h2 class="case-title">${c.title}</h2>
+              <div class="case-subtitle">Clinical vignette</div>
+            </div>
+          </div>
+
+          <div class="case-body">
+            <div class="vignette"><strong>Vignette:</strong> ${c.vignette}</div>
+
+            <div class="lab-grid">
+              <div class="lab"><span>pH</span><strong>${fmt(v.pH, 2)}</strong></div>
+              <div class="lab"><span>PaCO₂</span><strong>${fmt(v.pCO2)} mmHg</strong></div>
+              <div class="lab"><span>HCO₃⁻</span><strong>${fmt(v.hco3)} mEq/L</strong></div>
+              <div class="lab"><span>Na⁺</span><strong>${fmt(v.na)}</strong></div>
+              <div class="lab"><span>Cl⁻</span><strong>${fmt(v.cl)}</strong></div>
+              <div class="lab"><span>Albumin</span><strong>${fmt(v.albumin)} g/dL</strong></div>
+              <div class="lab"><span>PaO₂</span><strong>${fmt(v.pO2)} mmHg</strong></div>
+              <div class="lab"><span>FiO₂</span><strong>${Math.round(v.fio2 * 100)}%</strong></div>
+            </div>
+
+            <div class="answer-bar">
+              <div class="hint">Try interpreting it before revealing the calculation.</div>
+              <button class="btn btn-primary reveal" data-id="${c.id}">Show 8-step solution</button>
+            </div>
+
+            <div class="solution">
+              <div class="steps">${steps}</div>
+              <div class="teaching"><strong>Teaching point:</strong> ${c.teaching}</div>
+              <div class="mechanism-box">
+                <strong>Possible etiopathogenesis:</strong> ${clinicalNotes[c.id]?.mechanism || "Correlate the acid–base pattern with the clinical history and treatment timeline."}
+                <br><strong>Why this changes management:</strong> ${clinicalNotes[c.id]?.management || "Treat the underlying drivers rather than the pH value in isolation."}
+              </div>
+              <div class="overall" style="margin-top:12px;margin-bottom:0">
+                <div class="label">Final interpretation</div>
+                <div class="text">${c.overall}</div>
+              </div>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    function render() {
+      $("caseIndex").innerHTML = cases.map(c => `
+        <a class="index-link" href="#case-${c.id}">
+          <span class="n">Case ${c.id}</span>
+          <strong>${c.title}</strong>
+        </a>
+      `).join("");
+
+      $("cases").innerHTML = cases.map(renderCase).join("");
+
+      document.querySelectorAll(".reveal").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const card = $("case-" + btn.dataset.id);
+          card.classList.toggle("open");
+          btn.textContent = card.classList.contains("open") ? "Hide solution" : "Show 8-step solution";
+        });
+      });
+    }
+
+    $("expandAll").addEventListener("click", () => {
+      document.querySelectorAll(".case-card").forEach(card => card.classList.add("open"));
+      document.querySelectorAll(".reveal").forEach(btn => btn.textContent = "Hide solution");
+    });
+
+    $("collapseAll").addEventListener("click", () => {
+      document.querySelectorAll(".case-card").forEach(card => card.classList.remove("open"));
+      document.querySelectorAll(".reveal").forEach(btn => btn.textContent = "Show 8-step solution");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    $("randomCase").addEventListener("click", () => {
+      const c = cases[Math.floor(Math.random() * cases.length)];
+      const card = $("case-" + c.id);
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    render();
+  </script>
+</body>
+</html>
