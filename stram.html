@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinical Case Viva: Acute Wake-up Stroke with Right Hemiparesis and Dysarthria</title>
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background-color: #f4f7f9;
+    }
+    .container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+    h1 {
+        color: #23455A;
+        border-bottom: 4px solid #9A4D33;
+        padding-bottom: 15px;
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+    .authors-box {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #D8CCC0;
+        padding-bottom: 20px;
+        color: #555;
+    }
+    .authors-box p {
+        margin: 5px 0;
+    }
+    .app-link {
+        color: #9A4D33;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .app-link:hover {
+        text-decoration: underline;
+    }
+    h3 {
+        background-color: #23455A;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 6px;
+        margin-top: 60px;
+        font-size: 1.8em;
+        box-shadow: 0 4px 12px rgba(35, 69, 90, 0.2);
+    }
+    .user-block {
+        background: #f9fbfd;
+        border: 1px solid #e1e8ed;
+        border-left: 8px solid #23455A;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .summary-block {
+        background: #fdfaf7;
+        border: 1px solid #f3e8df;
+        border-left: 8px solid #9A4D33;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .summary-block h4 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.3em;
+        color: #9A4D33;
+        border-bottom: 2px solid #f3e8df;
+        padding-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .summary-block ul {
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+    .summary-block li {
+        margin-bottom: 6px;
+    }
+    .summary-block p {
+        margin-bottom: 10px;
+    }
+    .responses-grid {
+        display: flex;
+        gap: 25px;
+        margin-top: 20px;
+    }
+    .col {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    h4 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+        text-transform: uppercase;
+        padding: 10px 15px;
+        border-left: 6px solid;
+        border-radius: 4px;
+        letter-spacing: 1px;
+    }
+    .resident-header {
+        color: #5D6E42;
+        border-color: #5D6E42;
+        background-color: #E6ECD9;
+    }
+    .expert-header {
+        color: #9A4D33;
+        border-color: #9A4D33;
+        background-color: #F3E4DC;
+    }
+    .content {
+        background: #fff;
+        border: 1px solid #eee;
+        padding: 20px;
+        border-radius: 8px;
+        height: 100%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    strong {
+        color: #23455A;
+    }
+    .content p strong {
+        color: #1a1a1a;
+    }
+    .missing { color: #9a3412; font-style: italic; }
+    
+    @media (max-width: 900px) {
+      .responses-grid {
+          flex-direction: column;
+      }
+      .container {
+          padding: 20px;
+      }
+    }
+    
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; max-width: 100%; }
+      .round { break-inside: avoid; }
+      .responses-grid { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><strong>CLINICAL CASE VIVA: ACUTE WAKE-UP STROKE WITH RIGHT HEMIPARESIS AND DYSARTHRIA</strong></h1>
+    <div class="authors-box">
+        <p><strong>Authors: GEMINI, CHATGPT & ANUPAM SINGH MD (Human in loop)</strong></p>
+        <p>Department of Medicine, Santosh Medical College.</p>
+        <p><a href="https://medstats.github.io/agenticviva.html" class="app-link">← Back to Agentic Viva Cases Index</a> | <a href="https://medstats.github.io/smcrounds.html" target="_blank" class="app-link">Clinical Rounds App</a></p>
+    </div>
+    
+<section class="round">
+  <h3>Round 1</h3>
+  <div class="user-block"><p><strong>USER:</strong> <strong>Patient profile<br><br>65-year-old female, known hypertensive.<br><br>Chief complaints<br><br>Right-sided weakness — 1 day<br><br>Deviation of angle of mouth<br><br>Slurring of speech<br><br>The handwritten notes appear to indicate that the patient went to sleep at night and woke up around 4 AM with the neurological deficits. A time of ~9:30 PM one day prior is also written, likely referring to the preceding evening/last-known-well time.<br><br>History of Presenting Illness<br><br>The patient was apparently asymptomatic prior to the present episode. She developed sudden-onset deviation of the angle of the mouth towards the left, noticed by her relatives. The deviation was acute in onset and non-progressive. There was no associated difficulty in closing the eyes. Drooling of saliva is mentioned in the printed history, although this portion appears to have been marked/corrected on the sheet.<br><br>At around the same time, she developed weakness of the right upper and right lower limbs. The weakness was sudden in onset and involved both limbs. It was noticed as difficulty in performing routine activities with the right upper limb and difficulty in standing/walking using the right lower limb.<br><br>There was no preceding gradually progressive weakness or diurnal variation. There was no similar weakness involving the left side, neck or trunk, and no difficulty in breathing attributable to muscle weakness.<br><br>She also developed acute-onset slurring of speech. She was able to understand spoken language and communicate appropriately. There was no definite history suggestive of aphasia—no inability to comprehend speech, inappropriate use of words, inability to name familiar objects, or inability to understand commands. There was no nasal twang, nasal regurgitation or difficulty in swallowing.<br><br>Spinomotor symptoms<br><br>There was no preceding wasting or thinning of muscles, fasciculations, painful muscle cramps or involuntary movements such as tremor, chorea, athetosis or hemiballismus.<br><br>There was no history of fatigability or diurnal variation in weakness.<br><br>Sensory symptoms<br><br>There was no history of numbness, tingling, pins-and-needles sensation, burning sensation or abnormal hot/cold sensation. There was no history of radicular pain, neck pain or back pain.<br><br>The document itself notes that the examination sheet may have documented a sensory abnormality, so this negative sensory history should be reconciled with the examination findings.<br><br>Higher mental functions<br><br>There was no history of:<br><br>Loss of consciousness or alteration in sensorium<br><br>Abnormal behaviour<br><br>Memory disturbance<br><br>Hallucinations or delusions<br><br>Seizures, tongue bite, frothing from the mouth, or involuntary passage of urine/stool<br><br>There was no history suggestive of aphasia. The speech disturbance was predominantly slurring of speech, clinically suggestive of dysarthria.<br><br>Cranial nerve-related history<br><br>There was no history of:<br><br>Loss of smell<br><br>Diminution or blurring of vision<br><br>Diplopia<br><br>Drooping of eyelids<br><br>Inability to close the eyes completely<br><br>Facial numbness<br><br>Difficulty in chewing<br><br>Hearing impairment<br><br>Tinnitus<br><br>Vertigo<br><br>Dysphagia<br><br>Nasal regurgitation<br><br>Nasal quality of speech<br><br>Difficulty turning the neck or shrugging the shoulders<br><br>Difficulty manipulating food with the tongue<br><br>There was deviation of the angle of the mouth towards the left.<br><br>There was no history of postural giddiness, abnormal sweating or other definite autonomic symptoms.<br><br>Meningeal symptoms<br><br>There was no history of fever, severe headache or recurrent vomiting. The remainder of this line is partly cut off in the photograph.<br><br>Relevant negative history for acute CVA<br><br>There was no history of:<br><br>Head trauma preceding the event<br><br>Severe headache or recurrent vomiting at onset<br><br>Seizures or loss of consciousness<br><br>Previous similar transient neurological deficit/TIA<br><br>Chest pain or palpitations around onset<br><br>Recent fever or systemic infection<br><br>Anticoagulant use<br><br>Past history<br><br>She is a known hypertensive for approximately 8 years, with irregular medication use.<br><br>Handwritten annotation also records:<br><br>Bilateral cataract surgery approximately 24 years ago.<br><br>Family history<br><br>No significant family history.<br><br>Short case summary<br><br>A 65-year-old hypertensive female with irregular treatment, apparently well before sleep, developed/woke with sudden left facial deviation, dysarthria and right upper- and lower-limb weakness, maximal at/near onset and non-progressive, without loss of consciousness, seizures, severe headache, vomiting, diplopia, dysphagia or definite cortical language dysfunction—clinically suggestive of an acute left hemispheric cerebrovascular event.<br><br>Show moreShow less</strong></p></div>
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History Phase)</h4>
+<p><strong>Case Summary (Positive Findings):</strong></p>
+<ul>
+  <li><strong>Demographics/Risk Factors:</strong> 65-year-old female, known hypertensive for approximately 8 years with irregular medication use.</li>
+  <li><strong>Onset/Course:</strong> "Wake-up stroke" (last known well ~9:30 PM, woke with deficits ~4 AM), sudden onset, maximal at onset, non-progressive.</li>
+  <li><strong>Motor Deficits:</strong>
+    <ul>
+      <li>Right upper limb weakness (difficulty with routine activities).</li>
+      <li>Right lower limb weakness (difficulty standing/walking).</li>
+      <li>Deviation of angle of mouth towards the left (acute, non-progressive, no difficulty closing eyes, clinically suggestive of a central facial palsy).</li>
+    </ul>
+  </li>
+  <li><strong>Speech/Communication:</strong> Acute-onset slurring of speech (dysarthria), able to understand spoken language and communicate appropriately (no definite history suggestive of aphasia).</li>
+  <li><strong>Associated Symptoms (Uncertain):</strong> Drooling of saliva (mentioned, but noted as marked/corrected in history).</li>
+  <li><strong>Relevant Negative History (supporting specific diagnoses):</strong> No loss of consciousness, seizures, severe headache, recurrent vomiting, diplopia, dysphagia, or definite cortical language dysfunction. No preceding head trauma, TIA, chest pain, palpitations, recent fever, or anticoagulant use.</li>
+</ul>
+<p><strong>Probability-Based Differential Diagnoses (on the basis of History):</strong></p>
+<ol>
+  <li><strong>Ischemic Stroke (85%):</strong> This is the most probable diagnosis given the sudden onset of focal neurological deficits (right hemiparesis, central left facial palsy, dysarthria) in a patient with a significant vascular risk factor (hypertension with irregular treatment). The "wake-up stroke" pattern, maximal deficit at onset, and the absence of severe headache, vomiting, or altered consciousness strongly favor an ischemic event.</li>
+  <li><strong>Intracerebral Hemorrhage (10%):</strong> While less likely than ischemic stroke due to the absence of classic symptoms like severe headache, vomiting, or altered consciousness, intracerebral hemorrhage can present with sudden focal neurological deficits, especially in a hypertensive patient. Smaller bleeds or those in specific locations might not cause the more dramatic symptoms.</li>
+  <li><strong>Stroke Mimic (e.g., Todd's Paralysis post-seizure, complicated migraine) (2%):</strong> Although seizures are explicitly denied, a focal seizure with post-ictal weakness (Todd's paralysis) could theoretically cause sudden, transient weakness. A complicated migraine with prolonged aura is another less common mimic, though less likely given the specific constellation of motor deficits and the patient's age.</li>
+  <li><strong>Brain Tumor (with acute event like hemorrhage or edema) (2%):</strong> While typically presenting with a more progressive course, a brain tumor can acutely manifest with focal neurological deficits due to hemorrhage within the tumor or sudden increase in peritumoral edema, thereby mimicking a stroke.</li>
+  <li><strong>Subdural Hematoma (Chronic) (1%):</strong> Although acute trauma is denied, a chronic subdural hematoma can present with subacute or even seemingly sudden neurological deficits, particularly in older individuals, sometimes without a clear history of trauma. However, the "maximal at onset" and non-progressive nature makes it less typical for a chronic SDH.</li>
+</ol>
+  </div>
+  <div class="responses-grid">
+    <div class="col chatgpt-col">
+      <h4 class="expert-header">CHATGPT</h4>
+      <div class="content"><p><strong>Q1 What is the most important point regarding the onset and timing of this neurological deficit?</strong></p>
+<p><strong>MODEL_ANS1</strong> The deficit is sudden in onset and maximal at or near onset, strongly favouring a vascular event. Because the patient was apparently normal when she went to sleep and the deficit was first noticed on awakening around 4 AM, the history must clearly document the last-known-well time—approximately 9:30 PM if that was when she was last definitely normal—and the time the deficit was first discovered. Alagappan emphasizes that stroke typically has a sudden onset with rapid/maximal neurological deficit, unlike many stroke mimics. Kundu discusses this under Nervous System → Hemiplegia → Cerebrovascular diseases.</p>
+<p><strong>Q2 From the history alone, where would you localize the lesion?</strong></p>
+<p><strong>MODEL_ANS2</strong> Right upper- and lower-limb weakness with deviation of the mouth to the left implies weakness of the right lower face and right limbs, localizing the lesion above the facial nucleus on the left side, most plausibly in the left cerebral hemisphere/internal capsule. A vascular UMN facial palsy commonly accompanies contralateral hemiplegia. Alagappan lists carotid-territory stroke features including UMN VII nerve involvement and hemiplegia.</p>
+<p><strong>Q3 Why does preservation of eye closure help you clinically?</strong></p>
+<p><strong>MODEL_ANS3</strong> In a supranuclear/UMN facial palsy, weakness predominantly affects the contralateral lower face, while upper facial movements are relatively preserved because of bilateral cortical innervation. Thus preserved eye closure with mouth deviation supports a central facial palsy rather than a complete LMN facial palsy such as Bell’s palsy. Alagappan describes vascular disease as a common cause of UMN VII nerve palsy and contrasts it with LMN facial palsy.</p>
+<p><strong>Q4 Is the speech disturbance aphasia or dysarthria from this history?</strong></p>
+<p><strong>MODEL_ANS4</strong> The history favours dysarthria, because articulation is slurred while comprehension and appropriate communication are preserved, with no clear naming, comprehension, or command-following deficit. Alagappan defines dysarthria as difficulty in articulation, whereas aphasia is a disorder of comprehension or production of language. Examination should still formally test spontaneous speech, naming, comprehension, repetition, reading, and writing.</p>
+<p><strong>Q5 Does the absence of aphasia rule out a left hemispheric stroke?</strong></p>
+<p><strong>MODEL_ANS5</strong> No. Aphasia occurs when the dominant cortical language areas or their connections are involved; a subcortical/internal capsular lesion may produce contralateral hemiplegia and dysarthria without aphasia. MCA stem or dominant cortical involvement may produce aphasia, whereas different MCA branch or penetrating-vessel lesions have different manifestations.</p>
+<p><strong>Q6 Which vascular territory is suggested by this presentation?</strong></p>
+<p><strong>MODEL_ANS6</strong> A left carotid/anterior-circulation territory, particularly the MCA or its penetrating vessels, is suggested by contralateral face-arm-leg motor weakness. Alagappan describes carotid-territory stroke as producing UMN VII palsy, hemiplegia, sensory disturbance, visual-field abnormalities, and sometimes speech disorder.</p>
+<p><strong>Q7 What historical features would have suggested vertebrobasilar rather than carotid-territory disease?</strong></p>
+<p><strong>MODEL_ANS7</strong> Important vertebrobasilar symptoms include diplopia, vertigo/dizziness, dysphagia, lower cranial nerve symptoms, drop attacks, bilateral or crossed motor deficits, and cortical blindness. Their absence here makes a straightforward vertebrobasilar presentation less likely.</p>
+<p><strong>Q8 What is the importance of asking about severe headache, vomiting, seizure, and loss of consciousness?</strong></p>
+<p><strong>MODEL_ANS8</strong> These features help assess the nature and severity of an acute cerebrovascular event. Their absence makes a presentation dominated by focal neurological deficit more typical of cerebral infarction, although history alone cannot reliably exclude intracerebral haemorrhage. Alagappan distinguishes cerebral infarction from intracerebral haemorrhage and notes hypertension as an important association with intracerebral haemorrhage.</p>
+<p><strong>Q9 What is the most important vascular risk factor already identified in this patient?</strong></p>
+<p><strong>MODEL_ANS9</strong> Long-standing hypertension with irregular treatment is the major established risk factor in this history. It is particularly relevant to both small-vessel cerebrovascular disease and intracerebral haemorrhage; Alagappan notes small penetrating-vessel disease associated with hypertension and intracerebral haemorrhage occurring particularly in the presence of hypertension.</p>
+<p><strong>Q10 Which additional vascular risk factors should specifically have been asked?</strong></p>
+<p><strong>MODEL_ANS10</strong> Ask specifically about diabetes mellitus, dyslipidaemia, smoking/tobacco exposure, alcohol intake, previous stroke or TIA, known carotid or peripheral vascular disease, and family history of stroke. Your history documents hypertension and previous-TIA negatives, but the remaining conventional vascular risks should be explicitly recorded. Alagappan’s cerebrovascular section discusses vascular risk factors and specifically lists high alcohol intake and positive family history among stroke risks.</p>
+<p><strong>Q11 Which cardiac history is particularly important in a patient with suspected embolic stroke?</strong></p>
+<p><strong>MODEL_ANS11</strong> Ask about palpitations/known atrial arrhythmia, previous myocardial infarction, valvular heart disease, cardiac failure, prosthetic valve, and previous systemic embolism. Alagappan describes thromboembolism arising from the heart, including the left atrium in mitral stenosis or atrial pathology and the left ventricle after myocardial infarction.</p>
+<p><strong>Q12 Why was asking about previous transient neurological episodes important?</strong></p>
+<p><strong>MODEL_ANS12</strong> Previous brief episodes of unilateral weakness, sensory disturbance, speech difficulty or monocular visual loss may indicate TIA, which can precede an established stroke. Alagappan describes low-flow, embolic, and penetrating-vessel TIAs and notes that repeated TIAs can precede a fully evolved stroke.</p>
+<p><strong>Q13 What important stroke mimics should remain in mind from the history?</strong></p>
+<p><strong>MODEL_ANS13</strong> Important mimics include hypoglycaemia, focal seizure with Todd’s paresis, migrainous aura, conversion disorder, encephalitis, as well as structural conditions such as tumour, subdural haematoma, abscess and demyelination. The sudden persistent hemispheric deficit in this elderly hypertensive patient favours stroke, but glucose and imaging remain essential. Alagappan explicitly lists these functional and structural stroke mimics.</p>
+<p><strong>Q14 What additional medication history is essential?</strong></p>
+<p><strong>MODEL_ANS14</strong> The names, doses, adherence and last doses of antihypertensive drugs should be documented. Ask specifically about antiplatelets, anticoagulants and other medications that influence bleeding or vascular risk. You have appropriately stated that there was no anticoagulant use, but “irregular medication use” should be quantified more precisely.</p>
+<p><strong>Q15 Give a precise provisional diagnosis based on the history alone.</strong></p>
+<p><strong>MODEL_ANS15</strong> Acute cerebrovascular accident presenting as right hemiparesis/hemiplegia with right supranuclear facial weakness and dysarthria, localizing to the left cerebral hemisphere or internal capsular region, likely an anterior-circulation ischaemic stroke; first recognized on awakening, in a 65-year-old woman with poorly controlled hypertension. Infarction versus haemorrhage cannot be established definitively from history alone. Alagappan describes carotid-territory stroke with UMN VII palsy and hemiplegia and MCA/internal-capsular vascular anatomy relevant to this localization. Kundu covers the clinical approach under Long Cases → Nervous System → Hemiplegia, including cerebrovascular diseases.</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>: The presentation was strong in chronology and neurological symptom characterization. You clearly established sudden onset, non-progression, right upper- and lower-limb involvement, associated facial weakness and dysarthria, preserved comprehension, and extensive relevant neurological negatives. Particularly useful were negatives for seizure, loss of consciousness, headache/vomiting, diplopia, dysphagia, sensory complaints, previous TIA, trauma and anticoagulant exposure. Hypertension and poor treatment adherence were identified appropriately.</p>
+<p><strong>⚠️ MISSING</strong>: The last-known-well time needs to be stated unequivocally, rather than leaving 9:30 PM and 4 AM ambiguous. Vascular-risk history should explicitly include diabetes, dyslipidaemia, smoking/tobacco, alcohol and detailed family vascular history. Cardioembolic history needs more systematic enquiry regarding atrial fibrillation/known arrhythmia, previous MI, valvular disease and heart failure. Drug history should include the exact antihypertensive medications, doses and compliance; allergy history was not explicitly documented. Social and occupational history is essentially absent. The history also cannot justify calling the event definitely “ischaemic”; that distinction requires examination and neuroimaging.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>: Revise Kundu, Bedside Clinics in Medicine, Part I, 9th ed.—Chapter 1, Nervous System: “Hemiplegia” (from p.129), including “Cerebrovascular diseases”. Also revise Alagappan, Manual of Practical Medicine, 6th ed.—Nervous System: cerebrovascular disease/stroke, cerebral arterial territories, facial nerve examination, and Speech and Language. The MCA/internal-capsular localization and aphasia-versus-dysarthria distinctions are particularly relevant.</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Awarded Marks</p>
+<p>Examiner Comments</p>
+<p>Chief complaint + presenting features</p>
+<p>5</p>
+<p>5</p>
+<p>Clear complaints and appropriate durations.</p>
+<p>History of presenting illness (onset, progression, severity)</p>
+<p>8</p>
+<p>7</p>
+<p>Very good chronology and functional description; exact last-known-well time needs clearer documentation.</p>
+<p>Relevant system review</p>
+<p>5</p>
+<p>5</p>
+<p>Extensive neurological and cranial-nerve review.</p>
+<p>Relevant negatives</p>
+<p>4</p>
+<p>4</p>
+<p>Strong stroke, seizure, raised-ICP, bulbar and sensory negatives.</p>
+<p>Past history, drug history, allergies</p>
+<p>4</p>
+<p>2.5</p>
+<p>Hypertension and poor adherence covered; exact drugs, other vascular comorbidities and allergy status incomplete.</p>
+<p>Family, social, occupational history</p>
+<p>4</p>
+<p>1.5</p>
+<p>Family history mentioned only briefly; social and occupational vascular-risk history absent.</p>
+<p>TOTAL</p>
+<p>30</p>
+<p>25/30</p>
+<p>Good history with strong neurological localization; risk-factor and medication documentation require greater precision.</p>
+<p>Phase 1 complete. Please now present your physical examination findings.</p></div>
+    </div>
+    <div class="col gemini-col">
+      <h4 class="resident-header">GEMINI</h4>
+      <div class="content"><p><strong>Q1 What is the clinical significance of the patient&#x27;s neurological deficit being noticed upon waking at 4:00 AM after being last seen normal at 9:30 PM?</strong><br><strong>MODEL_ANS1</strong> In clinical neurology, a stroke noticed upon waking from sleep is classified as a &quot;wake-up stroke&quot; or thrombotic stroke. Thrombotic cerebral infarction typically develops during periods of reduced systemic blood pressure and sluggish cerebral circulation, commonly occurring during sleep or in the early morning hours. Additionally, determining the &quot;last known well&quot; time (9:30 PM) is critical to establish the therapeutic time window for reperfusion therapies (such as IV thrombolysis or endovascular thrombectomy). (Reference: Kundu, Bedside Clinics in Medicine, Part I, Case 16: Hemiplegia, p. 139; Alagappan, Manual of Practical Medicine, Nervous System, p. 674).</p>
+<p><strong>Q2 How do you clinically distinguish an upper motor neuron (UMN) facial nerve palsy from a lower motor neuron (LMN) facial palsy based on history?</strong><br><strong>MODEL_ANS2</strong> An upper motor neuron (supranuclear) facial lesion spares the muscles of the upper face (frontalis, corrugator supercilii, and upper orbicularis oculi) because the upper facial subnucleus receives bilateral corticonuclear innervation. Therefore, the patient retains the ability to wrinkle the forehead and close the eyes, presenting only with lower facial weakness (flattened nasolabial fold, deviation of the angle of the mouth to the healthy side, and drooling). In contrast, an LMN lesion (nuclear or infranuclear, such as Bell&#x27;s palsy) paralyzes both the upper and lower facial muscles on the ipsilateral side, resulting in the loss of forehead wrinkling and inability to close the eye (with Bell&#x27;s phenomenon). (Reference: Kundu, Part I, Hemiplegia, p. 137; Alagappan, Nervous System, pp. 608–610).</p>
+<p><strong>Q3 Why did the angle of the mouth deviate towards the left side when the patient developed weakness on the right side of her body?</strong><br><strong>MODEL_ANS3</strong> In right-sided facial weakness (UMN type), the right perioral muscles (buccinator and orbicularis oris) are paretic. The intact, unopposed contralateral (left-sided) facial muscles contract normally and pull the angle of the mouth toward the healthy (normal) left side, especially during emotional expression, talking, or smiling. (Reference: Kundu, Part I, Hemiplegia, p. 136; Alagappan, Nervous System, p. 608).</p>
+<p><strong>Q4 How do you differentiate dysarthria from dysphasia/aphasia in the clinical history?</strong><br><strong>MODEL_ANS4</strong> Dysarthria is a disorder of articulation and pronunciation of spoken consonants caused by neuromuscular impairment of speech-producing organs (lips, tongue, palate, larynx), with intact language comprehension, reading, and written expression. Dysphasia/aphasia is a higher cortical disorder involving the understanding (comprehension) or production (fluency, syntax, repetition, naming) of language across spoken and written modalities. (Reference: Alagappan, Nervous System, Speech and Language, pp. 584–586; Kundu, Part I, Hemiplegia, p. 136).</p>
+<p><strong>Q5 Why is it necessary to enquire about dominant handedness when a patient presents with a suspected stroke and speech alteration?</strong><br><strong>MODEL_ANS5</strong> Handedness identifies cerebral hemispheric dominance. In approximately 95% of right-handed individuals and nearly 50–70% of left-handed individuals, the left cerebral hemisphere is dominant for language functions. Therefore, right-sided hemiplegia from a left hemispheric cortical stroke is frequently accompanied by aphasia (Broca&#x27;s, Wernicke&#x27;s, or Global), whereas a pure dysarthria with dense hemiplegia points toward a subcortical (internal capsule) lesion. (Reference: Alagappan, Nervous System, Higher Mental Functions, p. 574; Kundu, Part I, Hemiplegia, p. 136).</p>
+<p><strong>Q6 What is the clinical significance of inquiring about convulsions or loss of consciousness at the onset of hemiplegia?</strong><br><strong>MODEL_ANS6</strong> Severe loss of consciousness or deep coma at onset strongly suggests intracerebral hemorrhage, massive hemispheric infarction with brain herniation, or subarachnoid hemorrhage. Convulsions at onset may point to an underlying cortical lesion, hemorrhagic transformation, cerebral venous sinus thrombosis, or post-ictal Todd&#x27;s paresis. In typical cerebral thrombosis or lacunar infarcts, consciousness is usually preserved. (Reference: Kundu, Part I, Hemiplegia, pp. 136, 139; Alagappan, Nervous System, p. 676).</p>
+<p><strong>Q7 What are the classic features that distinguish cerebral thrombosis from cerebral embolism on history?</strong><br><strong>MODEL_ANS7</strong> Cerebral thrombosis typically occurs in older hypertensive/atherosclerotic individuals, develops during sleep or upon waking, often progresses in a stepwise or evolving fashion over hours, and may be preceded by TIAs. Cerebral embolism has a dramatic, instantaneous (&quot;bolt from the blue&quot;) onset during active wakefulness or exertion, reaches maximal deficit in seconds, is frequently seen in younger individuals or those with underlying cardiac disease (atrial fibrillation, rheumatic valvular disease, infective endocarditis, recent MI), and may show rapid initial clearing. (Reference: Kundu, Part I, Hemiplegia, p. 139; Alagappan, Nervous System, p. 668).</p>
+<p><strong>Q8 Why is the history of hypertension and its compliance crucial in this patient?</strong><br><strong>MODEL_ANS8</strong> Long-standing, poorly controlled hypertension is the single most important modifiable risk factor for cerebrovascular accidents. It promotes large-vessel accelerated atherosclerosis, gives rise to lipohyalinosis and microatheromas in small penetrating arteries (causing lacunar infarcts), and predisposes to Charcot-Bouchard microaneurysms that can rupture to cause primary intracerebral hemorrhage. (Reference: Kundu, Part I, Hemiplegia, p. 140; Alagappan, Nervous System, p. 674).</p>
+<p><strong>Q9 What historical points help differentiate an internal capsule stroke from a cortical stroke?</strong><br><strong>MODEL_ANS9</strong> An internal capsule lesion typically produces dense, proportional, complete hemiplegia (face, arm, and leg equally involved) because all corticospinal and corticonuclear fibers are tightly packed in the posterior limb and genu. In contrast, a cortical lesion (e.g., MCA or ACA territory) produces disproportionate weakness (brachial dominance in MCA, crural dominance in ACA), and is frequently associated with cortical sensory signs, aphasia, apraxia, visual field defects (homonymous hemianopia), or focal seizures. (Reference: Kundu, Part I, Hemiplegia, pp. 138–139; Alagappan, Nervous System, pp. 664, 674).</p>
+<p><strong>Q10 What is a Transient Ischemic Attack (TIA), and why must preceding episodes of TIA be documented?</strong><br><strong>MODEL_ANS10</strong> A TIA is defined clinically as an episode of temporary, focal neurological dysfunction caused by cerebral ischemia without acute tissue infarction, historically lasting less than 24 hours (most lasting &lt;1 hour). Preceding TIAs strongly suggest an atherothrombotic etiology and carry a high short-term risk of completed ischemic stroke, evaluated using clinical tools like the ABCD² score. (Reference: Kundu, Part I, Hemiplegia, p. 142; Alagappan, Nervous System, p. 663).</p>
+<p><strong>Q11 Why did you inquire about palpitations, chest pain, and dyspnea in a patient presenting with hemiplegia?</strong><br><strong>MODEL_ANS11</strong> To rule out a cardiogenic source of cerebral embolism. Palpitations suggest atrial fibrillation (the commonest cardioembolic cause); chest pain suggests acute myocardial infarction with mural thrombus; and dyspnea may indicate rheumatic mitral stenosis or dilated cardiomyopathy with intracardiac thrombi. (Reference: Kundu, Part I, Hemiplegia, pp. 133–134; Alagappan, Cardiovascular System, p. 288).</p>
+<p><strong>Q12 How does asking about cranial nerve symptoms (diplopia, dysphagia, vertigo, hearing impairment) help localize the lesion?</strong><br><strong>MODEL_ANS12</strong> Involvement of cranial nerves III through XII (causing diplopia, true vertigo, dysphagia, dysphonia, sensory loss over the face, or crossed hemiplegia) indicates a brainstem lesion (midbrain, pons, or medulla). Sparing of these functions (with only isolated UMN VII weakness) localizes the lesion supratentorially, most commonly to the contralateral internal capsule or cerebral cortex. (Reference: Kundu, Part I, Hemiplegia, pp. 137–139; Alagappan, Nervous System, p. 668).</p>
+<p><strong>Q13 What is the relevance of inquiring about trauma, anticoagulant therapy, or NSAID use in acute hemiplegia?</strong><br><strong>MODEL_ANS13</strong> Head trauma points toward traumatic intracranial hematomas (epidural, subdural, or intracerebral contusions). Anticoagulant and antiplatelet drug use increases the index of suspicion for primary or secondary intracerebral hemorrhage and determines whether thrombolysis is safe or contraindicated. (Reference: Kundu, Part I, Hemiplegia, p. 140; Alagappan, Nervous System, p. 675).</p>
+<p><strong>Q14 Why is it necessary to enquire about bowel and bladder control in the history of a hemiplegic patient?</strong><br><strong>MODEL_ANS14</strong> During the acute stage of &quot;cerebral shock&quot; (neural shock), transient urinary retention or spontaneous incontinence may occur due to temporary supraspinal reflex depression. Persistent neurogenic bladder dysfunction from stroke onset is common with bilateral lesions, parasagittal/anterior cerebral artery territory infarction, or normal pressure hydrocephalus. Unilateral hemispheric or capsular lesions usually do not lead to permanent urinary retention. (Reference: Kundu, Part I, Hemiplegia, pp. 136–137; Alagappan, Nervous System, p. 664).</p>
+<p><strong>Q15 What features in the history help distinguish an acute ischemic stroke from a Space-Occupying Lesion (SOL) or chronic subdural hematoma presenting as hemiplegia?</strong><br><strong>MODEL_ANS15</strong> An acute ischemic stroke characteristically has a sudden, maximal onset evolving over seconds to minutes/hours. Intracranial SOLs (tumors, abscesses) and chronic subdural hematomas present with an insidious, subacute, or gradually progressive course over weeks to months, typically accompanied by early symptoms of raised intracranial tension (progressive early-morning dull headache, projectile vomiting, papilledema, and fluctuating sensorium). (Reference: Kundu, Part I, Hemiplegia, pp. 133, 143; Alagappan, Nervous System, p. 682).</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>: Comprehensive and well-organized history presentation. Accurately captured chronological onset, wake-up stroke timing, right hemiparesis with UMN facial involvement, and isolated dysarthria. Thorough negative review covering higher cortical deficits (aphasia, apraxia), cranial nerves, meningeal symptoms, cardiac symptoms, and vascular risk factors (hypertension).<br><strong>⚠️ MISSING</strong>: Could have explicitly enquired about preceding transient ischemic attacks (TIAs or amaurosis fugax), documented history of other metabolic risk factors (diabetes mellitus, lipid disorder, smoking, snoring/OSA), and detailed the exact functional disability at the time of presentation (e.g., modified Rankin Scale or Barthel Index baseline).<br><strong>📚 TEXTBOOK_GUIDANCE</strong>: Review the detailed approach to history writing, vascular territory localization, and risk factor stratification in Kundu, Bedside Clinics in Medicine, Part I, Chapter on Hemiplegia (pp. 130–144) and Alagappan, Manual of Practical Medicine, Chapter on Nervous System (Examination of Stroke &amp; Speech, pp. 584–588, 663–676).</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Awarded</p>
+<p>Chief complaint + presenting features</p>
+<p>5</p>
+<p>5</p>
+<p>History of presenting illness (onset, progression, severity)</p>
+<p>8</p>
+<p>8</p>
+<p>Relevant system review</p>
+<p>5</p>
+<p>5</p>
+<p>Relevant negatives</p>
+<p>4</p>
+<p>4</p>
+<p>Past history, drug history, allergies</p>
+<p>4</p>
+<p>3</p>
+<p>Family, social, occupational history</p>
+<p>4</p>
+<p>3</p>
+<p>Total</p>
+<p>30</p>
+<p>28</p>
+<p>Phase 1 complete. Please now present your physical examination findings.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="round">
+  <h3>Round 2</h3>
+  <div class="user-block"><p><strong>USER:</strong> <strong>Neurological Examination<br><br>Higher Mental Functions<br><br>Consciousness: Patient conscious.<br><br>Orientation: Oriented and following commands.<br><br>GCS notation is written as E4 V? M6; verbal component is not clearly legible.<br><br>MMSE:<br><br>Orientation: 10/10<br><br>Registration/retention: 3/3<br><br>Attention: 5/5<br><br>Recall: 3/3<br><br>Language: 6/9<br><br>Total ≈ 27/30<br><br>Dysarthria: Present (+).<br><br>Apraxia: marked absent.<br><br>Hemineglect: marked absent.<br><br>Hallucinations/delusions: marked absent.<br><br>---<br><br>Cranial Nerves<br><br>CN I — Olfactory<br><br>Smell intact bilaterally.<br><br>CN II — Optic<br><br>Patient able to count fingers bilaterally at 6 metres.<br><br>Visual fields: no definite abnormality documented on this sheet.<br><br>CN III, IV, VI — Oculomotor/Trochlear/Abducens<br><br>Eyeballs appear documented as central bilaterally.<br><br>Saccadic movements: present.<br><br>Pursuit movements: present.<br><br>Reflex eye movements appear marked absent/not assessed.<br><br>Left lateral rectus weakness is specifically written.<br><br>Pupils:<br><br>Right pupil approximately 1 mm [handwriting somewhat unclear].<br><br>Left pupil 3 mm.<br><br>Round.<br><br>Anisocoria present (+).<br><br>Bilateral operated eyes; pseudophakia documented.<br><br>“LR6, SO4, rest 3” is written as the usual extraocular-muscle innervation mnemonic rather than necessarily as an examination finding.<br><br>Accommodation / Corneal reflex<br><br>Accommodation: present bilaterally (+/+).<br><br>Corneal reflex: present bilaterally (+/+).<br><br>---<br><br>CN V — Trigeminal<br><br>Sensory<br><br>The handwritten entry appears to indicate reduced sensation involving the trigeminal divisions:<br><br>V1 — Ophthalmic<br><br>V2 — Maxillary<br><br>V3 — Mandibular<br><br>The exact side is not completely clear from the handwriting.<br><br>Motor<br><br>Muscles of mastication documented as intact.<br><br>Jaw movements:<br><br>Jaw deviation: no abnormality documented.<br><br>Clenching: intact.<br><br>Opening mouth against resistance: intact.<br><br>Side-to-side jaw movement: intact.<br><br>Reflex<br><br>Jaw jerk marked normal.<br><br>---<br><br>CN VII — Facial<br><br>Face deviated towards the left side.<br><br>Right-sided facial movements documented as reduced:<br><br>Frontalis: ↓ on right<br><br>Orbicularis oculi: ↓ on right<br><br>Buccinator: ↓ on right<br><br>Orbicularis oris: ↓ on right<br><br>Platysma: ↓ on right<br><br>Left side appears documented as normal.<br><br>Sensory/autonomic VII<br><br>Anterior 2/3 tongue taste: intact.<br><br>Lacrimation abnormality: No.<br><br>Hyperacusis: No.<br><br>---<br><br>CN VIII — Vestibulocochlear<br><br>Rinne test: AC &gt; BC.<br><br>Weber test: No lateralisation.<br><br>No definite hearing deficit documented.<br><br>---<br><br>CN IX &amp; X — Glossopharyngeal/Vagus<br><br>Uvula/gag examination documented as normal.<br><br>Gag reflex present (+).<br><br>No obvious palatal abnormality recorded.<br><br>---<br><br>CN XI — Spinal Accessory<br><br>Sternocleidomastoid/trapezius function marked present/normal bilaterally (+/+).<br><br>---<br><br>Motor System<br><br>Right Upper Limb<br><br>Movement/region Power<br><br>Shoulder 3/5<br>Elbow 3/5<br>Wrist 2/5<br>Hand grip Poor<br><br>The corresponding left-sided power is not entered on the photographed sheet.<br><br>Right Lower Limb<br><br>Movement/region Power<br><br>Hip 2/5<br>Knee 2/5<br>Ankle 2/5<br><br>Thus, the documented weakness is more marked distally in the right upper limb and is approximately 2/5 throughout the right lower limb.<br><br>---<br><br>Sensory Examination<br><br>The entries appear to show:<br><br>Modality Right Left<br><br>Pain Reduced ↓ Normal<br>Temperature Reduced ↓ Normal<br>Vibration Reduced ↓ Normal<br><br>Joint position sense: no clear entry.<br><br>Sensory level: not documented.<br><br>Cortical sensory testing—tactile localisation, two-point discrimination, stereognosis, graphesthesia and sensory extinction—not documented on the visible sheet.<br><br>So the sheet appears to document a right-sided primary sensory deficit, although the exact degree is not recorded.<br><br>---<br><br>Cerebellar Examination<br><br>The entire cerebellar examination section has been crossed through/not filled in.<br><br>Therefore the following were not reliably documented/likely not testable because of weakness:<br><br>Finger–nose testing<br><br>Rapid alternating movements<br><br>Past pointing<br><br>Rebound phenomenon<br><br>Intention tremor<br><br>Heel–knee test<br><br>Foot tapping<br><br>Titubation<br><br>Nystagmus<br><br>---<br><br>Key examination findings as documented<br><br>Conscious, oriented 65-year-old woman with dysarthria, leftward deviation of the face/right facial weakness, right hemiparesis (UL approximately 2–3/5, LL 2/5), associated right-sided sensory impairment, and documented left lateral rectus weakness. MMSE approximately 27/30.<br><br>Show moreShow less</strong></p></div>
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (Physical Examination Phase)</h4>
+<p><strong>Case Summary (Positive & Localizing Findings):</strong></p>
+<ul>
+  <li><strong>Higher Mental Functions:</strong> Conscious and oriented (MMSE ≈ 27/30, language 6/9), dysarthria present without overt aphasia, apraxia, or hemineglect.</li>
+  <li><strong>Cranial Nerves:</strong> Leftward facial deviation with right-sided facial weakness (involving upper and lower divisions on examination sheet), anisocoria (right pupil 1 mm vs left 3 mm, bilateral pseudophakia), documented left lateral rectus (CN VI) weakness, and reduced sensation in trigeminal distribution.</li>
+  <li><strong>Motor System:</strong> Right hemiparesis with power UL 2–3/5 (poor distal hand grip) and LL 2/5. (Pyramidal signs—tone, deep tendon reflexes, and Babinski sign—omitted on sheet).</li>
+  <li><strong>Sensory System:</strong> Right-sided hemisensory reduction across pain, temperature, and vibration sensations.</li>
+</ul>
+<p><strong>Probability-Based Differential Diagnoses (Integrated History & Physical Examination):</strong></p>
+<ol>
+  <li><strong>Acute Ischemic Stroke — Left Middle Cerebral Artery (MCA) Territory / Internal Capsule (70%):</strong> Explains the right hemiparesis (UL & LL), right hemisensory deficit, right facial weakness, and dysarthria in a hypertensive patient. The left lateral rectus finding may represent a false-localizing sign (due to raised intracranial pressure) or an artifact of previous ocular surgery.</li>
+  <li><strong>Acute Ischemic Stroke — Left Pontine / Brainstem Infarction (Inferior Medial Pontine / Millard-Gubler / Raymond Syndrome variant) (20%):</strong> If the left CN VI (abducens) palsy is true and genuine alongside contralateral (right) hemiparesis and hemisensory loss, this crossed neurological deficit localizes precisely to the left lower pons / tegmentum.</li>
+  <li><strong>Acute Intracerebral Hemorrhage — Left Basal Ganglia / Thalamic (8%):</strong> Hypertensive small vessel rupture producing sudden dense right motor-sensory hemiparesis with dysarthria. Less likely given lack of acute severe headache, vomiting, or progressive deterioration, but requires urgent non-contrast CT head.</li>
+  <li><strong>Acute-on-Chronic Subdural Hematoma or Intracranial Space-Occupying Lesion (SOL) (1.5%):</strong> Mass lesion with sudden decompensation or secondary hemorrhage, though sudden wake-up maximal onset is more characteristic of primary vascular events.</li>
+  <li><strong>Todd's Post-Ictal Paresis / Non-Convulsive Status (0.5%):</strong> Remote possibility of unwitnessed nocturnal focal motor seizure leaving prolonged hemiparesis, but less consistent with persistent multi-modal sensory-motor signs.</li>
+</ol>
+  </div>
+  <div class="responses-grid">
+    <div class="col chatgpt-col">
+      <h4 class="expert-header">CHATGPT</h4>
+      <div class="content"><p><strong>Q1 What neurological syndrome is demonstrated by the examination?</strong></p>
+<p><strong>MODEL_ANS1</strong> The documented syndrome is right hemiparesis with right hemisensory impairment, right facial weakness and dysarthria, with an additional left lateral rectus/VI nerve weakness. This is not merely a “pure motor hemiplegia,” because sensory and cranial-nerve abnormalities are also documented. Alagappan notes that internal-capsular lesions may produce contralateral hemiplegia with hemianaesthesia, while brainstem lesions may produce characteristic crossed cranial-nerve and long-tract findings. Kundu discusses this framework under Nervous System → Hemiplegia, including cerebrovascular diseases.</p>
+<p><strong>Q2 Can you label this as an upper motor neuron hemiplegia from the examination as currently documented?</strong></p>
+<p><strong>MODEL_ANS2</strong> Not completely. The distribution of weakness suggests a central lesion, but essential pyramidal signs—tone, deep tendon reflexes, superficial abdominal reflexes, plantar responses and clonus—have not been recorded. Alagappan describes an UMN lesion by increased tone/spasticity, weakness of voluntary movement, brisk reflexes, extensor plantar response and possible clonus.</p>
+<p><strong>Q3 What do power grades 3/5 and 2/5 mean?</strong></p>
+<p><strong>MODEL_ANS3</strong> On the MRC scale, grade 3 means movement against gravity but not resistance, whereas grade 2 means movement only when gravity is eliminated. Grade 5 is normal power, grade 4 is movement against resistance, grade 1 is a visible or palpable contraction without joint movement, and grade 0 is complete paralysis.</p>
+<p><strong>Q4 Does the distribution of weakness support a pyramidal lesion?</strong></p>
+<p><strong>MODEL_ANS4</strong> It may. Alagappan notes that pyramidal weakness characteristically affects fine distal hand movements early, with early involvement of hand grip, shoulder abductors, hip flexors and foot dorsiflexors. Your finding of particularly poor right hand/wrist function is therefore compatible with a pyramidal pattern, but tone and reflexes must be demonstrated before confidently characterizing it as such.</p>
+<p><strong>Q5 What is problematic about the documented facial examination?</strong></p>
+<p><strong>MODEL_ANS5</strong> The sheet records weakness of frontalis and orbicularis oculi as well as the lower facial muscles on the right. A typical supranuclear facial palsy from a hemispheric vascular lesion predominantly affects the contralateral lower face, with relative upper-face sparing. Alagappan contrasts vascular UMN facial palsy with LMN facial palsy, in which upper and lower facial muscles are involved. Therefore the facial examination should be repeated and reconciled with the history of preserved eye closure.</p>
+<p><strong>Q6 Why is the documented left lateral rectus weakness extremely important for localization?</strong></p>
+<p><strong>MODEL_ANS6</strong> A true left lateral rectus weakness implies dysfunction involving the left sixth nerve pathway. When an ipsilateral VI nerve abnormality occurs with contralateral face, arm and leg weakness, Alagappan specifically describes a medial inferior pontine syndrome, involving the VI nerve region together with corticospinal and corticobulbar pathways.</p>
+<p><strong>Q7 If the left VI palsy is genuine, can all the major findings be localized to the left pons?</strong></p>
+<p><strong>MODEL_ANS7</strong> Potentially, yes. Left VI dysfunction + right face/arm/leg weakness + right-sided sensory disturbance makes a left pontine lesion an important localization to consider. Alagappan describes inferior medial pontine lesions producing ipsilateral VI involvement, contralateral weakness of face/arm/leg and contralateral tactile/proprioceptive impairment. However, the recorded involvement of the entire right face requires re-examination because it does not cleanly fit a simple contralateral supranuclear VII pattern.</p>
+<p><strong>Q8 How would the localization differ if the left lateral rectus weakness proves to be erroneous?</strong></p>
+<p><strong>MODEL_ANS8</strong> If the VI finding is not reproducible, then right hemiparesis plus right hemisensory loss would favour a lesion above the brainstem on the left, particularly the internal capsule/corona radiata or MCA territory. Alagappan describes internal-capsular lesions as producing contralateral numbness of face, limbs and trunk with associated hemiparesis when adjacent motor fibres are involved. MCA stem occlusion can produce contralateral hemiplegia and hemianaesthesia.</p>
+<p><strong>Q9 What does the right-sided impairment of pain, temperature and vibration suggest?</strong></p>
+<p><strong>MODEL_ANS9</strong> Involvement of several primary sensory modalities over one side of the body suggests a central sensory pathway lesion rather than an isolated peripheral nerve lesion. Alagappan notes that an internal-capsular lesion can cause contralateral reduction of touch, pain and temperature over face, limbs and trunk, whereas brainstem sensory lesions show characteristic crossed or contralateral patterns depending on level.</p>
+<p><strong>Q10 Why must you clarify which side of the face had reduced trigeminal sensation?</strong></p>
+<p><strong>MODEL_ANS10</strong> Because the side is highly localizing. Alagappan notes that lower pontine/brainstem lesions may cause ipsilateral facial sensory impairment with contralateral body sensory impairment, whereas lesions above the pons can cause contralateral sensory abnormalities involving face and body. Without knowing the side of the trigeminal deficit, an important localization clue is lost.</p>
+<p><strong>Q11 Which sensory tests are missing and why are they important?</strong></p>
+<p><strong>MODEL_ANS11</strong> Joint-position sense and cortical sensory functions—particularly stereognosis, graphesthesia, two-point discrimination and sensory extinction—should be documented when feasible. Alagappan notes that impairment of cortical sensory functions may indicate parietal or subcortical pathway involvement and discusses stereognosis, graphesthesia and two-point discrimination as localization tests.</p>
+<p><strong>Q12 Was it reasonable not to perform coordination testing on the severely weak right limbs?</strong></p>
+<p><strong>MODEL_ANS12</strong> Yes, provided the limitation is explicitly stated. Alagappan states that limb coordination can be tested effectively only when muscle power is greater than grade 3. Therefore reliable finger–nose or heel–knee interpretation is difficult in a limb with power around 2/5–3/5. However, the unaffected left limbs should still be examined for coordination, and nystagmus should be assessed independently.</p>
+<p><strong>Q13 What further ocular examination is required before accepting “left lateral rectus palsy”?</strong></p>
+<p><strong>MODEL_ANS13</strong> Ocular movements should be systematically tested in all directions, documenting whether left abduction is actually restricted, whether diplopia occurs and in which direction it is maximal, and whether the abnormality represents an isolated VI palsy or a conjugate gaze disorder. Alagappan emphasizes examination of ocular movements and distinguishes individual extraocular muscle palsy from supranuclear conjugate gaze abnormalities involving the PPRF.</p>
+<p><strong>Q14 How should you approach the anisocoria recorded as right pupil approximately 1 mm and left pupil 3 mm?</strong></p>
+<p><strong>MODEL_ANS14</strong> It should not simply be incorporated into the stroke localization without confirmation. Re-examine pupil size in comparable illumination, direct and consensual light responses, ptosis and ocular movements, and consider the relevance of previous bilateral ocular surgery. The retrieved textbook material supports detailed pupillary and ocular-motor examination, but the present sheet does not contain enough information to establish the cause of this anisocoria. Therefore it should currently be described as anisocoria of uncertain significance, not assigned a definitive neurological localization.</p>
+<p><strong>Q15 Give the best neurological localization based strictly on the examination, including its uncertainties.</strong></p>
+<p><strong>MODEL_ANS15</strong> The examination demonstrates right hemiparesis with right hemisensory loss and dysarthria. If the documented left VI nerve/lateral rectus palsy is reproducible, a left medial pontine vascular lesion becomes a strong unifying localization because Alagappan describes ipsilateral VI involvement with contralateral face-arm-leg weakness in inferior medial pontine syndromes. If the VI finding is not confirmed, the motor-sensory syndrome more strongly supports a left internal-capsular/corona-radiata or MCA-territory lesion. The facial findings must also be repeated because recorded upper- and lower-face weakness conflicts with the expected pattern of a straightforward supranuclear VII palsy. Kundu’s relevant bedside framework is Hemiplegia, Nervous System, from p.129.</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>: The examination provides useful documentation of consciousness and higher functions, dysarthria, multiple cranial nerves, quantitative right-sided MRC power, and primary sensory modalities. The right hemiparesis is clearly demonstrated, and the associated hemisensory deficit substantially improves localization. Recording the left lateral rectus abnormality is particularly important because, if genuine, it changes the localization from an apparently hemispheric lesion toward the brainstem.</p>
+<p><strong>⚠️ MISSING</strong>: The major deficiency is the absence of a complete motor-system examination: muscle bulk, tone, deep tendon reflexes, superficial reflexes, plantar responses and clonus are not documented. Without these, the expected pyramidal nature of the weakness has not actually been demonstrated. Left-sided limb power should be explicitly recorded for comparison. Gait was understandably difficult but should be documented as not testable rather than omitted. Coordination of the unaffected limbs should be examined. Joint-position sense and cortical sensory testing are incomplete. Fundus examination and a clearer visual-field assessment are desirable. The side of trigeminal sensory impairment is unclear. Most importantly, the findings contain two localization issues requiring bedside re-examination: (1) right frontalis/orbicularis oculi weakness conflicts with a typical supranuclear facial palsy and with the history of preserved eye closure; (2) left VI palsy must be confirmed because it would strongly favour a left pontine localization. General examination—including pulse, BP, other vitals, build/nutrition, JVP, edema and vascular/cardiac assessment—has not been presented.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>: Revise Kundu, Bedside Clinics in Medicine, Part I, 9th ed.—Nervous System → Hemiplegia (p.129 onward), including Cerebrovascular diseases. In Alagappan, Manual of Practical Medicine, 6th ed., revise the Nervous System sections on pyramidal tract signs and motor examination , sensory localization , MCA/internal-capsular vascular syndromes , pontine syndromes , and facial and ocular-motor nerve examination.</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Awarded Marks</p>
+<p>Examiner Comments</p>
+<p>General examination (vitals, built, stigmata, JVP, edema)</p>
+<p>8</p>
+<p>1</p>
+<p>General medical examination and vitals are essentially absent from the presentation.</p>
+<p>System-specific examination (inspection, palpation, percussion, auscultation)</p>
+<p>14</p>
+<p>9</p>
+<p>Detailed cranial-nerve, power and sensory examination, but motor examination is incomplete without tone/reflexes/plantars; coordination and gait are inadequately documented.</p>
+<p>Accurate grading/interpretation of findings</p>
+<p>8</p>
+<p>5</p>
+<p>MRC grading is useful; however, facial findings are internally inconsistent and the major localizing significance of the left VI palsy needs reconciliation.</p>
+<p>TOTAL</p>
+<p>30</p>
+<p>15/30</p>
+<p>Useful focal neurological examination, but incomplete pyramidal examination and unresolved localization discrepancies substantially limit the final interpretation.</p>
+<p>Phase 2 complete. Please now give your integrated case summary.</p></div>
+    </div>
+    <div class="col gemini-col">
+      <h4 class="resident-header">GEMINI</h4>
+      <div class="content"><p><strong>Q1 In your cranial nerve examination, you noted reduced movement in the right frontalis and orbicularis oculi along with lower facial weakness, yet in history you favored an upper motor neuron (supranuclear) facial palsy. How do you resolve this discrepancy?</strong><br><strong>MODEL_ANS1</strong> In a true UMN (supranuclear) facial palsy, frontalis and upper orbicularis oculi are spared because the upper facial nucleus in the pons receives bilateral corticonuclear innervation. Documenting weakness of all facial divisions (frontalis, orbicularis oculi, buccinator, and orbicularis oris) implies a lower motor neuron (LMN) facial palsy. If this were truly an LMN VII palsy associated with contralateral (right) hemiplegia, it would represent Millard-Gubler syndrome (a pontine tegmental lesion). However, if the lesion is supratentorial/capsular (producing right hemiplegia and right UMN facial palsy), the forehead wrinkling and eye closure must be preserved on the right. (Reference: Kundu, Part I, Hemiplegia, pp. 137–138; Alagappan, Nervous System, pp. 608–610).</p>
+<p><strong>Q2 You documented left lateral rectus weakness (CN VI palsy) in a patient with right-sided hemiparesis. What anatomical syndrome does this combination classically suggest?</strong><br><strong>MODEL_ANS2</strong> An ipsilateral 6th cranial nerve palsy (left lateral rectus weakness) combined with contralateral (right-sided) hemiplegia constitutes Millard-Gubler syndrome (or Raymond syndrome/Foville syndrome when associated with 7th nerve palsy or conjugate gaze palsy), localizing the lesion to the ventrolateral (lower) pons. However, abducens palsy can also occur as a &quot;false localizing sign&quot; secondary to raised intracranial pressure. (Reference: Kundu, Part I, Hemiplegia, p. 138; Alagappan, Nervous System, pp. 604, 668).</p>
+<p><strong>Q3 How do you interpret the finding of anisocoria (right pupil 1 mm, left pupil 3 mm) in this clinical setting?</strong><br><strong>MODEL_ANS3</strong> A unilateral miosis (right pupil 1 mm) suggests ipsilateral sympathetic chain disruption (partial Horner&#x27;s syndrome), which can be seen in lateral medullary syndrome (Wallenberg syndrome) or internal carotid artery dissection. Conversely, a relative left mydriasis (3 mm vs 1 mm) requires ruling out an evolving 3rd nerve palsy (uncal herniation) or previous ophthalmic surgery/pharmacological dilation. Because this patient had bilateral cataract surgery (pseudophakia), surgical iris trauma or pupillary distortion must also be excluded. (Reference: Alagappan, Nervous System, Examination of Pupils, pp. 598–601; Kundu, Part I, Hemiplegia, p. 137).</p>
+<p><strong>Q4 The motor examination shows MRC Grade 2–3/5 power on the right side, but muscle tone, deep tendon reflexes, and superficial reflexes (plantar, abdominal) are not documented. What reflex findings do you expect in this patient at 24 hours post-stroke?</strong><br><strong>MODEL_ANS4</strong> At 24 hours after an acute stroke, the patient is often still in the stage of cerebral (flaccid) shock. The affected limbs typically exhibit hypotonia and diminished/depressed deep tendon reflexes (biceps, triceps, supinator, knee, and ankle jerks). However, the Babinski sign (extensor plantar response) and loss of superficial abdominal and cremasteric reflexes on the right side are present from the onset. As shock resolves over days to weeks, classic UMN spasticity (clasp-knife rigidity), hyperreflexia, and clonus supervene. (Reference: Kundu, Part I, Hemiplegia, pp. 136–137; Alagappan, Nervous System, pp. 628, 638).</p>
+<p><strong>Q5 What is the Medical Research Council (MRC) scale for grading muscle power, and what does Grade 2/5 power specifically mean?</strong><br><strong>MODEL_ANS5</strong> The MRC grading scale is:</p>
+<p>Grade 0: Complete paralysis (no visible or palpable contraction).</p>
+<p>Grade 1: Flicker or trace of contraction without joint movement.</p>
+<p>Grade 2: Active movement with gravity eliminated.</p>
+<p>Grade 3: Active movement against gravity but not against resistance.</p>
+<p>Grade 4: Active movement against gravity and moderate resistance (4-, 4, 4+).</p>
+<p>Grade 5: Normal power against full resistance.<br>Grade 2/5 indicates the patient can only move the joint horizontally when gravity is neutralized. (Reference: Alagappan, Nervous System, Motor System, p. 626; Kundu, Part I, Hemiplegia, p. 135).</p>
+<p><strong>Q6 Why is distal muscle weakness (hand grip poor, wrist 2/5 vs shoulder 3/5) more pronounced than proximal weakness in a corticospinal tract lesion?</strong><br><strong>MODEL_ANS6</strong> Corticospinal (pyramidal) projections have the highest density of monosynaptic connections onto motor neurons innervating distal extremities (fingers, wrist, intrinsic hand muscles) responsible for fine, fractionated voluntary movements. Proximal muscles receive denser bilateral corticobulbar/corticospinal and extrapyramidal vestibulospinal/reticulospinal innervation, making distal movements significantly more vulnerable to unilateral pyramidal damage. (Reference: Alagappan, Nervous System, Motor System, p. 626; Kundu, Part I, Hemiplegia, p. 135).</p>
+<p><strong>Q7 What is the predilection pattern of spasticity and weakness in the upper and lower limbs in classical UMN hemiplegia (Wernicke-Mann pattern)?</strong><br><strong>MODEL_ANS7</strong> In chronic UMN hemiplegia, weakness predominantly affects the extensors of the upper limb (shoulder abductors, elbow/wrist/finger extensors) and the flexors of the lower limb (hip/knee flexors and ankle dorsiflexors). Conversely, hypertonia (spasticity) predominates in the flexors of the upper limb and the extensors of the lower limb (anti-gravity muscles), giving rise to the characteristic hemiplegic posture and circumductory (Wernicke-Mann) gait. (Reference: Kundu, Part I, Hemiplegia, pp. 134, 137; Alagappan, Nervous System, p. 628).</p>
+<p><strong>Q8 How do you elicit the Babinski sign, what is the normal response, and what constitutes a true positive pathological response?</strong><br><strong>MODEL_ANS8</strong> The Babinski sign is elicited by firmly stroking the lateral border of the sole of the foot from the heel toward the base of the 5th metatarsal and curving medially toward the base of the great toe using a blunt object. The normal response is plantar flexion of all toes. A positive (pathological) response is slow, tonic extension (dorsiflexion) of the great toe, often accompanied by fanning (abduction) of the outer four toes and flexion at the knee and hip (triple flexion response), indicating a corticospinal tract lesion. (Reference: Alagappan, Nervous System, Superficial Reflexes, pp. 638–640; Kundu, Part I, Hemiplegia, p. 137).</p>
+<p><strong>Q9 Name four surrogate/alternative signs for eliciting the extensor plantar response when the patient is hypersensitive or withdraws the limb.</strong><br><strong>MODEL_ANS9</strong></p>
+<p>Chaddock&#x27;s sign: Stroking the skin beneath and around the lateral malleolus.</p>
+<p>Oppenheim&#x27;s sign: Firmly dragging the thumb and index finger down the anterior border of the tibia.</p>
+<p>Gordon&#x27;s sign: Firmly squeezing the calf muscles.</p>
+<p>Schaeffer&#x27;s sign: Firmly squeezing the Achilles tendon.<br>(Reference: Alagappan, Nervous System, Superficial Reflexes, p. 640; Kundu, Part I, Hemiplegia, p. 137).</p>
+<p><strong>Q10 You documented right-sided reduction in pain, temperature, and vibration sensations. What is the anatomical pathway for pain/temperature vs vibration/joint position sense?</strong><br><strong>MODEL_ANS10</strong> Pain and temperature sensations are carried by small unmyelinated/poorly myelinated fibers (A-delta and C), enter the dorsal horn, decussate immediately (within 1–2 spinal segments) via the anterior white commissure, and ascend in the lateral spinothalamic tract to the ventral posterolateral (VPL) nucleus of the thalamus. Vibration, fine touch, and conscious proprioception ascend ipsilaterally without crossing in the posterior columns (fasciculus gracilis and cuneatus) to the medulla (nuclei gracilis and cuneatus), where second-order axons decussate as internal arcuate fibers (forming the medial lemniscus) and ascend to the VPL thalamus. Hemisensory loss for all modalities indicates a lesion at or above the thalamus/posterior limb of the internal capsule. (Reference: Alagappan, Nervous System, Sensory System, pp. 645–648; Kundu, Part I, Hemiplegia, p. 139).</p>
+<p><strong>Q11 Why was the cerebellar examination crossed out/omitted, and how should a clinician approach cerebellar testing in a hemiparetic limb?</strong><br><strong>MODEL_ANS11</strong> Cerebellar testing (finger-nose, dysdiadochokinesia, heel-knee-shin) requires a minimum motor power of Grade 3+/5 to be interpretable; marked motor weakness (Grade 2/5) produces clumsiness and pseudo-ataxia due to weakness alone, rendering conventional tests untestable or false-positive. In such patients, cerebellar testing must be rigorously performed on the intact/normal limb (left side) and axial cerebellar function (nystagmus, titubation, dysarthria) evaluated. (Reference: Kundu, Part II, Cerebellar Disorders, p. 278; Alagappan, Nervous System, Cerebellar Function, pp. 653–656).</p>
+<p><strong>Q12 How do you test the 5th cranial nerve motor function at the bedside?</strong><br><strong>MODEL_ANS12</strong></p>
+<p>Temporalis and Masseter inspection &amp; palpation: Ask the patient to clench their teeth firmly while palpating the muscle belly bulk and firmness.</p>
+<p>Pterygoids: Ask the patient to open their mouth wide against resistance (in unilateral pterygoid weakness, the jaw deviates toward the paralyzed side due to unopposed action of the contralateral lateral pterygoid) and move the jaw from side to side against resistance.</p>
+<p>Jaw jerk (mandibular reflex): Tap the examiner’s finger placed horizontally across the relaxed chin with a reflex hammer. (Reference: Alagappan, Nervous System, Cranial Nerves, pp. 605–607; Kundu, Part I, Hemiplegia, p. 137).</p>
+<p><strong>Q13 How do you clinically examine for subtle hemineglect or visual/sensory extinction (inattention) in a conscious stroke patient?</strong><br><strong>MODEL_ANS13</strong></p>
+<p>Sensory Extinction (Double Simultaneous Stimulation): Touch the patient simultaneously on homologous sites on both sides (e.g., both forearms or both cheeks) with eyes closed. If the patient perceives bilateral stimuli individually but ignores the right-sided stimulus during simultaneous stimulation, sensory extinction is present.</p>
+<p>Visual Neglect/Extinction: Simultaneously present moving fingers in both visual hemifields; extinction occurs if the patient fails to notice the stimulus on the affected side.</p>
+<p>Visuospatial Neglect: Assessed via line bisection, clock drawing, or cancellation tests. (Reference: Alagappan, Nervous System, Higher Mental Functions, pp. 578, 649; Kundu, Part I, Hemiplegia, p. 136).</p>
+<p><strong>Q14 What vital signs and cardiovascular examination findings are paramount in this hypertensive stroke patient?</strong><br><strong>MODEL_ANS14</strong></p>
+<p>Blood Pressure: Document bilateral arm BP; extreme hypertension must be noted, but sudden aggressive reduction avoided to preserve cerebral perfusion pressure in the ischemic penumbra.</p>
+<p>Pulse: Rate, rhythm (irregularly irregular pulse of atrial fibrillation), volume, and peripheral vessel wall thickening/radio-radial delay.</p>
+<p>Precordium: Apex beat character (heaving apex of LVH), auscultation for murmurs (mitral stenosis/regurgitation, aortic stenosis), and S3/S4 gallop.</p>
+<p>Carotid Arteries: Auscultation for carotid bruits at the carotid bifurcations. (Reference: Kundu, Part I, Hemiplegia, pp. 133–134; Alagappan, Cardiovascular System, pp. 240–250).</p>
+<p><strong>Q15 What features on fundoscopic examination are essential to look for in this 65-year-old hypertensive stroke patient?</strong><br><strong>MODEL_ANS15</strong></p>
+<p>Hypertensive Retinopathy: Arteriolar narrowing, copper/silver wiring, AV nipping (Salus/Gunn signs), flame-shaped hemorrhages, soft (cotton-wool) exudates, and hard exudates (Keith-Wagener-Barker classification).</p>
+<p>Papilledema: Blurring of disc margins, hyperemic disc, loss of venous pulsations, and optic cup obliteration, ruling out acute raised ICP or SOL.</p>
+<p>Embolic Phenomenon: Hollenhorst plaques (refractile cholesterol emboli) in retinal arterioles. (Reference: Kundu, Part I, Hemiplegia, p. 134; Alagappan, Nervous System, Examination of Optic Fundus, pp. 592–596).</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>: Good documentation of Higher Mental Functions (MMSE 27/30, dysarthria), systematic cranial nerve screening (I to XI), limb-by-limb power grading with MRC scale (UL 2–3/5, LL 2/5), and primary sensory testing (pain, temperature, vibration).<br><strong>⚠️ MISSING</strong>: Complete omission of muscle tone, deep tendon reflexes (biceps, triceps, supinator, knee, ankle jerks), clonus, and superficial reflexes (Babinski sign / plantar response and superficial abdominal reflexes). Failed to document General Physical Examination (BP, pulse rhythm, carotid bruits) and Cardiovascular System examination, which are mandatory for stroke workup. Unresolved contradiction between LMN vs UMN facial palsy findings and unexplained CN VI finding.<br><strong>📚 TEXTBOOK_GUIDANCE</strong>: Thoroughly study the systematic elicitation and grading of Tone, Reflexes, and Cranial Nerves in Kundu, Bedside Clinics in Medicine, Part I, Case 16 (Hemiplegia, pp. 130–144) and Alagappan, Manual of Practical Medicine, Chapter 9 (Nervous System, pp. 570–650).</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Awarded</p>
+<p>General examination (vitals, built, stigmata, JVP, edema)</p>
+<p>8</p>
+<p>3</p>
+<p>System-specific examination (inspection, palpation, percussion, auscultation)</p>
+<p>14</p>
+<p>10</p>
+<p>Accurate grading/interpretation of findings</p>
+<p>8</p>
+<p>5</p>
+<p>Total</p>
+<p>30</p>
+<p>18</p>
+<p>Phase 2 complete. Please now give your integrated case summary.</p></div>
+    </div>
+  </div>
+</section>
+
+  </div>
+</body>
+</html>
