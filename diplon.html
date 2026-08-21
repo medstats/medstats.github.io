@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinical Case Viva: Acute Vertigo, Diplopia, and Cerebellar Signs</title>
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background-color: #f4f7f9;
+    }
+    .container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+    h1 {
+        color: #23455A;
+        border-bottom: 4px solid #9A4D33;
+        padding-bottom: 15px;
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+    .authors-box {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #D8CCC0;
+        padding-bottom: 20px;
+        color: #555;
+    }
+    .authors-box p {
+        margin: 5px 0;
+    }
+    .app-link {
+        color: #9A4D33;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .app-link:hover {
+        text-decoration: underline;
+    }
+    h3 {
+        background-color: #23455A;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 6px;
+        margin-top: 60px;
+        font-size: 1.8em;
+        box-shadow: 0 4px 12px rgba(35, 69, 90, 0.2);
+    }
+    .user-block {
+        background: #f9fbfd;
+        border: 1px solid #e1e8ed;
+        border-left: 8px solid #23455A;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .summary-block {
+        background: #fdfaf7;
+        border: 1px solid #f3e8df;
+        border-left: 8px solid #9A4D33;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .summary-block h4 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.3em;
+        color: #9A4D33;
+        border-bottom: 2px solid #f3e8df;
+        padding-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .summary-block ul {
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+    .summary-block li {
+        margin-bottom: 6px;
+    }
+    .summary-block p {
+        margin-bottom: 10px;
+    }
+    .responses-grid {
+        display: flex;
+        gap: 25px;
+        margin-top: 20px;
+    }
+    .col {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    h4 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+        text-transform: uppercase;
+        padding: 10px 15px;
+        border-left: 6px solid;
+        border-radius: 4px;
+        letter-spacing: 1px;
+    }
+    .resident-header {
+        color: #5D6E42;
+        border-color: #5D6E42;
+        background-color: #E6ECD9;
+    }
+    .expert-header {
+        color: #9A4D33;
+        border-color: #9A4D33;
+        background-color: #F3E4DC;
+    }
+    .content {
+        background: #fff;
+        border: 1px solid #eee;
+        padding: 20px;
+        border-radius: 8px;
+        height: 100%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    strong {
+        color: #23455A;
+    }
+    .content p strong {
+        color: #1a1a1a;
+    }
+    .missing { color: #9a3412; font-style: italic; }
+    
+    @media (max-width: 900px) {
+      .responses-grid {
+          flex-direction: column;
+      }
+      .container {
+          padding: 20px;
+      }
+    }
+    
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; max-width: 100%; }
+      .round { break-inside: avoid; }
+      .responses-grid { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><strong>CLINICAL CASE VIVA: ACUTE VERTIGO, DIPLOPIA, AND CEREBELLAR SIGNS</strong></h1>
+    <div class="authors-box">
+        <p><strong>Authors: GEMINI, CHATGPT & ANUPAM SINGH MD (Human in loop)</strong></p>
+        <p>Department of Medicine, Santosh Medical College.</p>
+        <p><a href="https://medstats.github.io/agenticviva.html" class="app-link">← Back to Agentic Viva Cases Index</a> | <a href="https://medstats.github.io/smcrounds.html" target="_blank" class="app-link">Clinical Rounds App</a></p>
+    </div>
+    
+<section class="round">
+  <h3>Round 1</h3>
+  <div class="user-block"><p><strong>USER:</strong> <strong>Case History — Transcription<br><br>Name: V. K.<br>Age: 76 years<br>Sex: Male<br>Occupation: Clerk (appears to be written “clerk by occupation”)<br><br>Chief Complaints<br><br>Dizziness × 1 day<br><br>Double vision / diplopia × 1 day<br><br>Slurring of speech × 1 day<br><br>History of Present Illness<br><br>1. Dizziness<br><br>Sudden onset.<br><br>Continuous.<br><br>Spontaneous.<br><br>Non-progressive.<br><br>Described as a feeling of surroundings spinning.<br><br>Not associated with light-headedness.<br><br>Not associated with nausea or vomiting.<br><br>Associated with difficulty in standing.<br><br>Not associated with hearing loss or tinnitus.<br><br>No associated headache or neck pain.<br><br>No clear loss of balance documented.<br><br>2. Diplopia<br><br>Sudden onset.<br><br>Binocular.<br><br>Horizontal.<br><br>Constant.<br><br>Disappears on closing either eye.<br><br>Associated ptosis appears to be documented, though the adjoining wording regarding near/distant vision is unclear.<br><br>Not associated with:<br><br>Pupillary abnormality<br><br>Eye pain<br><br>Facial numbness<br><br>3. Slurring of speech<br><br>Sudden onset.<br><br>Constant.<br><br>Difficulty in articulation of words.<br><br>Not associated with:<br><br>Hoarseness<br><br>Nasal voice<br><br>Dysphagia<br><br>Nasal regurgitation<br><br>Coughing while eating<br><br>Facial deviation<br><br>Tongue deviation<br><br>Other Negative History<br><br>No history of:<br><br>Seizures<br><br>Loss of consciousness<br><br>Fever<br><br>Irrelevant talk<br><br>Involuntary movements<br><br>A few words at the bottom of the first page, including references to smell/taste, ear discharge, cough/rashes, are partly obscured and cannot be transcribed confidently.<br><br>Past History<br><br>Hypertension × 10 years<br><br>On Tab Telma-AM, PO OD<br><br>No addiction history.<br><br>History of hernioplasty – 2023.<br><br>History of ORIF of left ankle following slip and fall – 2019.<br><br>Bilateral cataract — “1 month” is written; exact context is unclear.<br><br>No significant family history.<br><br>Personal History<br><br>Bladder and bowel: intact<br><br>Appetite: normal<br><br>Sleep: normal<br><br>Show moreShow less</strong></p></div>
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History Phase)</h4>
+<p><strong>Case Summary (Positive Findings):</strong></p>
+<ul>
+  <li><strong>Demographics & Risk Factors:</strong> 76-year-old male with a 10-year history of hypertension (on Telma-AM).</li>
+  <li><strong>Acute Onset Neurological Symptoms (1 day duration):</strong>
+    <ul>
+      <li><strong>Vertigo:</strong> Sudden onset, continuous, spontaneous, non-progressive, described as "surroundings spinning." Associated with difficulty in standing. No associated light-headedness, nausea/vomiting, hearing loss, tinnitus, headache, or neck pain.</li>
+      <li><strong>Diplopia:</strong> Sudden onset, binocular, horizontal, constant, disappears on closing either eye. Associated ptosis appears to be documented. No associated pupillary abnormality, eye pain, or facial numbness.</li>
+      <li><strong>Dysarthria:</strong> Sudden onset, constant slurring of speech (difficulty in articulation of words). No associated hoarseness, nasal voice, dysphagia, nasal regurgitation, coughing while eating, facial deviation, or tongue deviation.</li>
+    </ul>
+  </li>
+  <li><strong>Past Medical History:</strong> Hypertension (10 years), hernioplasty (2023), ORIF left ankle (2019), bilateral cataract (1 month, context unclear).</li>
+</ul>
+<p><strong>Probability-Based Differential Diagnoses (on the basis of History):</strong></p>
+<ol>
+  <li><strong>Ischemic Stroke (Brainstem/Cerebellar) (60%):</strong> Acute onset of multiple focal neurological deficits (vertigo, dysarthria, binocular horizontal diplopia with ptosis, difficulty standing) in an elderly patient with a significant vascular risk factor (hypertension). This constellation strongly localizes to the posterior circulation (brainstem and/or cerebellum), where ischemia can cause central vertigo, ataxia, dysarthria, and cranial nerve palsies (e.g., partial CN III palsy from midbrain ischemia). The duration of 1 day makes stroke highly probable.</li>
+  <li><strong>Transient Ischemic Attack (TIA) (15%):</strong> Similar to ischemic stroke in presentation, involving the posterior circulation. The symptoms are acute and focal. If these symptoms were to resolve completely within 24 hours (or typically much sooner), it would be classified as a TIA. Given the 1-day duration, it's still a possibility, but the persistence makes stroke more likely.</li>
+  <li><strong>Myasthenia Gravis (MG) Crisis/Exacerbation (10%):</strong> MG can cause fluctuating ptosis and binocular diplopia (often horizontal), and bulbar symptoms like dysarthria. The absence of pupillary involvement is consistent. While the "sudden onset" and "constant" nature might argue against typical MG fluctuations, an acute exacerbation or crisis can present this way. However, the prominent vertigo and difficulty standing (suggesting ataxia rather than pure weakness) are less typical for MG.</li>
+  <li><strong>Vertebrobasilar Insufficiency (VBI) (10%):</strong> This refers to transient or chronic reduction in blood flow to the posterior circulation. It can manifest with symptoms like vertigo, diplopia, dysarthria, and ataxia, fitting the patient's presentation. While often leading to TIA or stroke, VBI can be considered as the underlying pathophysiological process causing these symptoms.</li>
+  <li><strong>Brain Tumor (Posterior Fossa/Brainstem) (5%):</strong> A mass lesion in the posterior fossa (cerebellum or brainstem) could cause these symptoms due to compression or direct involvement. However, the "sudden onset" and "1 day" duration make an acute vascular event much more likely than a de novo presentation of a tumor, which typically has a more subacute or progressive course. An acute hemorrhage into a tumor is a less common but possible acute presentation.</li>
+</ol>
+  </div>
+  <div class="responses-grid">
+    <div class="col chatgpt-col">
+      <h4 class="expert-header">CHATGPT</h4>
+      <div class="content"><p>[PHASE 1 — HISTORY PRESENTATION</p>
+<p>]<strong>Q1 What is the most important syndromic clue in this history?</strong></p>
+<p><strong>MODEL_ANS1</strong> The combination of acute vertigo, binocular diplopia, and dysarthria is strongly suggestive of a central neurological lesion involving the posterior circulation/brainstem rather than an isolated peripheral vestibular disorder. Alagappan specifically lists diplopia, dizziness/vertigo, and dysphagia/dysarthria among vertebrobasilar-territory manifestations.</p>
+<p>Reference: Alagappan, Manual of Practical Medicine, Nervous System—Cerebrovascular Disease/Vertebrobasilar territory. Kundu covers cerebrovascular disease under the Nervous System long case on hemiplegia and cerebellar disorders under short cases.</p>
+<p><strong>Q2 Is the patient&#x27;s “dizziness” true vertigo?</strong></p>
+<p><strong>MODEL_ANS2</strong> Yes. He describes an illusion of movement with the surroundings spinning, which is characteristic of vertigo. The associated inability to stand, diplopia, and dysarthria are important central neurological accompaniments. Alagappan notes that vertebral artery ischaemia may cause vertigo with ataxia, diplopia and dysarthria.</p>
+<p><strong>Q3 What historical features favour central vertigo over peripheral vertigo here?</strong></p>
+<p><strong>MODEL_ANS3</strong> The strongest clues are the associated diplopia and dysarthria, along with severe postural difficulty. Absence of tinnitus and hearing loss also makes disorders such as Ménière disease less typical. Alagappan contrasts labyrinthine disease—vertigo with deafness/tinnitus—with vertebral artery ischaemia, where vertigo may accompany ataxia, diplopia and dysarthria.</p>
+<p><strong>Q4 Why is the binocular nature of the diplopia important?</strong></p>
+<p><strong>MODEL_ANS4</strong> Diplopia that disappears when either eye is closed is binocular and indicates ocular misalignment rather than an optical problem within one eye. In this clinical setting, one must consider brainstem ocular-motor pathways or III, IV, VI nerve involvement. Alagappan describes pontine vascular syndromes with diplopia, gaze abnormalities and VI-nerve-related findings.</p>
+<p><strong>Q5 What additional questions should be asked about the diplopia?</strong></p>
+<p><strong>MODEL_ANS5</strong> Ask whether separation is horizontal, vertical or oblique; whether it is worse on looking in a particular direction; whether it varies with distance or near fixation; whether there is abnormal head posture; and whether ptosis or pupillary symptoms coexist. These features help identify the involved ocular-motor pathway. In a suspected brainstem vascular syndrome, conjugate gaze paresis and ocular movement disorders are particularly important.</p>
+<p><strong>Q6 How would you classify the speech disturbance described?</strong></p>
+<p><strong>MODEL_ANS6</strong> The history suggests dysarthria, because the patient has difficulty articulating words rather than impaired language comprehension or word generation. Dysarthria is a recognized manifestation of vertebrobasilar ischaemia and cerebellar/brainstem disease.</p>
+<p><strong>Q7 Which negative symptoms help you distinguish dysarthria from bulbar dysfunction?</strong></p>
+<p><strong>MODEL_ANS7</strong> The absence of dysphagia, nasal regurgitation, nasal speech, coughing while eating and hoarseness argues against prominent IX/X cranial nerve dysfunction from the history. However, these negatives should be elicited carefully because vertebrobasilar strokes may involve lower cranial nerves.</p>
+<p><strong>Q8 What other posterior-circulation symptoms should specifically have been asked?</strong></p>
+<p><strong>MODEL_ANS8</strong> Ask for drop attacks, limb weakness or numbness, facial sensory symptoms, gait or limb ataxia, visual field loss/cortical blindness, nystagmus-related visual oscillation, dysphagia, hearing disturbance and episodes of altered consciousness. Alagappan specifically lists diplopia, vertigo, drop attacks, dysphagia/dysarthria, bipyramidal signs and cortical blindness in vertebrobasilar stroke.</p>
+<p><strong>Q9 What important motor and sensory history is missing?</strong></p>
+<p><strong>MODEL_ANS9</strong> You should explicitly ask about weakness or heaviness of either side, numbness, paraesthesia, facial sensory loss and crossed facial-body sensory symptoms. Brainstem vascular lesions may produce cranial nerve findings on one side with long-tract motor or sensory findings on the opposite side. Alagappan describes such crossed patterns in pontine and medullary vascular syndromes.</p>
+<p><strong>Q10 Why is the sudden onset particularly important?</strong></p>
+<p><strong>MODEL_ANS10</strong> A sudden neurological deficit reaching prominence rapidly strongly supports a vascular event. Alagappan contrasts stroke with many mimics by noting that stroke usually has sudden onset over minutes with rapid development of a definite neurological deficit.</p>
+<p><strong>Q11 What vascular risk factors must still be elicited?</strong></p>
+<p><strong>MODEL_ANS11</strong> Besides the documented hypertension, ask specifically for diabetes mellitus, dyslipidaemia, smoking/tobacco exposure, previous TIA or stroke, ischaemic heart disease, atrial fibrillation or other cardiac disease, peripheral vascular disease and family history of stroke. Alagappan discusses hypertension and cardiovascular/atherothrombotic mechanisms prominently in cerebrovascular disease.</p>
+<p><strong>Q12 What cardiac history is particularly important in an elderly patient with sudden neurological symptoms?</strong></p>
+<p><strong>MODEL_ANS12</strong> Ask for palpitations, known atrial fibrillation, valvular disease, myocardial infarction and previous embolic events, because cerebral infarction may result from cardiac thromboembolism. Alagappan lists cardiac sources including left atrial and left ventricular thrombi among mechanisms of cerebral infarction.</p>
+<p><strong>Q13 Why should headache and neck pain be specifically documented?</strong></p>
+<p><strong>MODEL_ANS13</strong> Their absence is useful but does not exclude stroke. A severe acute headache may raise concern for haemorrhage, while neck pain in an appropriate context may suggest vertebral arterial pathology. In this case, their absence does not outweigh the strong posterior-circulation symptom cluster.</p>
+<p><strong>Q14 What are the main historical differentials for this presentation?</strong></p>
+<p><strong>MODEL_ANS14</strong> The leading consideration is an acute vertebrobasilar/posterior-circulation cerebrovascular event. Historical differentials include peripheral vestibular disorders, cerebellar infarction or haemorrhage, brainstem lesions and less likely other neurological stroke mimics. Alagappan specifically lists Ménière disease and vestibular disorders among stroke mimics, while cerebellar infarction and vascular brainstem syndromes may produce vertigo and dysarthria.</p>
+<p><strong>Q15 Give a one-line provisional diagnosis based on history alone.</strong></p>
+<p><strong>MODEL_ANS15</strong> A 76-year-old hypertensive man with sudden-onset persistent vertigo, binocular horizontal diplopia and dysarthria of one day&#x27;s duration, with difficulty standing, clinically suggesting an acute posterior-circulation—most likely vertebrobasilar/brainstem—cerebrovascular event. The symptom triad closely matches Alagappan&#x27;s description of vertebrobasilar stroke.</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>: Chief complaints and duration were clearly stated. The vertigo was characterized well as sudden, continuous and spinning in nature, with useful negatives for nausea, vomiting, hearing loss and tinnitus. Diplopia was correctly established as binocular, horizontal and persistent. Dysarthria was distinguished from several bulbar symptoms. Hypertension and current antihypertensive treatment were documented. Seizure, loss of consciousness and infective symptoms were appropriately screened.</p>
+<p><strong>⚠️ MISSING</strong>: The most important omissions are exact temporal relationship between the three symptoms, whether deficits were maximal at onset, detailed gait/ataxia history, limb weakness and sensory symptoms, facial sensory symptoms, drop attacks, visual field loss, previous TIA/stroke, diabetes, dyslipidaemia, coronary disease, atrial fibrillation/palpitations and explicit allergy history. Diplopia requires direction-of-gaze and near-versus-distance characterization. “No addiction” should ideally be expanded into quantified smoking/tobacco and alcohol history.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>: Revise Alagappan, Manual of Practical Medicine, Nervous System—Vertigo; Cerebrovascular Disorders; Vertebrobasilar Territory Stroke; Pontine/Brainstem Syndromes. Also revise Kundu, Bedside Clinics in Medicine, Part I—Nervous System: Hemiplegia (including Cerebrovascular Diseases), Cerebellar Disorder, Speech Disorders, Ptosis and Squint.</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Awarded Marks</p>
+<p>Examiner Comments</p>
+<p>Chief complaint + presenting features</p>
+<p>5</p>
+<p>5</p>
+<p>Clear complaints with appropriate duration.</p>
+<p>History of presenting illness (onset, progression, severity)</p>
+<p>8</p>
+<p>7</p>
+<p>Strong symptom characterization; exact chronology and severity/ataxia characterization need improvement.</p>
+<p>Relevant system review</p>
+<p>5</p>
+<p>3.5</p>
+<p>Good cranial/bulbar screening, but motor, sensory, cerebellar and vascular-system enquiry is incomplete.</p>
+<p>Relevant negatives</p>
+<p>4</p>
+<p>3.5</p>
+<p>Many useful negatives documented; important posterior-circulation negatives remain.</p>
+<p>Past history, drug history, allergies</p>
+<p>4</p>
+<p>2.5</p>
+<p>Hypertension and medication documented; stroke/TIA, DM, dyslipidaemia, cardiac disease and allergy history need explicit documentation.</p>
+<p>Family, social, occupational history</p>
+<p>4</p>
+<p>2.5</p>
+<p>Occupation, family history and absence of addiction mentioned, but vascular lifestyle risks should be better quantified.</p>
+<p>Total</p>
+<p>30</p>
+<p>24/30</p>
+<p>Good acute neurological history, but vascular-risk assessment and posterior-circulation localization history need greater depth.</p></div>
+    </div>
+    <div class="col gemini-col">
+      <h4 class="resident-header">GEMINI</h4>
+      <div class="content"><p>[PHASE 1 — HISTORY PRESENTATION</p>
+<p>]<strong>Q1 How do you clinically differentiate true vertigo from lightheadedness or presyncope in the patient&#x27;s history?</strong><br><strong>MODEL_ANS1</strong> Vertigo is defined as a subjective hallucination of movement—an illusion of rotation or spinning of the surroundings or the body itself, resulting from an imbalance in the vestibular pathways. In contrast, lightheadedness or presyncope is an ill-defined feeling of faintness, giddiness, unsteadiness, or impending loss of consciousness without any rotational illusion, typically caused by global cerebral hypoperfusion, orthostatic hypotension, or cardiac arrhythmias. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Long Cases: Hemiplegia, p. 131; Alagappan, Manual of Practical Medicine, Nervous System: Cranial Nerves, p. 614).</p>
+<p>PDF+ 4</p>
+<p><strong>Q2 What features in the clinical history distinguish central vertigo from peripheral (labyrinthine/vestibular nerve) vertigo?</strong><br><strong>MODEL_ANS2</strong> Peripheral vertigo is typically episodic, severe, accompanied by prominent auditory symptoms (tinnitus, hearing loss, fullness in the ear), and marked autonomic features (nausea, vomiting, pallor, diaphoresis), but lacks associated central neurological deficits. Central vertigo (due to brainstem or cerebellar involvement) is often continuous, less severe in rotational intensity, usually lacks tinnitus or hearing loss, and is characteristically accompanied by brainstem or cerebellar signs such as diplopia, dysarthria, dysphagia, ataxia, or crossed sensorimotor deficits. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Vertigo, pp. 600, 614–615; Kundu, Part I, Spot Cases: Cranial Nerves, p. 450).</p>
+<p>PDF+ 4</p>
+<p><strong>Q3 Why is it critical to establish whether diplopia is binocular or monocular in the history, and how do you differentiate them?</strong><br><strong>MODEL_ANS3</strong> Binocular diplopia arises from ocular misalignment due to extraocular muscle paresis (cranial nerves III, IV, or VI palsy) or brainstem disruption of conjugate gaze; it characteristically disappears completely when either eye is occluded. Monocular diplopia persists even when the unaffected eye is covered and indicates an intrinsic ocular/refractive abnormality (such as cataract, severe astigmatism, or subluxated lens) or, rarely, a psychogenic or primary visual cortex lesion. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Ocular Movements, p. 599; Kundu, Part I, Spot Cases: Cranial Nerves, p. 445).</p>
+<p>PDF+ 4</p>
+<p><strong>Q4 The patient presents with sudden slurring of speech. How do you distinguish dysarthria from dysphasia/aphasia by history?</strong><br><strong>MODEL_ANS4</strong> Dysarthria is a motor disorder of articulation and pronunciation of spoken phonemes/syllables caused by neuromuscular weakness or incoordination of the speech apparatus (lips, tongue, palate, larynx), with intact language comprehension, reading, and writing. Dysphasia/aphasia is a higher cortical processing deficit involving language formulation, comprehension, naming, or repetition resulting from damage to dominant cortical speech areas (Broca&#x27;s, Wernicke&#x27;s). (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Speech and Language, pp. 585–586; Kundu, Part I, Spot Cases: Speech Disturbances, pp. 438–439).</p>
+<p>PDF+ 4</p>
+<p><strong>Q5 What anatomical vascular territory is implicated when a patient presents with the triad of acute vertigo, binocular diplopia, and dysarthria?</strong><br><strong>MODEL_ANS5</strong> This clinical triad indicates vertebrobasilar arterial territory (posterior circulation) ischemia. The vertebrobasilar system supplies the brainstem (midbrain, pons, medulla), cerebellum, and occipital lobes. Ischemia involving the vestibular nuclei/cerebellar connections produces vertigo; involvement of the ocular motor nuclei (CN III, IV, VI) or medial longitudinal fasciculus (MLF) causes diplopia; and ischemia affecting the corticobulbar fibers or lower cranial nerve nuclei produces dysarthria. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Stroke and Cerebrovascular Disorders, p. 667; Kundu, Part I, Long Cases: Hemiplegia, p. 131).</p>
+<p>PDF+ 4</p>
+<p><strong>Q6 Why must the exact &quot;last known well&quot; time and time of onset be established in an acute stroke presentation?</strong><br><strong>MODEL_ANS6</strong> Determining the exact onset time or &quot;last known well&quot; time defines the therapeutic window for acute reperfusion strategies. Intravenous thrombolysis (IV rtPA) is indicated within 4.5 hours of symptom onset, and mechanical thrombectomy can be considered up to 6–24 hours in selected anterior or posterior circulation large vessel occlusions. Knowing the exact onset also differentiates acute vascular events (maximal at onset) from space-occupying lesions or inflammatory demyelination. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Stroke Management, pp. 674–676; Kundu, Part I, Long Cases: Hemiplegia, pp. 131, 139).</p>
+<p>PDF+ 1</p>
+<p><strong>Q7 What is the clinical significance of inquiring about &quot;drop attacks&quot; or transient syncopal spells in suspected vertebrobasilar insufficiency?</strong><br><strong>MODEL_ANS7</strong> A drop attack is a sudden, unexpected fall to the ground due to sudden loss of lower limb postural muscle tone without alteration or loss of consciousness. It is characteristic of transient ischemia to the brainstem reticular formation and corticospinal tracts within the vertebrobasilar arterial distribution. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Long Cases: Hemiplegia, p. 131; Alagappan, Manual of Practical Medicine, Nervous System: Vertebrobasilar Insufficiency, p. 667).</p>
+<p>PDF+ 4</p>
+<p><strong>Q8 The patient is noted to have ptosis in association with diplopia. How do you distinguish third cranial nerve palsy from Horner&#x27;s syndrome on history and examination?</strong><br><strong>MODEL_ANS8</strong> In a third nerve palsy, ptosis is typically moderate to complete (due to levator palpebrae superioris paralysis), extraocular movements are restricted (eye lies down and out), and the pupil is classically dilated and fixed (mydriasis) if parasympathetic fibers are involved. In Horner&#x27;s syndrome (oculosympathetic paresis), the ptosis is mild/partial (due to paralysis of Müller&#x27;s superior tarsal muscle), ocular motility is normal, the pupil is constricted (miosis), and there may be associated ipsilateral facial anhidrosis and enophthalmos. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Cranial Nerves, pp. 599–600; Kundu, Part I, Spot Cases: Cranial Nerves, pp. 439, 445).</p>
+<p>PDF+ 4</p>
+<p><strong>Q9 Why must one systematically inquire about dysphagia, dysphonia, and nasal regurgitation in suspected posterior circulation stroke?</strong><br><strong>MODEL_ANS9</strong> Dysphagia (difficulty swallowing), dysphonia/hoarseness, and nasal regurgitation of fluids indicate involvement of the lower cranial nerves (IX, X, and XI / nucleus ambiguus) or their corticobulbar projections. Their presence signifies medullary ischemia (such as lateral medullary syndrome / Wallenberg&#x27;s syndrome from PICA or vertebral artery occlusion) and flags a life-threatening risk of aspiration pneumonia and airway compromise. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Stroke Syndromes, p. 667; Kundu, Part I, Spot Cases: Bulbar Palsy, p. 438).</p>
+<p>PDF+ 4</p>
+<p><strong>Q10 What is the clinical importance of asking about preceding neck pain, occipital headache, or recent minor cervical trauma?</strong><br><strong>MODEL_ANS10</strong> Severe acute occipital or neck pain preceding posterior circulation symptoms in an elderly or middle-aged patient strongly raises suspicion for vertebral artery dissection or cerebellar infarction/hemorrhage. Vertebral artery dissection can lead to intramural hematoma, thromboembolism, or basilar artery occlusion. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Cerebrovascular Disorders, p. 667; Kundu, Part I, Long Cases: Hemiplegia, p. 131).</p>
+<p>PDF+ 4</p>
+<p><strong>Q11 Why is it necessary to ask about sensory loss over the ipsilateral face and contralateral half of the body (&quot;crossed hemisensory loss&quot;)?</strong><br><strong>MODEL_ANS11</strong> Crossed sensory loss is pathognomonic for a brainstem lesion (classically lateral medullary or lower pontine infarction). It occurs because descending spinal tract and nucleus of the trigeminal nerve (supplying pain and temperature to the ipsilateral face) and the ascending lateral spinothalamic tract (carrying pain and temperature from the contralateral trunk and limbs after decussation in the spinal cord) run in close anatomical proximity in the dorsolateral brainstem. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Brainstem Syndromes, p. 667; Kundu, Part I, Long Cases: Hemiplegia, p. 137).</p>
+<p>PDF+ 2</p>
+<p><strong>Q12 Why is a thorough cardiac history (palpitations, chest pain, exertional dyspnea) essential in this elderly patient?</strong><br><strong>MODEL_ANS12</strong> Vertebrobasilar strokes can be cardioembolic in up to 20–30% of cases. History of palpitations suggests paroxysmal or persistent atrial fibrillation; chest pain points toward acute myocardial infarction with mural thrombus; and exertional dyspnea may indicate rheumatic valvular heart disease, dilated cardiomyopathy, or left ventricular dysfunction, all of which are major embolic substrates. (Reference: Alagappan, Manual of Practical Medicine, Cardiovascular System, p. 288; Kundu, Part I, Long Cases: Hemiplegia, pp. 133–134).</p>
+<p>PDF+ 4</p>
+<p><strong>Q13 How does long-standing hypertension (10 years) pathophysiologically contribute to ischemic stroke in the vertebrobasilar territory?</strong><br><strong>MODEL_ANS13</strong> Chronic hypertension promotes large-vessel accelerated atherosclerosis in the subclavian, vertebral, and basilar arteries (causing atherothrombosis or artery-to-artery embolism) and induces lipohyalinosis/microatheroma in small deep penetrating branch arteries (paramedian and circumferential branches of the basilar artery), resulting in lacunar infarctions of the pons, medulla, and midbrain. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Cerebrovascular Disease, p. 674; Kundu, Part I, Long Cases: Hemiplegia, p. 140).</p>
+<p>PDF+ 3</p>
+<p><strong>Q14 What is a Transient Ischemic Attack (TIA), and why is history of preceding stereotyped neurological episodes relevant?</strong><br><strong>MODEL_ANS14</strong> A TIA is a transient episode of neurological dysfunction caused by focal brain, spinal cord, or retinal ischemia without acute tissue infarction, traditionally resolving within 24 hours (most within 1 hour). Preceding brief episodes of vertigo, diplopia, or ataxia indicate vertebrobasilar insufficiency and carry a very high short-term risk of a completed disabling posterior circulation stroke. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: TIA, p. 667; Kundu, Part I, Long Cases: Hemiplegia, p. 142).</p>
+<p>PDF+ 4</p>
+<p><strong>Q15 What does the inability to stand or balance in the absence of limb weakness indicate regarding localization?</strong><br><strong>MODEL_ANS15</strong> Marked inability to stand or balance without significant limb weakness signifies cerebellar ataxia (involving the vermis/vestibulocerebellum) or severe vestibulospinal tract dysfunction. It differentiates an axial or midline cerebellar/vestibular deficit from a pure corticospinal (pyramidal) motor hemiparesis. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Cerebellar Function, p. 615; Kundu, Part II, Spot Cases: Cerebellar Disorders, p. 278).</p>
+<p>PDF+ 4</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>:</p>
+<p>Clear chronological layout of the presenting complaints with precise onset duration (1 day).</p>
+<p>Comprehensive characterization of dizziness/vertigo (continuous, spinning, non-progressive, absence of auditory symptoms).</p>
+<p>Accurate differentiation of diplopia as binocular (resolving upon occluding either eye).</p>
+<p>Thorough documentation of pertinent negative bulbar symptoms (absence of dysphagia, nasal regurgitation, hoarseness, tongue/facial deviation).</p>
+<p>Inclusion of relevant past medical history (hypertension on Telma-AM) and surgical history.</p>
+<p><strong>⚠️ MISSING</strong>:</p>
+<p>Exact time of onset and &quot;last known well&quot; timestamp (critical for reperfusion therapy candidacy).</p>
+<p>Negative inquiry regarding preceding neck pain, occipital headache, or minor cervical trauma (to rule out vertebral artery dissection).</p>
+<p>Detailed exploration of facial sensations versus contralateral limb sensations (screening for crossed brainstem syndromes).</p>
+<p>Review of cardioembolic symptoms (palpitations, chest discomfort, dyspnea).</p>
+<p>Dominant handedness documentation.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>:</p>
+<p>Review Alagappan&#x27;s Manual of Practical Medicine (6th Edition), Chapter 9: &quot;Nervous System&quot; — Sections on Cerebrovascular Disorders and Vertebrobasilar Territory Syndromes (pp. 667–675) and Evaluation of Vertigo and Cranial Nerves (pp. 599–615).</p>
+<p>Consult Kundu&#x27;s Bedside Clinics in Medicine (Part I), Case 16: Hemiplegia &amp; Posterior Circulation Stroke (pp. 131–142) and Spot Cases on Cranial Nerve Palsies (pp. 438–450).</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Awarded</p>
+<p>Chief complaint + presenting features</p>
+<p>5</p>
+<p>4.5</p>
+<p>History of presenting illness (onset, progression, severity)</p>
+<p>8</p>
+<p>6.5</p>
+<p>Relevant system review</p>
+<p>5</p>
+<p>4.0</p>
+<p>Relevant negatives</p>
+<p>4</p>
+<p>3.5</p>
+<p>Past history, drug history, allergies</p>
+<p>4</p>
+<p>3.5</p>
+<p>Family, social, occupational history</p>
+<p>4</p>
+<p>3.0</p>
+<p>Total</p>
+<p>30</p>
+<p>25.0</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="round">
+  <h3>Round 2</h3>
+  <div class="user-block"><p><strong>USER:</strong> <strong>Physical Examination — Transcription<br><br>General Examination<br><br>Average build<br><br>BMI: 26 kg/m²<br><br>BP: 110/70 mmHg, right arm<br><br>Pulse: 76/min<br><br>Temperature: Afebrile<br><br>SpO₂: 98% on room air<br><br>Respiratory rate: 18/min<br><br>PICCLE: Absent<br><br>No nerve thickening<br><br>Right-handed<br><br>---<br><br>Neurological Examination<br><br>Higher Mental Functions<br><br>Consciousness: Intact<br><br>Orientation: Intact<br><br>MMSE: 30/30<br><br>Memory: Intact<br><br>Speech: Dysarthria<br><br>Apraxia: Absent<br><br>Hemineglect: Absent<br><br>Hallucinations/Delusions: Absent<br><br>---<br><br>Cranial Nerves<br><br>CN I — Olfactory<br><br>Intact<br><br>CN II — Optic<br><br>Intact<br><br>CN III, IV, VI — Oculomotor/Trochlear/Abducens<br><br>Right medial rectus palsy documented<br><br>CN IV: Intact<br><br>CN VI: Intact<br><br>Pupils: Normal<br><br>No nystagmus<br><br>CN V — Trigeminal<br><br>Normal<br><br>CN VII — Facial<br><br>Intact<br><br>CN VIII — Vestibulocochlear<br><br>No nystagmus documented<br><br>CN IX, X<br><br>Normal<br><br>Gag reflex present<br><br>Palatal movements appear normal<br><br>CN XI — Accessory<br><br>SCM: Normal<br><br>CN XII — Hypoglossal<br><br>Intact<br><br>---<br><br>Motor Examination<br><br>The motor examination table is partly obscured/torn in the photograph.<br><br>What is visible:<br><br>Bulk: appears normal<br><br>Tone: appears normal<br><br>Power: appears normal<br><br>No obvious focal limb weakness documented<br><br>Involuntary movements: not documented / apparently absent<br><br>---<br><br>Sensory Examination<br><br>Sensory system: Normal<br><br>---<br><br>Cerebellar Examination<br><br>Finger–nose test: abnormal on right hand<br><br>Finger–finger test: abnormal on right hand<br><br>Dysdiadochokinesia: present in right hand<br><br>Romberg: sways towards the right<br><br>These findings suggest right-sided cerebellar dysfunction.<br><br>---<br><br>Meningeal Signs<br><br>Absent<br><br>Autonomic System<br><br>Normal<br><br>Reflexes<br><br>Reflexes documented as normal<br><br>Plantar responses appear down-going bilaterally<br><br>Key Positive Neurological Findings<br><br>1. Dysarthria<br><br>2. Right medial rectus palsy<br><br>3. Right-sided appendicular cerebellar signs<br><br>Finger–nose abnormal<br><br>Finger–finger abnormal<br><br>Dysdiadochokinesia<br><br>4. Romberg: sway to right<br><br>5. No obvious motor or sensory deficit<br><br>Show moreShow less</strong></p></div>
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History + Examination Phase)</h4>
+<p><strong>Case Summary (Positive Findings):</strong></p>
+<ul>
+  <li><strong>Patient Demographics/Risk Factors:</strong> 76-year-old male with a 10-year history of hypertension (on medication).</li>
+  <li><strong>Chief Complaints (Acute Onset - 1 day):</strong>
+    <ul>
+      <li>Dizziness: Sudden onset, continuous, spontaneous, described as surroundings spinning, associated with difficulty standing, not associated with light-headedness, nausea, vomiting, hearing loss, tinnitus, headache, or neck pain.</li>
+      <li>Diplopia: Sudden onset, binocular, horizontal, constant, disappears on closing either eye, associated ptosis documented.</li>
+      <li>Slurring of speech: Sudden onset, constant, difficulty in articulation of words.</li>
+    </ul>
+  </li>
+  <li><strong>General Examination:</strong> BMI 26 kg/m² (overweight), BP 110/70 mmHg (controlled), Pulse 76/min, Afebrile.</li>
+  <li><strong>Neurological Examination:</strong>
+    <ul>
+      <li><strong>Speech:</strong> Dysarthria.</li>
+      <li><strong>Cranial Nerves:</strong> Right medial rectus palsy (CN III), pupils normal, no nystagmus documented.</li>
+      <li><strong>Motor:</strong> Bulk, tone, power appear normal; no obvious focal limb weakness.</li>
+      <li><strong>Sensory:</strong> Normal.</li>
+      <li><strong>Cerebellar:</strong> Right-sided appendicular ataxia (abnormal finger-nose and finger-finger tests, dysdiadochokinesia in right hand) and truncal ataxia (Romberg sways towards the right).</li>
+      <li><strong>Reflexes:</strong> Normal, plantar responses down-going bilaterally.</li>
+      <li><strong>Meningeal Signs:</strong> Absent.</li>
+    </ul>
+  </li>
+</ul>
+<p><strong>Probability-Based Differential Diagnoses (on the basis of History & Examination):</strong></p>
+<ol>
+  <li><strong>Ischemic Stroke (Brainstem/Cerebellum) (60%):</strong> The sudden onset of dysarthria, right CN III palsy (medial rectus palsy with ptosis causing binocular horizontal diplopia), and right-sided cerebellar signs (appendicular and truncal ataxia) in an elderly patient with hypertension strongly points to an acute vascular event. This constellation of symptoms localizes to the brainstem (midbrain for CN III, pons/medulla for cerebellar connections and dysarthria) or cerebellum, consistent with a posterior circulation stroke. The absence of long tract motor or sensory deficits is possible in specific brainstem or cerebellar infarcts.</li>
+  <li><strong>Hemorrhagic Stroke (Brainstem/Cerebellum) (25%):</strong> An acute onset of focal neurological deficits in a hypertensive patient can also be caused by an intraparenchymal hemorrhage in the brainstem or cerebellum. While headache and vomiting are often associated with hemorrhage, their absence does not definitively rule out a smaller or strategically located bleed.</li>
+  <li><strong>Vertebrobasilar Transient Ischemic Attack (TIA) (10%):</strong> The "3 D's" (dizziness/vertigo, diplopia, dysarthria) are classic symptoms of vertebrobasilar ischemia. While the symptoms have been continuous for 1 day, a prolonged TIA or a crescendo TIA leading to an evolving stroke could be considered. However, the persistence of symptoms makes a completed stroke more likely than a transient event.</li>
+  <li><strong>Brainstem/Cerebellar Tumor (with acute presentation) (3%):</strong> A tumor in the posterior fossa or brainstem could cause these symptoms. However, the sudden onset without prior progressive symptoms is less typical for a primary tumor, which usually has a more subacute course. An acute presentation could occur due to hemorrhage into the tumor or acute hydrocephalus.</li>
+  <li><strong>Demyelinating Disease (e.g., Multiple Sclerosis) (2%):</strong> Acute brainstem and cerebellar symptoms can occur in demyelinating diseases. However, the patient's age of 76 years makes a new presentation of Multiple Sclerosis highly improbable, although not impossible.</li>
+</ol>
+  </div>
+  <div class="responses-grid">
+    <div class="col chatgpt-col">
+      <h4 class="expert-header">CHATGPT</h4>
+      <div class="content"><p>[PHASE 2 — PHYSICAL EXAMINATION PRESENTATION</p>
+<p>]<strong>Q1 What are the principal positive findings on neurological examination?</strong></p>
+<p><strong>MODEL_ANS1</strong> The major findings are dysarthria, impaired right ocular adduction described as right medial rectus palsy, right upper-limb cerebellar incoordination, and rightward postural sway, with preserved higher functions, motor power, sensation, reflexes and plantar responses. Alagappan describes dysmetria, dysdiadochokinesia, ataxia and dysarthria among manifestations of cerebellar dysfunction.</p>
+<p>Reference: Alagappan, Manual of Practical Medicine, Nervous System—Clinical manifestations and localization of cerebellar dysfunction; Kundu, Bedside Clinics in Medicine, Nervous System—Cerebellar Disorder.</p>
+<p><strong>Q2 What does an abnormal finger–nose test demonstrate?</strong></p>
+<p><strong>MODEL_ANS2</strong> It demonstrates dysmetria, i.e. inability to judge the distance, speed or force required for a voluntary movement, resulting in undershooting or overshooting the target. Alagappan specifically uses the finger–nose test to demonstrate dysmetria and decomposition of movement.</p>
+<p><strong>Q3 What is dysdiadochokinesia, and how do you test for it?</strong></p>
+<p><strong>MODEL_ANS3</strong> Dysdiadochokinesia is the inability to perform rapid alternating movements smoothly and rapidly. It can be tested by asking the patient to perform rapid alternating pronation and supination of the hands. Its presence in the right hand supports right-sided cerebellar dysfunction.</p>
+<p><strong>Q4 Why do right-sided appendicular cerebellar signs localize to the right cerebellar hemisphere?</strong></p>
+<p><strong>MODEL_ANS4</strong> Cerebellar hemispheric lesions produce ipsilateral limb ataxia and other cerebellar signs, owing to the functional double crossing of cerebellar pathways. Therefore, definite right upper-limb dysmetria and dysdiadochokinesia point toward involvement of the right cerebellar hemisphere or its connections.</p>
+<p><strong>Q5 What other cerebellar signs should you have actively examined?</strong></p>
+<p><strong>MODEL_ANS5</strong> You should look for hypotonia, rebound phenomenon/loss of check reflex, intention tremor, decomposition of movement, heel–knee–shin abnormality, gait ataxia, impaired tandem walking, nystagmus, pendular knee jerk, titubation and scanning/staccato speech. Alagappan describes these as characteristic manifestations of cerebellar dysfunction.</p>
+<p><strong>Q6 Is “Romberg sways to the right” sufficient to diagnose a right cerebellar lesion?</strong></p>
+<p><strong>MODEL_ANS6</strong> No. It should not be interpreted in isolation. A proper Romberg test compares stability with the eyes open and closed and is particularly useful for assessing dependence on visual input in proprioceptive/postural control. In this patient, the stronger evidence for cerebellar dysfunction is the objective ipsilateral appendicular dysmetria and dysdiadochokinesia. The direction of falling during gait may support localization, but it should not replace specific cerebellar testing. Alagappan notes that cerebellar gait tends to deviate or fall toward the affected side.</p>
+<p><strong>Q7 How would you examine the patient&#x27;s gait more completely?</strong></p>
+<p><strong>MODEL_ANS7</strong> Observe the base, initiation, direction, arm swing, turning and ability to walk heel-to-toe in tandem. Cerebellar gait is typically broad-based and ataxic, with a tendency to fall toward the affected side, and tandem walking becomes difficult or impossible.</p>
+<p><strong>Q8 Does an isolated “right medial rectus palsy” automatically mean a right third cranial nerve palsy?</strong></p>
+<p><strong>MODEL_ANS8</strong> No. This terminology requires clarification. The medial rectus is supplied by the third nerve, but a complete III-nerve lesion usually affects several III-innervated muscles and may cause ptosis, ocular deviation and pupillary involvement. An isolated failure of right-eye adduction during conjugate horizontal gaze may instead represent internuclear ophthalmoplegia due to a right medial longitudinal fasciculus lesion. Alagappan describes the MLF as linking the ipsilateral III nucleus with the contralateral VI nucleus.</p>
+<p><strong>Q9 How would you distinguish internuclear ophthalmoplegia from a medial rectus/third-nerve palsy at the bedside?</strong></p>
+<p><strong>MODEL_ANS9</strong> Examine all cardinal directions of gaze and convergence. In internuclear ophthalmoplegia, there is impaired adduction of the eye on the side of the MLF lesion during conjugate gaze, often with abducting nystagmus of the opposite eye. Testing convergence helps further characterize the internuclear lesion. A genuine III-nerve palsy should be assessed for involvement of superior rectus, inferior rectus, inferior oblique, levator palpebrae and pupillary fibres as well as medial rectus.</p>
+<p><strong>Q10 Why is the normal pupil important but not sufficient to exclude a third-nerve lesion?</strong></p>
+<p><strong>MODEL_ANS10</strong> Pupillary sparing can occur in ischaemic III-nerve palsies, particularly in association with diabetes, hypertension and atherosclerosis. Therefore, a normal pupil does not by itself rule out III-nerve palsy. However, in this patient the apparent isolated adduction deficit still mandates testing for an internuclear rather than peripheral ocular-motor lesion.</p>
+<p><strong>Q11 What additional eye findings should specifically be documented in this patient?</strong></p>
+<p><strong>MODEL_ANS11</strong> Document primary eye position, ptosis, exact limitation in each cardinal direction, convergence, pupillary size and reaction, diplopia in each direction of gaze, conjugate gaze palsy, skew deviation and abducting or gaze-evoked nystagmus. Alagappan emphasizes combined examination of III, IV and VI nerves because they act as a physiological unit in ocular movement.</p>
+<p><strong>Q12 Does absence of nystagmus exclude a cerebellar or posterior-circulation lesion?</strong></p>
+<p><strong>MODEL_ANS12</strong> No. Nystagmus is an important cerebellar/vestibular sign but is not obligatory in every cerebellar lesion. Alagappan describes nystagmus among cerebellar manifestations and notes that cerebellar lesions may produce nystagmus toward the side of the lesion; nevertheless, diagnosis rests on the overall neurological pattern.</p>
+<p><strong>Q13 Why are normal power, sensation and plantar responses important for localization?</strong></p>
+<p><strong>MODEL_ANS13</strong> Their preservation means there is no clear clinical evidence of major corticospinal or long sensory tract involvement. This makes the syndrome predominantly one of ocular-motor and cerebellar dysfunction rather than a classic hemispheric hemiplegic syndrome. Posterior-circulation lesions can produce varying combinations of cranial-nerve, cerebellar and long-tract abnormalities depending on the exact structure involved.</p>
+<p><strong>Q14 Which posterior-circulation vascular patterns are relevant to these examination findings?</strong></p>
+<p><strong>MODEL_ANS14</strong> Alagappan describes posterior-circulation syndromes containing combinations of ocular movement abnormalities, ipsilateral cerebellar ataxia, vertigo and dysarthria. Superior cerebellar artery territory involvement may produce ipsilateral cerebellar ataxia and slurred speech, while pontine syndromes may involve the MLF or conjugate gaze pathways together with cerebellar connections. The present examination therefore supports posterior-fossa vascular localization, but the data provided are insufficient to assign one named arterial syndrome confidently.</p>
+<p><strong>Q15 Give your anatomical localization based on examination alone.</strong></p>
+<p><strong>MODEL_ANS15</strong> The examination supports a right-sided posterior-fossa central lesion involving the right cerebellar hemisphere/cerebellar connections, with possible associated brainstem ocular-motor pathway involvement. If the documented “right medial rectus palsy” is actually failure of right adduction during conjugate gaze, a right MLF lesion/internuclear ophthalmoplegia should be actively considered. The combination therefore favors a brainstem–cerebellar/posterior-circulation localization rather than a peripheral vestibular disorder. Alagappan describes ipsilateral cerebellar ataxia with ocular-motor abnormalities in posterior-circulation syndromes.</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>: General examination was systematic, with build, BMI, blood pressure, pulse, temperature, respiratory rate and oxygen saturation documented. Higher functions were well assessed, including consciousness, orientation, MMSE, memory, speech, apraxia and neglect. Cranial nerves were surveyed comprehensively. Motor and sensory systems were apparently preserved, reflexes and plantars were recorded, and the right-sided cerebellar deficit was demonstrated by more than one appendicular test. This is the strongest part of your examination. The findings appropriately support a central neurological syndrome.</p>
+<p><strong>⚠️ MISSING</strong>: The major weakness is insufficient precision in the ocular-motor examination. “Right medial rectus palsy” must be demonstrated by documenting which gaze movement is impaired, primary eye position, convergence, ptosis, pupillary reactions and whether the opposite abducting eye develops nystagmus; otherwise a partial III palsy cannot be reliably distinguished from INO. The cerebellar examination should additionally include heel–knee–shin testing, rebound phenomenon, intention tremor, hypotonia, tandem gait and detailed gait observation. “Romberg sways right” should not be used alone as evidence of cerebellar disease. Motor power should be given using formal MRC grading, tone described explicitly, and deep tendon reflexes should ideally be graded. Fundoscopy is also worth documenting in a complete neurological examination.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>: Revise Alagappan, Manual of Practical Medicine, Nervous System—Examination of III, IV and VI cranial nerves; supranuclear and internuclear ocular movement disorders; Clinical Manifestations and Localization of Cerebellar Dysfunction; Cerebrovascular Disorders—Vertebrobasilar and Pontine Syndromes. Also revise Kundu, Bedside Clinics in Medicine, Part I—Nervous System: Cerebellar Disorder; Speech Disorders; Ptosis; Squint; and Hemiplegia including Cerebrovascular Diseases.</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Awarded Marks</p>
+<p>Examiner Comments</p>
+<p>General examination (vitals, built, stigmata, JVP, edema)</p>
+<p>8</p>
+<p>7</p>
+<p>Good vitals, BMI and PICCLE assessment; JVP was not explicitly documented.</p>
+<p>System-specific examination (inspection, palpation, percussion, auscultation)</p>
+<p>14</p>
+<p>11</p>
+<p>Broad neurological survey and useful cerebellar testing; ocular-motor examination and gait/cerebellar testing require more detail.</p>
+<p>Accurate grading/interpretation of findings</p>
+<p>8</p>
+<p>6</p>
+<p>Correct recognition of right appendicular cerebellar dysfunction, but “medial rectus palsy” needs anatomical clarification and Romberg interpretation requires caution.</p>
+<p>Total</p>
+<p>30</p>
+<p>24/30</p>
+<p>Good localization-oriented examination, with the main loss of marks from incomplete characterization of the ocular-motor deficit and incomplete grading of neurological findings.</p>
+<p>Phase 2 complete. Please now give your integrated case summary.</p></div>
+    </div>
+    <div class="col gemini-col">
+      <h4 class="resident-header">GEMINI</h4>
+      <div class="content"><p>[PHASE 2 — PHYSICAL EXAMINATION PRESENTATION</p>
+<p>]<strong>Q1 You documented a right medial rectus palsy alongside right-sided cerebellar signs without hemiparesis. What anatomical brainstem localization can account for this combination of findings?</strong><br><strong>MODEL_ANS1</strong> This presentation localizes to the midbrain tegmentum (paramedian midbrain), specifically involving the fascicles or subnucleus of the right third cranial nerve (producing right medial rectus weakness) and either the superior cerebellar peduncle (brachium conjunctivum) prior to its decussation or the dentatorubrothalamic fibers (producing ipsilateral right cerebellar ataxia). Alternatively, a combined small paramedian midbrain and superior cerebellar arterial territory ischemic infarct produces this clinical picture. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Midbrain Syndromes, pp. 602, 669; Kundu, Bedside Clinics in Medicine, Part I, Cranial Nerves, p. 445).</p>
+<p>PDF+ 4</p>
+<p><strong>Q2 How do you clinically differentiate an isolated medial rectus palsy of the oculomotor nerve from an Internuclear Ophthalmoplegia (INO) due to a medial longitudinal fasciculus (MLF) lesion?</strong><br><strong>MODEL_ANS2</strong> In an Internuclear Ophthalmoplegia (MLF lesion), adduction of the ipsilateral eye is impaired during voluntary conjugate horizontal gaze toward the opposite side, accompanied by dissociated horizontal jerky nystagmus of the abducting contralateral eye, while adduction during ocular convergence is typically preserved because convergence impulses bypass the MLF. In an isolated third cranial nerve (medial rectus subnucleus or fascicular) palsy, medial rectus weakness is present both on attempted conjugate lateral gaze and on convergence, and dissociated abducting nystagmus is absent. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Cranial Nerves III, IV, VI, pp. 598–602; Kundu, Part I, Spot Cases: Cranial Nerves, p. 445).</p>
+<p>PDF+ 4</p>
+<p><strong>Q3 In your examination, finger–nose and finger–finger tests were abnormal on the right hand with dysdiadochokinesia. Why do cerebellar hemispheric lesions produce ipsilateral deficits in the limbs?</strong><br><strong>MODEL_ANS3</strong> Cerebellar hemispheric lesions produce ipsilateral signs because of the &quot;double crossing&quot; of cerebellar efferent and afferent pathways. Efferent fibers from the cerebellar hemisphere/dentate nucleus cross in the superior cerebellar peduncle (decussation of brachium conjunctivum) to reach the contralateral red nucleus and ventrolateral thalamus, which in turn project to the contralateral cerebral motor cortex; the descending corticospinal tract then crosses back at the medullary pyramidal decussation to control the ipsilateral limbs. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Cerebellar Pathways, pp. 641–642; Kundu, Part II, Short Cases: Cerebellar Disorder, p. 275).</p>
+<p>PDF+ 4</p>
+<p><strong>Q4 You documented &quot;Romberg: sways towards the right&quot; under cerebellar signs. What is the fundamental physiological principle of Romberg&#x27;s test, and is it a test for cerebellar ataxia?</strong><br><strong>MODEL_ANS4</strong> Romberg&#x27;s test is specifically a test for sensory ataxia (posterior column / conscious proprioceptive integrity), not a test for cerebellar ataxia. Romberg&#x27;s sign is positive only when the patient maintains stability with eyes open but demonstrates marked unsteadiness or falls upon closing the eyes (loss of visual compensation for defective proprioception). A patient with cerebellar disease or acute vestibular imbalance is unsteady even with eyes open, and closing the eyes does not significantly accentuate the imbalance (though they may fall or drift toward the side of the lesion). (Reference: Kundu, Bedside Clinics in Medicine, Part II, Short Cases: Romberg&#x27;s Sign, p. 275; Alagappan, Manual of Practical Medicine, Nervous System: Romberg&#x27;s Test, p. 648).</p>
+<p>PDF+ 4</p>
+<p><strong>Q5 How do you characterize cerebellar dysarthria at the bedside, and how is it elicited during clinical examination?</strong><br><strong>MODEL_ANS5</strong> Cerebellar dysarthria is characterized by scanning or staccato speech, where words are broken down into individual syllables pronounced with irregular rhythm, varying force, pauses, and slurring due to incoordination of the muscles of the tongue, palate, and larynx. It is tested at the bedside by asking the patient to repeat polysyllabic phonemes like &quot;PATAKA&quot; (testing labial, lingual, and guttural articulation) or complex test phrases such as &quot;British Constitution,&quot; &quot;Hippopotamus,&quot; or &quot;West Register Street&quot;. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Spot Cases: Speech Disturbances, pp. 438–439; Alagappan, Manual of Practical Medicine, Nervous System: Cerebellar Speech, p. 641).</p>
+<p>PDF+ 4</p>
+<p><strong>Q6 What are the classic midbrain vascular syndromes involving the third cranial nerve, and how do they differ clinically?</strong><br><strong>MODEL_ANS6</strong> The classic midbrain syndromes involving CN III are:</p>
+<p>Weber&#x27;s syndrome (ventral midbrain / cerebral peduncle lesion): Ipsilateral CN III palsy with contralateral UMN hemiplegia.</p>
+<p>PDF</p>
+<p>Claude&#x27;s syndrome (tegmental / dorsal midbrain lesion): Ipsilateral CN III palsy with contralateral cerebellar ataxia and intention/rubral tremor (involving red nucleus and dentatothalamic tract).</p>
+<p>PDF</p>
+<p>Benedikt&#x27;s syndrome (paramedian midbrain tegmentum): Ipsilateral CN III palsy with contralateral hemiplegia and contralateral involuntary choreoathetoid/rubral tremors.</p>
+<p>PDF</p>
+<p>Nothnagel&#x27;s syndrome: Unilateral or bilateral CN III palsy with vertical gaze palsy and cerebellar ataxia. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Brainstem Stroke Syndromes, pp. 602, 669; Kundu, Part I, Long Cases: Hemiplegia, p. 138).</p>
+<p>PDF+ 1</p>
+<p><strong>Q7 How do you test for dysmetria and intention tremor using the finger-to-nose and finger-nose-finger tests?</strong><br><strong>MODEL_ANS7</strong> The patient is asked to outstretch their arm horizontally and then bring the index finger smoothly to the tip of their nose, first with eyes open and then with eyes closed. The examiner observes for &quot;past-pointing&quot; or overshooting (hypermetria) or falling short (hypometria). In the finger-nose-finger test, the patient alternates touching their own nose and the examiner&#x27;s index finger placed at arm&#x27;s length (which may be shifted to different spatial targets); an intention tremor manifests as an oscillatory, coarse shaking that increases in amplitude as the finger approaches the target. (Reference: Kundu, Bedside Clinics in Medicine, Part II, Short Cases: Cerebellar Examination, p. 275; Alagappan, Manual of Practical Medicine, Nervous System: Dysmetria, p. 641).</p>
+<p>PDF+ 4</p>
+<p><strong>Q8 What is the &quot;Rebound Phenomenon of Stewart-Holmes,&quot; and how is it demonstrated?</strong><br><strong>MODEL_ANS8</strong> The Stewart-Holmes rebound phenomenon tests the cerebellar regulation of antagonist muscle tone during sudden release of resistance. The patient flexes their forearm at the elbow against the examiner&#x27;s opposing resistance; when the examiner suddenly releases the arm, the normal limb quickly halts movement due to rapid contraction of the antagonist triceps muscle. In cerebellar dysfunction, because of failure of antagonist braking, the arm rebounds violently toward the patient (the examiner must protect the patient&#x27;s face with their other hand). (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Cerebellar Examination, p. 641; Kundu, Part II, Short Cases: Cerebellar Disorders, p. 275).</p>
+<p>PDF+ 4</p>
+<p><strong>Q9 Why are deep tendon reflexes described as &quot;pendular&quot; in cerebellar lesions, and how is the pendular knee jerk demonstrated?</strong><br><strong>MODEL_ANS9</strong> In cerebellar disease, hypotonia and loss of cerebellar facilitatory control over muscle spindle stretch reflexes prevent normal braking/damping of the limb after a tendon jerk is elicited. When the patellar tendon is tapped with the patient sitting with legs dangling freely over the examination couch, the lower leg oscillates freely back and forth multiple times (&gt;3–4 cycles) like a pendulum before coming to rest. (Reference: Kundu, Bedside Clinics in Medicine, Part II, Short Cases: Cerebellar Reflexes, p. 275; Alagappan, Manual of Practical Medicine, Nervous System: Cerebellar Function, p. 641).</p>
+<p>PDF+ 4</p>
+<p><strong>Q10 What is &quot;titubation&quot; and what part of the cerebellum is localized when titubation and truncal ataxia are prominent?</strong><br><strong>MODEL_ANS10</strong> Titubation is a rhythmic, slow nodding or oscillatory tremor of the head (in an anteroposterior &quot;yes-yes&quot; or side-to-side &quot;no-no&quot; direction) or upper trunk while sitting or standing. It signifies midline cerebellar lesion involving the cerebellar vermis (paleocerebellum / archicerebellum), which is responsible for axial posture and equilibrium, producing prominent truncal ataxia and gait instability often without marked appendicular limb dysmetria. (Reference: Kundu, Bedside Clinics in Medicine, Part II, Short Cases: Cerebellar Disease, p. 275; Alagappan, Manual of Practical Medicine, Nervous System: Vermis Lesions, p. 641).</p>
+<p>PDF+ 4</p>
+<p><strong>Q11 Why is the tandem gait (heel-to-toe walking) test considered the most sensitive bedside maneuver for unmasking subtle ataxia?</strong><br><strong>MODEL_ANS11</strong> Tandem walking forces the patient to walk along a straight line with the heel of the front foot touching the toes of the trailing foot, narrowing the base of support to a single line. This minimizes lateral compensatory balance strategies and maximally stresses midline cerebellar vermian and vestibulospinal postural control mechanisms; patients with subtle vermian or vestibulocerebellar dysfunction will immediately sway, lurch, or step off the line. (Reference: Kundu, Bedside Clinics in Medicine, Part II, Short Cases: Gait in Cerebellar Disease, p. 275; Alagappan, Manual of Practical Medicine, Nervous System: Gait Ataxia, p. 641).</p>
+<p>PDF+ 4</p>
+<p><strong>Q12 Blood pressure was recorded as 110/70 mmHg in the right arm only. Why is bilateral upper extremity blood pressure and postural BP measurement mandatory in vertebrobasilar stroke?</strong><br><strong>MODEL_ANS12</strong> A difference in systolic BP of &gt;15–20 mmHg between the arms raises suspicion of subclavian artery stenosis with Subclavian Steal Syndrome, where retrograde flow down the ipsilateral vertebral artery starves the basilar artery during upper extremity exertion, producing transient or completed posterior circulation ischemia. Postural BP (supine and standing at 3 minutes) detects orthostatic hypotension, which can precipitate watershed/border-zone ischemia in stenosed vertebrobasilar vessels. (Reference: Alagappan, Manual of Practical Medicine, Cardiovascular System: Arterial Pulse and BP, p. 288; Kundu, Part I, Long Cases: Hemiplegia, p. 131).</p>
+<p>PDF+ 3</p>
+<p><strong>Q13 Why is fundoscopy / ophthalmoscopy an indispensable bedside examination in this patient?</strong><br><strong>MODEL_ANS13</strong> Ophthalmoscopy evaluates:</p>
+<p>Hypertensive Retinopathy (arteriolar narrowing, AV nicking, hemorrhages, exudates), confirming chronic microvascular target organ damage.</p>
+<p>PDF</p>
+<p>Retinal Emboli (cholesterol Hollenhorst plaques, calcific or fibrin-platelet emboli), proving an active atheroembolic or cardioembolic source.</p>
+<p>PDF</p>
+<p>Papilledema, which would suggest raised intracranial pressure from cerebellar edema, mass effect, or hydrocephalus due to 4th ventricular compression. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Fundus Examination, pp. 589–591; Kundu, Part I, Cranial Nerves: Optic Nerve, p. 445).</p>
+<p>PDF+ 3</p>
+<p><strong>Q14 Why are carotid, subclavian, and vertebral arterial bruits evaluated during general and neck examination?</strong><br><strong>MODEL_ANS14</strong> Auscultation over the carotid bifurcation (angle of the jaw), supraclavicular fossa (subclavian artery), and over the mastoid/occiput (vertebral artery) identifies localized turbulent blood flow secondary to high-grade atherosclerotic arterial stenosis. Supraclavicular bruits strongly correlate with subclavian and proximal vertebral artery origin atherosclerosis, a frequent cause of posterior circulation thromboembolism. (Reference: Alagappan, Manual of Practical Medicine, Cardiovascular Examination: Arterial Bruits, pp. 289, 667; Kundu, Part I, Hemiplegia, p. 131).</p>
+<p>PDF+ 4</p>
+<p><strong>Q15 Why did this patient preserve full motor strength (power 5/5) and down-going flexor plantar responses despite an acute midbrain/brainstem ischemic event?</strong><br><strong>MODEL_ANS15</strong> The corticospinal (pyramidal) tracts descend in the most ventral aspect of the midbrain within the basis pedunculi (crus cerebri). An ischemic infarct confined to the midbrain tegmentum or dorsolateral paramedian zone spares the ventral crus cerebri and descending corticospinal motor tracts, thereby leaving voluntary limb power intact and maintaining normal down-going flexor plantar responses. (Reference: Alagappan, Manual of Practical Medicine, Nervous System: Brainstem Topography, pp. 602, 669; Kundu, Part I, Long Cases: Hemiplegia, pp. 137–138).</p>
+<p>PDF+ 4</p>
+<p>PHASE_FEEDBACK</p>
+<p><strong>✅ COVERED</strong>:</p>
+<p>Complete recording of baseline vital parameters (BP, Pulse, RR, SpO₂, temperature) and anthropometry (BMI 26 kg/m²).</p>
+<p>Systematic documentation of Higher Mental Functions with MMSE score (30/30).</p>
+<p>Comprehensive cranial nerve screening from CN I to CN XII.</p>
+<p>Clear identification of the focal oculomotor deficit (right medial rectus palsy).</p>
+<p>Rigorous appendicular cerebellar examination demonstrating right-sided dysmetria and dysdiadochokinesia.</p>
+<p>Explicit recording of meningeal, autonomic, and reflex examinations (plantars down-going bilaterally).</p>
+<p><strong>⚠️ MISSING</strong>:</p>
+<p>Convergence testing was not documented to differentiate isolated medial rectus CN III palsy from an Internuclear Ophthalmoplegia (MLF lesion).</p>
+<p>Romberg&#x27;s test was misinterpreted as a sign of cerebellar ataxia rather than sensory ataxia (posterior column).</p>
+<p>Blood pressure was measured in only one arm; bilateral arm BP and postural measurements were omitted.</p>
+<p>Neck examination for vascular bruits (carotid and supraclavicular/subclavian) and spine/cardiac auscultation were not documented.</p>
+<p>Specific cerebellar elicitation maneuvers (rebound phenomenon, pendular knee jerk, tandem gait) were not detailed.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>:</p>
+<p>Review Alagappan&#x27;s Manual of Practical Medicine (6th Edition), Chapter 9: &quot;Nervous System&quot; — Sections on Cranial Nerves III, IV, VI and Conjugate Movements (pp. 598–604) and Cerebellar Function and Syndromes (pp. 641–643).</p>
+<p>Consult Kundu&#x27;s Bedside Clinics in Medicine (Part II), Case 34: Cerebellar Disorder (pp. 275–278) and Part I: Spot Cases on Speech and Cranial Nerves (pp. 438–445).</p>
+<p>PHASE_SCORE</p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Awarded</p>
+<p>General examination (vitals, built, stigmata, JVP, edema)</p>
+<p>8</p>
+<p>6.5</p>
+<p>System-specific examination (inspection, palpation, percussion, auscultation)</p>
+<p>14</p>
+<p>12.0</p>
+<p>Accurate grading/interpretation of findings</p>
+<p>8</p>
+<p>6.0</p>
+<p>Total</p>
+<p>30</p>
+<p>24.5</p>
+<p>Phase 2 complete. Please now give your integrated case summary.</p></div>
+    </div>
+  </div>
+</section>
+
+  </div>
+</body>
+</html>
