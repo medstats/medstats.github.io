@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neurological Localisation — Symptom-Based History & Examination</title>
+<style>
+:root {
+  --teal:#0f5064;
+  --teal2:#174f60;
+  --rust:#aa5434;
+  --ink:#163f4d;
+  --muted:#60737c;
+  --paper:#ffffff;
+  --bg:#f3f8fb;
+  --line:#dbe5e9;
+  --soft:#f7fafc;
+  --shadow:0 10px 28px rgba(26,65,79,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--ink);
+  background:linear-gradient(#eef5f8 0,#f8fbfc 240px,#f5f8fa 100%);
+  line-height:1.48;
+}
+.hero{
+  max-width:1280px;
+  margin:54px auto 22px;
+  background:var(--paper);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  padding:56px 54px 42px;
+}
+h1{
+  margin:0;
+  text-align:center;
+  color:var(--teal);
+  font-size:clamp(31px,4vw,58px);
+  line-height:1.08;
+  letter-spacing:-1.5px;
+  text-transform:uppercase;
+}
+.ruleline{height:5px;background:var(--rust);margin:30px 0 20px;border-radius:3px}
+.byline{text-align:center;font-size:17px;color:#566a73}
+.byline strong{color:var(--teal)}
+.curator{
+  text-align:center;
+  margin-top:10px;
+  color:var(--teal);
+  font-size:16px;
+  font-weight:600;
+}
+.curator strong{color:var(--rust)}
+.lead{
+  max-width:1000px;
+  margin:28px auto 0;
+  background:var(--soft);
+  border-left:6px solid var(--teal);
+  padding:20px 24px;
+  border-radius:9px;
+  font-size:18px;
+}
+.container{max-width:1280px;margin:0 auto 80px;padding:0 28px}
+.index{
+  background:var(--paper);
+  border-radius:15px;
+  box-shadow:var(--shadow);
+  padding:28px;
+  margin:24px 0 30px;
+}
+.index h2{margin:0 0 18px;color:var(--teal);font-size:29px}
+.navgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.navgrid a{
+  display:block;padding:12px 14px;border:1px solid var(--line);
+  border-radius:9px;text-decoration:none;color:var(--teal);background:#fbfdfe;font-weight:700;
+}
+.navgrid a:hover{border-color:var(--rust);color:var(--rust)}
+.topic{
+  background:var(--paper);
+  margin:24px 0;
+  border-radius:15px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.section-head{
+  background:var(--teal);
+  color:white;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:24px 30px;
+}
+.section-number{
+  font-size:18px;font-weight:800;
+  border:2px solid rgba(255,255,255,.55);
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.section-head h2{margin:0;font-size:30px;color:white}
+.subtitle{margin:4px 0 0;color:#dce9ed;font-size:15px}
+.teaching-point{
+  margin:22px 26px 8px;
+  padding:15px 17px;
+  background:#fbf4f0;
+  border-left:5px solid var(--rust);
+  border-radius:7px;
+  color:#334f5b;
+}
+.table-wrap{overflow-x:auto;padding:12px 26px 6px}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:860px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+thead th{
+  background:#edf4f6;
+  color:var(--teal);
+  text-align:left;
+  padding:15px 14px;
+  font-size:15px;
+  border-bottom:2px solid #cddde3;
+  width:33.33%;
+}
+tbody td{
+  vertical-align:top;padding:14px;
+  border-bottom:1px solid #e4ebee;
+  border-right:1px solid #edf1f3;
+  font-size:15px;
+}
+tbody tr:nth-child(even) td{background:#fbfdfe}
+tbody tr:last-child td{border-bottom:0}
+tbody td:last-child{border-right:0}
+tbody td strong{color:var(--teal)}
+.back{padding:4px 28px 22px;text-align:right}
+.back a{color:var(--rust);font-weight:700;text-decoration:none}
+.footer{
+  text-align:center;color:var(--muted);font-size:13px;padding:10px 0 40px
+}
+.actions{
+  display:flex;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap
+}
+button{
+  border:0;border-radius:8px;padding:11px 16px;font-weight:700;cursor:pointer;
+  background:var(--teal);color:white
+}
+button.secondary{background:var(--rust)}
+@media (max-width:700px){
+  .hero{margin:20px 12px;padding:34px 22px 28px;border-radius:14px}
+  .container{padding:0 12px}
+  .section-head{padding:20px}
+  .section-head h2{font-size:24px}
+  .table-wrap{padding:10px 12px}
+  .teaching-point{margin:16px 12px 4px}
+}
+@page { size: A4 landscape; margin: 12mm; }
+@media print{
+  body{background:white}
+  .hero,.index,.topic{box-shadow:none}
+  .actions,.back{display:none}
+  .topic{break-inside:avoid-page}
+  a{color:inherit;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div id="top"></div>
+<header class="hero">
+  <h1>Neurological Localisation<br>Symptom-Based History & Examination</h1>
+  <div class="ruleline"></div>
+  <div class="byline"><strong>Bedside teaching reference</strong> · History → Examination → Anatomical structure</div>
+  <div class="curator">Curated by <strong>Anupam Singh MD</strong>, Professor, Department of Medicine, Santosh Medical College</div>
+  <div class="lead">
+    <strong>Core rule:</strong> Describe the symptom precisely, identify the second neurological abnormality,
+    then ask: <em>“What single anatomical lesion can explain all the findings?”</em>
+    The tables below are designed as a pre-case framework before working through localisation cases.
+  </div>
+  <div class="actions">
+    <button onclick="window.print()">Print / Save as PDF</button>
+    <button class="secondary" onclick="document.getElementById('index').scrollIntoView()">Jump to Index</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="index" id="index">
+    <h2>Symptom Index — 14 Localisation Domains</h2>
+    <div class="navgrid"><a href="#s1">1. Diplopia</a><a href="#s2">2. Aphasia</a><a href="#s3">3. Weakness — proximal vs distal</a><a href="#s4">4. Gait abnormality</a><a href="#s5">5. Numbness / sensory symptoms</a><a href="#s6">6. Vertigo / dizziness</a><a href="#s7">7. Dysarthria, dysphagia &amp; dysphonia</a><a href="#s8">8. Visual loss / field disturbance</a><a href="#s9">9. Bladder, bowel &amp; sexual dysfunction</a><a href="#s10">10. Tremor &amp; involuntary movements</a><a href="#s11">11. Headache</a><a href="#s12">12. Syncope / transient loss of consciousness</a><a href="#s13">13. Seizure</a><a href="#s14">14. Memory loss</a></div>
+  </section>
+  
+    <section class="topic" id="s1">
+      <div class="section-head">
+        <div class="section-number">01</div>
+        <div>
+          <h2>Diplopia</h2>
+          <p class="subtitle">Localise: ocular surface → extraocular muscle/NMJ → CN III/IV/VI → MLF/PPRF → cavernous sinus/orbital apex → brainstem</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Start with monocular vs binocular. Then define horizontal/vertical separation, gaze dependence, ptosis, pupil change, facial numbness, visual loss and long-tract signs.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Diplopia persists when one eye is covered</td><td>Check each eye separately; inspect ocular surface/refraction</td><td><strong>Monocular diplopia — eye/refractive media</strong></td></tr><tr><td>Diplopia disappears when either eye is covered</td><td>Confirm ocular misalignment; test eye movements in all directions</td><td><strong>Binocular diplopia — EOM/CN III, IV, VI/NMJ/brainstem</strong></td></tr><tr><td>Horizontal separation of images</td><td>Test abduction and adduction of each eye</td><td><strong>CN VI/lateral rectus, medial rectus/CN III, MLF or horizontal gaze pathway</strong></td></tr><tr><td>Vertical or oblique separation</td><td>Look for hypertropia; test elevation/depression and head-tilt effect</td><td><strong>CN IV, CN III or central skew deviation</strong></td></tr><tr><td>Worse looking toward one particular side</td><td>H-pattern; identify the weak muscle in its field of action</td><td><strong>Individual EOM / corresponding ocular motor nerve</strong></td></tr><tr><td>Worse on reading or walking downstairs</td><td>Test depression of the adducted eye; Bielschowsky head-tilt pattern</td><td><strong>CN IV / superior oblique</strong></td></tr><tr><td>Ptosis with diplopia</td><td>Look at eye position and pupils</td><td><strong>CN III or NMJ; mild ptosis+miosis suggests sympathetic pathway</strong></td></tr><tr><td>Ptosis/diplopia fluctuates and worsens later in day</td><td>Sustained upgaze; repeated saccades; look for fatigability</td><td><strong>Neuromuscular junction — myasthenia</strong></td></tr><tr><td>Sudden headache with ptosis and diplopia</td><td>Look for complete III palsy and pupil enlargement</td><td><strong>Compressive CN III lesion; PCom aneurysm is an important cause</strong></td></tr><tr><td>Diabetes/HTN with painless diplopia and ptosis</td><td>III palsy with preserved pupillary response</td><td><strong>Microvascular CN III palsy</strong></td></tr><tr><td>Both eyes cannot look toward one side</td><td>Test conjugate horizontal gaze</td><td><strong>Ipsilateral PPRF or abducens nucleus — pons</strong></td></tr><tr><td>One eye fails to adduct; opposite eye has abducting nystagmus</td><td>Test horizontal gaze and convergence</td><td><strong>Ipsilateral MLF — internuclear ophthalmoplegia</strong></td></tr><tr><td>Diplopia + facial numbness</td><td>Test III/IV/VI and V1/V2 sensation/corneal reflex</td><td><strong>Cavernous sinus / parasellar region</strong></td></tr><tr><td>Diplopia + visual loss</td><td>Visual acuity, colour vision, RAPD plus ocular movements</td><td><strong>Orbital apex / optic nerve + ocular motor nerves</strong></td></tr><tr><td>Diplopia + contralateral weakness</td><td>Full cranial nerve and UMN examination</td><td><strong>Brainstem — midbrain or pons</strong></td></tr><tr><td>Diplopia + vertigo/ataxia</td><td>Nystagmus, skew, limb/gait coordination</td><td><strong>Brainstem/cerebellum / vestibular pathways</strong></td></tr><tr><td>Difficulty looking upward rather than isolated muscle weakness</td><td>Upgaze, convergence-retraction nystagmus, light-near dissociation</td><td><strong>Dorsal rostral midbrain — Parinaud region</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s2">
+      <div class="section-head">
+        <div class="section-number">02</div>
+        <div>
+          <h2>Aphasia</h2>
+          <p class="subtitle">Localise the language network before naming the syndrome</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> First prove this is language dysfunction, not dysarthria, hearing loss, delirium or low consciousness. Test fluency, comprehension, repetition, naming, reading and writing.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Knows what they want to say but cannot get words out; short effortful answers</td><td>Nonfluent speech; relatively preserved comprehension; impaired naming/repetition</td><td><strong>Dominant inferior frontal cortex — Broca/perisylvian frontal network</strong></td></tr><tr><td>Speaks fluently but family says speech makes no sense</td><td>Fluent paraphasic speech; poor comprehension and repetition</td><td><strong>Dominant posterior superior temporal cortex — Wernicke network</strong></td></tr><tr><td>Does the patient understand conversation?</td><td>One-step then multistep verbal commands</td><td><strong>Posterior temporal language comprehension network</strong></td></tr><tr><td>Difficulty finding names of familiar objects</td><td>Name pen/watch/body parts; describe object use</td><td><strong>Dominant temporal–temporoparietal naming network</strong></td></tr><tr><td>Fluent speech and comprehension good, but cannot repeat</td><td>Repeat phrases of increasing complexity</td><td><strong>Arcuate fasciculus/supramarginal region — conduction aphasia</strong></td></tr><tr><td>Nonfluent speech but repetition surprisingly preserved</td><td>Fluency ↓, comprehension relatively good, repetition preserved</td><td><strong>Dominant anterior watershed / medial frontal language network — transcortical motor</strong></td></tr><tr><td>Fluent speech, poor comprehension, but repetition preserved</td><td>Confirm preserved repetition despite poor comprehension</td><td><strong>Posterior watershed / temporoparietal association cortex — transcortical sensory</strong></td></tr><tr><td>Severe impairment of speech and comprehension</td><td>Nonfluent + poor comprehension + poor repetition</td><td><strong>Large dominant perisylvian/MCA territory — global aphasia</strong></td></tr><tr><td>Difficulty reading</td><td>Read aloud; obey a written command; test reading comprehension</td><td><strong>Dominant occipitotemporal/angular language pathway</strong></td></tr><tr><td>Cannot read but can still write</td><td>Ask spontaneous writing then ask patient to read it</td><td><strong>Left occipital cortex + splenium — alexia without agraphia</strong></td></tr><tr><td>Difficulty writing</td><td>Spontaneous sentence, dictated sentence and copying</td><td><strong>Dominant parietal/angular or broader dominant language network</strong></td></tr><tr><td>Calculation/right-left/finger identification difficulty</td><td>Acalculia, agraphia, finger agnosia, right-left disorientation</td><td><strong>Dominant angular gyrus — Gerstmann pattern</strong></td></tr><tr><td>Understands command but cannot demonstrate learned action</td><td>Pantomime brushing teeth, using a key or salute</td><td><strong>Dominant parietal–premotor praxis network</strong></td></tr><tr><td>Aphasia with face/arm weakness greater than leg</td><td>Right lower facial and arm UMN signs</td><td><strong>Dominant lateral hemisphere — usually left MCA cortex</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s3">
+      <div class="section-head">
+        <div class="section-number">03</div>
+        <div>
+          <h2>Weakness — proximal vs distal</h2>
+          <p class="subtitle">Use function, distribution, tone, reflexes and sensation to move from muscle to nerve to cord to brain</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Do not stop at “power 4/5”. Ask what daily task fails and whether weakness is proximal or distal, symmetric or asymmetric, fatigable, painful, spastic or associated with sensory loss.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Difficulty combing hair/reaching overhead</td><td>Shoulder abduction and external rotation; scapular movement</td><td><strong>Proximal upper limb — muscle or C5–C6</strong></td></tr><tr><td>Difficulty rising from chair without hands</td><td>Hip flexion/extension; sit-to-stand</td><td><strong>Proximal pelvic-girdle muscles / myopathy</strong></td></tr><tr><td>Difficulty climbing stairs or getting up from squat/floor</td><td>Hip and knee proximal power; Gowers-type manoeuvre</td><td><strong>Proximal lower limb / myopathy</strong></td></tr><tr><td>Difficulty buttoning, turning key, opening bottle</td><td>Finger abduction, opposition, grip, finger flexion/extension</td><td><strong>Distal upper limb — C8–T1/root/plexus/median-ulnar-radial</strong></td></tr><tr><td>Foot slaps or trips over toes</td><td>Heel walking; dorsiflexion and toe extension</td><td><strong>L4–L5/deep or common peroneal pathway</strong></td></tr><tr><td>Cannot stand on toes</td><td>Single-leg heel raise; plantarflexion; Achilles reflex</td><td><strong>S1–S2 / tibial nerve</strong></td></tr><tr><td>Symmetric proximal &gt; distal weakness, no sensory loss</td><td>Proximal power, reflexes, muscle bulk</td><td><strong>Muscle / myopathy</strong></td></tr><tr><td>Proximal weakness + ptosis/ophthalmoplegia + fatigability</td><td>Sustained upgaze; repetitive proximal movements</td><td><strong>Neuromuscular junction — myasthenia</strong></td></tr><tr><td>Proximal weakness improves briefly after activity; dry mouth</td><td>Reduced reflexes with post-exercise facilitation</td><td><strong>Presynaptic NMJ — Lambert-Eaton</strong></td></tr><tr><td>Distal &gt; proximal weakness + sensory symptoms</td><td>Distal sensory loss and reduced reflexes</td><td><strong>Peripheral neuropathy</strong></td></tr><tr><td>Weakness with neck/back radicular pain and dermatomal paresthesia</td><td>Myotomal power, reflex and dermatomal sensory testing</td><td><strong>Nerve root</strong></td></tr><tr><td>Several muscles from different nerves share one myotome</td><td>Map muscles by root rather than named nerve</td><td><strong>Radiculopathy</strong></td></tr><tr><td>Weakness fits one named nerve plus its cutaneous territory</td><td>Named-nerve motor and sensory testing</td><td><strong>Peripheral mononeuropathy</strong></td></tr><tr><td>Weakness crosses several named nerves with patchy sensory loss</td><td>Map root/nerve combinations</td><td><strong>Plexus</strong></td></tr><tr><td>Distal wasting/fasciculation without sensory loss</td><td>Fasciculations, atrophy, reflexes</td><td><strong>Anterior horn cell</strong></td></tr><tr><td>Wasting/fasciculation plus brisk reflexes/Babinski</td><td>Look for UMN+LMN signs in multiple regions</td><td><strong>Motor neuron system</strong></td></tr><tr><td>Spastic weakness with brisk reflexes/Babinski</td><td>Tone, reflexes, plantar responses</td><td><strong>Corticospinal tract — brain or spinal cord</strong></td></tr><tr><td>Face + arm + leg weakness on one side</td><td>Look for cortical signs and crossed cranial-nerve signs</td><td><strong>Contralateral hemisphere/internal capsule or brainstem</strong></td></tr><tr><td>Face/arm weakness greater than leg</td><td>Motor homunculus distribution; language/neglect</td><td><strong>Lateral motor cortex — MCA territory</strong></td></tr><tr><td>Leg weakness greater than arm</td><td>Leg power, frontal signs, bladder symptoms</td><td><strong>Medial frontal motor cortex — ACA territory</strong></td></tr><tr><td>Dense proportional face-arm-leg weakness without cortical signs</td><td>No aphasia/neglect/field defect; pure UMN pattern</td><td><strong>Internal capsule</strong></td></tr><tr><td>LMN weakness/wasting in arms + UMN signs in legs</td><td>Segmental arm reflex loss + brisk legs/Babinski</td><td><strong>Cervical spinal cord</strong></td></tr><tr><td>Bilateral UMN leg weakness, arms normal</td><td>Sensory level; brisk legs; Babinski</td><td><strong>Thoracic spinal cord</strong></td></tr><tr><td>Asymmetric painful flaccid legs + absent reflexes</td><td>Saddle sensation, root pattern, anal tone</td><td><strong>Cauda equina</strong></td></tr><tr><td>Dorsiflexion + eversion weak; inversion preserved</td><td>Test inversion and hip abduction</td><td><strong>Common peroneal nerve</strong></td></tr><tr><td>Dorsiflexion + inversion + hip abduction weak</td><td>L5 sensory pattern; ankle jerk often preserved</td><td><strong>L5 root</strong></td></tr><tr><td>Dorsiflexion and plantarflexion both weak</td><td>Hamstrings, ankle jerk and broad foot sensory loss</td><td><strong>Sciatic nerve</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s4">
+      <div class="section-head">
+        <div class="section-number">04</div>
+        <div>
+          <h2>Gait abnormality</h2>
+          <p class="subtitle">Ask whether the gait problem is weakness, spasticity, ataxia, sensory loss, vestibular dysfunction, parkinsonism or frontal gait control</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Describe the gait before naming it. Then test tone, reflexes, plantar responses, proprioception, Romberg, limb coordination, eye movements and distal power.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>One leg stiff and swings outward</td><td>Circumduction; flexed ipsilateral arm; brisk reflexes/Babinski</td><td><strong>Contralateral corticospinal tract — hemiparetic gait</strong></td></tr><tr><td>Both legs stiff; feet may cross</td><td>Spastic/scissoring gait; adductor tone ↑; brisk knees; Babinski</td><td><strong>Bilateral corticospinal tracts / spinal cord</strong></td></tr><tr><td>Feet slap; trips over toes</td><td>High-stepping gait; dorsiflexion weakness</td><td><strong>Distal LMN pathway / L5 / peroneal nerve</strong></td></tr><tr><td>Worse in darkness; watches feet</td><td>Stamping gait; positive Romberg; loss of vibration/joint position</td><td><strong>Posterior columns / large sensory fibres</strong></td></tr><tr><td>Broad-based, staggering, difficult turning</td><td>Wide base, irregular steps, impaired tandem walk</td><td><strong>Cerebellum</strong></td></tr><tr><td>Falls consistently toward one side</td><td>Limb dysmetria; nystagmus; vestibular testing</td><td><strong>Ipsilateral cerebellar/vestibular system</strong></td></tr><tr><td>Main problem is truncal instability, little limb incoordination</td><td>Truncal titubation; severe tandem impairment</td><td><strong>Cerebellar vermis</strong></td></tr><tr><td>Vertigo and veering to one side</td><td>Nystagmus; head impulse; gait veering/falling</td><td><strong>Vestibular apparatus/CN VIII/brainstem</strong></td></tr><tr><td>Small steps, freezing, difficulty starting/turning</td><td>Stooped posture; reduced arm swing; shuffling; en-bloc turning</td><td><strong>Basal ganglia — parkinsonism</strong></td></tr><tr><td>Feet seem &#x27;stuck to floor&#x27;; cognition/bladder symptoms</td><td>Magnetic gait; short steps; broad base; initiation difficulty</td><td><strong>Frontal-subcortical gait network</strong></td></tr><tr><td>Legs buckle; difficulty rising from chair</td><td>Proximal power; Gowers-type manoeuvre; waddling gait</td><td><strong>Pelvic-girdle muscle</strong></td></tr><tr><td>Pelvis drops on opposite side while standing on one leg</td><td>Trendelenburg sign; trunk lean toward weak side</td><td><strong>Gluteus medius/minimus / superior gluteal nerve / L5</strong></td></tr><tr><td>Radicular leg pain while walking</td><td>Root-specific weakness/reflex/sensory loss</td><td><strong>Radiculopathy</strong></td></tr><tr><td>Progressive stiff gait + urinary urgency</td><td>Spastic paraparesis + sensory level + Babinski</td><td><strong>Spinal cord myelopathy</strong></td></tr><tr><td>Unsteady because knees/feet cannot be felt</td><td>Positive Romberg; proprioceptive loss</td><td><strong>Dorsal columns / large-fibre neuropathy</strong></td></tr><tr><td>Unsteady even with eyes open</td><td>Dysmetria/dysdiadochokinesia/nystagmus</td><td><strong>Cerebellum</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s5">
+      <div class="section-head">
+        <div class="section-number">05</div>
+        <div>
+          <h2>Numbness / sensory symptoms</h2>
+          <p class="subtitle">Map the sensory pattern before interpreting modality</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> The distribution often localises first: hemisensory, crossed face-body, sensory level, dermatome, named nerve, stocking-glove or saddle.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Face, arm and leg numb on the same side</td><td>Test all modalities over face and body</td><td><strong>Contralateral thalamus / sensory cortex</strong></td></tr><tr><td>Face one side + body opposite side</td><td>Pain-temperature over face and limbs</td><td><strong>Brainstem</strong></td></tr><tr><td>Numbness below a horizontal line on trunk</td><td>Map pinprick upward to define level</td><td><strong>Spinal cord</strong></td></tr><tr><td>Band-like chest/abdominal sensation</td><td>Dermatomal level; UMN leg signs</td><td><strong>Thoracic cord or root</strong></td></tr><tr><td>Shooting pain from back into limb</td><td>Dermatomal sensory loss + root-specific weakness/reflex loss</td><td><strong>Nerve root</strong></td></tr><tr><td>Numbness in one named nerve territory</td><td>Map cutaneous distribution</td><td><strong>Peripheral nerve</strong></td></tr><tr><td>Glove-and-stocking numbness</td><td>Distal pinprick/vibration loss + absent ankle jerks</td><td><strong>Length-dependent peripheral neuropathy</strong></td></tr><tr><td>Worse balance in darkness</td><td>Vibration, joint position, Romberg</td><td><strong>Posterior columns / large sensory fibres</strong></td></tr><tr><td>Burns/injuries without noticing temperature</td><td>Pain-temperature lost but vibration preserved</td><td><strong>Central cord / syrinx</strong></td></tr><tr><td>Saddle numbness</td><td>Perianal sensation, anal tone, sacral reflexes</td><td><strong>Conus / cauda equina</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s6">
+      <div class="section-head">
+        <div class="section-number">06</div>
+        <div>
+          <h2>Vertigo / dizziness</h2>
+          <p class="subtitle">Separate peripheral vestibular disease from brainstem/cerebellar disease</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Look for hearing symptoms, positional triggers, severe truncal ataxia and associated cranial-nerve or long-tract symptoms.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>True spinning sensation</td><td>Observe spontaneous nystagmus</td><td><strong>Vestibular system</strong></td></tr><tr><td>Sudden vertigo lasting hours-days with nausea/vomiting</td><td>Head impulse, nystagmus, skew</td><td><strong>Peripheral vestibular vs central brainstem/cerebellum</strong></td></tr><tr><td>Vertigo + hearing loss/tinnitus</td><td>Bedside hearing; otologic exam</td><td><strong>Labyrinth/CN VIII/AICA</strong></td></tr><tr><td>Seconds-long vertigo triggered by turning in bed</td><td>Dix-Hallpike</td><td><strong>Posterior semicircular canal — BPPV</strong></td></tr><tr><td>Unable to stand or walk despite little subjective vertigo</td><td>Truncal/gait ataxia</td><td><strong>Cerebellum</strong></td></tr><tr><td>Vertigo + diplopia/dysarthria/dysphagia</td><td>Cranial nerves, cerebellar and long-tract exam</td><td><strong>Brainstem / posterior circulation</strong></td></tr><tr><td>Vertigo + facial sensory loss + opposite body sensory loss</td><td>Crossed sensory examination</td><td><strong>Lateral medulla/pons</strong></td></tr><tr><td>Veers consistently to one side</td><td>Tandem gait; limb coordination</td><td><strong>Ipsilateral vestibular/cerebellar pathway</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s7">
+      <div class="section-head">
+        <div class="section-number">07</div>
+        <div>
+          <h2>Dysarthria, dysphagia &amp; dysphonia</h2>
+          <p class="subtitle">Differentiate language, articulation and voice</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Aphasia = language. Dysarthria = articulation. Dysphonia = voice/larynx. Dysphagia may localise to corticobulbar, bulbar, NMJ or muscle.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Speech slurred but words/language appropriate</td><td>Articulation testing; repetition of lingual/labial sounds</td><td><strong>Motor speech pathway — dysarthria</strong></td></tr><tr><td>Nasal speech + nasal regurgitation</td><td>Palatal elevation</td><td><strong>CN X / nucleus ambiguus</strong></td></tr><tr><td>Hoarse voice</td><td>Listen to phonation/cough; vocal cord examination if needed</td><td><strong>CN X / recurrent laryngeal</strong></td></tr><tr><td>Chokes mainly on liquids</td><td>Palate, gag, cough</td><td><strong>Oropharyngeal/bulbar pathway</strong></td></tr><tr><td>Food remains in mouth / hard to manipulate bolus</td><td>Tongue movements</td><td><strong>CN XII</strong></td></tr><tr><td>Weak cough</td><td>Cough strength</td><td><strong>CN X / bulbar muscles</strong></td></tr><tr><td>Tongue wasting/fasciculation</td><td>Inspect tongue at rest and protrusion</td><td><strong>LMN XII / bulbar motor neuron</strong></td></tr><tr><td>Brisk jaw jerk + slow stiff tongue without wasting</td><td>Jaw jerk, gag, limb UMN signs</td><td><strong>Bilateral corticobulbar — pseudobulbar</strong></td></tr><tr><td>Dysarthria + ipsilateral limb ataxia</td><td>Finger-nose, heel-shin</td><td><strong>Cerebellum/brainstem</strong></td></tr><tr><td>Dysarthria + clumsy hand, no aphasia</td><td>Fine hand movements and pyramidal signs</td><td><strong>Pons/internal capsule lacune</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s8">
+      <div class="section-head">
+        <div class="section-number">08</div>
+        <div>
+          <h2>Visual loss / field disturbance</h2>
+          <p class="subtitle">Use monocular vs binocular and field geometry to map the optic pathway</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> One eye = retina/optic nerve. Bitemporal = chiasm. Homonymous = retrochiasmal.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Sudden painless monocular blindness</td><td>Visual acuity, RAPD, fundus</td><td><strong>Retina / optic nerve</strong></td></tr><tr><td>Pain on eye movement + colour desaturation</td><td>RAPD, red desaturation, central field</td><td><strong>Optic nerve</strong></td></tr><tr><td>Progressive peripheral visual loss in both eyes</td><td>Confrontation fields</td><td><strong>Optic chiasm</strong></td></tr><tr><td>Same side of visual world missing from both eyes</td><td>Homonymous field testing</td><td><strong>Retrochiasmal pathway</strong></td></tr><tr><td>Upper quadrant missing</td><td>Formal/confrontation fields</td><td><strong>Contralateral temporal Meyer loop</strong></td></tr><tr><td>Lower quadrant missing</td><td>Formal/confrontation fields</td><td><strong>Contralateral parietal optic radiation</strong></td></tr><tr><td>Hemianopia with otherwise normal neurologic exam</td><td>Congruity + macular sparing</td><td><strong>Occipital cortex</strong></td></tr><tr><td>Cannot recognise faces despite seeing clearly</td><td>Face recognition</td><td><strong>Fusiform cortex</strong></td></tr><tr><td>Cannot see but pupils remain reactive</td><td>Pupillary reflexes, fundus</td><td><strong>Bilateral occipital cortex</strong></td></tr><tr><td>Visual loss + ophthalmoplegia</td><td>RAPD + ocular movements</td><td><strong>Orbital apex</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s9">
+      <div class="section-head">
+        <div class="section-number">09</div>
+        <div>
+          <h2>Bladder, bowel &amp; sexual dysfunction</h2>
+          <p class="subtitle">These symptoms can sharply separate cord, conus and cauda</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Always ask in bilateral leg weakness: difficulty passing urine? altered perianal/genital sensation? bowel or sexual dysfunction?</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Urgency/frequency with stiff legs</td><td>UMN legs + sensory level</td><td><strong>Spinal cord above sacral segments</strong></td></tr><tr><td>Sudden urinary retention + saddle numbness</td><td>Perianal sensation, anal tone, sacral reflexes</td><td><strong>Conus/cauda</strong></td></tr><tr><td>Very early bladder symptoms with relatively symmetric leg deficits</td><td>Sacral exam; mixed UMN/LMN signs</td><td><strong>Conus medullaris</strong></td></tr><tr><td>Severe radicular pain then later bladder retention</td><td>LMN legs; root sensory loss</td><td><strong>Cauda equina</strong></td></tr><tr><td>Loss of awareness of bladder filling</td><td>Sacral sensation/autonomic assessment</td><td><strong>Sacral cord/root pathways</strong></td></tr><tr><td>Erectile/sexual dysfunction + saddle sensory loss</td><td>S2–S4 sensory/autonomic assessment</td><td><strong>Conus / sacral roots</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s10">
+      <div class="section-head">
+        <div class="section-number">10</div>
+        <div>
+          <h2>Tremor &amp; involuntary movements</h2>
+          <p class="subtitle">First define the movement phenomenology; then localise the motor network</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Rest tremor, intention tremor, ballistic movement, chorea, myoclonus and bradykinesia point to different networks.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Tremor when hand is resting</td><td>Observe hands at rest while distracted</td><td><strong>Basal ganglia / parkinsonian pathway</strong></td></tr><tr><td>Tremor appears as finger approaches target</td><td>Finger-nose testing</td><td><strong>Cerebellum</strong></td></tr><tr><td>Tremor during posture/action</td><td>Arms outstretched; writing/spiral</td><td><strong>Action tremor networks</strong></td></tr><tr><td>Violent flinging of one side</td><td>Observe proximal ballistic movements</td><td><strong>Contralateral subthalamic nucleus</strong></td></tr><tr><td>Irregular flowing purposeless movements</td><td>Observe face/limbs/tongue</td><td><strong>Striatum / chorea</strong></td></tr><tr><td>Brief shock-like jerks</td><td>Characterise distribution and stimulus sensitivity</td><td><strong>Myoclonus — cortex/subcortex/brainstem depending context</strong></td></tr><tr><td>Slowness rather than true weakness</td><td>Finger taps, pronation-supination, foot taps</td><td><strong>Basal ganglia / bradykinesia</strong></td></tr><tr><td>Abnormal movement disappears during sleep</td><td>Observation and history</td><td><strong>Supports hyperkinetic movement disorder</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s11">
+      <div class="section-head">
+        <div class="section-number">11</div>
+        <div>
+          <h2>Headache</h2>
+          <p class="subtitle">Headache itself usually does not localise — associated neurological findings do</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Define onset, speed to peak, position/Valsalva relation, fever, visual symptoms, focal deficits and cranial-nerve symptoms.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Sudden &#x27;worst-ever&#x27; headache reaching maximum intensity within seconds/minutes</td><td>Neck stiffness, consciousness, focal deficits</td><td><strong>Subarachnoid space / aneurysmal SAH</strong></td></tr><tr><td>Headache + focal weakness, aphasia or field deficit</td><td>Full cortical examination</td><td><strong>Cerebral hemisphere / vascular lesion</strong></td></tr><tr><td>Headache + vomiting + progressive visual blurring, worse in morning/coughing</td><td>Fundoscopy, CN VI, consciousness</td><td><strong>Raised intracranial pressure</strong></td></tr><tr><td>Headache worse on coughing/sneezing/straining</td><td>Papilledema, CN VI palsy, cerebellar signs</td><td><strong>Raised ICP / posterior fossa lesion</strong></td></tr><tr><td>Occipital headache + vomiting + gait unsteadiness</td><td>Gait, nystagmus, limb coordination</td><td><strong>Posterior fossa / cerebellum</strong></td></tr><tr><td>Headache + diplopia + multiple ocular motor palsies</td><td>III, IV, VI and V1/V2 examination</td><td><strong>Cavernous sinus / orbital apex</strong></td></tr><tr><td>Retro-orbital pain + visual loss</td><td>Acuity, colour vision, RAPD</td><td><strong>Optic nerve / orbit</strong></td></tr><tr><td>Headache + painful pupil-involving III palsy</td><td>Pupil and ocular movements</td><td><strong>PCom region / compressive CN III</strong></td></tr><tr><td>Headache + neck pain followed by Horner or posterior circulation symptoms</td><td>Horner signs; cranial nerves; cerebellar exam</td><td><strong>Carotid/vertebral artery dissection</strong></td></tr><tr><td>New unilateral headache + transient monocular visual loss in older adult</td><td>Temporal artery tenderness/pulse; visual acuity</td><td><strong>Temporal artery / ischemic optic pathway</strong></td></tr><tr><td>Headache + fever + neck stiffness</td><td>Meningism, consciousness, cranial nerves</td><td><strong>Meninges</strong></td></tr><tr><td>Headache + fever + focal deficit/seizure</td><td>Fundus and focal cortical examination</td><td><strong>Brain abscess/encephalitis/focal intracranial process</strong></td></tr><tr><td>Progressive headache + personality/behavioural change</td><td>Frontal release signs, executive function</td><td><strong>Frontal lobe</strong></td></tr><tr><td>Headache + endocrine symptoms + visual-field loss</td><td>Bitemporal fields; ocular movements</td><td><strong>Sellar/suprasellar region</strong></td></tr><tr><td>Headache + papilledema + VI palsy without other focal signs</td><td>Fundoscopy and abduction</td><td><strong>Raised ICP</strong></td></tr><tr><td>Headache precipitated by posture/cough/Valsalva + occipital symptoms</td><td>Lower cranial nerves and long-tract signs</td><td><strong>Foramen magnum / craniocervical junction</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s12">
+      <div class="section-head">
+        <div class="section-number">12</div>
+        <div>
+          <h2>Syncope / transient loss of consciousness</h2>
+          <p class="subtitle">First decide whether this was true syncope, seizure or another transient neurologic event</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> True syncope reflects transient global cerebral hypoperfusion and usually does not localise to one lobe.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>LOC after prolonged standing, heat, pain or emotional trigger</td><td>Lying/standing BP, pulse</td><td><strong>Systemic autonomic/cardiovascular rather than focal CNS</strong></td></tr><tr><td>Prodrome of nausea, sweating, warmth, dimming vision</td><td>Orthostatic vitals; cardiovascular exam</td><td><strong>Vasovagal/autonomic pathway</strong></td></tr><tr><td>LOC immediately after standing</td><td>Orthostatic BP and pulse</td><td><strong>Autonomic nervous system / volume depletion</strong></td></tr><tr><td>Sudden LOC without warning during exertion</td><td>Cardiac examination; rhythm assessment</td><td><strong>Cardiac rather than neurological localisation</strong></td></tr><tr><td>Palpitations before LOC</td><td>Pulse/rhythm assessment</td><td><strong>Arrhythmic/cardiac source</strong></td></tr><tr><td>Brief LOC with rapid recovery and no confusion</td><td>Neurological exam usually normal</td><td><strong>Syncope rather than cortical seizure</strong></td></tr><tr><td>Brief jerking only after becoming unconscious</td><td>Look for absence of prolonged postictal focality</td><td><strong>Convulsive syncope can occur</strong></td></tr><tr><td>Tongue bite, prolonged confusion or stereotyped aura</td><td>Search for focal neurological signs</td><td><strong>Cortical seizure network</strong></td></tr><tr><td>LOC + diplopia/dysarthria/ataxia/bilateral weakness</td><td>Cranial nerves/cerebellar/long-tract exam</td><td><strong>Brainstem/posterior circulation</strong></td></tr><tr><td>LOC with persistent unilateral weakness afterward</td><td>Define fixed vs transient deficit</td><td><strong>Contralateral hemisphere; consider Todd paresis/stroke</strong></td></tr><tr><td>Recurrent syncope + impaired sweating/erectile dysfunction/constipation</td><td>Orthostatic BP; autonomic exam</td><td><strong>Autonomic nervous system</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s13">
+      <div class="section-head">
+        <div class="section-number">13</div>
+        <div>
+          <h2>Seizure</h2>
+          <p class="subtitle">The earliest ictal symptom is often the most localising</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Ask &#x27;what happened first?&#x27; before the seizure spread or generalised.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Jerking began in one hand and marched up arm toward face</td><td>Examine opposite motor cortex functions; look for Todd paresis</td><td><strong>Contralateral primary motor cortex</strong></td></tr><tr><td>Jerking began in face then spread to arm/leg</td><td>Postictal opposite weakness</td><td><strong>Contralateral motor cortex</strong></td></tr><tr><td>Forced head and eyes turned to one side at onset</td><td>Determine direction of version</td><td><strong>Usually frontal eye field opposite the forced gaze</strong></td></tr><tr><td>Tingling started in one hand and spread up arm</td><td>Cortical sensory testing</td><td><strong>Contralateral postcentral gyrus</strong></td></tr><tr><td>Flashing lights/coloured shapes</td><td>Visual fields</td><td><strong>Occipital cortex</strong></td></tr><tr><td>Complex visual scenes/familiar people before seizure</td><td>Visual recognition and temporal/occipitotemporal function</td><td><strong>Visual association cortex</strong></td></tr><tr><td>Rising epigastric sensation before impaired awareness</td><td>Memory/temporal examination</td><td><strong>Mesial temporal lobe</strong></td></tr><tr><td>Déjà vu, jamais vu or sudden intense fear</td><td>Memory/behaviour examination</td><td><strong>Mesial temporal lobe / amygdala</strong></td></tr><tr><td>Unpleasant smell or taste before seizure</td><td>Olfaction and temporal function</td><td><strong>Uncus / mesial temporal cortex</strong></td></tr><tr><td>Brief auditory hallucination or distorted sounds</td><td>Hearing/language exam</td><td><strong>Superior temporal cortex</strong></td></tr><tr><td>Speech arrest at onset</td><td>Language testing</td><td><strong>Dominant frontal/perisylvian cortex</strong></td></tr><tr><td>Cannot understand language during attack</td><td>Comprehension testing</td><td><strong>Dominant posterior temporal cortex</strong></td></tr><tr><td>Lip smacking, chewing or picking automatisms</td><td>Memory examination</td><td><strong>Temporal-limbic network</strong></td></tr><tr><td>Sudden tonic posturing of one limb</td><td>Look for focal UMN deficit afterward</td><td><strong>Contralateral frontal motor network</strong></td></tr><tr><td>Seizure followed by transient unilateral weakness</td><td>Document Todd paresis pattern and duration</td><td><strong>Opposite motor cortex involved during seizure</strong></td></tr><tr><td>Seizure followed by transient aphasia</td><td>Detailed language examination</td><td><strong>Dominant hemisphere</strong></td></tr><tr><td>Seizure followed by transient visual deficit</td><td>Visual-field testing</td><td><strong>Occipital/retrochiasmal cortex</strong></td></tr><tr><td>Behavioural arrest with staring</td><td>Automatisms, awareness and post-event confusion</td><td><strong>Temporal network if focal; generalized network if typical absence phenotype</strong></td></tr><tr><td>Bilateral tonic-clonic activity without obvious focal onset</td><td>Ask carefully for preceding focal aura</td><td><strong>May be focal-to-bilateral or generalized network</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="topic" id="s14">
+      <div class="section-head">
+        <div class="section-number">14</div>
+        <div>
+          <h2>Memory loss</h2>
+          <p class="subtitle">Separate attention, registration, storage, retrieval and remote memory</p>
+        </div>
+      </div>
+      <div class="teaching-point"><strong>How to think:</strong> Before calling it memory loss, exclude impaired attention, aphasia, delirium, depression and executive dysfunction.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+              <th>Structure / localisation</th>
+            </tr>
+          </thead>
+          <tbody><tr><td>Repeatedly asks same question and forgets recent events</td><td>Delayed recall and new learning</td><td><strong>Hippocampus / medial temporal lobes</strong></td></tr><tr><td>Remembers childhood but cannot retain today&#x27;s events</td><td>Immediate vs delayed recall</td><td><strong>Medial temporal memory consolidation system</strong></td></tr><tr><td>Cannot form new memories after an event</td><td>Learning of new words/objects</td><td><strong>Bilateral hippocampi</strong></td></tr><tr><td>Lost memories of events before illness</td><td>Establish temporal gradient of retrograde memory</td><td><strong>Distributed cortical memory stores / medial temporal access</strong></td></tr><tr><td>Forgetful with poor attention and fluctuating consciousness</td><td>Digit span; months backward</td><td><strong>Diffuse cortical/subcortical dysfunction</strong></td></tr><tr><td>&#x27;Forgetful&#x27; because patient cannot organise/plan/retrieve</td><td>Executive tests; verbal fluency</td><td><strong>Frontal-subcortical circuits</strong></td></tr><tr><td>Memory improves substantially with cues/recognition choices</td><td>Free recall vs recognition</td><td><strong>Frontal retrieval dysfunction more than hippocampal storage</strong></td></tr><tr><td>Both recall and recognition poor despite adequate attention</td><td>Delayed recall and recognition</td><td><strong>Hippocampal storage/consolidation problem</strong></td></tr><tr><td>Memory loss + personality change/disinhibition</td><td>Frontal and temporal examination</td><td><strong>Frontotemporal networks</strong></td></tr><tr><td>Memory loss + confabulation</td><td>Orientation, recall, executive control</td><td><strong>Diencephalic/frontal memory circuits</strong></td></tr><tr><td>Memory loss + gait ataxia + ophthalmoplegia</td><td>Eye movements, gait, confusion</td><td><strong>Mammillary bodies/medial thalamus — Wernicke network</strong></td></tr><tr><td>Sudden severe anterograde amnesia with preserved identity</td><td>Repetitive questioning; attention relatively preserved</td><td><strong>Bilateral hippocampal memory network / transient global amnesia phenotype</strong></td></tr><tr><td>Memory loss + vertical gaze palsy/hypersomnolence</td><td>Consciousness and vertical eye movements</td><td><strong>Paramedian thalami</strong></td></tr><tr><td>Verbal memory poor; visual memory relatively preserved</td><td>Compare verbal learning with visual memory</td><td><strong>Dominant medial temporal lobe</strong></td></tr><tr><td>Visual/spatial memory poor; verbal learning relatively preserved</td><td>Visual reproduction/route memory</td><td><strong>Nondominant medial temporal network</strong></td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+  <div class="footer">
+    Educational bedside localisation aid. Use clinical context and appropriate investigations to confirm diagnosis.
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-Case Neurological Localisation Sheet</title>
+<style>
+:root {
+  --teal:#0f5064;
+  --teal-dark:#123f4e;
+  --rust:#aa5434;
+  --paper:#ffffff;
+  --bg:#f2f7fa;
+  --line:#d7e3e8;
+  --muted:#607680;
+  --soft:#f8fbfc;
+  --shadow:0 10px 28px rgba(25,67,82,.11);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:linear-gradient(#edf4f8 0,#f8fbfc 260px,#f4f7f9 100%);
+  color:var(--teal-dark);font-family:Arial,Helvetica,sans-serif;line-height:1.45;
+}
+.hero{
+  max-width:1320px;margin:50px auto 22px;background:white;border-radius:18px;
+  box-shadow:var(--shadow);padding:52px 54px 38px;
+}
+h1{
+  margin:0;text-align:center;text-transform:uppercase;color:var(--teal);
+  font-size:clamp(34px,4.4vw,60px);line-height:1.07;letter-spacing:-1.5px
+}
+.redline{height:5px;background:var(--rust);margin:28px 0 19px;border-radius:3px}
+.byline{text-align:center;color:#61737c;font-size:17px}
+.byline strong{color:var(--teal)}
+.curator{
+  text-align:center;
+  margin-top:10px;
+  color:var(--teal);
+  font-size:16px;
+  font-weight:600;
+}
+.curator strong{color:var(--rust)}
+.intro{
+  margin:26px auto 0;max-width:1100px;background:var(--soft);
+  border-left:6px solid var(--teal);padding:18px 22px;border-radius:8px;font-size:18px
+}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+button{
+  border:0;border-radius:8px;background:var(--teal);color:#fff;
+  font-weight:700;padding:11px 16px;cursor:pointer
+}
+button.alt{background:var(--rust)}
+main{max-width:1320px;margin:0 auto 70px;padding:0 28px}
+.index,.section{background:white;border-radius:15px;box-shadow:var(--shadow);margin:22px 0;overflow:hidden}
+.index{padding:26px}
+.index h2{margin:0 0 17px;color:var(--teal);font-size:28px}
+.nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.nav a{
+  text-decoration:none;color:var(--teal);font-weight:700;background:#fbfdfe;
+  border:1px solid var(--line);border-radius:9px;padding:12px 14px
+}
+.nav a:hover{border-color:var(--rust);color:var(--rust)}
+.section-title{
+  background:var(--teal);color:white;font-weight:800;font-size:28px;padding:22px 28px
+}
+.tablewrap{overflow-x:auto;padding:18px 22px 10px}
+table{width:100%;min-width:1000px;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+thead th{
+  background:#edf4f6;color:var(--teal);text-align:left;padding:14px;
+  border-bottom:2px solid #cadce3;font-size:15px;width:33.33%;
+}
+tbody td{
+  vertical-align:top;padding:13px 14px;border-bottom:1px solid #e4ecef;border-right:1px solid #edf2f4;font-size:14.5px
+}
+tbody tr:nth-child(even) td{background:#fbfdfe}
+tbody tr:last-child td{border-bottom:0}
+tbody td:last-child{border-right:0}
+tbody td strong{color:var(--teal)}
+.back{padding:2px 24px 19px;text-align:right}
+.back a{color:var(--rust);text-decoration:none;font-weight:700}
+.footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 0 40px}
+@media(max-width:700px){
+ .hero{margin:18px 10px;padding:34px 20px 26px}
+ main{padding:0 10px}
+ .section-title{font-size:22px;padding:18px}
+ .tablewrap{padding:10px}
+}
+@page { size: A4 landscape; margin: 12mm; }
+@media print{
+ body{background:white}
+ .hero,.index,.section{box-shadow:none}
+ .actions,.back{display:none}
+ .section{break-inside:avoid-page}
+}
+</style>
+</head>
+<body>
+<div id="top"></div>
+<header class="hero">
+  <h1>Pre-Case Neurological Localisation Sheet</h1>
+  <div class="redline"></div>
+  <div class="byline"><strong>Anatomical structure → history clues → examination clues</strong></div>
+  <div class="curator">Curated by <strong>Anupam Singh MD</strong>, Professor, Department of Medicine, Santosh Medical College</div>
+  <div class="intro">
+    <strong>Use before solving cases:</strong> identify the anatomical level first. Ask what symptoms should be present if that structure is involved, then deliberately look for the matching positive examination signs — and for important findings that should be absent.
+  </div>
+  <div class="actions">
+    <button onclick="window.print()">Print / Save as PDF</button>
+    <button class="alt" onclick="document.getElementById('index').scrollIntoView()">Jump to Index</button>
+  </div>
+</header>
+
+<main>
+  <section class="index" id="index">
+    <h2>Localisation Index</h2>
+    <div class="nav"><a href="#g1">Cerebrum &amp; deep structures</a><a href="#g2">Cerebellum &amp; ataxia</a><a href="#g3">Visual pathway</a><a href="#g4">Cranial nerves, brainstem &amp; skull base</a><a href="#g5">Roots, plexus, nerve, NMJ &amp; motor neuron</a><a href="#g6">Spinal cord, conus &amp; cauda</a></div>
+  </section>
+  
+    <section class="section" id="g1">
+      <div class="section-title">Cerebrum &amp; deep structures</div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Anatomical structure / localisation</th>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+            </tr>
+          </thead>
+          <tbody><tr><td><strong>Dominant frontal cortex — Broca area</strong></td><td>Difficulty getting words out; short effortful speech; patient appears to know what they want to say; writing may also be impaired.</td><td>Nonfluent/effortful speech; impaired naming and repetition; comprehension relatively preserved; right lower facial/arm weakness may coexist.</td></tr><tr><td><strong>Dominant posterior temporal cortex — Wernicke area</strong></td><td>Fluent but meaningless speech; difficulty understanding conversation; family may report inappropriate answers.</td><td>Fluent paraphasic speech; poor comprehension; impaired repetition/naming; possible right superior quadrantanopia.</td></tr><tr><td><strong>Dominant parietal cortex</strong></td><td>Difficulty calculating/writing; right-left confusion; cannot recognise objects by touch; difficulty performing learned acts.</td><td>Acalculia, agraphia, finger agnosia, right-left disorientation; ideomotor apraxia; astereognosis/agraphesthesia.</td></tr><tr><td><strong>Nondominant parietal cortex</strong></td><td>Ignores one side; leaves food on one half of plate; bumps into objects on one side; poor spatial awareness.</td><td>Contralateral neglect; extinction on double simultaneous stimulation; constructional apraxia; anosognosia.</td></tr><tr><td><strong>Medial frontal cortex / ACA territory</strong></td><td>Leg-predominant weakness; reduced initiative/abulia; urinary urgency or incontinence.</td><td>Contralateral leg weakness &gt; arm; hyperreflexia/Babinski; grasp reflex; frontal release signs.</td></tr><tr><td><strong>Frontal eye field</strong></td><td>Eyes noticed deviated to one side after acute event.</td><td>Conjugate gaze deviation toward cortical lesion and away from hemiparesis.</td></tr><tr><td><strong>Supplementary motor area / medial frontal network</strong></td><td>Difficulty initiating movement; limb may act independently; intermanual conflict.</td><td>Grasp reflex; alien-hand phenomena; impaired motor initiation; possible leg-predominant weakness.</td></tr><tr><td><strong>Bilateral frontal opercula</strong></td><td>Cannot voluntarily speak, swallow, cough or move lower face/tongue, but spontaneous emotional movements may persist.</td><td>Automatic-voluntary dissociation; severe voluntary faciopharyngoglossal weakness with preserved spontaneous smiling/yawning.</td></tr><tr><td><strong>Occipital cortex</strong></td><td>Loss of one side of visual world; bumping into objects; no ocular pain.</td><td>Contralateral homonymous hemianopia; highly congruous defect; normal pupils/fundi; macular sparing may occur.</td></tr><tr><td><strong>Bilateral occipital cortex</strong></td><td>Behaves blind; may deny blindness or confabulate visual descriptions.</td><td>Cortical blindness with preserved pupillary reflexes and normal fundi; Anton syndrome if denial/confabulation.</td></tr><tr><td><strong>Parieto-occipital association cortex — bilateral</strong></td><td>Sees one object at a time; cannot take in a whole scene; misses objects when reaching.</td><td>Simultanagnosia + optic ataxia + ocular apraxia — Bálint syndrome.</td></tr><tr><td><strong>Fusiform / inferior occipitotemporal cortex</strong></td><td>Cannot recognise familiar faces but recognises people by voice, gait or clothing.</td><td>Prosopagnosia with preserved visual acuity and object perception.</td></tr><tr><td><strong>Hippocampus / medial temporal lobes</strong></td><td>Repeated questions; poor memory for recent events; remote memory relatively better.</td><td>Marked anterograde memory impairment; impaired delayed recall/new learning; attention and language may be preserved.</td></tr><tr><td><strong>Bilateral anterior temporal lobes / amygdala</strong></td><td>Hyperorality, hypersexuality, loss of fear, excessive visual exploration, behavioural change.</td><td>Klüver-Bucy pattern: placidity, hypermetamorphosis, visual agnosia, memory disturbance.</td></tr><tr><td><strong>Internal capsule</strong></td><td>Sudden dense face-arm-leg weakness with little/no cortical symptoms.</td><td>Pure motor hemiparesis; UMN face/arm/leg signs; hyperreflexia/Babinski; no aphasia/neglect/visual field defect.</td></tr><tr><td><strong>Thalamus</strong></td><td>Sudden hemisensory numbness; later burning pain/allodynia may appear.</td><td>Contralateral face-arm-leg sensory loss; power relatively preserved; hyperpathia/allodynia; cheiro-oral pattern with small lesions.</td></tr><tr><td><strong>Subthalamic nucleus</strong></td><td>Sudden violent flinging movements of one side.</td><td>Contralateral hemiballismus; large-amplitude ballistic proximal movements.</td></tr><tr><td><strong>Basal ganglia / substantia nigra</strong></td><td>Slowness; rest tremor; reduced arm swing; softer voice; micrographia.</td><td>Bradykinesia, rigidity, rest tremor, masked facies, reduced arm swing, postural instability.</td></tr><tr><td><strong>Temporal optic radiation — Meyer loop</strong></td><td>Difficulty noticing objects in opposite upper visual quadrant.</td><td>Contralateral superior quadrantanopia — &#x27;pie in the sky&#x27;.</td></tr><tr><td><strong>Parietal optic radiation</strong></td><td>Difficulty noticing objects in opposite lower visual quadrant.</td><td>Contralateral inferior quadrantanopia — &#x27;pie on the floor&#x27;; parietal signs may coexist.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="section" id="g2">
+      <div class="section-title">Cerebellum &amp; ataxia</div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Anatomical structure / localisation</th>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+            </tr>
+          </thead>
+          <tbody><tr><td><strong>Cerebellar hemisphere</strong></td><td>Clumsy same-side limb; spills drinks; overshoots targets; veers toward affected side.</td><td>Ipsilateral dysmetria, dysdiadochokinesia, intention tremor, rebound, heel-shin impairment.</td></tr><tr><td><strong>Cerebellar vermis</strong></td><td>Predominantly difficulty standing/walking; truncal swaying; little hand clumsiness.</td><td>Broad-based gait; truncal titubation; impaired tandem gait; limb coordination relatively preserved.</td></tr><tr><td><strong>Sensory proprioceptive pathway</strong></td><td>Unsteadiness worse in dark; needs to watch feet; stamping gait.</td><td>Loss of vibration/joint position; positive Romberg; pseudoathetosis; worsens on eye closure.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="section" id="g3">
+      <div class="section-title">Visual pathway</div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Anatomical structure / localisation</th>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+            </tr>
+          </thead>
+          <tbody><tr><td><strong>Optic nerve</strong></td><td>Monocular visual loss; colour desaturation; central blur; pain on eye movement if optic neuritis.</td><td>Reduced acuity; RAPD; impaired colour vision; central scotoma; disc may initially be normal.</td></tr><tr><td><strong>Optic chiasm</strong></td><td>Progressive peripheral visual loss; bumping into door frames; endocrine symptoms may coexist.</td><td>Bitemporal hemianopia; optic pallor later; ocular motility often initially normal.</td></tr><tr><td><strong>Optic tract</strong></td><td>Same visual hemifield lost in both eyes, often with deep cerebral symptoms.</td><td>Contralateral homonymous hemianopia; possible contralateral RAPD; associated thalamic/internal capsular signs.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="section" id="g4">
+      <div class="section-title">Cranial nerves, brainstem &amp; skull base</div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Anatomical structure / localisation</th>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+            </tr>
+          </thead>
+          <tbody><tr><td><strong>CN III — oculomotor nerve</strong></td><td>Ptosis, diplopia, eye turned outward; ask about sudden severe headache.</td><td>Ptosis; eye down and out; impaired adduction/elevation/depression; pupil involvement suggests compression.</td></tr><tr><td><strong>CN IV — trochlear nerve</strong></td><td>Vertical diplopia worse while reading or walking downstairs; compensatory head tilt.</td><td>Hypertropia; weak depression of adducted eye; diplopia worsens with head tilt toward affected side.</td></tr><tr><td><strong>CN VI — abducens nerve</strong></td><td>Horizontal diplopia worse looking toward affected side.</td><td>Failure of ipsilateral abduction; isolated palsy = nerve/fascicle; both eyes fail to gaze toward side = VI nucleus/PPRF.</td></tr><tr><td><strong>MLF</strong></td><td>Horizontal diplopia; commonly demyelination in younger patients or stroke in older patients.</td><td>INO: impaired adduction on side of lesion + abducting nystagmus of opposite eye; convergence often preserved.</td></tr><tr><td><strong>PPRF / abducens nucleus</strong></td><td>Cannot look toward one side with either eye.</td><td>Ipsilateral conjugate horizontal gaze palsy; vertical gaze preserved.</td></tr><tr><td><strong>Dorsal rostral midbrain</strong></td><td>Difficulty looking upward; diplopia; headache/hydrocephalus symptoms may coexist.</td><td>Vertical gaze palsy; convergence-retraction nystagmus; light-near dissociation; lid retraction.</td></tr><tr><td><strong>CN V — trigeminal</strong></td><td>Facial numbness/pain; chewing difficulty.</td><td>V1/V2/V3 sensory loss; absent afferent corneal reflex; weak masseter/pterygoid; jaw deviates toward weak side.</td></tr><tr><td><strong>CN VII — supranuclear</strong></td><td>Sudden mouth deviation often with limb weakness.</td><td>Contralateral lower facial weakness with forehead sparing; eye closure preserved; accompanying UMN signs.</td></tr><tr><td><strong>CN VII — peripheral / LMN</strong></td><td>Whole side of face weak; cannot close eye; food/water leaks; ask taste, hyperacusis, lacrimation.</td><td>Ipsilateral upper + lower facial paralysis; proximal lesions may add taste loss, hyperacusis and reduced lacrimation.</td></tr><tr><td><strong>CN VIII / vestibular pathway</strong></td><td>Vertigo, oscillopsia, nausea; hearing loss/tinnitus suggests cochlear/AICA/CPA involvement.</td><td>Nystagmus; gait veering; head impulse abnormal in peripheral lesions; sensorineural hearing loss if cochlear component.</td></tr><tr><td><strong>CN IX/X / nucleus ambiguus</strong></td><td>Dysphagia, nasal regurgitation, choking, weak cough, hoarseness.</td><td>Palatal droop; uvula deviates away; reduced gag; dysphonia; weak cough; vocal-cord paralysis.</td></tr><tr><td><strong>CN XI</strong></td><td>Shoulder droop; difficulty shrugging or turning head; may follow neck surgery.</td><td>Trapezius wasting/weak shrug; SCM weakness causing weak head rotation to opposite side.</td></tr><tr><td><strong>CN XII — LMN</strong></td><td>Dysarthria; difficulty manipulating food in mouth.</td><td>Ipsilateral tongue wasting/fasciculations; tongue deviates toward lesion on protrusion.</td></tr><tr><td><strong>Midbrain — medial/ventral</strong></td><td>Ptosis/diplopia with opposite body weakness.</td><td>Ipsilateral III palsy + contralateral UMN weakness — Weber-type localisation.</td></tr><tr><td><strong>Midbrain tegmentum</strong></td><td>III-nerve symptoms plus opposite tremor/incoordination.</td><td>Ipsilateral III palsy + contralateral tremor/dysmetria/ataxia — red nucleus/superior cerebellar pathway.</td></tr><tr><td><strong>Medial pons</strong></td><td>Diplopia or facial weakness plus opposite limb weakness.</td><td>Ipsilateral VI and/or VII fascicular deficit + contralateral hemiparesis.</td></tr><tr><td><strong>Dorsal pons / facial colliculus</strong></td><td>Cannot look toward one side + same-sided complete facial weakness.</td><td>Ipsilateral conjugate gaze palsy + ipsilateral LMN VII palsy; ± contralateral weakness.</td></tr><tr><td><strong>Dorsal pons — PPRF + MLF</strong></td><td>Severe horizontal gaze difficulty.</td><td>One-and-a-half syndrome: gaze palsy toward lesion + INO when looking away.</td></tr><tr><td><strong>PPRF/VI nucleus + MLF + VII fascicle</strong></td><td>Horizontal gaze paralysis plus complete ipsilateral facial paralysis.</td><td>Eight-and-a-half syndrome = one-and-a-half syndrome + VII palsy.</td></tr><tr><td><strong>Lateral pons / AICA territory</strong></td><td>Vertigo, vomiting, ipsilateral hearing loss, facial weakness/numbness, gait unsteadiness.</td><td>Ipsilateral LMN facial palsy/deafness/facial pain-temperature loss/ataxia + contralateral body pain-temperature loss.</td></tr><tr><td><strong>Lateral medulla</strong></td><td>Vertigo, vomiting, dysphagia, hoarseness, hiccups, gait instability.</td><td>Ipsilateral facial pain-temperature loss + contralateral body pain-temperature loss; ipsilateral Horner/ataxia/palatal weakness.</td></tr><tr><td><strong>Medial medulla</strong></td><td>Opposite-sided weakness with tongue difficulty.</td><td>Ipsilateral LMN XII palsy + contralateral hemiparesis; contralateral proprioceptive loss may occur.</td></tr><tr><td><strong>Bilateral ventral pons</strong></td><td>Unable to move or speak but appears conscious.</td><td>Quadriplegia, anarthria, impaired horizontal gaze with preserved consciousness, blinking and vertical gaze — locked-in syndrome.</td></tr><tr><td><strong>Cerebellopontine angle</strong></td><td>Progressive unilateral hearing loss/tinnitus; later facial numbness and imbalance.</td><td>Ipsilateral sensorineural deafness; absent corneal reflex; facial weakness; ipsilateral ataxia/nystagmus.</td></tr><tr><td><strong>Cavernous sinus</strong></td><td>Painful ophthalmoplegia; retro-orbital headache; facial numbness.</td><td>Combined III/IV/VI palsies + V1 ± V2 loss; optic nerve generally spared; VI + Horner particularly localising.</td></tr><tr><td><strong>Orbital apex</strong></td><td>Painful visual loss plus diplopia/ptosis.</td><td>Optic neuropathy/RAPD + III/IV/VI and V1 abnormalities; visual loss distinguishes from cavernous sinus.</td></tr><tr><td><strong>Jugular foramen</strong></td><td>Hoarseness + dysphagia + shoulder weakness.</td><td>IX, X, XI deficits; palate/vocal cord + trapezius/SCM; XII spared — Vernet pattern.</td></tr><tr><td><strong>Jugular foramen + hypoglossal region</strong></td><td>Dysphagia, hoarseness, shoulder weakness and tongue weakness.</td><td>IX–X–XI–XII palsies — Collet-Sicard pattern.</td></tr><tr><td><strong>Retroparotid/parapharyngeal space + sympathetic chain</strong></td><td>Lower cranial-nerve symptoms plus ptosis/miosis.</td><td>IX–X–XI–XII palsies + Horner syndrome — Villaret pattern.</td></tr><tr><td><strong>Extensive unilateral skull base</strong></td><td>Slowly accumulating multiple cranial-nerve symptoms on one side with surprisingly normal limbs.</td><td>Multiple unilateral cranial neuropathies without long-tract signs — Garcin pattern.</td></tr><tr><td><strong>Petrous apex</strong></td><td>Chronic otitis/otorrhoea followed by deep facial/retro-orbital pain and diplopia.</td><td>Ipsilateral VI palsy + trigeminal V1/V2 pain/sensory signs with ear infection — Gradenigo pattern.</td></tr><tr><td><strong>Intramedullary cord lesion</strong></td><td>Poorly localised burning pain; gradual bilateral symptoms; bladder late.</td><td>Dissociated sensory loss; sacral sparing; segmental LMN signs at level + long-tract signs below.</td></tr><tr><td><strong>Extramedullary cord compression</strong></td><td>Local back pain → radicular pain → progressive leg weakness; sphincter symptoms late.</td><td>Early root signs; asymmetric long-tract abnormalities; Brown-Séquard pattern; sensory level develops.</td></tr><tr><td><strong>Conus medullaris</strong></td><td>Saddle numbness; very early urinary retention, bowel or sexual dysfunction; less radicular pain.</td><td>Symmetric saddle anesthesia; reduced anal tone; absent anal wink/bulbocavernosus; mixed UMN/LMN leg signs.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="section" id="g5">
+      <div class="section-title">Roots, plexus, nerve, NMJ &amp; motor neuron</div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Anatomical structure / localisation</th>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+            </tr>
+          </thead>
+          <tbody><tr><td><strong>Bilateral corticobulbar tracts</strong></td><td>Dysarthria/dysphagia; inappropriate laughing/crying; multiple prior strokes may be present.</td><td>Spastic dysarthria; brisk jaw jerk; exaggerated gag; slow stiff tongue without wasting; emotional lability.</td></tr><tr><td><strong>Cervical enlargement</strong></td><td>Hand/arm weakness/wasting plus stiff legs; hand clumsiness and gait difficulty.</td><td>LMN signs in arms at lesion + UMN signs in legs below; sensory level; Hoffmann/Babinski may be present.</td></tr><tr><td><strong>Anterior horn cell</strong></td><td>Progressive painless focal wasting/weakness without numbness.</td><td>Segmental wasting, fasciculations, weakness and reduced reflexes; sensation normal.</td></tr><tr><td><strong>Motor neuron system — UMN + LMN</strong></td><td>Progressive weakness spreading between regions; cramps/fasciculations; bulbar symptoms; no sensory complaints.</td><td>Wasting/fasciculations + brisk reflexes/Babinski; tongue LMN signs possible; sensation and sphincters usually preserved.</td></tr><tr><td><strong>Cervical nerve root</strong></td><td>Neck pain radiating down arm; cough/sneeze may worsen; paresthesia in a dermatome.</td><td>Myotomal weakness; reduced corresponding reflex; dermatomal sensory loss; Spurling may reproduce symptoms.</td></tr><tr><td><strong>C6 root</strong></td><td>Pain/paresthesia lateral arm to thumb.</td><td>Weak elbow flexion/wrist extension; reduced biceps/brachioradialis reflex; thumb/lateral forearm sensory loss.</td></tr><tr><td><strong>C7 root</strong></td><td>Posterior arm pain to middle finger.</td><td>Weak triceps/finger extension/wrist flexion; reduced triceps reflex; middle-finger sensory loss.</td></tr><tr><td><strong>C8 root</strong></td><td>Medial forearm pain to ring/little fingers.</td><td>Weak finger flexion/intrinsic hand muscles across median + ulnar nerves; C8 sensory pattern.</td></tr><tr><td><strong>L5 root</strong></td><td>Back pain radiating down lateral leg to dorsum of foot; foot drop.</td><td>Weak dorsiflexion plus inversion and hip abduction; L5 sensory loss; ankle jerk usually preserved.</td></tr><tr><td><strong>S1 root</strong></td><td>Back pain radiating down posterior leg/lateral foot; difficulty standing on toes.</td><td>Weak plantarflexion; reduced/absent ankle jerk; lateral-foot sensory loss; difficulty toe walking.</td></tr><tr><td><strong>Lower trunk brachial plexus C8–T1</strong></td><td>Shoulder/arm pain followed by hand weakness; medial forearm/hand numbness.</td><td>Weakness crossing median + ulnar territories; medial forearm sensory loss; Horner may coexist in Pancoast lesion.</td></tr><tr><td><strong>Common peroneal nerve</strong></td><td>Foot drop after leg crossing, squatting or weight loss; usually no back pain.</td><td>Weak dorsiflexion + eversion; inversion preserved; sensory loss anterolateral leg/dorsum foot; ankle jerk normal.</td></tr><tr><td><strong>Sciatic nerve</strong></td><td>Hip/buttock trauma or surgery followed by posterior-leg symptoms and foot weakness.</td><td>Dorsiflexion and plantarflexion weak; inversion/eversion weak; ankle jerk reduced; hamstring involvement may occur.</td></tr><tr><td><strong>Radial nerve — spiral groove</strong></td><td>Wrist drop after prolonged arm compression.</td><td>Wrist/finger extension weakness; triceps preserved; small first dorsal web-space sensory deficit.</td></tr><tr><td><strong>Posterior interosseous nerve</strong></td><td>Finger drop without numbness.</td><td>Finger/thumb extension weak; wrist extension preserved but may deviate radially; no sensory loss.</td></tr><tr><td><strong>Anterior interosseous nerve</strong></td><td>Difficulty pinching/picking up small objects; no numbness.</td><td>Cannot make normal &#x27;OK&#x27; sign; weak FPL and index FDP; pure motor lesion.</td></tr><tr><td><strong>Neuromuscular junction — postsynaptic</strong></td><td>Fluctuating ptosis/diplopia; chewing/speech worsens with use; better after rest.</td><td>Fatigable weakness; variable ophthalmoplegia; pupils normal; sensation normal; reflexes preserved.</td></tr><tr><td><strong>Neuromuscular junction — presynaptic</strong></td><td>Proximal weakness improves after activity; dry mouth and autonomic symptoms; smoking history relevant.</td><td>Reduced reflexes that augment after exercise; proximal weakness; autonomic signs.</td></tr><tr><td><strong>Diffuse peripheral roots/nerves</strong></td><td>Ascending weakness after infection; paresthesias; facial weakness; autonomic symptoms.</td><td>Symmetric flaccid weakness + generalized areflexia; mild sensory deficit; facial diplegia; autonomic instability.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+    <section class="section" id="g6">
+      <div class="section-title">Spinal cord, conus &amp; cauda</div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Anatomical structure / localisation</th>
+              <th>Positive history findings / what to ask</th>
+              <th>Positive examination findings / what to elicit</th>
+            </tr>
+          </thead>
+          <tbody><tr><td><strong>High cervical cord C1–C4</strong></td><td>Neck pain; hand/leg weakness progressing to quadriparesis; breathing difficulty.</td><td>UMN weakness in all four limbs; sensory level; diaphragmatic weakness at C3–5; cranial nerves normal.</td></tr><tr><td><strong>C5–C6 cervical cord</strong></td><td>Neck/arm symptoms with progressive hand clumsiness and leg stiffness.</td><td>Reduced biceps/brachioradialis reflex at level but brisk triceps/fingers/legs below; inverted supinator may occur.</td></tr><tr><td><strong>Thoracic cord</strong></td><td>Progressive leg heaviness/stiffness; band-like truncal sensation; urinary urgency; arms unaffected.</td><td>Spastic paraparesis; brisk knees/ankles; bilateral Babinski; truncal sensory level; arms normal.</td></tr><tr><td><strong>Dorsal columns</strong></td><td>Unsteadiness worse in dark; needs visual guidance; electric sensations possible.</td><td>Loss of vibration/proprioception; positive Romberg; stamping gait; pseudoathetosis.</td></tr><tr><td><strong>Spinothalamic tract</strong></td><td>Poor appreciation of pain/temperature; unnoticed burns/injuries.</td><td>Contralateral pain-temperature loss below cord lesion, often starting a few segments below.</td></tr><tr><td><strong>Anterior cord</strong></td><td>Sudden severe weakness, often vascular/aortic setting; bladder involvement.</td><td>Bilateral paralysis/UMN signs + pain-temperature loss; vibration and position preserved.</td></tr><tr><td><strong>Posterior cord</strong></td><td>Severe sensory ataxia with relatively preserved strength and pain sensation.</td><td>Loss of vibration/proprioception; positive Romberg; pain-temperature comparatively preserved.</td></tr><tr><td><strong>Hemicord</strong></td><td>Trauma/compression with unilateral weakness and sensory symptoms.</td><td>Ipsilateral UMN weakness + ipsilateral vibration/proprioception loss + contralateral pain-temperature loss — Brown-Séquard.</td></tr><tr><td><strong>Central cervical cord / syrinx</strong></td><td>Burns hands unknowingly; progressive hand weakness; cape-like numbness.</td><td>Bilateral segmental pain-temperature loss with preserved vibration; hand wasting/areflexia; later UMN legs.</td></tr><tr><td><strong>Acute transverse cord lesion</strong></td><td>Rapid bilateral weakness; numbness rising to a level; urinary retention.</td><td>Bilateral motor deficit + clear sensory level + autonomic dysfunction; initially flaccid, later spastic.</td></tr><tr><td><strong>Spinal shock</strong></td><td>Immediately after severe acute spinal injury: complete paralysis below lesion.</td><td>Flaccidity and areflexia below lesion despite cord disease; bulbocavernosus initially absent; later hyperreflexia/spasticity.</td></tr><tr><td><strong>Epiconus</strong></td><td>Distal leg weakness prominent; sphincter symptoms less abrupt than conus.</td><td>Mixed LMN distal legs + possible Babinski/UMN findings; ankle jerks often absent; bladder less dominant initially.</td></tr><tr><td><strong>Cauda equina</strong></td><td>Severe back/radicular leg pain; asymmetric weakness/numbness; bladder dysfunction often later.</td><td>Asymmetric LMN weakness; reduced/absent reflexes; flexor plantars; patchy root sensory loss; saddle anesthesia.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="back"><a href="#top">↑ Back to index</a></div>
+    </section>
+    
+  <div class="footer">Educational bedside localisation aid · 3-column pre-case reference sheet</div>
+</main>
+</body>
+</html>
