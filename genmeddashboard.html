@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>General Medicine Administrative Dashboard</title>
+<style>
+:root {
+  --teal:#0F5D6A; --teal2:#2E7180; --pale:#DDEEF5; --bg:#F5F6F7;
+  --amber:#E6AA3A; --red:#D86A6A; --rust:#AD654E; --text:#42545C;
+  --muted:#6E7F86; --card:#FFFFFF; --border:#D8DEE2; --track:#E9EFF2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}
+.shell{max-width:1500px;margin:0 auto;padding:28px}
+.header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:18px}
+.title h1{margin:0;color:var(--teal);font-size:29px;letter-spacing:.2px}
+.title p{margin:8px 0 0;color:var(--muted);font-size:14px}
+.badge{border:1px solid #cbd8dd;background:white;border-radius:999px;padding:8px 12px;font-size:12px;color:var(--teal);font-weight:700;white-space:nowrap}
+.overview{background:var(--pale);border-radius:20px;padding:22px 24px;border-left:6px solid var(--teal);margin-bottom:18px}
+.overview h2{margin:0 0 8px;color:var(--teal);font-size:22px}
+.overview p{margin:0;line-height:1.55}
+.chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.chip{background:#f8fbfc;border:1px solid #d9e5e9;border-radius:999px;padding:7px 11px;font-size:12px}
+.notice{background:#fff7e7;border:1px solid #efcf86;color:#775a18;padding:12px 14px;border-radius:12px;margin:12px 0 0;font-size:13px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;margin-bottom:10px;position:sticky;top:0;background:linear-gradient(var(--bg) 82%,transparent);z-index:5}
+.tab-btn{border:1px solid var(--border);background:#fff;color:var(--text);border-radius:999px;padding:10px 15px;font-weight:700;cursor:pointer;white-space:nowrap}
+.tab-btn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.tab{display:none} .tab.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 1px 3px rgba(20,45,55,.04)}
+.span-12{grid-column:span 12} .span-8{grid-column:span 8} .span-7{grid-column:span 7} .span-6{grid-column:span 6} .span-5{grid-column:span 5} .span-4{grid-column:span 4} .span-3{grid-column:span 3}
+.card h3{margin:0 0 14px;color:var(--teal);font-size:18px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:17px;padding:18px 14px;text-align:center}
+.kpi .v{font-size:27px;font-weight:800;color:var(--teal)} .kpi .l{font-size:12px;color:var(--muted);margin-top:5px} .kpi .s{font-size:11px;color:#8a989e;margin-top:3px}
+.headline{background:var(--pale);border-radius:13px;padding:15px;border-left:4px solid var(--teal);line-height:1.55}
+.metric-row{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0 0}
+.metric-mini{min-width:130px} .metric-mini b{font-size:20px;color:var(--teal)} .metric-mini span{display:block;font-size:11px;color:var(--muted)}
+.chart{width:100%;min-height:280px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;font-size:12px;color:var(--muted)}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px}
+.barlist{display:grid;gap:12px}
+.bar-row{display:grid;grid-template-columns:minmax(130px,220px) 1fr 70px;align-items:center;gap:12px;font-size:13px}
+.track{height:10px;background:var(--track);border-radius:20px;overflow:hidden} .fill{height:100%;background:var(--teal2);border-radius:20px}
+.fill.warn{background:var(--amber)} .fill.risk{background:var(--rust)} .fill.danger{background:var(--red)}
+.small{font-size:12px;color:var(--muted);line-height:1.55}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:13px} th,td{padding:10px 11px;border-bottom:1px solid #edf1f3;text-align:left} th{color:var(--teal);background:#f9fbfc;position:sticky;top:0}
+.foot{margin-top:18px;color:var(--muted);font-size:11px;line-height:1.5}
+.callout{padding:14px;border-radius:14px;background:#f8fbfc;border:1px solid #dce8ec}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)} .span-8,.span-7,.span-6,.span-5,.span-4,.span-3{grid-column:span 12}}
+@media(max-width:650px){.shell{padding:14px} .header{display:block} .badge{display:inline-block;margin-top:12px} .kpis{grid-template-columns:repeat(2,1fr)} .title h1{font-size:23px} .bar-row{grid-template-columns:110px 1fr 50px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="header">
+    <div class="title">
+      <h1>General Medicine — Administrative Dashboard</h1>
+      <p>Hospital utilisation, outcomes, patient flow and quality signals from the inpatient discharge registry.</p>
+    </div>
+    <div class="badge"><a href="clinicalaudit.html" style="color:var(--teal);text-decoration:none;font-weight:700;">← Clinical Audit Dashboard</a> • Aggregate • De-identified</div>
+  </div>
+
+  <section class="overview">
+    <h2>Overview</h2>
+    <p>This dashboard is designed for Departmental review. It focuses on volume, bed-days, length of stay, critical-care use, discharge outcomes, repeat utilisation, case mix and investigation workload. The source of data are individual Discharge Summaries with a human oversight.</p>
+    <div class="chips">
+      <span class="chip">01 Nov 2025 onward</span>
+      <span class="chip">2,500 admissions</span>
+      <span class="chip">2,242 unique patients</span>
+      <span class="chip">420,028 investigation rows in analytic cohort</span>
+    </div>
+    <div class="notice"><b>Analytic period rule:</b> the HIS was onboarding through October 2025. All plotted trends and headline KPIs therefore begin on <b>1 November 2025</b>. Earlier records are not used for performance trend interpretation.</div>
+  </section>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab-btn active" data-tab="overviewTab">Overview</button>
+    <button class="tab-btn" data-tab="flowTab">Patient Flow & LOS</button>
+    <button class="tab-btn" data-tab="icuTab">ICU / HDU</button>
+    <button class="tab-btn" data-tab="outcomesTab">Outcomes & LAMA</button>
+    <button class="tab-btn" data-tab="readmitTab">Readmissions</button>
+    <button class="tab-btn" data-tab="caseTab">Case Mix</button>
+    <button class="tab-btn" data-tab="investTab">Investigations</button>
+  </nav>
+
+  <section id="overviewTab" class="tab active">
+    <div class="kpis" id="overviewKpis"></div>
+    <div class="grid">
+      <div class="card span-7">
+        <h3>Monthly admission volume</h3>
+        <div class="chart" id="admissionTrend"></div>
+      </div>
+      <div class="card span-5">
+        <h3>Headline findings</h3>
+        <div class="headline" id="headline"></div>
+        <div class="metric-row" id="miniMetrics"></div>
+      </div>
+      <div class="card span-6"><h3>Discharge outcome mix</h3><div class="chart" id="outcomeDonut"></div></div>
+      <div class="card span-6"><h3>Care location / acuity</h3><div class="chart" id="careBars"></div></div>
+    </div>
+  </section>
+
+  <section id="flowTab" class="tab">
+    <div class="kpis" id="flowKpis"></div>
+    <div class="grid">
+      <div class="card span-8"><h3>Monthly bed-days and admissions</h3><div class="chart" id="bedTrend"></div></div>
+      <div class="card span-4"><h3>Length-of-stay distribution</h3><div class="barlist" id="losBars"></div></div>
+      <div class="card span-6"><h3>Highest-volume room / unit locations</h3><div class="barlist" id="roomBars"></div></div>
+      <div class="card span-6">
+        <h3>Administrative interpretation</h3>
+        <div class="callout small">
+          Bed pressure is better represented by <b>bed-days</b> than admission count alone. Long stays, high-acuity admissions and delays around transfer or discharge are the most actionable areas for monthly review. A true occupancy percentage cannot be calculated without the staffed-bed denominator.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="icuTab" class="tab">
+    <div class="kpis" id="icuKpis"></div>
+    <div class="grid">
+      <div class="card span-8"><h3>Monthly ICU / HDU utilisation</h3><div class="chart" id="criticalTrend"></div></div>
+      <div class="card span-4"><h3>Critical-care mix</h3><div class="chart" id="criticalDonut"></div></div>
+      <div class="card span-12">
+        <h3>MS review points</h3>
+        <div class="small">Track whether ICU/HDU use rises because of volume, severity, delayed escalation or delayed step-down. The registry can support disease-specific drill-downs and clinical-course review, but ICU occupancy itself needs daily staffed-bed capacity and timestamped bed movement data.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="outcomesTab" class="tab">
+    <div class="kpis" id="outcomeKpis"></div>
+    <div class="grid">
+      <div class="card span-8"><h3>Monthly LAMA, transfer and death</h3><div class="chart" id="outcomeTrend"></div></div>
+      <div class="card span-4"><h3>Disposition counts</h3><div class="barlist" id="outcomeBars"></div></div>
+      <div class="card span-12"><h3>Administrative use</h3><div class="small">LAMA is a useful operational and patient-safety signal because its burden is larger than inpatient mortality in this registry. It should be reviewed by diagnosis, unit, LOS, ICU/HDU status, payer/organisation and time of discharge. Transfers should be separated into planned referral versus inability to provide required service whenever the narrative supports that distinction.</div></div>
+    </div>
+  </section>
+
+  <section id="readmitTab" class="tab">
+    <div class="kpis" id="readmitKpis"></div>
+    <div class="grid">
+      <div class="card span-7"><h3>Same-hospital readmission windows</h3><div class="chart" id="readmitBars"></div></div>
+      <div class="card span-5"><h3>Frequent utilisers</h3><div class="headline"><b>33</b> patients had ≥3 admissions in the analytic period; <b>6</b> had ≥4 admissions.</div><p class="small">These patients are candidates for diagnosis-specific review of discharge planning, follow-up, adherence barriers and chronic-disease care coordination.</p></div>
+      <div class="card span-12"><h3>Definition</h3><div class="small">Readmission means return to this hospital only. Each window uses only index discharges with enough observable follow-up before the dataset end date. Deaths and hospital transfers are excluded as index discharges.</div></div>
+    </div>
+  </section>
+
+  <section id="caseTab" class="tab">
+    <div class="grid">
+      <div class="card span-7"><h3>Clinical workload signals</h3><div class="barlist" id="caseBars"></div><p class="small">Keyword-derived categories may overlap and are intended as workload signals, not final coded diagnosis groups.</p></div>
+      <div class="card span-5"><h3>Organisation / scheme mix</h3><div class="barlist" id="orgBars"></div></div>
+      <div class="card span-12"><h3>What this enables</h3><div class="small">Disease groups can be linked to LOS, ICU/HDU utilisation, LAMA, transfer, mortality, readmission, consultant/unit and serial laboratory burden. For disease-specific audit, each cohort should be validated from diagnosis text before treating it as definitive.</div></div>
+    </div>
+  </section>
+
+  <section id="investTab" class="tab">
+    <div class="kpis" id="investKpis"></div>
+    <div class="grid">
+      <div class="card span-7"><h3>Investigation groups — approximate test occasions</h3><div class="barlist" id="paramBars"></div></div>
+      <div class="card span-5"><h3>Documentation completeness</h3><div class="barlist" id="completeBars"></div></div>
+      <div class="card span-12"><h3>Interpretation</h3><div class="small">Investigation groups are cleaned to simple labels such as CBC, KFT, LFT, CRP and PT/INR. Counts shown above are approximate test occasions, defined as one cleaned investigation group per admission-summary per reported date. This avoids inflating CBC/LFT/KFT counts from their multiple parameter rows. For clinical audits, serial results should still be summarized into admission-level features such as first, worst and last values.</div></div>
+    </div>
+  </section>
+
+  <div class="foot" style="text-align:center;padding-top:20px;border-top:1px solid var(--border);margin-top:30px;">
+    <p>Data source: SantoshHIS inpatient discharge registry. This page contains aggregate indicators only and no patient identifiers. Generated from the current registry snapshot. Keyword-derived case-mix categories require clinical validation for formal reporting. Investigation-group counts are cleaned approximate test occasions, not raw parameter counts.</p>
+    <p style="margin-top:10px;">
+      <a href="clinicalaudit.html" style="color:var(--teal);font-weight:bold;text-decoration:none;">Clinical Audit Dashboard</a> | 
+      <a href="agenticviva.html" style="color:var(--teal);font-weight:bold;text-decoration:none;">Clinical Vivas Index</a> | 
+      <a href="https://medstats.github.io" style="color:var(--teal);font-weight:bold;text-decoration:none;">Medstats Home</a>
+    </p>
+  </div>
+</div>
+
+<script>
+const D = {"meta": {"start": "01 Nov 2025", "end": "29 Aug 2026", "onboardingNote": "System onboarding continued through October 2025. Dashboard trends and headline KPIs start from 1 November 2025."}, "kpi": {"admissions": 2500, "uniquePatients": 2242, "medianLOS": 5.5, "meanLOS": 7.0, "bedDays": 17388.0, "long7": 885, "long14": 173, "icu": 128, "hdu": 233, "critical": 361, "routine": 2251, "lama": 167, "transfer": 46, "deaths": 18, "atRequest": 10, "absconded": 1, "r7": 0.5, "r7n": 13, "r7den": 2373, "r30": 3.7, "r30n": 80, "r30den": 2155, "r90": 7.8, "r90n": 117, "r90den": 1496, "freq3": 33, "freq4": 6, "investigationRows": 420028, "investigationAdmissions": 2050, "investigationPanels": 47842, "mappedInvestigationRows": 403008, "mappedInvestigationPct": 95.9}, "monthly": [{"month": "Nov 2025", "admissions": 146, "bedDays": 1167.6, "medianLOS": 5.3, "lama": 11, "death": 0, "transfer": 2, "icu": 7, "hdu": 18, "criticalRate": 17.1, "lamaRate": 7.5, "deathRate": 0.0}, {"month": "Dec 2025", "admissions": 154, "bedDays": 1149.9, "medianLOS": 5.2, "lama": 14, "death": 1, "transfer": 4, "icu": 14, "hdu": 14, "criticalRate": 18.2, "lamaRate": 9.1, "deathRate": 0.65}, {"month": "Jan 2026", "admissions": 162, "bedDays": 1209.4, "medianLOS": 5.4, "lama": 17, "death": 1, "transfer": 4, "icu": 12, "hdu": 17, "criticalRate": 17.9, "lamaRate": 10.5, "deathRate": 0.62}, {"month": "Feb 2026", "admissions": 165, "bedDays": 1233.1, "medianLOS": 6.1, "lama": 8, "death": 1, "transfer": 6, "icu": 4, "hdu": 21, "criticalRate": 15.2, "lamaRate": 4.8, "deathRate": 0.61}, {"month": "Mar 2026", "admissions": 267, "bedDays": 1803.2, "medianLOS": 5.6, "lama": 15, "death": 3, "transfer": 1, "icu": 13, "hdu": 23, "criticalRate": 13.5, "lamaRate": 5.6, "deathRate": 1.12}, {"month": "Apr 2026", "admissions": 358, "bedDays": 2600.5, "medianLOS": 5.9, "lama": 18, "death": 3, "transfer": 8, "icu": 15, "hdu": 36, "criticalRate": 14.2, "lamaRate": 5.0, "deathRate": 0.84}, {"month": "May 2026", "admissions": 351, "bedDays": 2342.8, "medianLOS": 5.4, "lama": 15, "death": 3, "transfer": 6, "icu": 11, "hdu": 24, "criticalRate": 10.0, "lamaRate": 4.3, "deathRate": 0.85}, {"month": "Jun 2026", "admissions": 347, "bedDays": 2436.2, "medianLOS": 5.7, "lama": 30, "death": 4, "transfer": 6, "icu": 25, "hdu": 29, "criticalRate": 15.6, "lamaRate": 8.6, "deathRate": 1.15}, {"month": "Jul 2026", "admissions": 339, "bedDays": 2223.7, "medianLOS": 5.2, "lama": 21, "death": 0, "transfer": 6, "icu": 14, "hdu": 31, "criticalRate": 13.3, "lamaRate": 6.2, "deathRate": 0.0}, {"month": "Aug 2026", "admissions": 211, "bedDays": 1221.6, "medianLOS": 5.1, "lama": 18, "death": 2, "transfer": 3, "icu": 13, "hdu": 20, "criticalRate": 15.6, "lamaRate": 8.5, "deathRate": 0.95}], "outcomes": [{"label": "Routine discharge", "value": 2251}, {"label": "LAMA", "value": 167}, {"label": "Hospital transfer", "value": 46}, {"label": "Death", "value": 18}, {"label": "At request", "value": 10}, {"label": "Absconded", "value": 1}], "care": [{"label": "Ward only", "value": 2139}, {"label": "HDU", "value": 233}, {"label": "ICU", "value": 128}], "los": [{"label": "0–3 days", "value": 415}, {"label": "4–5 days", "value": 627}, {"label": "6–7 days", "value": 572}, {"label": "8–10 days", "value": 479}, {"label": "11–14 days", "value": 233}, {"label": ">14 days", "value": 173}], "rooms": [{"label": "GENERAL MEDICINE UNIT 1", "value": 1273}, {"label": "GENERAL MEDICINE UNIT-5", "value": 270}, {"label": "GASTRO", "value": 200}, {"label": "GENERAL MEDICINE UNIT-2", "value": 126}, {"label": "ER HDU", "value": 116}, {"label": "MED HDU", "value": 96}, {"label": "GENERAL MEDICINE UNIT-3", "value": 78}, {"label": "PRIVATE WARD", "value": 66}, {"label": "GENERAL MEDICINE UNIT-4", "value": 57}, {"label": "SEMI PRIVATE WARD", "value": 52}], "caseMix": [{"label": "Infection / sepsis", "value": 1082}, {"label": "Respiratory", "value": 595}, {"label": "Liver / GI", "value": 495}, {"label": "Diabetes / metabolic", "value": 481}, {"label": "Renal", "value": 473}, {"label": "Neurology / stroke", "value": 386}, {"label": "Cardiac", "value": 242}], "orgs": [{"label": "AYUSHMAN BHARAT", "value": 1652}, {"label": "Not recorded", "value": 720}, {"label": "PT. DEEN DAYAL", "value": 45}, {"label": "STAR HEALTH AND", "value": 21}, {"label": "CARE HEALTH", "value": 14}, {"label": "ADITYA BIRLA", "value": 10}, {"label": "BAJAJ ALLIANZ", "value": 6}, {"label": "HDFC ERGO", "value": 4}], "topParams": [{"label": "CBC", "value": 8792}, {"label": "KFT", "value": 7841}, {"label": "LFT", "value": 5965}, {"label": "CRP", "value": 2791}, {"label": "Urine routine", "value": 2001}, {"label": "Procalcitonin", "value": 1702}, {"label": "Thyroid profile", "value": 1544}, {"label": "PT/INR", "value": 1376}, {"label": "Electrolytes", "value": 1335}, {"label": "Lipid profile", "value": 1175}, {"label": "HbA1c", "value": 1136}, {"label": "Viral markers", "value": 1108}, {"label": "Urine culture", "value": 994}, {"label": "Blood culture", "value": 821}, {"label": "ESR", "value": 758}, {"label": "CK-MB", "value": 734}, {"label": "NT-proBNP", "value": 710}, {"label": "Troponin", "value": 682}], "topTestGroups": [{"label": "CBC (COMPLETE BLOOD COUNT)", "value": 171540}, {"label": "LFT (LIVER FUNCTION TEST)", "value": 57772}, {"label": "KFT (KIDNEY FUNCTION TEST)", "value": 46344}, {"label": "URINE ROUTINE EXAMINATION", "value": 31148}, {"label": "KFT (KIDNEY FUNCTION TEST) EXTENDED", "value": 31129}, {"label": "LIPID PROFILE", "value": 6839}, {"label": "www.santoshhospitals.com", "value": 5387}, {"label": "ELECTROLYTES-2 S-ELECTROLYTE (S-POTASSIUM, S-SODIUM, S-CALCIUM)", "value": 4271}, {"label": "PROTHROMBIN TIME WITH INR", "value": 4204}, {"label": "VIRAL MARKER (HIV 1 AND 2 +HBSAG+HEP C )", "value": 3377}], "completeness": [{"label": "Diagnosis", "value": 97.5}, {"label": "Chief complaints", "value": 97.0}, {"label": "Comorbidities", "value": 88.5}, {"label": "Course during hospitalisation", "value": 93.2}, {"label": "Treatment given", "value": 96.1}, {"label": "Discharge advice", "value": 87.0}, {"label": "Other investigations", "value": 85.7}]};
+const C = {teal:"#0F5D6A", teal2:"#2E7180", pale:"#DDEEF5", amber:"#E6AA3A", red:"#D86A6A", rust:"#AD654E", track:"#E9EFF2", text:"#42545C", muted:"#6E7F86"};
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active'); document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+function fmt(n,dec=0){ if(n===null||n===undefined||Number.isNaN(n)) return "—"; return Number(n).toLocaleString(undefined,{maximumFractionDigits:dec,minimumFractionDigits:dec}); }
+function pct(n,dec=1){return fmt(n,dec)+"%"}
+
+function kpis(el, arr){
+  document.getElementById(el).innerHTML = arr.map(x=>`<div class="kpi"><div class="v">${x.v}</div><div class="l">${x.l}</div><div class="s">${x.s||""}</div></div>`).join("");
+}
+
+kpis("overviewKpis",[
+  {v:fmt(D.kpi.admissions),l:"Admissions",s:"since Nov 2025"},
+  {v:fmt(D.kpi.uniquePatients),l:"Unique patients"},
+  {v:fmt(D.kpi.medianLOS,1),l:"Median LOS",s:"days"},
+  {v:fmt(D.kpi.critical),l:"ICU / HDU",s:pct(100*D.kpi.critical/D.kpi.admissions)},
+  {v:fmt(D.kpi.lama),l:"LAMA",s:pct(100*D.kpi.lama/D.kpi.admissions)},
+  {v:fmt(D.kpi.deaths),l:"Deaths",s:pct(100*D.kpi.deaths/D.kpi.admissions)}
+]);
+kpis("flowKpis",[
+  {v:fmt(D.kpi.bedDays),l:"Recorded bed-days"},
+  {v:fmt(D.kpi.meanLOS,1),l:"Mean LOS",s:"days"},
+  {v:fmt(D.kpi.medianLOS,1),l:"Median LOS",s:"days"},
+  {v:fmt(D.kpi.long7),l:">7-day stays",s:pct(100*D.kpi.long7/D.kpi.admissions)},
+  {v:fmt(D.kpi.long14),l:">14-day stays",s:pct(100*D.kpi.long14/D.kpi.admissions)},
+  {v:fmt(D.kpi.admissions),l:"Admissions"}
+]);
+kpis("icuKpis",[
+  {v:fmt(D.kpi.icu),l:"ICU admissions",s:pct(100*D.kpi.icu/D.kpi.admissions)},
+  {v:fmt(D.kpi.hdu),l:"HDU admissions",s:pct(100*D.kpi.hdu/D.kpi.admissions)},
+  {v:fmt(D.kpi.critical),l:"ICU + HDU",s:pct(100*D.kpi.critical/D.kpi.admissions)},
+  {v:fmt(D.kpi.admissions-D.kpi.critical),l:"Ward only",s:pct(100*(D.kpi.admissions-D.kpi.critical)/D.kpi.admissions)},
+  {v:fmt(D.kpi.medianLOS,1),l:"Overall median LOS",s:"days"},
+  {v:fmt(D.kpi.bedDays),l:"Total bed-days"}
+]);
+kpis("outcomeKpis",[
+  {v:fmt(D.kpi.routine),l:"Routine discharges",s:pct(100*D.kpi.routine/D.kpi.admissions)},
+  {v:fmt(D.kpi.lama),l:"LAMA",s:pct(100*D.kpi.lama/D.kpi.admissions)},
+  {v:fmt(D.kpi.transfer),l:"Transfers",s:pct(100*D.kpi.transfer/D.kpi.admissions)},
+  {v:fmt(D.kpi.deaths),l:"Deaths",s:pct(100*D.kpi.deaths/D.kpi.admissions)},
+  {v:fmt(D.kpi.atRequest),l:"At request"},
+  {v:fmt(D.kpi.absconded),l:"Absconded"}
+]);
+kpis("readmitKpis",[
+  {v:pct(D.kpi.r7),l:"7-day return",s:`${D.kpi.r7n} / ${D.kpi.r7den} eligible`},
+  {v:pct(D.kpi.r30),l:"30-day return",s:`${D.kpi.r30n} / ${D.kpi.r30den} eligible`},
+  {v:pct(D.kpi.r90),l:"90-day return",s:`${D.kpi.r90n} / ${D.kpi.r90den} eligible`},
+  {v:fmt(D.kpi.freq3),l:"Patients with ≥3 admissions"},
+  {v:fmt(D.kpi.freq4),l:"Patients with ≥4 admissions"},
+  {v:fmt(D.kpi.uniquePatients),l:"Unique patients"}
+]);
+kpis("investKpis",[
+  {v:fmt(D.kpi.investigationPanels),l:"Grouped test occasions",s:"cleaned groups"},
+  {v:fmt(D.kpi.investigationRows),l:"Raw result rows"},
+  {v:fmt(D.kpi.investigationAdmissions),l:"Summaries with investigations"},
+  {v:pct(D.kpi.mappedInvestigationPct),l:"Rows mapped to groups"},
+  {v:fmt(D.kpi.admissions),l:"Analytic admissions"},
+  {v:fmt(D.kpi.investigationPanels/D.kpi.admissions,1),l:"Grouped tests / admission"}
+]);
+
+document.getElementById("headline").innerHTML = `Critical-care use was <b>${pct(100*D.kpi.critical/D.kpi.admissions)}</b>. <b>${pct(100*D.kpi.long7/D.kpi.admissions)}</b> of admissions stayed >7 days. LAMA (<b>${pct(100*D.kpi.lama/D.kpi.admissions)}</b>) remained a larger adverse-disposition burden than inpatient death (<b>${pct(100*D.kpi.deaths/D.kpi.admissions)}</b>).`;
+document.getElementById("miniMetrics").innerHTML = [
+ ["Bed-days",fmt(D.kpi.bedDays)],["30-d return",pct(D.kpi.r30)],["Transfers",fmt(D.kpi.transfer)],["≥3 admissions",fmt(D.kpi.freq3)]
+].map(x=>`<div class="metric-mini"><b>${x[1]}</b><span>${x[0]}</span></div>`).join("");
+
+function svgLine(el, rows, series, opts={}){
+  const W=900,H=280,p={l:55,r:20,t:20,b:48}, iw=W-p.l-p.r, ih=H-p.t-p.b;
+  let vals=[]; series.forEach(s=>rows.forEach(r=>{if(r[s.key]!=null) vals.push(+r[s.key])}));
+  let ymax=Math.max(...vals,1)*1.12, ymin=opts.ymin||0;
+  const x=i=>p.l+(rows.length===1?iw/2:i*iw/(rows.length-1));
+  const y=v=>p.t+ih-(v-ymin)/(ymax-ymin)*ih;
+  let out=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="100%" role="img">`;
+  for(let g=0;g<=4;g++){let v=ymin+(ymax-ymin)*g/4, yy=y(v); out+=`<line x1="${p.l}" y1="${yy}" x2="${W-p.r}" y2="${yy}" stroke="#e8edef"/><text x="${p.l-8}" y="${yy+4}" text-anchor="end" font-size="11" fill="${C.muted}">${fmt(v,opts.decimals||0)}</text>`}
+  rows.forEach((r,i)=>{ if(i%Math.ceil(rows.length/8)===0 || i===rows.length-1) out+=`<text x="${x(i)}" y="${H-17}" text-anchor="middle" font-size="11" fill="${C.muted}">${r.month}</text>` });
+  series.forEach((s,si)=>{let pts=rows.map((r,i)=>r[s.key]==null?null:[x(i),y(+r[s.key])]).filter(Boolean); let path=pts.map((pt,i)=>(i?"L":"M")+pt[0]+","+pt[1]).join(" "); out+=`<path d="${path}" fill="none" stroke="${s.color}" stroke-width="${s.width||3}" stroke-linejoin="round" stroke-linecap="round"/>`; pts.forEach(pt=>out+=`<circle cx="${pt[0]}" cy="${pt[1]}" r="3" fill="${s.color}"/>`) });
+  out+=`</svg><div class="legend">${series.map(s=>`<span><i style="background:${s.color}"></i>${s.label}</span>`).join("")}</div>`;
+  document.getElementById(el).innerHTML=out;
+}
+
+function svgBars(el, rows, key, labelKey, color=C.teal2){
+  const W=760,H=Math.max(260,rows.length*34+30),p={l:190,r:45,t:15,b:20}, iw=W-p.l-p.r;
+  const max=Math.max(...rows.map(r=>+r[key]),1);
+  let out=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="100%">`;
+  rows.forEach((r,i)=>{let yy=20+i*34,w=(+r[key]/max)*iw; out+=`<text x="${p.l-10}" y="${yy+14}" text-anchor="end" font-size="12" fill="${C.text}">${r[labelKey]}</text><rect x="${p.l}" y="${yy}" width="${iw}" height="14" rx="7" fill="${C.track}"/><rect x="${p.l}" y="${yy}" width="${w}" height="14" rx="7" fill="${color}"/><text x="${p.l+w+8}" y="${yy+12}" font-size="11" fill="${C.text}">${fmt(+r[key])}</text>`});
+  out+=`</svg>`; document.getElementById(el).innerHTML=out;
+}
+
+function donut(el, rows, colors){
+  const W=620,H=280,cx=190,cy=135,r=90,stroke=34,total=rows.reduce((a,b)=>a+b.value,0); let offset=0;
+  let out=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="100%"><g transform="rotate(-90 ${cx} ${cy})">`;
+  rows.forEach((d,i)=>{let dash=2*Math.PI*r*d.value/total; let gap=2*Math.PI*r-dash; out+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${colors[i%colors.length]}" stroke-width="${stroke}" stroke-dasharray="${dash} ${gap}" stroke-dashoffset="${-offset}" />`; offset+=dash;});
+  out+=`</g><text x="${cx}" y="${cy}" text-anchor="middle" font-size="24" font-weight="800" fill="${C.teal}">${fmt(total)}</text><text x="${cx}" y="${cy+22}" text-anchor="middle" font-size="12" fill="${C.muted}">admissions</text>`;
+  rows.forEach((d,i)=>{let yy=65+i*32; out+=`<circle cx="365" cy="${yy}" r="6" fill="${colors[i%colors.length]}"/><text x="380" y="${yy+4}" font-size="12" fill="${C.text}">${d.label}</text><text x="565" y="${yy+4}" text-anchor="end" font-size="12" fill="${C.text}">${fmt(d.value)}</text>`});
+  out+=`</svg>`; document.getElementById(el).innerHTML=out;
+}
+
+function barList(el, rows, opts={}){
+  const max=Math.max(...rows.map(x=>+x.value),1);
+  document.getElementById(el).innerHTML=rows.map((x,i)=>`<div class="bar-row"><div>${x.label}</div><div class="track"><div class="fill ${opts.cls||""}" style="width:${100*x.value/max}%"></div></div><div style="text-align:right">${opts.percent?pct(x.value,1):fmt(x.value,opts.decimals||0)}</div></div>`).join("");
+}
+
+svgLine("admissionTrend",D.monthly,[{key:"admissions",label:"Admissions",color:C.teal2}]);
+donut("outcomeDonut",D.outcomes,[C.teal2,C.amber,C.rust,C.red,"#87a7b0","#b9c6cb"]);
+svgBars("careBars",D.care,"value","label",C.teal2);
+
+svgLine("bedTrend",D.monthly,[{key:"bedDays",label:"Bed-days",color:C.teal2},{key:"admissions",label:"Admissions",color:C.amber,width:2}]);
+barList("losBars",D.los);
+barList("roomBars",D.rooms);
+
+svgLine("criticalTrend",D.monthly,[{key:"icu",label:"ICU",color:C.red},{key:"hdu",label:"HDU",color:C.amber}]);
+donut("criticalDonut",D.care,[C.teal2,C.amber,C.red]);
+
+svgLine("outcomeTrend",D.monthly,[{key:"lama",label:"LAMA",color:C.amber},{key:"transfer",label:"Transfer",color:C.rust},{key:"death",label:"Death",color:C.red}]);
+barList("outcomeBars",D.outcomes);
+
+svgBars("readmitBars",[
+  {label:"7-day",value:D.kpi.r7},{label:"30-day",value:D.kpi.r30},{label:"90-day",value:D.kpi.r90}
+],"value","label",C.teal2);
+
+barList("caseBars",D.caseMix);
+barList("orgBars",D.orgs);
+barList("paramBars",D.topParams);
+
+barList("completeBars",D.completeness,{percent:true});
+
+window.addEventListener('resize',()=>{});
+</script>
+</body>
+</html>
