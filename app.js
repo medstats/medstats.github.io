@@ -68,16 +68,28 @@ function clean(s) {
 }
 
 function fold(s) { return ` ${clean(s).toLowerCase()} `; }
-function isDate(s) { return /^\d{1,2}-[A-Za-z]{3}-\d{4}$/.test(clean(s)); }
-function dateKey(s) {
-  const m = clean(s).match(/^(\d{1,2})-([A-Za-z]{3})-(\d{4})$/);
-  if (!m) return Number.MAX_SAFE_INTEGER;
+
+function parseDateComponents(s) {
+  const m = clean(s).match(/^(\d{1,2})[\s\-\/]*([A-Za-z]{3})[\s\-\/]*(\d{4})$/);
+  if (!m) return null;
   const months = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
-  return new Date(Number(m[3]), months[m[2].toLowerCase()] ?? 0, Number(m[1])).getTime();
+  const monthIdx = months[m[2].toLowerCase()];
+  if (monthIdx === undefined) return null;
+  return { day: Number(m[1]), monthStr: m[2], monthIdx, year: Number(m[3]) };
 }
+
+function isDate(s) { return !!parseDateComponents(s); }
+
+function dateKey(s) {
+  const d = parseDateComponents(s);
+  if (!d) return Number.MAX_SAFE_INTEGER;
+  return new Date(d.year, d.monthIdx, d.day).getTime();
+}
+
 function shortDate(s) {
-  const m = clean(s).match(/^(\d{1,2})-([A-Za-z]{3})-(\d{4})$/);
-  return m ? `${String(Number(m[1])).padStart(2,'0')}-${m[2]}` : clean(s);
+  const d = parseDateComponents(s);
+  if (!d) return clean(s);
+  return `${String(d.day).padStart(2, '0')}-${titleCase(d.monthStr)}`;
 }
 
 async function extractPdf(file) {
@@ -98,9 +110,9 @@ async function extractPdf(file) {
   for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
     const page = await pdf.getPage(pageNo);
     const tc = await page.getTextContent();
-    const pageRows = groupTextItems(tc.items);
+    const pageRows = groupTextItems(tc.items, pageNo);
 
-    // Metadata can appear only on the first page.
+    // Metadata can appear on first page
     if (!admissionNo) {
       const pageText = pageRows.map(r => r.text).join('\n');
       const m = pageText.match(/Admission\s+No\s*:\s*([A-Z]{1,5}\d[0-9A-Z-]*)/i);
@@ -123,7 +135,7 @@ async function extractPdf(file) {
         if (inline) otherLines.push(inline);
         continue;
       }
-      if (inOther && /^(ADVICE\s+ON\s+DISCHARGE|FOLLOW\s*UP|REPORT\s+IN\s+CASE\s+OF)\s*:/i.test(text)) {
+      if (inOther && /^(ADVICE\s+ON\s+DISCHARGE|FOLLOW\s*UP|REPORT\s+IN\s+CASE\s+OF|COURSE\s+IN\s+HOSPITAL)\s*:/i.test(text)) {
         inOther = false;
       }
       if (inOther) {
@@ -139,7 +151,7 @@ async function extractPdf(file) {
       }
       if (!columns) continue;
 
-      const dateMatch = text.match(/^(\d{1,2})\s*-\s*([A-Za-z]{3})\s*-\s*(\d{4})\b\s*(.*)$/);
+      const dateMatch = text.match(/^(\d{1,2})[\s\-\/]*([A-Za-z]{3})[\s\-\/]*(\d{4})\b\s*(.*)$/i);
       if (dateMatch) {
         currentDate = `${String(Number(dateMatch[1])).padStart(2,'0')}-${titleCase(dateMatch[2])}-${dateMatch[3]}`;
         currentGroup = clean(dateMatch[4]);
@@ -197,11 +209,12 @@ async function extractPdf(file) {
   };
 }
 
-function groupTextItems(items) {
-  // PDF coordinates have the origin at the bottom. Group by near-identical Y.
+function groupTextItems(items, pageNo = 1) {
+  // PDF coordinates have origin at bottom. Group by near-identical Y.
   const usable = items
-    .filter(it => clean(it.str))
+    .filter(it => clean(it.str) && !isTemplateNoise(it.str))
     .map(it => ({ str: clean(it.str), x: it.transform[4], y: it.transform[5], w: it.width || 0 }))
+    .filter(it => pageNo === 1 || (it.y > 40 && it.y < 850))
     .sort((a,b) => (b.y - a.y) || (a.x - b.x));
 
   const rows = [];
@@ -225,9 +238,9 @@ function groupTextItems(items) {
 function detectColumns(items) {
   const upper = items.map(i => ({...i, u: i.str.toUpperCase()}));
   const p = upper.find(i => i.u.includes('PARAMETER'));
-  const r = upper.find(i => i.u === 'RESULT' || i.u.includes('RESULT'));
-  const u = upper.find(i => i.u === 'UNITS' || i.u.includes('UNITS'));
-  const n = upper.find(i => i.u.includes('NORMAL VALUE') || i.u.includes('NORMAL'));
+  const r = upper.find(i => i.u === 'RESULT' || i.u.includes('RESULT') || i.u.includes('OBSERVED'));
+  const u = upper.find(i => i.u === 'UNITS' || i.u.includes('UNITS') || i.u.includes('UNIT'));
+  const n = upper.find(i => i.u.includes('NORMAL') || i.u.includes('REF') || i.u.includes('REFERENCE'));
   if (!p || !r || !u || !n || !(p.x < r.x && r.x < u.x && u.x < n.x)) return null;
   return { parameter: p.x, result: r.x, units: u.x, reference: n.x };
 }
@@ -254,7 +267,7 @@ function appendUnique(a, b) {
   return `${a} ${b}`;
 }
 function titleCase(s) { return s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : s; }
-function isTemplateNoise(s) { return /santosh\s+hospitals?|ambedkar\s+rd|www\.|fax\s*:|created\s+by|print\s+by/i.test(s); }
+function isTemplateNoise(s) { return /santosh\s+hospitals?|ambedkar\s+rd|www\.|fax\s*:|created\s+by|print\s+by|page\s+\d+\s+of\s+\d+/i.test(s); }
 function dedupeNarrative(lines) {
   const seen = new Set();
   return lines.filter(x => { const k = clean(x).toLowerCase(); if (!k || seen.has(k)) return false; seen.add(k); return true; });
