@@ -8,7 +8,7 @@ const statusBox = $('status');
 
 // If this line runs, the JavaScript module and PDF.js loaded successfully.
 statusBox.className = 'ok';
-statusBox.textContent = 'PDF engine loaded. Choose a text-based discharge-summary PDF.';
+statusBox.textContent = 'PDF engine loaded. Choose any discharge-summary PDF.';
 if (fileInput.files?.length) generateBtn.disabled = false;
 
 fileInput.addEventListener('change', () => {
@@ -16,7 +16,7 @@ fileInput.addEventListener('change', () => {
   statusBox.className = '';
   statusBox.textContent = fileInput.files?.length
     ? `Ready: ${fileInput.files[0].name}`
-    : 'Choose a text-based discharge-summary PDF.';
+    : 'Choose any discharge-summary PDF.';
 });
 
 generateBtn.addEventListener('click', async () => {
@@ -25,25 +25,35 @@ generateBtn.addEventListener('click', async () => {
   generateBtn.disabled = true;
   setStatus('Reading PDF…');
   try {
-    const parsed = await extractPdf(file);
-    if (!parsed.rows.length) {
-      throw new Error('No investigation rows were parsed. Check that the PDF contains an INVESTIGATIONS section in the expected table format.');
-    }
-    setStatus(`Parsed ${parsed.rows.length} rows. Building compact Word file…`);
-    const report = buildCompactReport(parsed.rows);
+    const parsed = await extractFullSummary(file);
+    setStatus(`Parsed summary for ${parsed.metadata.patientName || parsed.metadata.admissionNo || 'Patient'}. Generating Word file…`);
+    
     const rtf = buildRtf({
-      title: parsed.admissionNo ? `Investigations - ${parsed.admissionNo}` : 'Compact Investigations',
-      report,
+      metadata: parsed.metadata,
+      report: parsed.report,
       otherInvestigations: parsed.otherInvestigations,
     });
+    
     const stem = file.name.replace(/\.pdf$/i, '');
-    downloadBlob(new Blob([rtf], { type: 'application/rtf' }), `${stem}_compact_investigations.rtf`);
+    const filename = parsed.metadata.admissionNo
+      ? `${parsed.metadata.admissionNo}_compact_summary.rtf`
+      : `${stem}_compact_summary.rtf`;
+      
+    downloadBlob(new Blob([rtf], { type: 'application/rtf' }), filename);
+    
+    const labSummary = parsed.rows.length
+      ? `${parsed.rows.length} lab rows parsed across ${parsed.report.serialDates.length} dates`
+      : 'No serial lab tables (narrative/clinical discharge)';
+    const otherSummary = parsed.otherInvestigations.length
+      ? `${parsed.otherInvestigations.length} imaging / other reports`
+      : 'No imaging reports';
+
     setStatus(
       `Done.\n` +
-      `${parsed.rows.length} investigation rows parsed\n` +
-      `${report.serialDates.length} serial/core dates\n` +
-      `${Math.ceil(report.serialDates.length / 5)} serial table(s)\n` +
-      `Word-compatible RTF downloaded.`,
+      `Patient: ${parsed.metadata.patientName || 'N/A'} (${parsed.metadata.admissionNo || 'N/A'})\n` +
+      `${labSummary}\n` +
+      `${otherSummary}\n` +
+      `Word-compatible RTF downloaded: ${filename}`,
       true
     );
   } catch (err) {
@@ -70,12 +80,21 @@ function clean(s) {
 function fold(s) { return ` ${clean(s).toLowerCase()} `; }
 
 function parseDateComponents(s) {
-  const m = clean(s).match(/^(\d{1,2})[\s\-\/]*([A-Za-z]{3})[\s\-\/]*(\d{4})$/);
+  const m = clean(s).match(/^(\d{1,2})[\s\-\/]*([A-Za-z]{3}|\d{1,2})[\s\-\/]*(\d{2,4})$/);
   if (!m) return null;
+  const day = Number(m[1]);
+  let year = Number(m[3]);
+  if (year < 100) year += 2000;
   const months = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
-  const monthIdx = months[m[2].toLowerCase()];
-  if (monthIdx === undefined) return null;
-  return { day: Number(m[1]), monthStr: m[2], monthIdx, year: Number(m[3]) };
+  let monthIdx = 0, monthStr = 'Jan';
+  if (/^\d+$/.test(m[2])) {
+    monthIdx = Math.max(0, Math.min(11, Number(m[2]) - 1));
+    monthStr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][monthIdx];
+  } else {
+    monthIdx = months[m[2].toLowerCase()] ?? 0;
+    monthStr = titleCase(m[2]);
+  }
+  return { day, monthStr, monthIdx, year };
 }
 
 function isDate(s) { return !!parseDateComponents(s); }
@@ -92,125 +111,13 @@ function shortDate(s) {
   return `${String(d.day).padStart(2, '0')}-${titleCase(d.monthStr)}`;
 }
 
-async function extractPdf(file) {
-  const bytes = new Uint8Array(await file.arrayBuffer());
-  const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
-
-  const rows = [];
-  let inInvestigations = false;
-  let inOther = false;
-  let columns = null;
-  let currentDate = '';
-  let currentGroup = '';
-  let pendingParameter = '';
-  let lastRow = null;
-  let admissionNo = '';
-  const otherLines = [];
-
-  for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
-    const page = await pdf.getPage(pageNo);
-    const tc = await page.getTextContent();
-    const pageRows = groupTextItems(tc.items, pageNo);
-
-    // Metadata can appear on first page
-    if (!admissionNo) {
-      const pageText = pageRows.map(r => r.text).join('\n');
-      const m = pageText.match(/Admission\s+No\s*:\s*([A-Z]{1,5}\d[0-9A-Z-]*)/i);
-      if (m) admissionNo = m[1].toUpperCase();
-    }
-
-    for (const row of pageRows) {
-      const text = clean(row.text);
-      if (!text) continue;
-
-      if (/^INVESTIGATIONS\s*:/i.test(text)) {
-        inInvestigations = true;
-        inOther = false;
-        continue;
-      }
-      if (/^OTHER\s+INVESTIGATIONS?\s*:/i.test(text)) {
-        inInvestigations = false;
-        inOther = true;
-        const inline = clean(text.replace(/^OTHER\s+INVESTIGATIONS?\s*:/i, ''));
-        if (inline) otherLines.push(inline);
-        continue;
-      }
-      if (inOther && /^(ADVICE\s+ON\s+DISCHARGE|FOLLOW\s*UP|REPORT\s+IN\s+CASE\s+OF|COURSE\s+IN\s+HOSPITAL)\s*:/i.test(text)) {
-        inOther = false;
-      }
-      if (inOther) {
-        if (!isTemplateNoise(text)) otherLines.push(text);
-        continue;
-      }
-      if (!inInvestigations) continue;
-
-      const detected = detectColumns(row.items);
-      if (detected) {
-        columns = detected;
-        continue;
-      }
-      if (!columns) continue;
-
-      const dateMatch = text.match(/^(\d{1,2})[\s\-\/]*([A-Za-z]{3})[\s\-\/]*(\d{4})\b\s*(.*)$/i);
-      if (dateMatch) {
-        currentDate = `${String(Number(dateMatch[1])).padStart(2,'0')}-${titleCase(dateMatch[2])}-${dateMatch[3]}`;
-        currentGroup = clean(dateMatch[4]);
-        pendingParameter = '';
-        lastRow = null;
-        continue;
-      }
-      if (!currentDate || !currentGroup) continue;
-
-      const cells = rowToCells(row.items, columns);
-      let parameter = cells.parameter;
-      let result = cells.result;
-      let units = cells.units;
-      let reference = cells.reference_range;
-      if (!parameter && !result && !units && !reference) continue;
-
-      if (!parameter) {
-        if (lastRow) {
-          if (result) lastRow.result = appendUnique(lastRow.result, result);
-          if (units) lastRow.units = appendUnique(lastRow.units, units);
-          if (reference) lastRow.reference_range = appendUnique(lastRow.reference_range, reference);
-        } else if (pendingParameter && (result || units || reference)) {
-          parameter = pendingParameter;
-        } else {
-          continue;
-        }
-      }
-
-      if (parameter && !result && !units && !reference) {
-        // Headings such as "(DLC) Differential Leucocytes Count" or a wrapped parameter.
-        pendingParameter = parameter;
-        continue;
-      }
-      if (!parameter) continue;
-
-      const obj = {
-        date: currentDate,
-        test_group: currentGroup,
-        parameter: clean(parameter || pendingParameter),
-        result: clean(result),
-        units: clean(units),
-        reference_range: clean(reference),
-        page: pageNo,
-      };
-      rows.push(obj);
-      lastRow = obj;
-      pendingParameter = '';
-    }
-  }
-
-  return {
-    admissionNo,
-    rows: dedupeRows(rows),
-    otherInvestigations: dedupeNarrative(otherLines).join(' '),
-  };
+function isTemplateNoise(s) {
+  return /santosh\s+hospitals?|ambedkar\s+rd|www\.|fax\s*:|created\s+by|print\s+by|page\s+\d+\s+of\s+\d+|registrar\s+consultant|in\s+case\s+of\s+emergency/i.test(s);
 }
 
+function titleCase(s) { return s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : s; }
+
 function groupTextItems(items, pageNo = 1) {
-  // PDF coordinates have origin at bottom. Group by near-identical Y.
   const usable = items
     .filter(it => clean(it.str) && !isTemplateNoise(it.str))
     .map(it => ({ str: clean(it.str), x: it.transform[4], y: it.transform[5], w: it.width || 0 }))
@@ -237,7 +144,7 @@ function groupTextItems(items, pageNo = 1) {
 
 function detectColumns(items) {
   const upper = items.map(i => ({...i, u: i.str.toUpperCase()}));
-  const p = upper.find(i => i.u.includes('PARAMETER'));
+  const p = upper.find(i => i.u.includes('PARAMETER') || i.u === 'TEST');
   const r = upper.find(i => i.u === 'RESULT' || i.u.includes('RESULT') || i.u.includes('OBSERVED'));
   const u = upper.find(i => i.u === 'UNITS' || i.u.includes('UNITS') || i.u.includes('UNIT'));
   const n = upper.find(i => i.u.includes('NORMAL') || i.u.includes('REF') || i.u.includes('REFERENCE'));
@@ -251,7 +158,7 @@ function rowToCells(items, cols) {
   const b2 = (cols.result + cols.units) / 2;
   const b3 = (cols.units + cols.reference) / 2;
   for (const it of items) {
-    if (it.x < cols.parameter - 10) continue; // date/footer column
+    if (it.x < cols.parameter - 10) continue;
     if (it.x < b1) out.parameter.push(it.str);
     else if (it.x < b2) out.result.push(it.str);
     else if (it.x < b3) out.units.push(it.str);
@@ -266,12 +173,12 @@ function appendUnique(a, b) {
   if (!b || a.toLowerCase().includes(b.toLowerCase())) return a;
   return `${a} ${b}`;
 }
-function titleCase(s) { return s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : s; }
-function isTemplateNoise(s) { return /santosh\s+hospitals?|ambedkar\s+rd|www\.|fax\s*:|created\s+by|print\s+by|page\s+\d+\s+of\s+\d+/i.test(s); }
+
 function dedupeNarrative(lines) {
   const seen = new Set();
   return lines.filter(x => { const k = clean(x).toLowerCase(); if (!k || seen.has(k)) return false; seen.add(k); return true; });
 }
+
 function dedupeRows(rows) {
   const seen = new Set();
   const out = [];
@@ -394,6 +301,7 @@ function metabolicSummary(rows) {
   }
   return [...new Set(out)];
 }
+
 function narrativeByGroup(rows) {
   const groups = new Map();
   for (const r of rows) {
@@ -427,10 +335,12 @@ function rtfEscape(s) {
   }
   return out;
 }
+
 function rtfParagraph(text, opts={}) {
   const { bold=false, size=18, before=0, after=40 } = opts;
   return `\\pard\\sb${before}\\sa${after}\\fs${size}${bold?'\\b':''} ${rtfEscape(text)}${bold?'\\b0':''}\\par\n`;
 }
+
 function rtfTable(headers, bodyRows) {
   const usable = 10850, first = 1250, rest = Math.floor((usable-first)/(headers.length-1));
   const cellEnds = [first]; for (let i=1;i<headers.length;i++) cellEnds.push(first + rest*i);
@@ -448,31 +358,218 @@ function rtfTable(headers, bodyRows) {
   for (const r of bodyRows) out += makeRow(r,false);
   return out + '\\pard\\sa40\\par\n';
 }
+
 function chunk(arr,n) { const out=[]; for(let i=0;i<arr.length;i+=n) out.push(arr.slice(i,i+n)); return out; }
-function buildRtf({title, report, otherInvestigations}) {
+
+function buildRtf({ metadata, report, otherInvestigations }) {
   let r = `{\\rtf1\\ansi\\deff0{\\fonttbl{\\f0 Arial;}}\\paperw11907\\paperh16840\\margl500\\margr500\\margt420\\margb420\\f0\n`;
-  r += rtfParagraph(title,{bold:true,size:24,after:70});
-  r += rtfParagraph('Serial / Common Investigations',{bold:true,size:19,after:35});
-  const dateChunks = chunk(report.serialDates,5);
-  if (!dateChunks.length) r += rtfParagraph('No serial/core investigations identified.',{size:16});
-  dateChunks.forEach((dates, idx) => {
-    if (idx) r += rtfParagraph('Serial investigations - continued',{bold:true,size:16,after:20});
-    const body = panelOrder.map(panel => [panel, ...dates.map(d => report.serial[panel][d] || '')]).filter(row => row.slice(1).some(Boolean));
-    r += rtfTable(['Investigation', ...dates.map(shortDate)], body);
-  });
+  
+  const title = metadata.admissionNo ? `Discharge Summary - ${metadata.admissionNo}` : 'Compact Discharge Summary';
+  r += rtfParagraph(title, { bold:true, size:24, after:60 });
+
+  // Demographics block
+  const demo = [
+    metadata.patientName && `Patient: ${metadata.patientName}`,
+    metadata.ageGender && `Age/Sex: ${metadata.ageGender}`,
+    metadata.admissionDt && `Adm Dt: ${metadata.admissionDt}`,
+    metadata.dischargeDt && `Discharge Dt: ${metadata.dischargeDt}`,
+    metadata.consultant && `Consultant: ${metadata.consultant}`
+  ].filter(Boolean).join(' | ');
+  if (demo) r += rtfParagraph(demo, { bold:true, size:16, after:30 });
+  if (metadata.diagnosis) r += rtfParagraph(`Diagnosis: ${metadata.diagnosis}`, { bold:true, size:16, after:50 });
+
+  // Serial Tables
+  r += rtfParagraph('Serial / Common Investigations', { bold:true, size:19, before:20, after:35 });
+  const dateChunks = chunk(report.serialDates, 5);
+  if (dateChunks.length > 0) {
+    dateChunks.forEach((dates, idx) => {
+      if (idx) r += rtfParagraph('Serial investigations - continued', { bold:true, size:16, after:20 });
+      const body = panelOrder.map(panel => [panel, ...dates.map(d => report.serial[panel][d] || '')]).filter(row => row.slice(1).some(Boolean));
+      r += rtfTable(['Investigation', ...dates.map(shortDate)], body);
+    });
+  } else {
+    r += rtfParagraph('No structured serial lab tables recorded in this discharge summary.', { size:15, after:25 });
+  }
+
   const section = (name, lines) => {
-    if (!lines?.length) return;
-    r += rtfParagraph(name,{bold:true,size:19,before:30,after:20});
-    for (const line of lines) r += rtfParagraph(line,{size:16,after:18});
+    if (!lines || !lines.length) return;
+    r += rtfParagraph(name, { bold:true, size:19, before:30, after:20 });
+    for (const line of lines) r += rtfParagraph(line, { size:15, after:16 });
   };
+
   section('Metabolic / Endocrine Investigations', report.metabolic);
   section('Microbiology / Infectious Workup', report.microbiology);
   section('Other Laboratory Investigations', report.otherLab);
-  if (clean(otherInvestigations)) section('Other Investigations', [clean(otherInvestigations)]);
+
+  if (otherInvestigations && otherInvestigations.length) {
+    section('Radiology / Imaging & Other Investigations', otherInvestigations);
+  }
+
+  if (metadata.courseSnippet) {
+    section('Hospital Course Highlights', [metadata.courseSnippet]);
+  }
+
   return r + '}';
 }
+
+async function extractFullSummary(file) {
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+  const rows = [];
+  let inInvestigations = false;
+  let inOther = false;
+  let columns = null;
+  let currentDate = '';
+  let currentGroup = '';
+  let pendingParameter = '';
+  let lastRow = null;
+  
+  const metadata = {
+    admissionNo: '',
+    patientName: '',
+    ageGender: '',
+    admissionDt: '',
+    dischargeDt: '',
+    consultant: '',
+    diagnosis: '',
+    courseSnippet: ''
+  };
+  const otherLines = [];
+
+  for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
+    const page = await pdf.getPage(pageNo);
+    const tc = await page.getTextContent();
+    const pageRows = groupTextItems(tc.items, pageNo);
+
+    if (pageNo === 1) {
+      const pageText = pageRows.map(r => r.text).join('\n');
+      const mAdm = pageText.match(/Admission\s+No\s*:\s*([A-Z0-9-]+)/i);
+      if (mAdm) metadata.admissionNo = mAdm[1].toUpperCase();
+      const mName = pageText.match(/Name\s*:\s*([^\n:]+?)(?:\s+Admission\s+Dt|\s+Age|\s+Gender|\n|$)/i);
+      if (mName) metadata.patientName = clean(mName[1]);
+      const mAge = pageText.match(/Age\/Gender\s*:\s*([^\n:]+?)(?:\s+Discharge|\s+UMR|\n|$)/i);
+      if (mAge) metadata.ageGender = clean(mAge[1]);
+      const mAdmDt = pageText.match(/Admission\s+Dt\s*:\s*([0-9A-Za-z\s:]+?)(?:\s+Admission\s+No|\s+Discharge|\n|$)/i);
+      if (mAdmDt) metadata.admissionDt = clean(mAdmDt[1]);
+      const mDisDt = pageText.match(/Discharge\s+Dt\s*:\s*([0-9A-Za-z\s:]+?)(?:\s+Age|\s+Discharge|\n|$)/i);
+      if (mDisDt) metadata.dischargeDt = clean(mDisDt[1]);
+      const mCons = pageText.match(/Consultant\s*:\s*([^\n:]+?)(?:\s+CoConsultant|\s+Relative|\n|$)/i);
+      if (mCons) metadata.consultant = clean(mCons[1]);
+      const mDiag = pageText.match(/DIAGNOSIS\s*:\s*([\s\S]+?)(?=\n[A-Z\s\/]+:|$)/i);
+      if (mDiag) metadata.diagnosis = clean(mDiag[1]);
+    }
+
+    const fullPageText = pageRows.map(r => r.text).join('\n');
+    if (!metadata.courseSnippet) {
+      const mCourse = fullPageText.match(/COURSE\s+(?:DURING\s+HOSPITALISATION|IN\s+HOSPITAL)\s*:\s*([\s\S]+?)(?=\nTREATMENT\s+GIVEN|\nINVESTIGATIONS|\nADVICE|\nOTHER|$)/i);
+      if (mCourse) metadata.courseSnippet = clean(mCourse[1]);
+    }
+
+    for (const row of pageRows) {
+      const text = clean(row.text);
+      if (!text) continue;
+
+      if (/^OTHER\s+INVESTIGATION[S]?\s*:/i.test(text)) {
+        inOther = true;
+        inInvestigations = false;
+        const inline = clean(text.replace(/^OTHER\s+INVESTIGATION[S]?\s*:/i, ''));
+        if (inline) otherLines.push(inline);
+        continue;
+      }
+      if (/^INVESTIGATION[S]?\s*:/i.test(text)) {
+        inInvestigations = true;
+        inOther = false;
+        continue;
+      }
+      if (inOther && /^(ADVICE\s+ON\s+DISCHARGE|FOLLOW\s*UP|REPORT\s+IN\s+CASE\s+OF|COURSE\s+IN\s+HOSPITAL|TREATMENT\s+GIVEN)\s*:/i.test(text)) {
+        inOther = false;
+      }
+      if (inOther) {
+        if (!isTemplateNoise(text)) otherLines.push(text);
+        continue;
+      }
+      if (!inInvestigations) continue;
+
+      const detected = detectColumns(row.items);
+      if (detected) {
+        columns = detected;
+        continue;
+      }
+      if (!columns) continue;
+
+      const dateMatch = text.match(/^(\d{1,2})[\s\-\/]*([A-Za-z]{3}|\d{1,2})[\s\-\/]*(\d{2,4})\b\s*(.*)$/i);
+      if (dateMatch) {
+        const d = parseDateComponents(dateMatch[0].split(' ')[0]);
+        if (d) {
+          currentDate = `${String(d.day).padStart(2,'0')}-${titleCase(d.monthStr)}-${d.year}`;
+        } else {
+          currentDate = `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`;
+        }
+        currentGroup = clean(dateMatch[4]);
+        pendingParameter = '';
+        lastRow = null;
+        continue;
+      }
+      if (!currentDate || !currentGroup) continue;
+
+      const cells = rowToCells(row.items, columns);
+      let parameter = cells.parameter;
+      let result = cells.result;
+      let units = cells.units;
+      let reference = cells.reference_range;
+      if (!parameter && !result && !units && !reference) continue;
+
+      if (!parameter) {
+        if (lastRow) {
+          if (result) lastRow.result = appendUnique(lastRow.result, result);
+          if (units) lastRow.units = appendUnique(lastRow.units, units);
+          if (reference) lastRow.reference_range = appendUnique(lastRow.reference_range, reference);
+        } else if (pendingParameter && (result || units || reference)) {
+          parameter = pendingParameter;
+        } else {
+          continue;
+        }
+      }
+
+      if (parameter && !result && !units && !reference) {
+        pendingParameter = parameter;
+        continue;
+      }
+      if (!parameter) continue;
+
+      const obj = {
+        date: currentDate,
+        test_group: currentGroup,
+        parameter: clean(parameter || pendingParameter),
+        result: clean(result),
+        units: clean(units),
+        reference_range: clean(reference),
+        page: pageNo,
+      };
+      rows.push(obj);
+      lastRow = obj;
+      pendingParameter = '';
+    }
+  }
+
+  const report = buildCompactReport(dedupeRows(rows));
+  const dedupedOther = dedupeNarrative(otherLines);
+
+  return {
+    metadata,
+    rows: dedupeRows(rows),
+    report,
+    otherInvestigations: dedupedOther,
+  };
+}
+
 function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
