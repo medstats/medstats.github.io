@@ -36,23 +36,22 @@ generateBtn.addEventListener('click', async () => {
     
     const stem = file.name.replace(/\.pdf$/i, '');
     const filename = parsed.metadata.admissionNo
-      ? `${parsed.metadata.admissionNo}_compact_summary.rtf`
-      : `${stem}_compact_summary.rtf`;
+      ? `${parsed.metadata.admissionNo}_compact_investigations.rtf`
+      : `${stem}_compact_investigations.rtf`;
       
     downloadBlob(new Blob([rtf], { type: 'application/rtf' }), filename);
     
     const labSummary = parsed.rows.length
       ? `${parsed.rows.length} lab rows parsed across ${parsed.report.serialDates.length} dates`
-      : 'No serial lab tables (narrative/clinical discharge)';
+      : 'No serial lab tables';
     const otherSummary = parsed.otherInvestigations.length
       ? `${parsed.otherInvestigations.length} imaging / other reports`
       : 'No imaging reports';
 
     setStatus(
       `Done.\n` +
-      `Patient: ${parsed.metadata.patientName || 'N/A'} (${parsed.metadata.admissionNo || 'N/A'})\n` +
-      `${labSummary}\n` +
-      `${otherSummary}\n` +
+      `Patient: ${parsed.metadata.patientName || 'N/A'} | Age/Sex: ${parsed.metadata.ageGender || 'N/A'} | IP: ${parsed.metadata.admissionNo || 'N/A'}\n` +
+      `${labSummary} | ${otherSummary}\n` +
       `Word-compatible RTF downloaded: ${filename}`,
       true
     );
@@ -337,19 +336,20 @@ function rtfEscape(s) {
 }
 
 function rtfParagraph(text, opts={}) {
-  const { bold=false, size=18, before=0, after=40 } = opts;
+  const { bold=false, size=20, before=0, after=40 } = opts;
   return `\\pard\\sb${before}\\sa${after}\\fs${size}${bold?'\\b':''} ${rtfEscape(text)}${bold?'\\b0':''}\\par\n`;
 }
 
 function rtfTable(headers, bodyRows) {
-  const usable = 10850, first = 1250, rest = Math.floor((usable-first)/(headers.length-1));
+  const usable = 10850, first = 1400, rest = Math.floor((usable-first)/(headers.length-1));
   const cellEnds = [first]; for (let i=1;i<headers.length;i++) cellEnds.push(first + rest*i);
+  const borders = '\\clbrdrt\\brdrs\\brdrw10\\clbrdrl\\brdrs\\brdrw10\\clbrdrb\\brdrs\\brdrw10\\clbrdrr\\brdrs\\brdrw10';
   const makeRow = (cells, header=false) => {
-    let s = `\\trowd\\trgaph35\\trleft0\\trkeep`;
-    for (const x of cellEnds) s += `\\cellx${x}`;
+    let s = `\\trowd\\trgaph40\\trleft0\\trkeep`;
+    for (const x of cellEnds) s += borders + (header ? '\\clcbpat1' : '') + `\\cellx${x}`;
     s += '\n';
     cells.forEach((c,i) => {
-      const size = header ? 15 : (i===0 ? 15 : 14);
+      const size = header ? 16 : (i===0 ? 15 : 14);
       s += `\\intbl\\pard\\qc\\fs${size}${header||i===0?'\\b':''} ${rtfEscape(c||'')}${header||i===0?'\\b0':''}\\cell\n`;
     });
     return s + '\\row\n';
@@ -362,39 +362,43 @@ function rtfTable(headers, bodyRows) {
 function chunk(arr,n) { const out=[]; for(let i=0;i<arr.length;i+=n) out.push(arr.slice(i,i+n)); return out; }
 
 function buildRtf({ metadata, report, otherInvestigations }) {
-  let r = `{\\rtf1\\ansi\\deff0{\\fonttbl{\\f0 Arial;}}\\paperw11907\\paperh16840\\margl500\\margr500\\margt420\\margb420\\f0\n`;
+  let r = `{\\rtf1\\ansi\\deff0{\\fonttbl{\\f0 Arial;}}{\\colortbl;\\red240\\green243\\blue246;}\\paperw11907\\paperh16840\\margl500\\margr500\\margt420\\margb420\\f0\n`;
   
-  const title = metadata.admissionNo ? `Discharge Summary - ${metadata.admissionNo}` : 'Compact Discharge Summary';
-  r += rtfParagraph(title, { bold:true, size:24, after:60 });
+  // Header: Just Patient Name, Age, Sex, IP Number
+  const parts = [];
+  if (metadata.patientName) parts.push(`Patient: ${metadata.patientName}`);
+  if (metadata.ageGender) parts.push(`Age/Sex: ${metadata.ageGender}`);
+  if (metadata.admissionNo) parts.push(`IP No: ${metadata.admissionNo}`);
+  
+  const headerLine = parts.length ? parts.join('   |   ') : 'Patient Details';
+  r += rtfParagraph(headerLine, { bold:true, size:22, after:60 });
 
-  // Demographics block
-  const demo = [
-    metadata.patientName && `Patient: ${metadata.patientName}`,
-    metadata.ageGender && `Age/Sex: ${metadata.ageGender}`,
-    metadata.admissionDt && `Adm Dt: ${metadata.admissionDt}`,
-    metadata.dischargeDt && `Discharge Dt: ${metadata.dischargeDt}`,
-    metadata.consultant && `Consultant: ${metadata.consultant}`
-  ].filter(Boolean).join(' | ');
-  if (demo) r += rtfParagraph(demo, { bold:true, size:16, after:30 });
-  if (metadata.diagnosis) r += rtfParagraph(`Diagnosis: ${metadata.diagnosis}`, { bold:true, size:16, after:50 });
+  const hasAny = report.serialDates.length > 0 ||
+    report.metabolic.length > 0 ||
+    report.microbiology.length > 0 ||
+    report.otherLab.length > 0 ||
+    (otherInvestigations && otherInvestigations.length > 0);
+
+  if (!hasAny) {
+    r += rtfParagraph('No investigations found.', { size:18, before:40, after:40 });
+    return r + '}';
+  }
 
   // Serial Tables
-  r += rtfParagraph('Serial / Common Investigations', { bold:true, size:19, before:20, after:35 });
-  const dateChunks = chunk(report.serialDates, 5);
-  if (dateChunks.length > 0) {
+  if (report.serialDates.length > 0) {
+    r += rtfParagraph('Serial Investigations', { bold:true, size:19, before:15, after:25 });
+    const dateChunks = chunk(report.serialDates, 5);
     dateChunks.forEach((dates, idx) => {
       if (idx) r += rtfParagraph('Serial investigations - continued', { bold:true, size:16, after:20 });
       const body = panelOrder.map(panel => [panel, ...dates.map(d => report.serial[panel][d] || '')]).filter(row => row.slice(1).some(Boolean));
       r += rtfTable(['Investigation', ...dates.map(shortDate)], body);
     });
-  } else {
-    r += rtfParagraph('No structured serial lab tables recorded in this discharge summary.', { size:15, after:25 });
   }
 
   const section = (name, lines) => {
     if (!lines || !lines.length) return;
-    r += rtfParagraph(name, { bold:true, size:19, before:30, after:20 });
-    for (const line of lines) r += rtfParagraph(line, { size:15, after:16 });
+    r += rtfParagraph(name, { bold:true, size:18, before:25, after:15 });
+    for (const line of lines) r += rtfParagraph(line, { size:15, after:14 });
   };
 
   section('Metabolic / Endocrine Investigations', report.metabolic);
@@ -403,10 +407,6 @@ function buildRtf({ metadata, report, otherInvestigations }) {
 
   if (otherInvestigations && otherInvestigations.length) {
     section('Radiology / Imaging & Other Investigations', otherInvestigations);
-  }
-
-  if (metadata.courseSnippet) {
-    section('Hospital Course Highlights', [metadata.courseSnippet]);
   }
 
   return r + '}';
@@ -427,12 +427,7 @@ async function extractFullSummary(file) {
   const metadata = {
     admissionNo: '',
     patientName: '',
-    ageGender: '',
-    admissionDt: '',
-    dischargeDt: '',
-    consultant: '',
-    diagnosis: '',
-    courseSnippet: ''
+    ageGender: ''
   };
   const otherLines = [];
 
@@ -449,20 +444,6 @@ async function extractFullSummary(file) {
       if (mName) metadata.patientName = clean(mName[1]);
       const mAge = pageText.match(/Age\/Gender\s*:\s*([^\n:]+?)(?:\s+Discharge|\s+UMR|\n|$)/i);
       if (mAge) metadata.ageGender = clean(mAge[1]);
-      const mAdmDt = pageText.match(/Admission\s+Dt\s*:\s*([0-9A-Za-z\s:]+?)(?:\s+Admission\s+No|\s+Discharge|\n|$)/i);
-      if (mAdmDt) metadata.admissionDt = clean(mAdmDt[1]);
-      const mDisDt = pageText.match(/Discharge\s+Dt\s*:\s*([0-9A-Za-z\s:]+?)(?:\s+Age|\s+Discharge|\n|$)/i);
-      if (mDisDt) metadata.dischargeDt = clean(mDisDt[1]);
-      const mCons = pageText.match(/Consultant\s*:\s*([^\n:]+?)(?:\s+CoConsultant|\s+Relative|\n|$)/i);
-      if (mCons) metadata.consultant = clean(mCons[1]);
-      const mDiag = pageText.match(/DIAGNOSIS\s*:\s*([\s\S]+?)(?=\n[A-Z\s\/]+:|$)/i);
-      if (mDiag) metadata.diagnosis = clean(mDiag[1]);
-    }
-
-    const fullPageText = pageRows.map(r => r.text).join('\n');
-    if (!metadata.courseSnippet) {
-      const mCourse = fullPageText.match(/COURSE\s+(?:DURING\s+HOSPITALISATION|IN\s+HOSPITAL)\s*:\s*([\s\S]+?)(?=\nTREATMENT\s+GIVEN|\nINVESTIGATIONS|\nADVICE|\nOTHER|$)/i);
-      if (mCourse) metadata.courseSnippet = clean(mCourse[1]);
     }
 
     for (const row of pageRows) {
