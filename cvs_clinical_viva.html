@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Clinical Viva — CVS Examiner Cases</title>
+<style>
+:root {
+  --ink:#18323d;
+  --teal:#0e526b;
+  --teal-dark:#0a4155;
+  --rust:#a34d2a;
+  --blue-panel:#dcebf2;
+  --blue-soft:#eef6f9;
+  --page:#f5f5f3;
+  --card:#ffffff;
+  --line:#d9d8d2;
+  --muted:#65727a;
+  --answer:#f3f8fa;
+  --shadow:0 4px 18px rgba(20,45,55,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--page);
+  color:var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  line-height:1.58;
+}
+.shell{
+  max-width:1040px;
+  margin:36px auto 72px;
+  padding:0 20px;
+}
+.hero{
+  background:var(--card);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  padding:58px 48px 34px;
+  margin-bottom:28px;
+}
+h1{
+  margin:0;
+  text-align:center;
+  font-size:clamp(34px,5vw,58px);
+  line-height:1.05;
+  color:var(--teal);
+  letter-spacing:-1.6px;
+}
+.rule{
+  height:3px;
+  background:var(--rust);
+  margin:26px 0 26px;
+  border-radius:999px;
+}
+.overview{
+  background:var(--blue-panel);
+  border-left:9px solid var(--teal);
+  border-radius:10px;
+  padding:28px 32px;
+}
+.overview h3{
+  margin:0 0 12px;
+  color:var(--teal);
+  font-size:23px;
+}
+.overview p{margin:0 0 10px}
+.overview p:last-child{margin-bottom:0}
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  margin:24px 0 18px;
+}
+.toolbar button{
+  border:1px solid #bfc8cc;
+  background:#fff;
+  color:var(--teal-dark);
+  padding:9px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+}
+.toolbar button:hover{background:var(--blue-soft)}
+.count{
+  margin-left:auto;
+  color:var(--muted);
+  font-size:14px;
+}
+.case-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(35,45,50,.035);
+  padding:25px 28px 26px;
+  margin:0 0 18px;
+}
+.case-kicker{
+  color:var(--rust);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  margin-bottom:5px;
+}
+.case-card h2{
+  color:var(--teal);
+  font-size:23px;
+  line-height:1.25;
+  margin:0 0 16px;
+}
+.findings{
+  background:#fafbf9;
+  border:1px solid #e7e6e0;
+  border-radius:8px;
+  padding:15px 17px;
+  margin-bottom:18px;
+}
+.findings-label{
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  font-size:11px;
+  font-weight:800;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+.findings p{margin:0}
+.questions{display:grid; gap:10px}
+.qa{
+  border:1px solid #d7e1e5;
+  border-radius:9px;
+  overflow:hidden;
+  background:#fff;
+}
+.qa summary{
+  list-style:none;
+  cursor:pointer;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:10px;
+  padding:14px 15px;
+  color:var(--teal-dark);
+  font-weight:750;
+  user-select:none;
+}
+.qa summary::-webkit-details-marker{display:none}
+.qa[open] summary{
+  background:var(--blue-soft);
+  border-bottom:1px solid #d7e1e5;
+}
+.qnum{
+  min-width:34px;
+  height:28px;
+  display:inline-grid;
+  place-items:center;
+  border-radius:6px;
+  background:var(--teal);
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+}
+.chev{
+  color:var(--rust);
+  font-size:20px;
+  line-height:1;
+  transition:transform .16s ease;
+}
+.qa[open] .chev{transform:rotate(180deg)}
+.answer{
+  padding:15px 16px 16px;
+  background:var(--answer);
+  color:#243a43;
+}
+.answer strong{color:var(--rust)}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:30px;
+  font-size:13px;
+}
+@media (max-width:650px){
+  .shell{margin-top:14px;padding:0 10px}
+  .hero{padding:34px 16px 20px;border-radius:8px}
+  .overview{padding:20px 18px}
+  .case-card{padding:20px 16px}
+  .count{width:100%;margin-left:0}
+}
+@media print{
+  body{background:#fff}
+  .shell{max-width:none;margin:0;padding:0}
+  .hero,.case-card{box-shadow:none}
+  .toolbar{display:none}
+  details:not([open]) .answer{display:none!important}
+}
+</style>
+</head>
+<body>
+<main class="shell">
+  <section class="hero">
+    <h1>Agentic Clinical Viva</h1>
+    <div class="rule"></div>
+    <div class="overview">
+      <h3>CVS Examiner Cases</h3>
+      <p>Postgraduate Medicine bedside viva based on <strong>history and physical examination</strong>. The diagnosis is deliberately withheld from the case stem.</p>
+      <p>Open each question only after the student has committed to an answer. Questions progress from <strong>localisation</strong> to <strong>physiology</strong>, differential diagnosis and severity.</p>
+      <p><strong>Examiner mode:</strong> all answers remain hidden by default.</p>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <button type="button" onclick="closeAll()">Hide all answers</button>
+    <button type="button" onclick="openAll()">Reveal all answers</button>
+    <span class="count">17 cases · 3 sequential questions each</span>
+  </div>
+
+  
+    <article class="case-card" id="case-36">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 36: Neck Pulsations, Pulsatile Liver and a Pansystolic Murmur</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>JVP is elevated. There are large systolic waves in the neck. Liver is enlarged and pulsatile. A pansystolic murmur is heard at the lower left sternal border and increases on inspiration.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Localise the lesion.</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Right-sided valvular lesion, most likely tricuspid regurgitation.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Explain the JVP abnormality.</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> During right ventricular systole, blood regurgitates into the right atrium, producing prominent systolic V waves.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Give three common causes.</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Functional tricuspid regurgitation due to pulmonary hypertension or RV dilatation; infective endocarditis; rheumatic valve disease. Other possibilities include carcinoid disease and device-related tricuspid regurgitation.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-37">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 37: Intermittent Large Neck Pulsations with Marked Bradycardia</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>Intermittent very large neck pulsations are seen. They are not present with every cardiac cycle. Pulse is slow and regular at 38/min.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What is this JVP finding?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Cannon A waves.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What is the mechanism?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The right atrium contracts against a closed tricuspid valve because atrial and ventricular contractions are dissociated.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What is the most likely rhythm disturbance here?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Complete heart block. Other causes include ventricular tachycardia and other forms of AV dissociation.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-38">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 38: Low-Volume Slow-Rising Pulse with an Ejection Systolic Murmur</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>Pulse is low-volume and slow-rising. Pulse pressure is narrow. Apex is sustained. A harsh systolic murmur is heard in the right second intercostal space and radiates to the carotids.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What valve lesion does this suggest?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Aortic stenosis.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Which bedside findings suggest severe disease?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Delayed carotid upstroke, narrow pulse pressure, late-peaking systolic murmur, and a soft or absent A2.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>If the murmur is unexpectedly soft despite severe symptoms, what possibility should you consider?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Low-flow, low-gradient severe aortic stenosis due to reduced forward stroke volume.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-39">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 39: Exertional Presyncope with a Dynamic Systolic Murmur</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 24-year-old has exertional presyncope. Pulse is brisk. Apex is forceful. There is an ejection systolic murmur at the left sternal border. The murmur becomes louder on standing.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What is the likely mechanism of obstruction?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Dynamic left ventricular outflow tract obstruction.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What diagnosis should you think of?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Hypertrophic obstructive cardiomyopathy.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What happens to the murmur with squatting, and why?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> It becomes softer because increased preload and afterload enlarge the LV cavity and reduce dynamic obstruction.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-40">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 40: Bounding Pulse, Wide Pulse Pressure and an Early Diastolic Murmur</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>Pulse is bounding and rapidly collapsing. BP is 168/48 mmHg. Apex is displaced down and out. A high-pitched early diastolic murmur is heard along the left sternal edge.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What is the lesion?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Aortic regurgitation.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why is the pulse pressure wide?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Increased stroke volume raises systolic pressure, while diastolic runoff back into the LV lowers diastolic pressure.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Name two conditions that can mimic the pulse without this valve lesion.</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Examples include thyrotoxicosis, severe anaemia, arteriovenous fistula, pregnancy, and sepsis.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-41">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 41: Irregular Pulse with an Apical–Radial Rate Difference</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>Radial pulse is 92/min and completely irregular. Apical rate is 124/min. First heart sound varies in intensity.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What is the rhythm?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Atrial fibrillation.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What is the difference between apical and radial rates called?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Pulse deficit.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Why does it occur?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Some ventricular contractions have inadequate filling and stroke volume, so they do not generate a palpable peripheral pulse.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-42">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 42: Tapping Apex, Opening Snap and Loud P2</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>Apex is tapping and not displaced. S1 is loud. An opening snap is followed by a low-pitched diastolic murmur at the apex. P2 is loud and there is a parasternal heave.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What is the primary lesion?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Mitral stenosis.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Which findings indicate a complication rather than the valve lesion itself?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Loud P2 and parasternal heave indicate pulmonary hypertension and right ventricular pressure overload.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What change in heart sounds can occur if the valve becomes heavily calcified?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> S1 and the opening snap may become softer or disappear.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-43">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 43: Displaced Hyperdynamic Apex with a Pansystolic Murmur</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>Apex is displaced down and laterally and is hyperdynamic. S1 is soft. A pansystolic murmur at the apex radiates to the axilla.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Which valve is abnormal?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The mitral valve; the lesion is mitral regurgitation.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why is the apex hyperdynamic?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The LV ejects into both the low-pressure left atrium and the aorta, producing increased total stroke volume.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What bedside change would suggest an acute rather than chronic severe lesion?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Severe pulmonary oedema with a non-displaced apex and possibly a relatively soft or short murmur.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-44">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 44: Wide Fixed Splitting of S2 in a Young Adult</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A young adult has a parasternal heave, wide fixed splitting of S2 and an ejection systolic murmur in the pulmonary area.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What congenital lesion is most likely?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Atrial septal defect.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Is the pulmonary systolic murmur produced by blood flowing across the septal defect?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> No. It is a flow murmur caused by increased flow across the pulmonary valve.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What does the parasternal heave represent?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Right ventricular volume overload.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-45">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 45: Cyanosis, Clubbing, Loud P2 and a Previously Louder Childhood Murmur</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 28-year-old has central cyanosis and clubbing. There is a parasternal heave, very loud P2 and only a soft systolic murmur. A loud murmur was documented in childhood.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What physiological transition has probably occurred?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A previous left-to-right shunt has developed severe pulmonary vascular disease and has become bidirectional or reversed.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What syndrome is this?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Eisenmenger syndrome.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Why has the original murmur become softer?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The pressure gradient across the defect has fallen as right ventricular and pulmonary artery pressures approach systemic levels.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-46">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 46: Raised JVP, Rapid y Descent, Ascites and Clear Lungs</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>JVP is markedly raised. x and y descents are prominent. JVP rises on inspiration. There is ascites, hepatomegaly and relatively clear lungs. A high-frequency early diastolic sound is heard.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What is the likely diagnosis?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Constrictive pericarditis.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What is the early diastolic sound?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Pericardial knock.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What major differential should always be considered?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Restrictive cardiomyopathy.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-47">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 47: Hypotension, Raised JVP and a Marked Inspiratory BP Fall</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>The patient is hypotensive and tachycardic. JVP is elevated. Heart sounds are muffled. The y descent is poorly seen. Systolic BP falls markedly on inspiration.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What is the likely diagnosis?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Cardiac tamponade.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What is the inspiratory fall in systolic pressure called?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Pulsus paradoxus.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Why is the y descent blunted?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> High intrapericardial pressure prevents rapid right atrial emptying during early diastole.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-48">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 48: Prominent A Waves, RV Heave and Hyperinflated Lungs</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>JVP has prominent A waves. There is a parasternal heave and loud P2. Lungs are hyperinflated with reduced air entry. There is no displaced LV apex.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What chamber is under pressure overload?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The right ventricle.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What is the likely cardiovascular syndrome?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Pulmonary hypertension with cor pulmonale.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Why are A waves prominent?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The right atrium contracts against a stiff, high-pressure right ventricle.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-49">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 49: Double Apical Impulse with Exertional Dizziness</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A young man with exertional dizziness has a forceful, bifid or double apical impulse. Carotid pulse is brisk. There is a systolic murmur at the left sternal border.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What diagnosis should this combination suggest?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Hypertrophic cardiomyopathy.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What can produce a double apical impulse?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A prominent atrial contraction against a stiff hypertrophied LV followed by ventricular systole.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What family-history question is particularly important?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Ask about sudden unexplained death, cardiomyopathy, or premature sudden cardiac arrest in relatives.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-50">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 50: Loud S1 and a Low-Pitched Apical Mid-Diastolic Murmur</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>The patient has exertional dyspnoea. S1 is loud. There is a low-pitched apical mid-diastolic murmur. No opening snap is heard. Rhythm is sinus.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Does absence of an opening snap exclude the suspected lesion?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> No.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why may the opening snap be absent?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The valve may be heavily calcified or immobile; very severe disease can also make the opening snap difficult to appreciate.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What bedside feature can help distinguish true valve obstruction from increased transmitral flow?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A tapping apex, loud S1, presystolic accentuation in sinus rhythm, and signs of pulmonary hypertension favour true mitral stenosis.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-51">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 51: Pansystolic Murmur that Becomes Louder on Inspiration</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A pansystolic murmur is heard near the lower left sternal edge. It becomes significantly louder during inspiration. There is no radiation to the axilla.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Which side of the heart is the murmur likely arising from?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The right side of the heart.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What is this inspiratory augmentation principle called?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Carvallo sign.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Which lesion is most likely?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Tricuspid regurgitation. Ventricular septal defect is an important differential but typically does not show this inspiratory augmentation.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-52">
+      <div class="case-kicker">CARDIOVASCULAR SYSTEM · PG MEDICINE VIVA</div>
+      <h2>Case 52: Loud P2 with an Upper Left Sternal Early Diastolic Murmur</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A patient with severe pulmonary hypertension has a loud P2 and a high-pitched early diastolic murmur at the upper left sternal border.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What is this murmur called?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Graham Steell murmur.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What lesion produces it?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Functional pulmonary regurgitation due to severe pulmonary hypertension with pulmonary artery or annular dilatation.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>How would you distinguish it clinically from an aortic-origin early diastolic murmur?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Marked pulmonary hypertension, loud P2 and an RV heave favour pulmonary regurgitation; a bounding pulse and wide pulse pressure favour aortic regurgitation.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+
+  <div class="footer">Clinical Viva · Cardiovascular System · For postgraduate teaching</div>
+</main>
+<script>
+function openAll() {
+  document.querySelectorAll('details.qa').forEach(d => d.open = true);
+}
+function closeAll() {
+  document.querySelectorAll('details.qa').forEach(d => d.open = false);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Clinical Viva — Neurology Examiner Cases</title>
+<style>
+:root {
+  --ink:#18323d;
+  --teal:#0e526b;
+  --teal-dark:#0a4155;
+  --rust:#a34d2a;
+  --blue-panel:#dcebf2;
+  --blue-soft:#eef6f9;
+  --page:#f5f5f3;
+  --card:#ffffff;
+  --line:#d9d8d2;
+  --muted:#65727a;
+  --answer:#f3f8fa;
+  --shadow:0 4px 18px rgba(20,45,55,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--page);
+  color:var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  line-height:1.58;
+}
+.shell{
+  max-width:1040px;
+  margin:36px auto 72px;
+  padding:0 20px;
+}
+.hero{
+  background:var(--card);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  padding:58px 48px 34px;
+  margin-bottom:28px;
+}
+h1{
+  margin:0;
+  text-align:center;
+  font-size:clamp(34px,5vw,58px);
+  line-height:1.05;
+  color:var(--teal);
+  letter-spacing:-1.6px;
+}
+.rule{
+  height:3px;
+  background:var(--rust);
+  margin:26px 0;
+  border-radius:999px;
+}
+.overview{
+  background:var(--blue-panel);
+  border-left:9px solid var(--teal);
+  border-radius:10px;
+  padding:28px 32px;
+}
+.overview h3{
+  margin:0 0 12px;
+  color:var(--teal);
+  font-size:23px;
+}
+.overview p{margin:0 0 10px}
+.overview p:last-child{margin-bottom:0}
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  margin:24px 0 18px;
+}
+.toolbar button{
+  border:1px solid #bfc8cc;
+  background:#fff;
+  color:var(--teal-dark);
+  padding:9px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+}
+.toolbar button:hover{background:var(--blue-soft)}
+.count{
+  margin-left:auto;
+  color:var(--muted);
+  font-size:14px;
+}
+.case-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(35,45,50,.035);
+  padding:25px 28px 26px;
+  margin:0 0 18px;
+}
+.case-kicker{
+  color:var(--rust);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  margin-bottom:5px;
+}
+.case-card h2{
+  color:var(--teal);
+  font-size:23px;
+  line-height:1.25;
+  margin:0 0 16px;
+}
+.findings{
+  background:#fafbf9;
+  border:1px solid #e7e6e0;
+  border-radius:8px;
+  padding:15px 17px;
+  margin-bottom:18px;
+}
+.findings-label{
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  font-size:11px;
+  font-weight:800;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+.findings p{margin:0}
+.questions{display:grid; gap:10px}
+.qa{
+  border:1px solid #d7e1e5;
+  border-radius:9px;
+  overflow:hidden;
+  background:#fff;
+}
+.qa summary{
+  list-style:none;
+  cursor:pointer;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:10px;
+  padding:14px 15px;
+  color:var(--teal-dark);
+  font-weight:750;
+  user-select:none;
+}
+.qa summary::-webkit-details-marker{display:none}
+.qa[open] summary{
+  background:var(--blue-soft);
+  border-bottom:1px solid #d7e1e5;
+}
+.qnum{
+  min-width:34px;
+  height:28px;
+  display:inline-grid;
+  place-items:center;
+  border-radius:6px;
+  background:var(--teal);
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+}
+.chev{
+  color:var(--rust);
+  font-size:20px;
+  line-height:1;
+  transition:transform .16s ease;
+}
+.qa[open] .chev{transform:rotate(180deg)}
+.answer{
+  padding:15px 16px 16px;
+  background:var(--answer);
+  color:#243a43;
+}
+.answer strong{color:var(--rust)}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:30px;
+  font-size:13px;
+}
+@media (max-width:650px){
+  .shell{margin-top:14px;padding:0 10px}
+  .hero{padding:34px 16px 20px;border-radius:8px}
+  .overview{padding:20px 18px}
+  .case-card{padding:20px 16px}
+  .count{width:100%;margin-left:0}
+}
+@media print{
+  body{background:#fff}
+  .shell{max-width:none;margin:0;padding:0}
+  .hero,.case-card{box-shadow:none}
+  .toolbar{display:none}
+  details:not([open]) .answer{display:none!important}
+}
+</style>
+</head>
+<body>
+<main class="shell">
+  <section class="hero">
+    <h1>Agentic Clinical Viva</h1>
+    <div class="rule"></div>
+    <div class="overview">
+      <h3>Neurology Examiner Cases</h3>
+      <p>Twenty postgraduate Medicine bedside viva cases based on <strong>history and neurological examination</strong>. The diagnosis is deliberately withheld from the case title and stem.</p>
+      <p>Open each question only after the student has committed to an answer. Questions progress through <strong>localisation</strong>, neuroanatomical explanation, differential diagnosis and clinical priority.</p>
+      <p><strong>Examiner mode:</strong> all answers remain hidden by default.</p>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <button type="button" onclick="closeAll()">Hide all answers</button>
+    <button type="button" onclick="openAll()">Reveal all answers</button>
+    <span class="count">20 cases · 3 sequential questions each</span>
+  </div>
+
+  
+    <article class="case-card" id="case-1">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 1: Sudden Right-Sided Weakness with Language Difficulty</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 64-year-old right-handed man develops sudden weakness of the right face and limbs. He understands simple commands poorly, produces little meaningful speech, and cannot repeat a short sentence. Right upper limb weakness is greater than lower limb weakness. Plantar response is extensor on the right.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Localise the lesion.</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Dominant left cerebral hemisphere, most likely the left middle cerebral artery territory involving frontal-parietal language and motor regions.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What type of language disorder is suggested?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Aphasia with impaired comprehension and repetition; the exact subtype depends on fluency and naming, but a large dominant perisylvian lesion should be suspected.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Which bedside finding would make a cortical rather than capsular lesion more likely?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Cortical signs such as aphasia, neglect, gaze preference, cortical sensory loss, apraxia, or visual field defect.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-2">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 2: Dense Hemiparesis without Cortical Signs</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 58-year-old hypertensive man develops sudden weakness of the left face, arm and leg. Power is 2/5 throughout the left side. Sensation is intact. There is no aphasia, neglect, visual field defect or gaze deviation.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Where is the lesion most likely?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A compact motor pathway lesion, classically the posterior limb of the right internal capsule or basis pontis.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why are face, arm and leg affected together?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Corticobulbar and corticospinal fibres are densely packed in the internal capsule, so a small lesion can produce proportionately dense weakness.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What vascular mechanism is classically associated with this pattern?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A lacunar infarct due to small-vessel lipohyalinosis, often related to chronic hypertension or diabetes.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-3">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 3: Ipsilateral Facial Weakness with Contralateral Limb Weakness</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 52-year-old man has sudden diplopia and weakness of the right arm and leg. Examination shows left lower motor neuron facial weakness and right-sided pyramidal weakness. Sensory examination is largely normal.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Localise the lesion.</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Left pons, where the facial nerve fascicle/nucleus and corticospinal tract lie close together.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why is the facial weakness ipsilateral but limb weakness contralateral?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Cranial nerve fascicles affect the same side of the face before exiting, while corticospinal fibres cross lower down at the medullary pyramids.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What bedside pattern is this an example of?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A crossed or alternating brainstem syndrome.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-4">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 4: Hoarseness, Dysphagia and Contralateral Pain Loss</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 60-year-old develops sudden vertigo, vomiting, hoarseness and difficulty swallowing. There is reduced pain and temperature sensation over the left face and right side of the body, left-sided limb ataxia and left Horner syndrome. Power is preserved.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Localise the lesion.</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Left lateral medulla.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Which structures explain the dysphagia and hoarseness?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Nucleus ambiguus and its fibres involving cranial nerves IX and X.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Why is motor power relatively preserved?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The corticospinal tract lies ventromedially and is usually spared in a lateral medullary lesion.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-5">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 5: Diplopia with Ptosis and a Dilated Pupil</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 49-year-old woman develops sudden severe headache followed by ptosis and diplopia. The affected eye rests &#x27;down and out&#x27;. The pupil on that side is dilated and poorly reactive.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Which cranial nerve is affected?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The oculomotor nerve, cranial nerve III.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why is pupillary involvement clinically important?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Parasympathetic pupillary fibres lie superficially in the nerve and are vulnerable to external compression; a painful pupil-involving third nerve palsy raises concern for a compressive aneurysm.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What diagnosis must be urgently excluded?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A posterior communicating artery aneurysm or other compressive intracranial lesion.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-6">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 6: Horizontal Diplopia Worse on Looking to One Side</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 46-year-old man reports horizontal diplopia that worsens when looking to the right. The right eye cannot abduct fully. Other ocular movements and pupils are normal.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Which nerve is affected?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Right abducens nerve, cranial nerve VI.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why can this nerve be affected by raised intracranial pressure?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Its long intracranial course and tethering make it vulnerable to stretch, producing a false-localising sixth nerve palsy.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What additional examination findings would you actively seek if raised intracranial pressure is suspected?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Papilloedema, headache pattern, vomiting, altered sensorium, and other focal neurological signs.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-7">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 7: Fluctuating Ptosis and Fatigable Weakness</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 32-year-old woman has intermittent diplopia and ptosis, worse in the evening. Limb power is near normal initially but falls with repeated testing. Reflexes and sensation are normal. There is no sphincter involvement.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Which level of the motor system is most likely affected?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The neuromuscular junction.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What bedside feature is most useful here?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Fatigability: weakness worsens with repeated or sustained activity and improves with rest.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What important bedside safety assessment should be performed?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Assess bulbar and respiratory involvement, including swallowing, counting/speech, neck flexion, and forced vital capacity where available.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-8">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 8: Ascending Weakness with Areflexia</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 28-year-old man develops tingling in both feet followed over four days by progressive leg and then arm weakness. Reflexes are absent. Plantars are flexor. Sensory loss is mild. There is no clear sensory level.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Where is the lesion localised?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Peripheral nerves/nerve roots, producing an acute polyradiculoneuropathy.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Which bedside finding argues strongly against an upper motor neuron lesion?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Generalised areflexia without spasticity or extensor plantars.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What complication must be monitored even if limb weakness appears modest?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Respiratory failure and autonomic instability.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-9">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 9: Proximal Weakness with Preserved Sensation</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 41-year-old woman has difficulty climbing stairs, rising from a chair and combing her hair. Hip and shoulder girdle power is reduced. Distal power is relatively preserved. Reflexes are present. Sensation is normal.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Which part of the motor unit is most likely affected?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Skeletal muscle, producing a proximal myopathic pattern.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What examination feature would favour myopathy over peripheral neuropathy?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Symmetric proximal weakness with preserved sensation and relatively preserved reflexes until advanced disease.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Which additional bedside sign would suggest an inflammatory myopathy?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Neck flexor weakness, characteristic skin rash, or muscle tenderness depending on the specific syndrome.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-10">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 10: Distal Weakness, Wasting and Stocking Sensory Loss</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 62-year-old man has progressive numbness of both feet and difficulty walking. There is distal wasting, bilateral foot drop, absent ankle jerks and impaired vibration up to the knees. Upper limb reflexes are preserved.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What is the pattern of neurological involvement?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A length-dependent, predominantly distal sensorimotor polyneuropathy.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why are the lower limbs affected before the upper limbs?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The longest axons are most vulnerable, producing a length-dependent &#x27;dying-back&#x27; pattern.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Which common causes should be sought first?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Diabetes, alcohol use, vitamin B12 deficiency, renal disease, hypothyroidism, medications/toxins and paraproteinaemia depending on context.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-11">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 11: Spastic Paraparesis with a Sensory Level</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 36-year-old man has progressive weakness of both legs for three weeks. Tone is increased, knee and ankle jerks are brisk, plantars are extensor. Pinprick sensation is reduced below the umbilicus. Upper limbs are normal.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Localise the lesion.</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Thoracic spinal cord, approximately around the T10 dermatome level clinically.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why does a sensory level matter?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> It strongly supports a spinal cord lesion and helps estimate the rostrocaudal level.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What urgent structural cause must be excluded?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Spinal cord compression from tumour, epidural abscess, vertebral disease or other mass lesion.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-12">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 12: Ipsilateral Weakness and Contralateral Pain Loss</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>After a penetrating injury to the left side of the thoracic spine, the patient has left-sided leg weakness with loss of vibration and joint position sense on the left, but loss of pain and temperature on the right below the lesion.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What spinal cord pattern is this?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A hemicord syndrome.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why are pain and temperature lost on the opposite side?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Spinothalamic fibres cross within one to two spinal segments after entering the cord.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Why are vibration and proprioception lost on the same side?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Posterior column fibres ascend ipsilaterally in the spinal cord and cross only in the medulla.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-13">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 13: Saddle Sensory Loss with Early Bladder Dysfunction</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 55-year-old develops acute urinary retention, bilateral leg weakness and numbness around the perineum. Knee jerks are preserved, ankle jerks are reduced. Anal tone is diminished.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Which anatomical region is most concerning?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The conus medullaris or cauda equina region.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Which features favour conus involvement over a more distal cauda equina lesion?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Early bladder/bowel dysfunction, relatively symmetric deficits, prominent saddle anaesthesia and mixed upper/lower motor neuron features.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What is the immediate next step?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Urgent MRI of the lumbosacral spine and neurosurgical/spinal evaluation if compression is suspected.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-14">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 14: Gait Ataxia with Loss of Vibration Sense</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 67-year-old man walks with a broad-based, stamping gait. He is much worse when his eyes are closed. Vibration and joint position sense are reduced in both feet. Finger-nose testing is normal.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Is this cerebellar or sensory ataxia?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Sensory ataxia.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What bedside sign supports this?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A positive Romberg sign with impaired posterior column or large-fibre sensory function.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Why is finger-nose testing relatively preserved?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The cerebellum is functioning; the principal deficit is loss of proprioceptive input from the limbs.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-15">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 15: Limb Incoordination with Normal Power and Sensation</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 43-year-old woman has unsteady gait and slurred speech. Power and primary sensation are normal. Finger-nose testing shows past-pointing, heel-knee-shin testing is impaired, and there is dysdiadochokinesia on the left.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Where is the lesion localised?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Left cerebellar hemisphere.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why are limb signs usually ipsilateral in cerebellar disease?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Cerebellar pathways effectively influence the ipsilateral side because of double-crossing in major motor circuits.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Which additional eye movement abnormality might be seen?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Gaze-evoked nystagmus or other cerebellar ocular motor abnormalities.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-16">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 16: Rest Tremor, Rigidity and Reduced Arm Swing</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 69-year-old man has slowness of movement, reduced facial expression, a 4–6 Hz rest tremor of one hand, cogwheel rigidity and reduced arm swing on the same side. Power is normal.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Which motor system is primarily involved?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The extrapyramidal/basal ganglia system.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Which finding is essential for the clinical syndrome?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Bradykinesia, accompanied by rest tremor and/or rigidity.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Which feature would make you question a typical idiopathic presentation?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Early falls, prominent autonomic failure, vertical gaze palsy, early severe dementia, pyramidal signs or poor levodopa response.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-17">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 17: Progressive Weakness with Wasting and Brisk Reflexes</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 58-year-old man has progressive weakness of both hands and difficulty walking. There is intrinsic hand muscle wasting and fasciculation, but knee reflexes are brisk and plantars are extensor. Sensation is normal.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Which two motor systems appear to be involved simultaneously?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Lower motor neurons and upper motor neurons.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>What broad disease category does this pattern suggest?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Motor neuron disease, once mimics are excluded.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>Which finding would argue against a pure motor neuron disorder?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Objective sensory loss, sphincter dysfunction, prominent ocular movement abnormalities, or a clear sensory level.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-18">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 18: Acute Vertigo with Severe Gait Unsteadiness</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 61-year-old hypertensive man develops continuous vertigo, vomiting and inability to walk without support. There is direction-changing gaze-evoked nystagmus and mild ipsilateral limb ataxia. Hearing is normal.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>Does this pattern favour a peripheral or central vestibular lesion?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A central lesion.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Which bedside findings are particularly concerning for a central cause?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Severe truncal/gait ataxia, direction-changing nystagmus, skew deviation, focal neurological signs or an abnormal head impulse pattern in the appropriate setting.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What vascular territory should be considered?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Posterior circulation, especially cerebellar or brainstem ischemia.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-19">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 19: Headache, Vomiting and Bilateral Disc Swelling</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 34-year-old woman has progressively worsening morning headache and vomiting for several weeks. Fundus examination shows bilateral optic disc swelling. She now has horizontal diplopia due to impaired abduction of one eye.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What physiological syndrome is suggested?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Raised intracranial pressure.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Why can abduction weakness occur even when the primary lesion is elsewhere?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A sixth nerve palsy can occur as a false-localising sign due to stretching of the abducens nerve.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What must be done before lumbar puncture if a mass lesion is possible?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Urgent neuroimaging should be performed first to assess for a space-occupying lesion, obstructive hydrocephalus or dangerous mass effect.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+    <article class="case-card" id="case-20">
+      <div class="case-kicker">NEUROLOGY · PG MEDICINE VIVA</div>
+      <h2>Case 20: Recurrent Brief Jerking of One Hand with Preserved Awareness</h2>
+      <div class="findings">
+        <div class="findings-label">Clinical findings</div>
+        <p>A 27-year-old has recurrent episodes beginning with rhythmic jerking of the right thumb, spreading over 30 seconds to the hand and forearm. Awareness is preserved. After some episodes, the right hand remains weak for 10–20 minutes.</p>
+      </div>
+      <div class="questions">
+        
+        <details class="qa">
+          <summary><span class="qnum">Q1</span><span>What type of neurological event is this?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> A focal motor seizure with preserved awareness and Jacksonian spread.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q2</span><span>Where would you localise the cortical focus?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> The contralateral left primary motor cortex, in the hand area of the precentral gyrus.</div>
+        </details>
+        
+        <details class="qa">
+          <summary><span class="qnum">Q3</span><span>What explains the transient post-event weakness?</span><span class="chev">⌄</span></summary>
+          <div class="answer"><strong>Answer:</strong> Todd paralysis, a temporary postictal focal neurological deficit.</div>
+        </details>
+        
+      </div>
+    </article>
+    
+
+  <div class="footer">Clinical Viva · Neurology · Postgraduate Medicine</div>
+</main>
+<script>
+function openAll() {
+  document.querySelectorAll('details.qa').forEach(d => d.open = true);
+}
+function closeAll() {
+  document.querySelectorAll('details.qa').forEach(d => d.open = false);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+</body>
+</html>
