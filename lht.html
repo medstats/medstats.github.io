@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mr. A.: Chronic Liver Disease, Jaundice, and Ascites Viva</title>
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background-color: #f4f7f9;
+    }
+    .container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+    h1 {
+        color: #23455A;
+        border-bottom: 4px solid #9A4D33;
+        padding-bottom: 15px;
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+    .authors-box {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #D8CCC0;
+        padding-bottom: 20px;
+        color: #555;
+    }
+    .authors-box p {
+        margin: 5px 0;
+    }
+    .app-link {
+        color: #9A4D33;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .app-link:hover {
+        text-decoration: underline;
+    }
+    h3 {
+        background-color: #23455A;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 6px;
+        margin-top: 60px;
+        font-size: 1.8em;
+        box-shadow: 0 4px 12px rgba(35, 69, 90, 0.2);
+    }
+    .user-block {
+        background: #f9fbfd;
+        border: 1px solid #e1e8ed;
+        border-left: 8px solid #23455A;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .summary-block {
+        background: #fdfaf7;
+        border: 1px solid #f3e8df;
+        border-left: 8px solid #9A4D33;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+    }
+    .summary-block h4 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.3em;
+        color: #9A4D33;
+        border-bottom: 2px solid #f3e8df;
+        padding-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .summary-block ul {
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+    .summary-block li {
+        margin-bottom: 6px;
+    }
+    .summary-block p {
+        margin-bottom: 10px;
+    }
+    .responses-grid {
+        display: flex;
+        gap: 25px;
+        margin-top: 20px;
+    }
+    .col {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    h4 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+        text-transform: uppercase;
+        padding: 10px 15px;
+        border-left: 6px solid;
+        border-radius: 4px;
+        letter-spacing: 1px;
+    }
+    .resident-header {
+        color: #5D6E42;
+        border-color: #5D6E42;
+        background-color: #E6ECD9;
+    }
+    .expert-header {
+        color: #9A4D33;
+        border-color: #9A4D33;
+        background-color: #F3E4DC;
+    }
+    .content {
+        background: #fff;
+        border: 1px solid #eee;
+        padding: 20px;
+        border-radius: 8px;
+        height: 100%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    strong {
+        color: #23455A;
+    }
+    .content p strong {
+        color: #1a1a1a;
+    }
+    .missing { color: #9a3412; font-style: italic; }
+    
+    @media (max-width: 900px) {
+      .responses-grid {
+          flex-direction: column;
+      }
+      .container {
+          padding: 20px;
+      }
+    }
+    
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; max-width: 100%; }
+      .round { break-inside: avoid; }
+      .responses-grid { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><strong>MR. A.: CHRONIC LIVER DISEASE, JAUNDICE, AND ASCITES VIVA</strong></h1>
+    <div class="authors-box">
+        <p><strong>Authors: GEMINI, CHATGPT & ANUPAM SINGH MD (Human in loop)</strong></p>
+        <p>Department of Medicine, Santosh Medical College.</p>
+        <p><a href="agenticviva.html" class="app-link">← Back to Agentic Clinical Viva Index</a> | <a href="https://medstats.github.io/smcrounds.html" target="_blank" class="app-link">Click here for App</a></p>
+    </div>
+    
+<section class="round">
+  <h3>Round 1</h3>
+  <div class="user-block"><p><strong>USER:</strong> <strong>Patient particulars<br><br>Mr. A., 31-year-old male, electrician by occupation, Hindu by religion, resident of Ghaziabad, Uttar Pradesh.<br><br>He was admitted on 24 September 2026 and examined on 30 September 2026.<br><br>Chief complaints<br><br>1. Loss of appetite for 1 month<br><br>2. Abdominal pain for 11 days<br><br>3. Loose stools for 9 days<br><br>4. Yellowish discoloration of eyes for 11 days<br><br>5. Abdominal distension for 7 days<br><br>6. Dry cough for 7 days<br><br>7. Fever for 7 days<br><br>History of present illness<br><br>The patient was apparently well 1 month prior to admission, when he developed gradually progressive loss of appetite. Previously, he was able to consume approximately 3 chapatis per meal, but over the last month his oral intake progressively decreased, and he developed a feeling of early satiety after consuming approximately 1 chapati. This was associated with an overall reduction in food intake.<br><br>Approximately 11 days prior to admission, he developed generalized abdominal pain, which was insidious in onset, uniform, and progressively increased in intensity. There was no specific aggravating factor identified, and the pain was relieved to some extent after taking medication. There was no radiation of pain and no definite relation to meals.<br><br>Approximately 9 days prior to admission, he developed watery, foul-smelling, non-blood-stained loose stools, occurring approximately 4–5 episodes/day. There was no history of hematochezia or melena. The diarrheal illness was associated with the ongoing abdominal symptoms.<br><br>He subsequently developed yellowish discoloration of the eyes, present for approximately 11 days. There was no history of dark-colored urine, clay/pale-colored stools, or generalized pruritus. The yellow discoloration was seen only in the eyes and did not involve the skin, palms, or soles.<br><br>Approximately 7 days prior to admission, he developed progressive abdominal distension, which gradually increased over the following days. The distension was associated with generalized abdominal pain. There was no history of localized abdominal pain.<br><br>For approximately 7 days, he also developed intermittent fever, with a maximum recorded temperature of approximately 101°F, associated with chills and rigors.<br><br>During the same period, he developed a dry cough for approximately 7 days. There was no significant sputum production or hemoptysis.<br><br>The case summary additionally mentions that approximately 8 days prior to admission, he developed oral ulcers, followed subsequently by decreased urine output, passing urine around 3–4 times/day in small quantities, without hematuria or burning micturition.<br><br>There was no history of hematemesis, melena, hematochezia, dark-colored urine, clay-colored stools, pruritus, dysphagia, odynophagia, persistent vomiting, altered sensorium, or similar previous episodes.<br><br>Negative history<br><br>Gastrointestinal bleeding<br><br>No history of:<br><br>Hematemesis<br><br>Melena<br><br>Hematochezia<br><br>Features suggestive of cholestasis/obstructive jaundice<br><br>No history of:<br><br>Dark urine<br><br>Pale/clay-colored stools<br><br>Generalized pruritus<br><br>Features of hepatic decompensation<br><br>No history of:<br><br>Altered sensorium<br><br>Excessive sleepiness<br><br>Confusion<br><br>Abnormal behavior<br><br>Previous episode of jaundice<br><br>Pedal edema<br><br>Previous abdominal distension/ascites<br><br>Upper gastrointestinal symptoms<br><br>No history of:<br><br>Dysphagia<br><br>Odynophagia<br><br>Heartburn/acid regurgitation<br><br>Persistent nausea/vomiting<br><br>Other abdominal symptoms<br><br>No history of:<br><br>Localized abdominal lump<br><br>Constipation<br><br>Bulky/greasy stools<br><br>Steatorrhea<br><br>Past history<br><br>The patient had pulmonary tuberculosis approximately 16 years ago, for which he completed 6 months of antitubercular therapy. There was no recurrence and no requirement for retreatment.<br><br>No similar illness in the past.<br><br>No history of:<br><br>Diabetes mellitus<br><br>Hypertension<br><br>Previous jaundice<br><br>Bronchial asthma<br><br>Epilepsy<br><br>Blood transfusion<br><br>Chronic drug intake<br><br>Personal history<br><br>The patient is non-vegetarian.<br><br>He reports a significant unintentional weight loss of approximately 10 kg over the last 2 months, from approximately 61 kg to 51 kg, associated with loss of appetite.<br><br>Bowel habits were previously regular. He is currently passing watery loose stools.<br><br>There is no significant sleep disturbance.<br><br>Alcohol history<br><br>History of chronic alcohol consumption for approximately 15 years, predominantly desi daru, around 2–3 quarters/day, which increased to approximately 3–4 quarters/day during the last month.<br><br>His last alcohol intake was on 2 September 2026.<br><br>The notes estimate:<br><br>1 quarter ≈ 180 mL<br><br>ABV ≈ 40%<br><br>≈ 57 g of pure alcohol per quarter<br><br>Smoking history<br><br>History of smoking approximately 3 cigarettes/day for 11 years, usually associated with alcohol consumption.<br><br>Estimated smoking exposure: approximately 1.65 pack-years.<br><br>Family history<br><br>No significant family history of a similar illness.<br><br>Drug/allergy history<br><br>No known drug allergy.<br><br>Case summary<br><br>A 31-year-old male with significant chronic alcohol use and remote treated pulmonary tuberculosis presented with 1 month of progressive anorexia and early satiety with about 10–11 kg unintentional weight loss, followed by 11 days of generalized abdominal pain and scleral icterus, 9 days of watery foul-smelling non-bloody diarrhea, and subsequently progressive abdominal distension, intermittent fever with chills/rigors, and dry cough.<br><br>He also reportedly developed oral ulcers and reduced urine output during the illness.<br><br>There is no history suggestive of overt GI bleeding, classical obstructive jaundice, hepatic encephalopathy, previous ascites, pedal edema, or similar episodes.</strong></p></div>
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History Phase)</h4>
+<p><strong>Case Summary (Positive Findings):</strong></p>
+<ul>
+  <li><strong>Demographics & Risk Factors:</strong> 31-year-old male, electrician, chronic heavy alcohol consumption (15 years, increasing recently to ~171-228g pure alcohol/day), 11-year smoking history (1.65 pack-years), remote history of pulmonary tuberculosis (16 years ago, completed ATT).</li>
+  <li><strong>Constitutional/General:</strong> Progressive loss of appetite (1 month), early satiety (1 month, after 1 chapati), significant unintentional weight loss (10 kg in 2 months), intermittent fever (7 days, max 101°F) with chills and rigors, oral ulcers (8 days prior to admission).</li>
+  <li><strong>Gastrointestinal:</strong> Generalized abdominal pain (11 days, insidious, progressive, uniform, partially relieved by medication, no radiation, no relation to meals), watery foul-smelling non-blood-stained loose stools (9 days, 4-5 episodes/day), yellowish discoloration of eyes (11 days, scleral icterus only), progressive abdominal distension (7 days, associated with pain).</li>
+  <li><strong>Respiratory:</strong> Dry cough (7 days).</li>
+  <li><strong>Genitourinary:</strong> Decreased urine output (8 days prior to admission, 3-4 times/day in small quantities).</li>
+</ul>
+<p><strong>Probability-Based Differential Diagnoses (on the basis of History):</strong></p>
+<ol>
+  <li><strong>Alcoholic Hepatitis with early decompensation (35%):</strong> The strong history of heavy chronic alcohol use, recent increase, combined with anorexia, significant weight loss, abdominal pain, jaundice, fever with chills/rigors, and subsequent abdominal distension (suggesting ascites) are highly characteristic. Diarrhea can be a non-specific symptom in severe illness, and oral ulcers may reflect nutritional deficiencies or systemic inflammation.</li>
+  <li><strong>Disseminated Tuberculosis (e.g., abdominal, hepatic, or miliary) (30%):</strong> Given the remote history of pulmonary TB, endemic region, and the constellation of constitutional symptoms (anorexia, weight loss, fever, chills, rigors, dry cough, oral ulcers), abdominal pain, abdominal distension (peritoneal TB with ascites), diarrhea (intestinal TB), and jaundice (hepatic TB), disseminated TB is a strong possibility.</li>
+  <li><strong>Acute Pancreatitis (severe, with complications like pancreatic ascites or biliary obstruction) (20%):</strong> Heavy alcohol consumption is a major risk factor. Abdominal pain, anorexia, weight loss, fever, chills, and jaundice (due to biliary obstruction) are common. Abdominal distension can result from pancreatic ascites or ileus. Diarrhea can be due to malabsorption or inflammation.</li>
+  <li><strong>Cirrhosis with acute decompensation (e.g., Spontaneous Bacterial Peritonitis, Hepatorenal Syndrome) (10%):</strong> Chronic heavy alcohol use is a leading cause of cirrhosis. Anorexia, weight loss, jaundice, and abdominal distension (ascites) are hallmarks. Fever with chills/rigors could indicate SBP, and decreased urine output suggests acute kidney injury or hepatorenal syndrome, representing acute decompensation.</li>
+  <li><strong>Pancreatic Carcinoma (5%):</strong> Although the patient is young, the progressive anorexia, significant weight loss, early satiety, abdominal pain, jaundice (if head of pancreas), and diarrhea (due to malabsorption or obstruction) raise concern for malignancy, especially given the alcohol and smoking history which are risk factors for pancreatic disease.</li>
+</ol>
+  </div>
+  <div class="responses-grid">
+    <div class="col chatgpt-col">
+      <h4 class="expert-header">CHATGPT</h4>
+      <div class="content"><p><strong>PHASE 1 — HISTORY PRESENTATION</strong></p>
+<p><strong>Q1 In a patient with jaundice and abdominal distension, what additional features would you specifically ask for to establish chronic liver disease and portal hypertension?</strong></p>
+<p><strong>MODEL_ANS1</strong> Ask for previous jaundice, recurrent abdominal distension/ascites, pedal edema, hematemesis or melena suggesting variceal bleeding, altered sleep pattern or sensorium suggesting hepatic encephalopathy, reduced libido/sexual dysfunction, and other manifestations suggesting chronic liver dysfunction. In this patient, several important decompensation-related negatives have been elicited, but sexual/endocrine symptoms and previous episodes of GI bleeding could be explored more explicitly. See Kundu, Gastrointestinal and Hepatobiliary System—Cirrhosis of liver, and Alagappan, Chapter 6: Abdomen—Cirrhosis of Liver/Ascites.</p>
+<p><strong>Q2 How would you characterize his alcohol intake properly in a long-case history?</strong></p>
+<p><strong>MODEL_ANS2</strong> Establish the type of alcoholic beverage, quantity per day, alcohol concentration where known, duration, escalation or binge pattern, dependence-related features, periods of abstinence, and last intake. Quantification in grams of ethanol per day is preferable. Your history already provides type, volume, duration, escalation, and date of last intake, which is useful for assessing alcohol-related liver disease. See Kundu, History Taking and Cirrhosis of liver.</p>
+<p><strong>Q3 What further history would you take to identify alternative causes of chronic liver disease?</strong></p>
+<p><strong>MODEL_ANS3</strong> Ask specifically about previous hepatitis or jaundice, blood transfusions, injections/needle exposure, tattoos or piercing, high-risk sexual exposure, IV drug use, hepatotoxic or indigenous medications, metabolic risk factors, and family history of liver disease. Alcohol exposure should not automatically be assumed to be the sole cause. Alagappan discusses etiological assessment under Hepatology—Chronic Hepatitis and Cirrhosis of Liver.</p>
+<p><strong>Q4 Why is the absence of dark urine, pale stool, and pruritus relevant in this patient with scleral icterus?</strong></p>
+<p><strong>MODEL_ANS4</strong> These symptoms are useful in characterizing jaundice. Dark urine suggests urinary excretion of conjugated bilirubin; pale stools and pruritus raise suspicion of significant cholestasis. Their absence makes a classical obstructive/cholestatic presentation less typical, although it does not exclude hepatocellular or obstructive disease. See Alagappan, Chapter 6: Jaundice.</p>
+<p><strong>Q5 His abdominal distension developed recently. What questions would help you determine whether it is due to ascites?</strong></p>
+<p><strong>MODEL_ANS5</strong> Ask about progressive increase in abdominal girth, abdominal heaviness or fullness, early satiety, recent weight change, pedal edema, dyspnea from tense distension, previous similar episodes, and associated features of portal hypertension or liver disease. Kundu discusses the clinical approach under Ascites and Cirrhosis of liver.</p>
+<p><strong>Q6 The patient has fever, abdominal pain, and recent abdominal distension. What potentially important complication should this combination make you consider historically?</strong></p>
+<p><strong>MODEL_ANS6</strong> In a patient suspected to have ascites, the combination of fever and abdominal pain should raise concern for infection of ascitic fluid, including spontaneous bacterial peritonitis, particularly if accompanied by worsening distension, tenderness, vomiting, encephalopathy, or renal deterioration. This requires clinical examination and ascitic-fluid evaluation rather than diagnosis from history alone. See Alagappan, Ascites/Cirrhosis of Liver.</p>
+<p><strong>Q7 How would you characterize the loose stools more completely?</strong></p>
+<p><strong>MODEL_ANS7</strong> Clarify onset, frequency, volume, watery versus formed consistency, blood or mucus, nocturnal stools, urgency or tenesmus, vomiting, abdominal cramps, relation to meals, recent antibiotics or hospitalization, contaminated food/water exposure, travel, similar illness in contacts, and features of dehydration. Chronicity and features suggesting malabsorption—bulky, greasy, difficult-to-flush stools—should also be sought. See Alagappan, Gastrointestinal System—Diarrhoea and Malabsorption.</p>
+<p><strong>Q8 Why does a 10-kg weight loss over 2 months deserve particular emphasis in this history?</strong></p>
+<p><strong>MODEL_ANS8</strong> It is substantial unintentional weight loss and requires explanation rather than attribution merely to reduced intake. The history should explore constitutional symptoms, chronic infection including tuberculosis, malignancy, malabsorption, endocrine disease, and advanced chronic systemic illness. The concurrent anorexia and early satiety are clinically important but do not by themselves establish the cause.</p>
+<p><strong>Q9 Given his remote pulmonary tuberculosis and current fever, weight loss, abdominal symptoms, and dry cough, what further tuberculosis history is essential?</strong></p>
+<p><strong>MODEL_ANS9</strong> Ask about duration and pattern of fever, night sweats, productive cough, hemoptysis, chest pain, recent TB contact, previous treatment details and adherence, microbiological confirmation if known, drug resistance or retreatment, and symptoms of extrapulmonary TB. Abdominal tuberculosis can present with abdominal pain, constitutional symptoms, ascites, altered bowel habits, or an abdominal mass. See Alagappan, Tuberculosis of Abdomen and Respiratory System—Tuberculosis.</p>
+<p><strong>Q10 What additional history regarding the reduced urine output would you obtain?</strong></p>
+<p><strong>MODEL_ANS10</strong> Quantify urine output rather than relying only on frequency; ask about fluid intake, vomiting or diarrhea, orthostatic symptoms, edema, hematuria, dysuria, flank pain, nephrotoxic drugs, and previous renal disease. In significant liver disease with ascites, reduced urine output requires attention because prerenal volume depletion, sepsis, intrinsic renal injury, and hepatorenal dysfunction may enter the differential. Alagappan includes Hepatorenal Syndrome under the hepatology section.</p>
+<p><strong>Q11 What is missing from the drug history that is particularly relevant to jaundice?</strong></p>
+<p><strong>MODEL_ANS11</strong> A simple statement of “no chronic drug intake” is insufficient. Specifically enquire about recent antibiotics, antitubercular drugs, antiepileptics, analgesics including paracetamol, herbal/indigenous preparations, bodybuilding or nutritional supplements, and other potentially hepatotoxic agents, including drugs taken for the present illness.</p>
+<p><strong>Q12 What viral-hepatitis risk factors should be elicited?</strong></p>
+<p><strong>MODEL_ANS12</strong> Ask about contaminated food or water and recent travel for enterically transmitted hepatitis, as well as blood transfusions, injections, needle sharing, tattooing/piercing, occupational exposure to blood, sexual exposure, household contact with hepatitis, and previous surgery or procedures where relevant. See Alagappan, Hepatitis Viruses/Viral Hepatitis and Prevention of Hepatitis.</p>
+<p><strong>Q13 Oral ulcers have been mentioned. What associated history would make this finding diagnostically useful?</strong></p>
+<p><strong>MODEL_ANS13</strong> Determine whether the ulcers are recurrent, painful, multiple, and associated with genital ulcers, eye symptoms, skin lesions, arthralgia, chronic or bloody diarrhea, or other systemic manifestations. Oral ulcers should not simply be inserted into the summary without establishing their characteristics and clinical context.</p>
+<p><strong>Q14 What occupational and social history is particularly relevant in this patient?</strong></p>
+<p><strong>MODEL_ANS14</strong> Beyond recording “electrician,” ask about socioeconomic and living conditions, sanitation and drinking-water source, occupational chemical/toxin exposure where relevant, recent travel, food exposures, and infectious contacts. Smoking and alcohol exposure should be quantified, as you have done. Kundu emphasizes appropriate occupational and personal history within the general History Taking framework.</p>
+<p><strong>Q15 Based on history alone, how should you frame the case diagnostically without prematurely committing to one diagnosis?</strong></p>
+<p><strong>MODEL_ANS15</strong> Present it as a young man with heavy chronic alcohol exposure presenting with a subacute hepatobiliary/abdominal illness characterized by jaundice and probable ascites, associated with constitutional symptoms, diarrhea, fever, and reduced urine output. Alcohol-related liver disease is an important etiological consideration, but infection—including abdominal or recurrent tuberculosis—viral hepatitis, other causes of liver disease, and complications associated with ascites must remain under consideration until examination and investigations establish the diagnosis. Kundu discusses this symptom-to-diagnosis approach under Gastrointestinal and Hepatobiliary System, while Alagappan covers Jaundice, Cirrhosis, Ascites, and Tuberculosis of Abdomen.</p>
+<p><strong>PHASE_FEEDBACK</strong></p>
+<p><strong>✅ COVERED</strong>: The chronology is presented clearly. Chief complaints are appropriately enumerated with duration. Abdominal pain, diarrhea, jaundice, abdominal distension, fever, and cough have been characterized reasonably well. Important negatives for gastrointestinal bleeding, cholestasis, encephalopathy, previous ascites, and upper-GI symptoms were elicited. Past pulmonary tuberculosis is documented with treatment duration. Alcohol and smoking exposure are quantified unusually well. Significant unintentional weight loss has been identified. Drug allergy and major past illnesses are mentioned.</p>
+<p><strong>⚠️ MISSING</strong>: The etiological history of jaundice needs strengthening—viral-hepatitis exposures, tattoos/piercing, injections, sexual exposure, recent procedures, and indigenous/herbal or recent hepatotoxic medications should be explicitly asked. Diarrhea requires food/water exposure, contact history, recent antibiotics, mucus, tenesmus, nocturnal stools, and dehydration assessment. The 10-kg weight loss demands a broader constitutional/TB/malignancy review. Current tuberculosis symptoms and contact history need fuller exploration. Reduced urine output should be objectively quantified. Oral ulcers need characterization and associated systemic symptoms. Features such as endocrine manifestations of chronic liver disease and a more detailed socioeconomic/occupational history are also absent.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>: Revise Kundu, Bedside Clinics in Medicine, Part I: Chapter 1—History Taking (from p. 4), Gastrointestinal and Hepatobiliary System (pp. 101–126), particularly Acute Viral Hepatitis and Cirrhosis of Liver. Also revise Alagappan, Manual of Practical Medicine: Chapter 6—Abdomen, especially Clinical Examination, Diarrhoea, Tuberculosis of Abdomen, Jaundice, Viral/Chronic Hepatitis, Cirrhosis of Liver, Ascites, and Hepatorenal Syndrome.</p>
+<p><strong>PHASE_SCORE</strong></p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Score</p>
+<p>Chief complaint + presenting features</p>
+<p>5</p>
+<p>5</p>
+<p>History of presenting illness (onset, progression, severity)</p>
+<p>8</p>
+<p>7</p>
+<p>Relevant system review</p>
+<p>5</p>
+<p>3.5</p>
+<p>Relevant negatives</p>
+<p>4</p>
+<p>3.5</p>
+<p>Past history, drug history, allergies</p>
+<p>4</p>
+<p>3</p>
+<p>Family, social, occupational history</p>
+<p>4</p>
+<p>3</p>
+<p>Total</p>
+<p>30</p>
+<p>25/30</p>
+<p><strong>PHASE 2 — PHYSICAL EXAMINATION PRESENTATION</strong></p>
+<p>Please now present the complete physical examination findings, beginning with general examination and vital signs, followed by the abdominal/systemic examination.</p></div>
+    </div>
+    <div class="col gemini-col">
+      <h4 class="resident-header">GEMINI</h4>
+      <div class="content"><p><strong>PHASE 1 — HISTORY PRESENTATION</strong></p>
+<p><strong>Q1 The patient is a 31-year-old male presenting with anorexia, abdominal pain, diarrhea, jaundice, ascites, fever with chills/rigors, and cough on a background of heavy chronic alcohol use and past pulmonary tuberculosis. What primary syndromic and etiological diagnoses must you consider?</strong><br><strong>MODEL_ANS1</strong> In this patient, the leading differential diagnoses include: 1) Severe Alcoholic Hepatitis superimposed on Alcoholic Cirrhosis / Acute-on-Chronic Liver Failure (ACLF), often precipitated by an intercurrent infection or alcohol binge; 2) Spontaneous Bacterial Peritonitis (SBP) or intra-abdominal sepsis complicating decompensated cirrhosis; 3) Reactivation of Tuberculosis (Disseminated / Miliary Tuberculosis or Tuberculous Peritonitis with enteritis), given his past pulmonary TB, fever, dry cough, diarrhea, ascites, and marked wasting; 4) Hepatocellular Carcinoma (HCC) complicating chronic liver disease; and 5) Secondary bacterial gastroenteritis with dehydration triggering acute hepatic decompensation and prerenal azotemia/hepatorenal syndrome. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis of Liver; Alagappan, Manual of Practical Medicine, Liver Diseases &amp; Tuberculosis).</p>
+<p><strong>Q2 The patient consumes 2–3 quarters/day of country liquor (desi daru), increasing to 3–4 quarters/day over the last month for 15 years. How do you quantify this intake, and how does it compare to established cirrhogenic and toxic thresholds?</strong><br><strong>MODEL_ANS2</strong> One quarter contains approximately 180 mL of spirits (~40% ABV), equating to roughly 57 g of absolute ethanol per quarter. An intake of 2–3 quarters/day equals 114–171 g/day, increasing recently to 3–4 quarters/day (171–228 g/day). The danger threshold for liver damage is defined as &gt;80 g/day in men, and the cirrhogenic dose is classically recognized as an average intake of 160 g/day for at least 8 years or 180 g/day for 25 years. His 15-year exposure to &gt;114–228 g/day far exceeds these thresholds, placing him at extreme risk for alcoholic cirrhosis and alcoholic hepatitis. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis of Liver; Alagappan, Manual of Practical Medicine, Substance Abuse).</p>
+<p><strong>Q3 The patient developed watery, foul-smelling loose stools 9 days ago, followed by abdominal distension and fever with chills. What is the clinical significance of diarrhea in a patient with decompensated chronic liver disease?</strong><br><strong>MODEL_ANS3</strong> Diarrhea in advanced liver disease can be an insidious presentation of Spontaneous Bacterial Peritonitis (SBP) or secondary infectious enteritis. Translocation of enteric bacteria across the edematous, compromised bowel wall is the primary mechanism producing bacteremia and SBP. Furthermore, severe fluid loss from diarrhea produces hypovolemia, electrolyte disturbances, and renal hypoperfusion, which are potent triggers for Hepatorenal Syndrome (HRS), hepatic encephalopathy, and acute decompensation. Alternating or persistent diarrhea with fever and wasting also raises suspicion for intestinal tuberculosis. (Reference: Alagappan, Manual of Practical Medicine, Cirrhosis of Liver / SBP; Kundu, Bedside Clinics in Medicine, Part I, Ascites).</p>
+<p><strong>Q4 The patient reports high-grade intermittent fever (up to 101°F) with chills and rigors. What are the major differential causes of fever in a patient suspected of having cirrhosis?</strong><br><strong>MODEL_ANS4</strong> The classical causes of fever in cirrhosis include: 1) Spontaneous Bacterial Peritonitis (SBP); 2) Tuberculous peritonitis or pulmonary/disseminated tuberculosis; 3) Severe acute alcoholic hepatitis (driven by pyrogenic cytokine release, particularly TNF-alpha and IL-6); 4) Pyogenic or amoebic liver abscess, or ascending cholangitis; 5) Transformation into hepatocellular carcinoma; and 6) Common systemic infections (pneumonia, urinary tract infection, bacteremia/septicemia). Fever with frank chills and rigors strongly implies suppurative bacterial or tropical sepsis rather than uncomplicated viral hepatitis. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis of Liver / Fever in Cirrhosis; Alagappan, Manual of Practical Medicine, Infectious Diseases).</p>
+<p><strong>Q5 The patient developed progressive abdominal distension 7 days ago without preceding or concurrent pedal edema. What is the pathophysiological significance of ascites developing without dependent pedal edema?</strong><br><strong>MODEL_ANS5</strong> In typical cirrhosis with hepatocellular failure, severe systemic hypoalbuminemia lowers plasma oncotic pressure, classically causing dependent bilateral pedal edema before or simultaneously with ascites. When ascites develops rapidly in the absence of pedal edema, it points toward: 1) Localized peritoneal inflammation/exudation, such as tuberculous peritonitis or secondary peritonitis; 2) Acute hepatic venous outflow block (Budd-Chiari syndrome); or 3) Isolated portal hypertension where systemic oncotic pressure remains relatively preserved. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Short Cases / Ascites).</p>
+<p><strong>Q6 The patient describes yellowish discoloration of the eyes without dark urine, pale stools, or generalized pruritus. How do you interpret this presentation in the context of jaundice classification?</strong><br><strong>MODEL_ANS6</strong> Dark urine signifies bilirubinuria (water-soluble conjugated bilirubin). The absence of pale/clay-colored stools and lack of pruritus argue strongly against obstructive/cholestatic jaundice, which characteristically features pruritus from bile acid retention and acholic stools from biliary obstruction. Isolated scleral icterus without dark urine can be seen in unconjugated hyperbilirubinemia (hemolysis, e.g., Zieve&#x27;s syndrome in alcoholics), or early/mild hepatocellular injury where the renal threshold for conjugated bilirubin excretion has barely been crossed. Subjective denial of dark urine in bedside history must always be verified by objective urinalysis for bile pigments. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Jaundice; Alagappan, Manual of Practical Medicine, Hepatobiliary Diseases).</p>
+<p><strong>Q7 The patient lost 10 kg of weight in 2 months (from 61 kg to 51 kg) alongside marked anorexia and early satiety. What does this profound constitutional decline signify?</strong><br><strong>MODEL_ANS7</strong> Marked anorexia, early satiety, and rapid involuntary weight loss (&gt;10% body weight) indicate severe catabolism and require ruling out: 1) Active Tuberculosis (pulmonary, intestinal, or peritoneal reactivation); 2) Underlying gastrointestinal or hepatobiliary malignancy (gastric cancer, lymphoma, or hepatocellular carcinoma); and 3) Advanced alcoholic hepatitis / end-stage liver disease associated with profound protein-calorie malnutrition and skeletal muscle wasting. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Symptoms &amp; Signs; Alagappan, Manual of Practical Medicine, Approach to Weight Loss).</p>
+<p><strong>Q8 The patient gives a history of treated pulmonary tuberculosis 16 years ago. How does this remote history influence the differential diagnosis of his current illness?</strong><br><strong>MODEL_ANS8</strong> A prior history of tuberculosis strongly predisposes to: 1) Reactivation tuberculosis in the peritoneum, pleura, intestine, or as miliary dissemination, especially given that chronic heavy alcohol abuse causes cellular immunodeficiency and malnutrition; 2) Synergistic hepatotoxicity or chronic architectural changes; and 3) Potential multi-organ involvement (cough representing apical reactivation or miliary lung involvement, and abdominal distension representing tuberculous peritonitis). (Reference: Alagappan, Manual of Practical Medicine, Tuberculosis; Kundu, Bedside Clinics in Medicine, Part I, Respiratory System).</p>
+<p><strong>Q9 The patient developed a dry cough for 7 days in conjunction with fever and ascites. What pulmonary and abdominal inter-relationships must be considered?</strong><br><strong>MODEL_ANS9</strong> A concurrent dry cough in this patient may indicate: 1) Reactivation pulmonary or miliary tuberculosis accompanied by tuberculous peritonitis; 2) Right-sided or bilateral hepatic hydrothorax (translocation of ascitic fluid across diaphragmatic defects into the pleural cavity), causing mechanical lung compression and cough; 3) Intercurrent community-acquired or aspiration pneumonia (frequent in chronic alcoholics); or 4) Basal atelectasis due to upward displacement of the diaphragm by tense ascites. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Pleural Diseases &amp; Ascites; Alagappan, Manual of Practical Medicine, Respiratory Complications in Cirrhosis).</p>
+<p><strong>Q10 History reveals reduced urine output (passing small quantities 3–4 times/day) following diarrhea and abdominal distension. What serious renal complication must be suspected, and how is it defined?</strong><br><strong>MODEL_ANS10</strong> One must suspect Acute Kidney Injury (AKI) or Hepatorenal Syndrome (HRS). In patients with cirrhosis and ascites, HRS is a functional renal failure resulting from marked splanchnic arterial vasodilation and compensatory renal vasoconstriction. It is frequently precipitated by volume depletion (diarrhea), bacterial infections (SBP), or overzealous diuretics. Clinically, oliguria is defined as 24-hour urine output &lt;400 mL/day (&lt;30 mL/hour), and any acute rise in serum creatinine in this setting carries a grim prognosis. (Reference: Alagappan, Manual of Practical Medicine, Cirrhosis / Hepatorenal Syndrome; Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis of Liver).</p>
+<p><strong>Q11 The patient developed oral ulcers approximately 8 days prior to admission. What is the clinical relevance of oral ulcerations in this clinical context?</strong><br><strong>MODEL_ANS11</strong> Oral ulcers in this patient may reflect: 1) Severe nutritional deficiencies common in chronic alcoholism (deficiencies of vitamin B-complex, folate, riboflavin, or zinc); 2) Immunosuppression or severe neutropenia secondary to hypersplenism or alcohol bone marrow toxicity predisposing to aphthous or herpetic stomatitis; or 3) Enteropathic or systemic inflammatory processes (such as intestinal tuberculosis or Crohn&#x27;s disease). (Reference: Alagappan, Manual of Practical Medicine, Nutritional Deficiencies &amp; Oral Manifestations; Kundu, Bedside Clinics in Medicine, Part I).</p>
+<p><strong>Q12 Despite the detailed alcohol history, why is it mandatory to elicit an exhaustive negative history regarding blood transfusions, tattooing, and high-risk behaviors?</strong><br><strong>MODEL_ANS12</strong> To screen for co-infection with Hepatitis B, Hepatitis C, and HIV. Chronic viral hepatitis B and C act synergistically with chronic alcohol misuse, multiplying the rate of hepatic fibrogenesis, precipitating earlier decompensation, and drastically escalating the lifetime incidence of hepatocellular carcinoma. Concomitant HIV infection dramatically increases susceptibility to fulminant alcoholic hepatitis and disseminated tuberculosis. (Reference: Alagappan, Manual of Practical Medicine, Substance Abuse / Alcoholic Cirrhosis; Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis).</p>
+<p><strong>Q13 You documented the absence of altered sensorium, excessive sleepiness, and confusion. What is the earliest clinical stage of hepatic encephalopathy, and how should it be screened for in history?</strong><br><strong>MODEL_ANS13</strong> The earliest manifestation is Stage 1 (Prodromal stage), characterized by an inverted sleep-wake rhythm (daytime somnolence and nocturnal insomnia/restlessness), mild cognitive slowing, subtle mood or personality changes (euphoria, depression, or irritability), slight slurring of speech, and minor hand incoordination. These subtle prodromal features are often missed unless specifically inquired from family members. (Reference: Alagappan, Manual of Practical Medicine, Cirrhosis &amp; Acute Liver Failure; Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis of Liver).</p>
+<p><strong>Q14 What specific historical inquiries should be made to evaluate for spontaneous bleeding manifestations indicative of severe hepatocellular synthetic failure?</strong><br><strong>MODEL_ANS14</strong> Impairment of vitamin K-dependent clotting factor synthesis (II, VII, IX, X) and severe thrombocytopenia from hypersplenism cause spontaneous coagulopathy. Inquiries must include: bleeding from gums while brushing teeth, recurrent epistaxis, spontaneous subcutaneous purpura, petechiae, ecchymoses (easy bruising), prolonged oozing after minor shaving cuts or venipunctures, and hematuria. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis of Liver; Alagappan, Manual of Practical Medicine, Coagulation Disorders).</p>
+<p><strong>Q15 What features would suggest acute alcoholic hepatitis clinically, and how is its severity historically and biochemically determined?</strong><br><strong>MODEL_ANS15</strong> Clinically, acute alcoholic hepatitis presents with rapid onset or deepening of jaundice, tender hepatomegaly, anorexia, nausea, fever (often without overt localizing infection), and progressive ascites within weeks of heavy alcohol binging. Its severity is determined using Maddrey&#x27;s Discriminant Function (DF):</p>
+<p>A DF score indicates severe alcoholic hepatitis, carrying high short-term mortality (~30–50% at 28 days) and serving as an indication for corticosteroid or pentoxifylline therapy. (Reference: Alagappan, Manual of Practical Medicine, Substance Abuse / Acute Alcoholic Hepatitis).</p>
+<p><strong>PHASE_FEEDBACK</strong></p>
+<p><strong>✅ COVERED</strong>:</p>
+<p>Detailed chronological breakdown of multiple chief complaints (anorexia, abdominal pain, diarrhea, jaundice, distension, fever, cough).</p>
+<p>Precise quantification and calculation of alcohol intake with specific beverage type (desi daru), volume (quarters), and estimated grams of ethanol.</p>
+<p>Documented remote past history of treated pulmonary tuberculosis (16 years ago).</p>
+<p>Comprehensive relevant negative history ruling out gross gastrointestinal bleeding, cholestasis features, and overt encephalopathy.</p>
+<p>Accurate recording of quantified unintentional weight loss (10 kg in 2 months) and smoking exposure in pack-years.</p>
+<p><strong>⚠️ MISSING</strong>:</p>
+<p>Exploration of high-risk parenteral exposures for viral hepatitis B and C (history of tattooing, unsafe injections, dental extractions, blood transfusion).</p>
+<p>Clarification of the character of urine color at home (the history stated no dark urine, which needs careful objective correlation in any patient with scleral icterus).</p>
+<p>Probing for early/prodromal Stage 1 hepatic encephalopathy (subtle day-night sleep reversal, irritability, morning drowsiness).</p>
+<p>Screening for peripheral coagulopathy (easy bruising, gum bleeding, epistaxis).</p>
+<p>Inquiries regarding household contacts with active tuberculosis given his remote TB history and current fever, cough, and wasting.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>:</p>
+<p>Study the clinical history, risk factors, and staging of Alcoholic Liver Disease and Acute Alcoholic Hepatitis in Alagappan, Manual of Practical Medicine, Chapter on Substance Abuse / Alcoholic Cirrhosis.</p>
+<p>Review the clinical evaluation of Ascites, Spontaneous Bacterial Peritonitis, and Tuberculous Peritonitis in Kundu, Bedside Clinics in Medicine, Part I, Short Cases: Ascites and Long Cases: Cirrhosis of Liver.</p>
+<p><strong>PHASE_SCORE</strong></p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Awarded</p>
+<p>Chief complaint + presenting features</p>
+<p>5</p>
+<p>4.5</p>
+<p>History of presenting illness (onset, progression, severity)</p>
+<p>8</p>
+<p>7.0</p>
+<p>Relevant system review</p>
+<p>5</p>
+<p>4.0</p>
+<p>Relevant negatives</p>
+<p>4</p>
+<p>4.0</p>
+<p>Past history, drug history, allergies</p>
+<p>4</p>
+<p>3.5</p>
+<p>Family, social, occupational history</p>
+<p>4</p>
+<p>3.5</p>
+<p>Total</p>
+<p>30</p>
+<p>26.5</p>
+<p>Phase 1 complete. Please now present your physical examination findings.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="round">
+  <h3>Round 2</h3>
+  <div class="user-block"><p><strong>USER:</strong> <strong>General examination<br><br>Patient is conscious, oriented and cooperative.<br><br>Build/nourishment: Thin built.<br><br>Anthropometric notes appear to record:<br><br>Mid-arm circumference: 36 cm (handwriting/location makes this somewhat uncertain)<br><br>Waist: 92 cm<br><br>Hip: 86 cm<br><br>BMI noted as approximately 17.5 kg/m², i.e. underweight<br><br>General physical signs<br><br>Pallor: present<br><br>Icterus: present<br><br>Cyanosis: absent<br><br>Clubbing: present<br><br>Edema: absent<br><br>Lymphadenopathy: absent<br><br>Clubbing appears to have been marked as approximately Grade I.<br><br>---<br><br>Signs of liver failure<br><br>Documented positive findings include:<br><br>Alopecia: present<br><br>Icterus: present<br><br>Parotid gland enlargement: not clearly marked<br><br>Spider naevi: present<br><br>Gynaecomastia: present<br><br>Ascites: present<br><br>Testicular atrophy: not clearly documented<br><br>Palmar erythema: appears absent/not marked<br><br>White nails: not clearly documented<br><br>Clubbing: present<br><br>Flapping tremors: present<br><br>Dupuytren&#x27;s contracture: present<br><br>Some of these markings are a little ambiguous on the sheet, but the clearest positives are icterus, ascites, clubbing, flapping tremor and Dupuytren&#x27;s contracture.<br><br>External markers of HIV infection<br><br>No definite positive external marker documented.<br><br>The proforma lists:<br><br>Oral hairy leukoplakia<br><br>Oral candidiasis<br><br>Molluscum contagiosum<br><br>Generalized lymphadenopathy<br><br>Recurrent herpetic infections<br><br>No positive findings are marked against these.<br><br>---<br><br>Vital signs<br><br>Pulse: 86/min<br><br>Radial pulse examined<br><br>No radio-radial delay<br><br>No radio-femoral delay<br><br>Normal rate and rhythm<br><br>Normal volume<br><br>Normal force/tension and compressibility documented<br><br>Blood pressure: 100/72 mmHg, measured in the right arm in supine position.<br><br>Respiratory rate: 20/min, abdominothoracic type.<br><br>Temperature: Afebrile<br><br>JVP: No abnormality documented / not raised.<br><br>Fundus examination: Note mentions examination for Kayser–Fleischer ring; no positive finding documented.<br><br>---<br><br>Abdominal examination<br><br>Oral cavity<br><br>Oral ulcers: present<br><br>Good oral hygiene<br><br>No dental caries<br><br>Tongue normal<br><br>No specific abnormality of palate, tonsils, breath smell or oropharynx documented.<br><br>Abdominal girth appears to have been recorded as approximately:<br><br>98 cm initially<br><br>88 cm subsequently<br><br>---<br><br>Inspection<br><br>Shape: Abdomen described as spherical and uniformly distended.<br><br>Flanks: Full<br><br>All quadrants move equally with respiration.<br><br>Umbilicus<br><br>Central<br><br>Everted<br><br>No discoloration<br><br>Skin<br><br>Appears normal; no sinuses or nodules documented<br><br>Abdominal wall<br><br>Moves with respiration<br><br>Other inspection findings<br><br>Visible masses: absent<br><br>Visible dilated veins: absent<br><br>Visible gastric/intestinal peristalsis: absent<br><br>Visible pulsations: absent<br><br>Visible scars/pigmentation: absent<br><br>External genital abnormality: absent<br><br>Hernial orifices: no hernia documented<br><br>---<br><br>Palpation<br><br>Local rise of temperature: absent<br><br>Tenderness present in the epigastric and right hypochondrial regions<br><br>Guarding: absent<br><br>Rigidity: absent<br><br>Rebound tenderness: absent<br><br>Liver<br><br>Liver palpable approximately 3 cm below the right costal margin in the mid-clavicular line.<br><br>Non-pulsatile<br><br>The sheet does not clearly document consistency, surface, edge or tenderness of the liver.<br><br>No definite spleen or kidney findings are recorded on the visible pages.<br><br>---<br><br>Percussion<br><br>The proforma mentions:<br><br>Tidal percussion<br><br>Assessment of colonic band of resonance in suspected renomegaly<br><br>No specific percussion findings are documented on the provided page.<br><br>---<br><br>Auscultation<br><br>The proforma lists:<br><br>Bowel sounds<br><br>Venous hum<br><br>Arterial bruit<br><br>Splenic bruit<br><br>Liver bruit<br><br>Renal bruit<br><br>Friction rub<br><br>Succussion splash<br><br>No definite abnormal auscultatory finding is marked.<br><br>The printed reference states small-bowel sounds approximately 3–5/min, but it is not clear that this was specifically recorded for the patient.<br><br>---<br><br>Examination of other systems<br><br>Cardiovascular system<br><br>No specific abnormality documented. The proforma mentions:<br><br>Apex beat<br><br>S1/S2<br><br>Murmurs<br><br>Respiratory system<br><br>No specific abnormality documented. The proforma mentions:<br><br>Vesicular breath sounds<br><br>Adventitious sounds<br><br>Central nervous system<br><br>Flapping tremor is documented elsewhere in the general examination.<br><br>No definite altered sensorium is documented.<br><br>---</strong></p></div>
+  <div class="summary-block">
+    <h4>Clinical Case Summary & Differential Diagnosis (History + Examination Phase)</h4>
+<p><strong>Case Summary (Positive Findings):</strong></p>
+<ul>
+  <li><strong>Demographics/Risk Factors:</strong> 31-year-old male, electrician, chronic heavy alcohol use (15 years, increased recently, last intake 28 days prior to exam), smoking (1.65 pack-years), remote treated pulmonary tuberculosis (16 years ago).</li>
+  <li><strong>Constitutional/General:</strong> 1 month progressive anorexia and early satiety, 10 kg unintentional weight loss in 2 months, thin built, underweight (BMI 17.5 kg/m²), pallor, icterus, Grade I clubbing, alopecia, spider naevi, gynaecomastia, Dupuytren's contracture, flapping tremors.</li>
+  <li><strong>Gastrointestinal:</strong> Generalized abdominal pain (11 days, epigastric/RHQ tenderness), watery foul-smelling non-bloody loose stools (9 days, 4-5/day), scleral icterus (11 days), progressive abdominal distension (7 days), oral ulcers (8 days prior), palpable liver (3 cm below RCM), ascites (spherical distension, full flanks, everted umbilicus).</li>
+  <li><strong>Systemic/Infectious:</strong> Intermittent fever with chills/rigors (7 days, max 101°F), dry cough (7 days), decreased urine output (3-4 times/day, small quantities).</li>
+  <li><strong>Vitals (at exam):</strong> Pulse 86/min, BP 100/72 mmHg, RR 20/min, Afebrile (at time of examination).</li>
+</ul>
+<p><strong>Probability-Based Differential Diagnoses (on the basis of History & Examination):</strong></p>
+<ol>
+  <li><strong>Decompensated Alcoholic Liver Disease with Acute-on-Chronic Liver Failure (ACLF) (40%):</strong> This is highly probable given the chronic heavy alcohol use, multiple stigmata of chronic liver disease (spider naevi, gynaecomastia, Dupuytren's, clubbing, alopecia), and signs of decompensation (icterus, ascites, flapping tremor). The acute worsening with fever, chills, abdominal pain, and icterus strongly suggests an acute insult like alcoholic hepatitis or a complication such as spontaneous bacterial peritonitis (SBP) in the setting of ascites, leading to ACLF.</li>
+  <li><strong>Tuberculosis (Peritoneal/Hepatic/Intestinal) (25%):</strong> The remote history of pulmonary TB, combined with constitutional symptoms (fever, weight loss, anorexia), ascites, abdominal pain, and diarrhea, makes peritoneal or hepatic/intestinal tuberculosis a strong consideration. TB can also precipitate ACLF in a patient with underlying liver disease.</li>
+  <li><strong>HIV infection with associated opportunistic infections (e.g., TB, chronic diarrhea, oral candidiasis/ulcers) (15%):</strong> Oral ulcers, significant unintentional weight loss, chronic diarrhea, fever, and reduced urine output raise concern for an underlying immunocompromised state. HIV can predispose to various opportunistic infections, including TB, and can cause chronic diarrheal illnesses and liver involvement.</li>
+  <li><strong>Severe Acute Pancreatitis (10%):</strong> Chronic heavy alcohol consumption is a major risk factor for acute pancreatitis. The generalized abdominal pain, particularly with epigastric tenderness, anorexia, and weight loss, are consistent. Jaundice can occur due to common bile duct compression, and ascites (pancreatic ascites) is also possible.</li>
+  <li><strong>Hepatocellular Carcinoma (HCC) complicating Alcoholic Cirrhosis (10%):</strong> In a patient with underlying alcoholic cirrhosis, significant weight loss, anorexia, abdominal pain, and ascites, HCC is a crucial consideration. While the acute febrile illness makes it less likely as the sole acute cause, an acute event like tumor rupture, infection, or rapid decompensation of liver function due to HCC could explain the acute symptoms.</li>
+</ol>
+  </div>
+  <div class="responses-grid">
+    <div class="col chatgpt-col">
+      <h4 class="expert-header">CHATGPT</h4>
+      <div class="content"><p><strong>PHASE 2 — PHYSICAL EXAMINATION PRESENTATION</strong></p>
+<p><strong>Q1 Which findings in this patient support chronic liver cell failure?</strong></p>
+<p><strong>MODEL_ANS1</strong> Findings supporting chronic liver dysfunction/liver cell failure include icterus, spider naevi, gynaecomastia, Dupuytren’s contracture, alopecia, ascites and asterixis. Alagappan specifically lists alopecia, fetor hepaticus, jaundice, parotid swelling, gynaecomastia, testicular atrophy/loss of secondary sexual characters, spider naevi, palmar erythema, Dupuytren’s contracture, asterixis and xanthelasma among signs of liver cell failure.</p>
+<p><strong>Q2 How should you interpret asterixis in this patient who is conscious and oriented?</strong></p>
+<p><strong>MODEL_ANS2</strong> Asterixis is an important finding suggesting metabolic encephalopathy and, in the setting of liver disease, raises concern for hepatic encephalopathy. However, asterixis alone does not establish overt hepatic encephalopathy, particularly when the patient is fully conscious and oriented. One should actively assess sleep reversal, behavior, attention, confusion, handwriting or constructional ability, dysarthria and other neurological features. Alagappan describes asterixis as a characteristic feature of impending hepatic coma and grades hepatic encephalopathy according to mental status as well as asterixis.</p>
+<p><strong>Q3 What important precipitating factors for hepatic encephalopathy should you look for in this patient?</strong></p>
+<p><strong>MODEL_ANS3</strong> Look for gastrointestinal bleeding, constipation or increased nitrogen load, infection, electrolyte disturbances—particularly hypokalemia and alkalosis—hypovolemia, hypoxia, renal dysfunction/uremia, sedative or narcotic drugs, diuretics, acute worsening of liver disease, alcohol binge, and recent large-volume paracentesis or portosystemic shunting. In this case, fever/infection, diarrhea with possible volume depletion, and reduced urine output deserve particular attention. Alagappan lists these among precipitating factors for hepatic encephalopathy.</p>
+<p><strong>Q4 How would you clinically demonstrate asterixis rather than merely writing “flapping tremor present”?</strong></p>
+<p><strong>MODEL_ANS4</strong> Ask the patient to extend both arms, dorsiflex the wrists and extend/spread the fingers while maintaining the posture. Asterixis consists of brief, irregular lapses of sustained posture followed by recovery, producing the characteristic flapping movement. It is not a regular rhythmic tremor. Alagappan identifies asterixis as an important sign of hepatic encephalopathy.</p>
+<p><strong>Q5 Is Grade I clubbing documented adequately here, and how is Grade I clubbing defined?</strong></p>
+<p><strong>MODEL_ANS5</strong> It should ideally be demonstrated objectively. Alagappan defines Grade I clubbing as obliteration of the angle between the nail and nail bed with a positive fluctuation test. Schamroth’s window can also be assessed. The mere notation “Grade I clubbing” is less satisfactory unless the specific sign used to identify it is stated.</p>
+<p><strong>Q6 Why is clubbing relevant in an abdominal/hepatobiliary case?</strong></p>
+<p><strong>MODEL_ANS6</strong> Clubbing can occur with chronic liver impairment, but its differential diagnosis also includes pulmonary and gastrointestinal disorders. Alagappan specifically notes finger clubbing as a clue to malabsorption, chronic liver impairment, inflammatory bowel disease and hepatoma. Given this patient’s cough and previous pulmonary tuberculosis, clubbing should therefore not automatically be attributed to liver disease without a complete respiratory examination.</p>
+<p><strong>Q7 What is the major deficiency in the abdominal examination if ascites has been recorded as present?</strong></p>
+<p><strong>MODEL_ANS7</strong> Ascites has been stated to be present, but the bedside evidence establishing it is not documented. In a distended abdomen with full flanks and an everted umbilicus, percussion should include flank dullness and shifting dullness, with fluid thrill assessed when appropriate. The examination should clearly state which maneuver was positive before concluding that ascites is present. Kundu specifically includes Ascites as a gastrointestinal/hepatobiliary bedside examination topic, while Alagappan discusses ascites within abdominal examination and hepatology.</p>
+<p><strong>Q8 How should you describe a palpable liver completely?</strong></p>
+<p><strong>MODEL_ANS8</strong> Do not stop at “3 cm below the right costal margin.” Describe the distance below the costal margin, span if measured, edge, surface, consistency, tenderness, movement with respiration and pulsatility. Alagappan states that an enlarged organ should be assessed for edge/border, surface, consistency, tenderness and respiratory movement.</p>
+<p><strong>Q9 What liver characteristics would help you refine the differential diagnosis?</strong></p>
+<p><strong>MODEL_ANS9</strong> A soft, smooth and tender liver may occur with acute viral hepatitis or congestive cardiac failure; a firm regular liver may be found in cirrhosis, obstructive jaundice or chronic congestive hepatomegaly; a nodular liver raises concern for advanced malignancy or hepatoma. Therefore, failing to document consistency, surface, edge and tenderness substantially limits interpretation of this patient’s hepatomegaly.</p>
+<p><strong>Q10 Why must the spleen be specifically examined in this patient?</strong></p>
+<p><strong>MODEL_ANS10</strong> Splenomegaly is an important bedside clue to portal hypertension and may also support several infective or hematological differentials. In a suspected chronic liver disease case, failure to document whether the spleen is palpable leaves the assessment of portal hypertension incomplete. Kundu’s hepatobiliary long-case framework includes cirrhosis and assessment of related abdominal findings.</p>
+<p><strong>Q11 What other bedside features would you seek specifically for portal hypertension?</strong></p>
+<p><strong>MODEL_ANS11</strong> Assess for splenomegaly, ascites and dilated abdominal-wall collateral veins, and correlate with any history of variceal gastrointestinal bleeding. The direction of flow in dilated abdominal veins should be determined if present. In this patient, visible dilated veins are absent, but splenic examination and objective confirmation of ascites are insufficiently documented.</p>
+<p><strong>Q12 His abdomen is described as uniformly distended with full flanks and an everted umbilicus. Does inspection alone diagnose ascites?</strong></p>
+<p><strong>MODEL_ANS12</strong> No. Those findings may suggest ascites, particularly when the flanks are full, but inspection alone is not sufficient. The diagnosis should be supported by percussion findings such as shifting dullness and, when appropriate, fluid thrill. The abdominal examination must proceed systematically through inspection, palpation, percussion and auscultation, as emphasized in Alagappan’s abdominal clinical examination section.</p>
+<p><strong>Q13 What is significant about epigastric and right hypochondrial tenderness in this case?</strong></p>
+<p><strong>MODEL_ANS13</strong> It establishes that the abdominal examination is not entirely painless and should prompt careful characterization of liver tenderness and adjacent hepatobiliary structures. The finding is nonspecific and must be interpreted with the liver edge, surface, consistency, gallbladder findings and presence or absence of peritoneal signs. Absence of guarding, rigidity and rebound tenderness argues against overt generalized peritonism on the examination provided.</p>
+<p><strong>Q14 Why is the respiratory examination especially important in this case rather than being recorded simply as “no abnormality”?</strong></p>
+<p><strong>MODEL_ANS14</strong> The patient has dry cough, fever, significant weight loss, previous pulmonary tuberculosis and clubbing. Therefore, respiratory examination should explicitly document chest shape and symmetry, tracheal position, chest expansion, percussion note, breath sounds, vocal resonance and added sounds. A normal respiratory examination is clinically meaningful only after these components have actually been assessed. Alagappan outlines respiratory examination under inspection, palpation, percussion and auscultation.</p>
+<p><strong>Q15 Based on the examination presented, how would you formulate the physical findings without overcalling the diagnosis?</strong></p>
+<p><strong>MODEL_ANS15</strong> This is a thin, underweight, pale and icteric young man who is conscious and oriented, with stigmata suggestive of chronic liver dysfunction—including spider naevi, gynaecomastia, Dupuytren’s contracture and asterixis—with Grade I clubbing, a uniformly distended abdomen clinically suspected to contain ascites, and hepatomegaly approximately 3 cm below the right costal margin, associated with epigastric and right hypochondrial tenderness. However, the examination as documented does not yet adequately characterize the liver, spleen, ascites, portal hypertension, respiratory system or neurological status to establish the complete syndrome confidently. Alagappan’s examination framework emphasizes detailed assessment of signs of liver cell failure and organ characteristics.</p>
+<p><strong>PHASE_FEEDBACK</strong></p>
+<p><strong>✅ COVERED</strong>: General condition, orientation and cooperation are stated. Nutritional status and BMI are documented. Pallor, icterus, clubbing, edema and lymphadenopathy have been assessed. Several important stigmata of chronic liver dysfunction were sought and positive findings—including spider naevi, gynaecomastia, Dupuytren’s contracture and asterixis—were recorded. Vital signs, JVP and blood pressure are documented. Abdominal inspection is reasonably detailed, including shape, flank fullness, umbilicus, visible veins, peristalsis, scars and pulsations. Tenderness and absence of guarding, rigidity and rebound tenderness are stated. Hepatomegaly has been detected and quantified below the costal margin.</p>
+<p><strong>⚠️ MISSING</strong>: The major weakness is that several key conclusions are recorded without sufficient bedside demonstration. Ascites is called present, but shifting dullness/flank dullness/fluid thrill findings are absent. The liver is palpable, but edge, surface, consistency, tenderness, span and respiratory movement are not described. Splenic examination is effectively missing, which seriously limits assessment of portal hypertension. The grade of clubbing should be supported by the physical criterion used. Asterixis requires a focused mental-status assessment because the patient is otherwise conscious and oriented; this apparent combination should be reconciled clinically rather than simply copied from the sheet. Spider naevi should ideally be characterized by number and distribution; Alagappan notes that more than five is abnormal in liver cell failure. The respiratory examination is inadequately documented despite cough, fever, weight loss, previous pulmonary tuberculosis and clubbing. Cardiovascular examination is likewise too abbreviated. Fundus examination does not demonstrate a Kayser–Fleischer ring; that is a corneal/slit-lamp bedside assessment, so this entry should be documented more accurately. The recorded mid-arm circumference of 36 cm also appears discordant with the stated thin build and BMI 17.5 kg/m² and should be rechecked rather than accepted uncritically.</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>: Revise Alagappan, Manual of Practical Medicine, Chapter 6—Abdomen: General Examination, Signs of Liver Cell Failure, Inspection, Palpation, Percussion, hepatomegaly, Cirrhosis of Liver, Ascites and Hepatic Encephalopathy. In particular, remember that Alagappan requires characterization of an enlarged organ by its edge, surface, consistency, tenderness and movement with respiration. Also revise Chapter 5—Respiratory System: clubbing and complete respiratory examination, including the grading of clubbing. From Kundu, revise Gastrointestinal and Hepatobiliary System—Scheme of Examination, Cirrhosis of Liver, and the short-case section on Ascites.</p>
+<p><strong>PHASE_SCORE</strong></p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Score</p>
+<p>General examination (vitals, built, stigmata, JVP, edema)</p>
+<p>8</p>
+<p>7</p>
+<p>System-specific examination (inspection, palpation, percussion, auscultation)</p>
+<p>14</p>
+<p>8</p>
+<p>Accurate grading/interpretation of findings</p>
+<p>8</p>
+<p>5</p>
+<p>Total</p>
+<p>30</p>
+<p>20/30</p>
+<p><strong>PHASE 3 — FINAL REPORT (INTEGRATED SUMMARY)</strong></p>
+<p>Phase 2 complete. Please now give your integrated case summary.</p></div>
+    </div>
+    <div class="col gemini-col">
+      <h4 class="resident-header">GEMINI</h4>
+      <div class="content"><p><strong>PHASE 2 — PHYSICAL EXAMINATION PRESENTATION</strong></p>
+<p><strong>Q1 You identified Dupuytren&#x27;s contracture on general examination. What is the pathological anatomy of this condition, what digits are classically involved, and why is it frequently seen in chronic alcoholism?</strong><br><strong>MODEL_ANS1</strong> Dupuytren&#x27;s contracture is a progressive, painless fibroproliferative disorder involving the ulnar side of the palmar aponeurosis, characterized by nodular thickening, puckering of the palmar skin, and shortening of the fascia that initially flexes the metacarpophalangeal and proximal interphalangeal joints of the ring and little fingers. In chronic alcohol misuse, acetaldehyde-induced oxidative stress, microvascular ischemia, and local tissue hyperplastic growth factors drive palmar fibrogenesis, making it an established peripheral marker of chronic alcohol abuse and alcoholic cirrhosis. (Reference: Kundu, Bedside Clinics in Medicine, Part I, General Survey: Dupuytren’s Contracture; Alagappan, Manual of Practical Medicine, Examination of the Hand).</p>
+<p><strong>Q2 You elicited flapping tremors (asterixis) in this patient. What is the neurophysiological basis of asterixis, and how is it systematically elicited at the bedside?</strong><br><strong>MODEL_ANS2</strong> Asterixis is a form of negative myoclonus caused by intermittent, involuntary pauses in sustained muscle contraction resulting from impaired integration of postural afferents within the brainstem reticular formation and cerebral motor pathways. It is elicited by having the patient outstretch both arms with elbows extended, wrists and metacarpophalangeal joints dorsiflexed, and fingers abducted with eyes closed for 20–30 seconds. A positive sign consists of sudden, arrhythmic downward flexion lapses followed by rapid compensatory extensor twitches at 4–6 Hz (&quot;bird-flapping&quot; or &quot;saying goodbye&quot;). (Reference: Kundu, Bedside Clinics in Medicine, Part I, General Survey: Tremors; Alagappan, Manual of Practical Medicine, Acute Liver Failure / Hepatic Encephalopathy).</p>
+<p><strong>Q3 You documented spider nevi and gynecomastia. What is the common endocrinological mechanism responsible for these findings, and what is the bedside diagnostic test for a spider nevus?</strong><br><strong>MODEL_ANS3</strong> Both signs stem from hyperestrogenemia resulting from decreased hepatic clearance and metabolism of estrogens, coupled with increased peripheral conversion (aromatization) of circulating androgens to estrogens in adipose and muscle tissues. Excess estrogens and altered estrogen-to-androgen ratios induce local arteriolar dilatation and proliferation of vascular and breast glandular tissues. A spider nevus is confirmed at the bedside by pressing a blunt point (such as a pinhead or glass slide) directly onto its central raised punctum/arteriole, which causes immediate blanching and emptying of all radiating spider limbs; upon release, rapid centrifugal refilling occurs from the center outward. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis of Liver; Alagappan, Manual of Practical Medicine, Hepatobiliary Diseases).</p>
+<p><strong>Q4 Grade I clubbing was noted in this patient. What are the anatomical changes that define Grade I clubbing, and what are the major mechanisms of clubbing in chronic liver disease?</strong><br><strong>MODEL_ANS4</strong> Grade I clubbing is clinically characterized by increased fluctuance, softening, and a &quot;boggy&quot; feel of the nail bed, along with obliteration of the normal angle between the nail plate and the proximal nail fold (loss of Lovibond’s angle &gt;160°). In liver disease, clubbing occurs predominantly in primary biliary cholangitis and cirrhosis due to intrapulmonary vascular dilatations (as in Hepatopulmonary Syndrome) and peripheral arteriovenous shunting driven by angiogenic mediators and circulating vasodilators like nitric oxide that bypass the failing liver. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Upper Extremity / Clubbing; Alagappan, Manual of Practical Medicine, General Survey).</p>
+<p><strong>Q5 The patient has a BMI of 17.5 kg/m² with marked muscle wasting, but his abdominal girth was 98 cm. Why is body mass index (BMI) an unreliable index of nutritional status in decompensated cirrhosis, and how should nutritional status be evaluated?</strong><br><strong>MODEL_ANS5</strong> In decompensated liver disease, BMI is falsely elevated and confounded by fluid retention (ascites and dependent edema), masking severe skeletal muscle depletion. Clinical evaluation of protein-calorie malnutrition and sarcopenia relies instead on: 1) Measuring dry weight (post-paracentesis weight or weight minus estimated ascitic volume); 2) Mid-arm muscle circumference (MAMC) and triceps skinfold thickness (TSF); and 3) Subjective Global Assessment (SGA) focusing on temporal hollowing, clavicular flattening, thenar/hypothenar atrophy, and loss of subcutaneous fat over the chest and shoulders. (Reference: Kundu, Bedside Clinics in Medicine, Part I, General Survey / Malnutrition; Alagappan, Manual of Practical Medicine, Nutrition).</p>
+<p><strong>Q6 The patient has ascites and a liver palpable 3 cm below the right costal margin. What specialized bedside method of palpation is mandatory when examining for organomegaly in the presence of ascites, and how is it executed?</strong><br><strong>MODEL_ANS6</strong> The dipping method (or dipping palpation) must always be used in the presence of ascites. The examiner places the fingers of the right hand flat on the abdominal wall and depresses the abdominal wall with a rapid, flexing movement at the metacarpophalangeal joints. This momentary displacement of the overlying peritoneal fluid layer allows the fingertips to strike or tap against the underlying anterior surface of the enlarged liver or spleen (analogous to eliciting a patellar tap). (Reference: Kundu, Bedside Clinics in Medicine, Part I, Short Cases: Ascites / Palpation of Liver; Alagappan, Manual of Practical Medicine, Abdomen).</p>
+<p><strong>Q7 You elicited tenderness in the epigastric and right hypochondrial regions without guarding or rigidity. What accounts for hepatic tenderness, and why can peritoneal inflammation present with minimal or absent guarding in patients with tense ascites?</strong><br><strong>MODEL_ANS7</strong> Hepatic tenderness is caused by stretching of the pain-sensitive Glisson&#x27;s capsule (seen in acute alcoholic hepatitis, congestive hepatopathy, or liver abscess) or localized peritonitis/perihepatitis. In decompensated cirrhosis with ascites, peritoneal signs (guarding and rigidity) in Spontaneous Bacterial Peritonitis (SBP) can be markedly muted or absent because the layer of ascitic fluid physically separates the inflamed visceral peritoneum from the anterior parietal peritoneum, preventing reflex abdominal wall muscular contraction. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis of Liver; Alagappan, Manual of Practical Medicine, SBP).</p>
+<p><strong>Q8 Percussion for free fluid was omitted on your proforma. What are the classical bedside percussion techniques to demonstrate ascites, and what are their respective volume thresholds?</strong><br><strong>MODEL_ANS8</strong> 1) Shifting dullness: The surest and most reliable bedside clinical sign for moderate free fluid, requiring a minimum of 500 mL to 1 liter of peritoneal fluid. 2) Fluid thrill (fluid wave): Elicited in tense ascites with a large collection of free fluid, typically requiring at least 1.5 to 2 liters under pressure. 3) Puddle sign: Performed in the knee-elbow position, capable of detecting minimal amounts of free fluid between 120 mL and 400 mL. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Short Cases: Ascites; Alagappan, Manual of Practical Medicine, Abdominal Percussion).</p>
+<p><strong>Q9 You noted a central, everted umbilicus. How do the position, shape of the umbilicus, and surface measurements differentiate fluid distension (ascites) from a large pelvic tumor or ovarian cyst?</strong><br><strong>MODEL_ANS9</strong> In ascites, intra-abdominal pressure pushes the umbilicus outward, resulting in an everted umbilicus with a horizontal transverse slit (&quot;laughing umbilicus&quot;), and the distance from the xiphisternum to the umbilicus is greater than the distance from the umbilicus to the symphysis pubis (the umbilicus is displaced downwards). In large ovarian or pelvic tumors, the umbilicus is displaced upwards (umbilicus-to-pubis distance is greater than xiphisternum-to-umbilicus), the slit remains vertical, and the spino-umbilical distances are frequently asymmetrical. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Distension of Abdomen / Ascites; Alagappan, Manual of Practical Medicine, Abdomen).</p>
+<p><strong>Q10 You documented that visible dilated abdominal wall veins were absent. If prominent abdominal wall veins were present, how would you clinically differentiate portal hypertension from inferior vena caval (IVC) obstruction at the bedside?</strong><br><strong>MODEL_ANS10</strong> By performing the two-finger Harvey stripping test to determine the direction of venous blood flow: 1) In portal hypertension (caput medusae / porto-systemic collaterals), veins radiate centrifugally away from the umbilicus—flowing upwards above the umbilicus and downwards below it. 2) In IVC obstruction, collaterals predominate along the lateral abdominal flanks and flow uniformly upwards (from below the umbilicus toward the chest wall) to bypass the obstructed caval channel and return blood to the superior vena cava. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Short Cases: Abdominal Veins; Alagappan, Manual of Practical Medicine, Portal Hypertension).</p>
+<p><strong>Q11 Examination of the spleen was omitted from your recorded findings. Why is splenic examination indispensable in suspected cirrhosis, and why does an enlarging spleen migrate towards the right iliac fossa?</strong><br><strong>MODEL_ANS11</strong> Splenomegaly is the cardinal clinical physical finding confirming significant portal hypertension in chronic liver disease. The spleen enlarges downwards, forwards, and medially along the line of the 10th rib toward the right iliac fossa because its direct vertical descent into the left lower abdomen is anatomically prevented by the attachment of the phrenicocolic ligament and the left colic flexure. In minimal enlargement, dullness over Traube’s space serves as an early sign before the splenic notch becomes palpable below the left costal margin. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Short Cases: Splenomegaly; Alagappan, Manual of Practical Medicine, Abdomen).</p>
+<p><strong>Q12 The patient presented with marked ascites but had no dependent pedal edema on physical examination. How do you explain the absence of pedal edema in a patient with ascites, and what differential diagnoses must this raise?</strong><br><strong>MODEL_ANS12</strong> In typical cirrhosis, dependent bilateral pitting pedal edema develops before or simultaneously with ascites due to severe hypoalbuminemia lowering systemic colloid oncotic pressure. The presence of ascites without pedal edema indicates: 1) Local peritoneal inflammation or exudation where fluid accumulation is primarily intraperitoneal (such as Tuberculous Peritonitis or secondary bacterial peritonitis); 2) Acute hepatic venous outflow obstruction (Budd-Chiari syndrome), where intense sinusoidal hypertension causes rapid ascites prior to peripheral fluid retention; or 3) Early portal hypertension with preserved circulating serum albumin. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Short Cases: Ascites).</p>
+<p><strong>Q13 You documented multiple oral ulcers. What specific signs in the oral cavity, tongue, and breath must be looked for in a patient with decompensated chronic liver disease?</strong><br><strong>MODEL_ANS13</strong> 1) Foetor hepaticus: A sweetish, musty, fecal odor of the breath (resembling a freshly opened corpse of mice) caused by exhaled volatile sulfur compounds (dimethyl sulfide and mercaptans) derived from methionine metabolism that bypass the failing liver; 2) Glossitis and angular stomatitis: Reflecting severe nutritional deficiency of B-complex vitamins, riboflavin, folate, and iron secondary to chronic alcoholism; 3) Jaundice under the ventral surface of the tongue and frenulum; 4) Gingival bleeding: Indicating severe coagulopathy or thrombocytopenia; and 5) Opportunistic mucosal candidiasis: Indicating cellular immune impairment. (Reference: Alagappan, Manual of Practical Medicine, Examination of Oral Cavity; Kundu, Bedside Clinics in Medicine, Part I, Liver Failure).</p>
+<p><strong>Q14 The patient&#x27;s blood pressure is 100/72 mmHg with a pulse of 86/min. What pathophysiological circulatory abnormalities occur in decompensated cirrhosis, and what cardiac auscultatory findings are associated with it?</strong><br><strong>MODEL_ANS14</strong> Cirrhosis induces a hyperdynamic circulatory state characterized by peripheral and splanchnic arterial vasodilation (mediated by excess nitric oxide, prostacyclin, and glucagon), decreased effective arterial blood volume, and compensatory increase in cardiac output. This manifests clinically with low mean arterial blood pressure, widened pulse pressure, warm extremities, a bounding/collapsing peripheral pulse, capillary pulsations, and a functional systolic flow murmur over the pulmonary or aortic areas on cardiac auscultation. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Cirrhosis of Liver: Hyperdynamic Circulation; Alagappan, Manual of Practical Medicine, Liver Disease).</p>
+<p><strong>Q15 You recorded a palpable liver 3 cm below the right costal margin in the midclavicular line, but the upper border of liver dullness and liver span were not determined. Why is a palpable liver edge alone insufficient to diagnose hepatomegaly, and what is the normal adult liver span?</strong><br><strong>MODEL_ANS15</strong> A palpable liver does not necessarily equal an enlarged liver; the liver can be displaced downwards (ptosis) without enlargement in conditions such as right-sided pleural effusion, emphysema, visceroptosis, or severe thoracic cage deformities. True hepatomegaly can only be verified by measuring the vertical liver span between the percussed upper border of hepatic dullness (normally at the right 5th intercostal space in the midclavicular line) and the palpable lower edge. The normal liver span in an adult is 12 to 15 cm along the right midclavicular line. (Reference: Kundu, Bedside Clinics in Medicine, Part I, Short Cases: Palpation &amp; Percussion of Liver; Alagappan, Manual of Practical Medicine, Abdomen).</p>
+<p><strong>PHASE_FEEDBACK</strong></p>
+<p><strong>✅ COVERED</strong>:</p>
+<p>Identification of key stigmata of chronic hepatocellular failure: alopecia, icterus, spider nevi, gynecomastia, flapping tremor, and Dupuytren&#x27;s contracture.</p>
+<p>Accurate recording of anthropometric variables (BMI 17.5 kg/m², mid-arm circumference, waist and hip measurements) establishing underweight status.</p>
+<p>Systematic inspection of the abdomen noting uniform spherical distension, full flanks, and central everted umbilicus.</p>
+<p>Hemodynamic baseline recording (pulse 86/min, BP 100/72 mmHg, respiratory rate 20/min).</p>
+<p>Documentation of oral ulcers and exclusion of external cutaneous markers of HIV.</p>
+<p><strong>⚠️ MISSING</strong>:</p>
+<p>Percussion of the abdomen was completely omitted: shifting dullness and fluid thrill were not demonstrated, leaving ascites clinically unconfirmed by bedside physics.</p>
+<p>Failure to determine the upper border of liver dullness and anterior liver span (essential to distinguish true hepatomegaly from downward hepatic displacement).</p>
+<p>Absence of splenic examination: neither palpation (from right iliac fossa to left hypochondrium / dipping method) nor percussion of Traube’s space was performed to evaluate portal hypertension.</p>
+<p>Incomplete physical characterization of the palpable liver (consistency, margin, surface, and localized tenderness were not delineated on palpation).</p>
+<p>Absence of assessment for dependent sacral or pretibial edema (critical to evaluate systemic vs. isolated visceral fluid retention).</p>
+<p><strong>📚 TEXTBOOK_GUIDANCE</strong>:</p>
+<p>Study the step-by-step techniques of abdominal percussion (shifting dullness, fluid thrill, puddle sign, and Traube’s space) in Kundu, Bedside Clinics in Medicine, Part I, Short Cases: Ascites &amp; Spleen.</p>
+<p>Review the systematic examination and description of the liver (span, surface, edge, consistency, and tenderness) in Alagappan, Manual of Practical Medicine, Examination of the Abdomen and Kundu, Short Cases: Palpation of Liver.</p>
+<p><strong>PHASE_SCORE</strong></p>
+<p>Component</p>
+<p>Max Marks</p>
+<p>Marks Awarded</p>
+<p>General examination (vitals, built, stigmata, JVP, edema)</p>
+<p>8</p>
+<p>6.5</p>
+<p>System-specific examination (inspection, palpation, percussion, auscultation)</p>
+<p>14</p>
+<p>8.5</p>
+<p>Accurate grading/interpretation of findings</p>
+<p>8</p>
+<p>5.5</p>
+<p>Total</p>
+<p>30</p>
+<p>20.5</p>
+<p>Phase 2 complete. Please now give your integrated case summary.</p></div>
+    </div>
+  </div>
+</section>
+
+  </div>
+</body>
+</html>
