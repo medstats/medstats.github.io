@@ -1,10 +1,11 @@
-var worker = new Worker("worker.js?v=4");
+var worker = new Worker("worker.js?v=10");
 var eyeImg = null;
 function el(id) { return document.getElementById(id); }
 function setStatus(t) { el("status").textContent = t; }
 worker.onmessage = function (ev) {
   var m = ev.data;
-  if (m.type === "ready") { setStatus("Model ready. Choose an image and press Run."); el("runBtn").disabled = false; return; }
+  if (m.type === "loading") { setStatus(m.message); return; }
+  if (m.type === "ready") { setStatus("Model ready. " + (m.saved ? "Saved on this device for future visits." : "Device storage unavailable; a future visit may download again.")); el("runBtn").disabled = false; return; }
   if (m.type === "result") { renderTop(m.top, m.ms); return; }
   if (m.type === "error") { setStatus("Error: " + m.message); return; }
 };

@@ -1,18 +1,29 @@
+importScripts("model-cache.js?v=10");
 importScripts("../vendor/ort.min.js");
 importScripts("worker-lib.js");
 ort.env.wasm.numThreads = (typeof crossOriginIsolated !== "undefined" && crossOriginIsolated) ? 4 : 1;
 ort.env.wasm.wasmPaths = new URL("../vendor/", self.location.href).href;
-var sess = null, labels = [];
+var sess = null, labels = [], initializing = null;
 var URL_MODEL = "https://huggingface.co/AnupamK/fundus-cdr-onnx/resolve/09a2af2fad20285735f106f3b51c4727030c9725/openeye_vision.onnx";
 var MEAN = [0.31561512, 0.20948674, 0.16498742], STD = [0.13639495, 0.08581575, 0.08441529];
 self.onmessage = function (ev) {
   var msg = ev.data;
   if (msg.type === "init") {
-    fetch("labels.json").then(function (r) { return r.json(); }).then(function (j) {
-      labels = Object.keys(j);
-      return ort.InferenceSession.create(URL_MODEL, { executionProviders: ["wasm"] });
-    }).then(function (s) { sess = s; self.postMessage({ type: "ready" }); })
-    .catch(function (e) { self.postMessage({ type: "error", message: String(e && e.message || e) }); });
+    if (initializing) return;
+    initializing = (async function () {
+      var response = await fetch("labels.json");
+      if (!response.ok) throw new Error("Could not load model labels.");
+      labels = Object.keys(await response.json());
+      var model = await loadCachedModel(URL_MODEL, function (text) {
+        self.postMessage({ type: "loading", message: text });
+      });
+      self.postMessage({ type: "loading", message: "Preparing model for inference…" });
+      sess = await ort.InferenceSession.create(model.bytes, { executionProviders: ["wasm"] });
+      self.postMessage({ type: "ready", saved: model.saved });
+    })().catch(function (e) {
+      initializing = null;
+      self.postMessage({ type: "error", message: String(e && e.message || e) });
+    });
     return;
   }
   if (msg.type === "run") { runEye(msg); return; }
