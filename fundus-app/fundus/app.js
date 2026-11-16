@@ -1,4 +1,4 @@
-var worker = new Worker("worker.js?v=2");
+var worker = new Worker("worker.js?v=3");
 var eyes = { R: null, L: null };
 var results = { R: null, L: null };
 var ready = false;
@@ -29,18 +29,29 @@ function loadFile(input, eye) {
     var d = ctx.getImageData(0, 0, c.width, c.height);
     eyes[eye] = { w: c.width, h: c.height, pixels: d.data.buffer.slice(0) };
     drawPreview(eye, img);
-    el("stat" + eye).textContent = "Loaded " + c.width + "x" + c.height + ". Choose models and press Run.";
   };
   img.onerror = function () { URL.revokeObjectURL(url); setStatus("Could not decode that file. Use a JPEG or PNG photo."); };
     img.src = url;
 }
 function drawPreview(eye, img) {
+  var e = eyes[eye];
+  var src = document.createElement("canvas");
+  src.width = e.w; src.height = e.h;
+  var sctx = src.getContext("2d");
+  var id = sctx.createImageData(e.w, e.h);
+  id.data.set(new Uint8ClampedArray(e.pixels));
+  sctx.putImageData(id, 0, 0);
+  var mean = 0; var step = Math.max(1, Math.floor(e.pixels.length / 4000));
+  var cnt = 0;
+  for (var k = 0; k < e.pixels.length; k += step * 4) { mean += e.pixels[k] + e.pixels[k+1] + e.pixels[k+2]; cnt += 3; }
+  mean = Math.round(mean / Math.max(cnt, 1));
   var maxW = 520;
   var sc = Math.min(1, maxW / img.naturalWidth);
   var cw = Math.round(img.naturalWidth * sc), ch = Math.round(img.naturalHeight * sc);
-  var p = el("prev" + eye), o = el("over" + eye);
-  p.width = cw; p.height = ch; o.width = cw; o.height = ch;
-  p.getContext("2d").drawImage(img, 0, 0, cw, ch);
+  var pv = el("prev" + eye), ov = el("over" + eye);
+  pv.width = cw; pv.height = ch; ov.width = cw; ov.height = ch;
+  pv.getContext("2d").drawImage(src, 0, 0, cw, ch);
+  el("stat" + eye).textContent = "Loaded " + e.w + "x" + e.h + ", brightness " + mean + ". Choose models and press Run.";
 }
 function selectedModels() {
   var out = [];
