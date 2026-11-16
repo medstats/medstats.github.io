@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optic Disc and Cup Panel - Fundus AI Tools</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="topbar"><div class="brand"><a href="../index.html" style="color:#fff;text-decoration:none">&#8592; Fundus AI Tools</a> <span class="tag">research demo</span></div></header>
+<main class="wrap">
+<div class="notice">Research use only. Not a medical device. Outputs are model estimates, not diagnoses. Agreement with OCT values is not guaranteed.</div>
+<h1>Optic disc and cup panel</h1>
+<div class="panel">
+<div class="row" id="modelRow">
+<label class="chk"><input type="checkbox" id="m_am" checked> AutoMorph CDR</label>
+<label class="chk"><input type="checkbox" id="m_seg" checked> SegFormer CDR</label>
+<label class="chk"><input type="checkbox" id="m_dr" checked> DR grade (5-fold)</label>
+</div>
+<div class="row">
+<button id="runBtn" disabled>Run selected models</button>
+<button id="csvBtn" class="ghost" disabled>Download CSV</button>
+<span class="status" id="status">Loading models...</span>
+</div>
+<div class="prog"><div id="progBar"></div></div>
+</div>
+<div class="eyes">
+<div class="panel">
+<h2>Right eye</h2>
+<div class="row"><input type="file" id="fileR" accept="image/*"></div>
+<div style="position:relative"><canvas class="preview" id="prevR"></canvas><canvas class="preview" id="overR" style="position:absolute;left:0;top:0"></canvas></div>
+<div class="status" id="statR">No image loaded.</div>
+</div>
+<div class="panel">
+<h2>Left eye</h2>
+<div class="row"><input type="file" id="fileL" accept="image/*"></div>
+<div style="position:relative"><canvas class="preview" id="prevL"></canvas><canvas class="preview" id="overL" style="position:absolute;left:0;top:0"></canvas></div>
+<div class="status" id="statL">No image loaded.</div>
+</div>
+</div>
+<div class="panel">
+<h2>Results</h2>
+<table class="res" id="resTable"><thead><tr><th>Eye</th><th>Model</th><th>VCDR</th><th>HCDR</th><th>Disc WxH</th><th>Cup WxH</th><th>DR grade</th><th>Time</th><th>Note</th></tr></thead><tbody><tr><td colspan="9">No results yet.</td></tr></tbody></table>
+</div>
+<footer>Created by Anupam Kumar Singh, MD</footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

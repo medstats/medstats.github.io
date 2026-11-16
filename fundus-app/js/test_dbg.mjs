@@ -1,0 +1,11 @@
+import { readFileSync } from "node:fs";
+import { segformerTensor } from "./preprocess.js";
+const b = readFileSync("./tmp/seg_ref.npy");
+console.log("len", b.length, "hl", b.readUInt16LE(8));
+const o = 10 + b.readUInt16LE(8);
+const d = new Float32Array(b.buffer, b.byteOffset + o, 6);
+console.log("ref head", Array.from(d));
+const raw = readFileSync("./tmp/p001.rgb");
+const rgb = new Uint8Array(raw.buffer, raw.byteOffset, raw.length);
+const t = segformerTensor(rgb, 3000, 3000);
+console.log("js head", Array.from(t.slice(0, 6)));
