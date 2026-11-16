@@ -39,10 +39,9 @@ function loadFile(input, eye) {
 function drawPreviewFrom(eye, src, bytes) {
   var e = eyes[eye];
   var u8 = new Uint8ClampedArray(e.pixels);
-  var mean = 0; var step = Math.max(1, Math.floor(u8.length / 4000));
-  var cnt = 0;
-  for (var k = 0; k < u8.length; k += step * 4) { mean += u8[k] + u8[k+1] + u8[k+2]; cnt += 3; }
-  mean = Math.round(mean / Math.max(cnt, 1));
+  var sum = 0;
+  for (var k = 0; k < u8.length; k += 4) sum += u8[k] + u8[k+1] + u8[k+2];
+  var mean = Math.round(sum / (e.w * e.h * 3));
   var maxW = 520;
   var sc = Math.min(1, maxW / src.width);
   var cw = Math.max(1, Math.round(src.width * sc)), ch = Math.max(1, Math.round(src.height * sc));
@@ -51,7 +50,7 @@ function drawPreviewFrom(eye, src, bytes) {
   pv.getContext("2d").drawImage(src, 0, 0, cw, ch);
   var kb = Math.round(bytes / 1024);
   var msg = "Loaded " + e.w + "x" + e.h + " (" + kb + " KB), brightness " + mean + ". Choose models and press Run.";
-  if (mean < 1) msg += " WARNING: decoded blank - re-pick the file via the Files app; any model output on this is junk.";
+  if (mean < 1) msg += " The loaded image is very dark. Check the preview before interpreting results.";
   el("stat" + eye).textContent = msg;
 }
 function selectedModels() {
