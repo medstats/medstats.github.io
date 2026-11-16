@@ -15,20 +15,21 @@ self.onmessage = function (ev) {
     .catch(function (e) { self.postMessage({ type: "error", message: String(e && e.message || e) }); });
     return;
   }
-  if (msg.type === "run") {
+  if (msg.type === "run") { runEye(msg); return; }
+};
+async function runEye(msg) {
     try {
       var t0 = Date.now();
       var t = eyeTensor(new Uint8Array(msg.pixels), msg.w, msg.h);
       var inp = new ort.Tensor("float32", t, [1, 3, 224, 224]);
-      var r = sess.run({ image: inp });
+      var r = await sess.run({ image: inp });
       var out = Array.prototype.slice.call(r.logits.data);
       var idx = out.map(function (v, i) { return i; });
       idx.sort(function (a, b) { return out[b] - out[a]; });
       var top = idx.slice(0, 10).map(function (i) { return { label: labels[i] || ("class " + i), score: out[i] }; });
       self.postMessage({ type: "result", top: top, ms: Date.now() - t0 });
     } catch (e) { self.postMessage({ type: "error", message: String(e && e.message || e) }); }
-  }
-};
+}
 function eyeTensor(rgb, h, w) {
   var chs = [];
   for (var c = 0; c < 3; c++) {

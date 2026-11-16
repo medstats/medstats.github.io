@@ -29,7 +29,8 @@ el("fileEye").addEventListener("change", function (e) {
     p.getContext("2d").drawImage(img, 0, 0, p.width, p.height);
     setStatus("Image loaded. Press Run.");
   };
-  img.src = url;
+  img.onerror = function () { URL.revokeObjectURL(url); setStatus("Could not decode that file. Use a JPEG or PNG photo."); };
+    img.src = url;
 });
 el("runBtn").addEventListener("click", function () {
   if (!eyeImg) { setStatus("Load an image first."); return; }

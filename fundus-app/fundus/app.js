@@ -31,7 +31,8 @@ function loadFile(input, eye) {
     drawPreview(eye, img);
     el("stat" + eye).textContent = "Loaded " + c.width + "x" + c.height + ". Choose models and press Run.";
   };
-  img.src = url;
+  img.onerror = function () { URL.revokeObjectURL(url); setStatus("Could not decode that file. Use a JPEG or PNG photo."); };
+    img.src = url;
 }
 function drawPreview(eye, img) {
   var maxW = 520;
