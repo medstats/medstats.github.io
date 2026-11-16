@@ -1,8 +1,9 @@
 // Classic worker: image in, measurements out. Loaded with the UMD ORT build.
-importScripts("https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.min.js");
+importScripts("../vendor/ort.min.js");
 importScripts("worker-lib.js");
 ort.env.wasm.numThreads = (typeof crossOriginIsolated !== "undefined" && crossOriginIsolated) ? 4 : 1;
 ort.env.wasm.simd = true;
+ort.env.wasm.wasmPaths = new URL("../vendor/", self.location.href).href;
 var sessions = {};
 var MODEL_DEFS = {
   am: { file: "automorph_ensemble.onnx", input: "image", output: "probs" },

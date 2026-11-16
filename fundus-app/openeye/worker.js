@@ -1,6 +1,7 @@
-importScripts("https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.min.js");
+importScripts("../vendor/ort.min.js");
 importScripts("worker-lib.js");
 ort.env.wasm.numThreads = (typeof crossOriginIsolated !== "undefined" && crossOriginIsolated) ? 4 : 1;
+ort.env.wasm.wasmPaths = new URL("../vendor/", self.location.href).href;
 var sess = null, labels = [];
 var URL_MODEL = "https://huggingface.co/AnupamK/fundus-cdr-onnx/resolve/09a2af2fad20285735f106f3b51c4727030c9725/openeye_vision.onnx";
 var MEAN = [0.31561512, 0.20948674, 0.16498742], STD = [0.13639495, 0.08581575, 0.08441529];
