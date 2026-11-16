@@ -1,4 +1,4 @@
-var worker = new Worker("worker.js");
+var worker = new Worker("worker.js?v=2");
 var eyes = { R: null, L: null };
 var results = { R: null, L: null };
 var ready = false;
