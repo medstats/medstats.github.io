@@ -1,4 +1,4 @@
-var worker = new Worker("worker.js?v=3");
+var worker = new Worker("worker.js?v=4");
 var eyeImg = null;
 function el(id) { return document.getElementById(id); }
 function setStatus(t) { el("status").textContent = t; }
