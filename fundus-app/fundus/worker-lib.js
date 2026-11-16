@@ -1,6 +1,7 @@
 // Shared exact-port image ops. Pixel convention: gray masks are Float32Array
 // row-major HxW with values 0/1 unless noted; RGB is Uint8Array HxWx3.
 // All ports verified against the Python references (see tools/verify_*).
+var _b = bilinearRGB; var _a = areaGray; var _bic = bicubicGray; var _gg = gaussianGray; var _bl = bilinearGray;
 function grayRGB(rgb, h, w) {
   const g = new Float32Array(h * w);
   for (let i = 0, j = 0; i < h * w; i++, j += 3)

@@ -1,4 +1,4 @@
-var worker = new Worker("worker.js?v=4");
+var worker = new Worker("worker.js?v=5");
 var eyes = { R: null, L: null };
 var results = { R: null, L: null };
 var ready = false;
@@ -26,34 +26,33 @@ function loadFile(input, eye) {
     var ctx = c.getContext("2d");
     ctx.drawImage(img, 0, 0);
     URL.revokeObjectURL(url);
-    var d = ctx.getImageData(0, 0, c.width, c.height);
+    var d = null;
+    try { d = ctx.getImageData(0, 0, c.width, c.height); }
+    catch (e) { setStatus("Could not read pixels (browser blocked). Re-pick via Files app."); return; }
     var exact = d.data.buffer.slice(d.data.byteOffset, d.data.byteOffset + d.data.byteLength);
     eyes[eye] = { w: c.width, h: c.height, pixels: exact };
-    drawPreview(eye, img);
+    drawPreviewFrom(eye, c, f.size);
   };
   img.onerror = function () { URL.revokeObjectURL(url); setStatus("Could not decode that file. Use a JPEG or PNG photo."); };
-    img.src = url;
+  img.src = url;
 }
-function drawPreview(eye, img) {
+function drawPreviewFrom(eye, src, bytes) {
   var e = eyes[eye];
-  var src = document.createElement("canvas");
-  src.width = e.w; src.height = e.h;
-  var sctx = src.getContext("2d");
-  var id = sctx.createImageData(e.w, e.h);
-  id.data.set(new Uint8ClampedArray(e.pixels));
-  sctx.putImageData(id, 0, 0);
   var u8 = new Uint8ClampedArray(e.pixels);
   var mean = 0; var step = Math.max(1, Math.floor(u8.length / 4000));
   var cnt = 0;
   for (var k = 0; k < u8.length; k += step * 4) { mean += u8[k] + u8[k+1] + u8[k+2]; cnt += 3; }
   mean = Math.round(mean / Math.max(cnt, 1));
   var maxW = 520;
-  var sc = Math.min(1, maxW / img.naturalWidth);
-  var cw = Math.round(img.naturalWidth * sc), ch = Math.round(img.naturalHeight * sc);
+  var sc = Math.min(1, maxW / src.width);
+  var cw = Math.max(1, Math.round(src.width * sc)), ch = Math.max(1, Math.round(src.height * sc));
   var pv = el("prev" + eye), ov = el("over" + eye);
   pv.width = cw; pv.height = ch; ov.width = cw; ov.height = ch;
   pv.getContext("2d").drawImage(src, 0, 0, cw, ch);
-  el("stat" + eye).textContent = "Loaded " + e.w + "x" + e.h + ", brightness " + mean + ". Choose models and press Run.";
+  var kb = Math.round(bytes / 1024);
+  var msg = "Loaded " + e.w + "x" + e.h + " (" + kb + " KB), brightness " + mean + ". Choose models and press Run.";
+  if (mean < 1) msg += " WARNING: decoded blank - re-pick the file via the Files app; any model output on this is junk.";
+  el("stat" + eye).textContent = msg;
 }
 function selectedModels() {
   var out = [];

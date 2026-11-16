@@ -1,5 +1,5 @@
 importScripts("../vendor/ort.min.js");
-importScripts("worker-lib.js");
+importScripts("worker-lib.js?v=5");
 ort.env.wasm.numThreads = 1;
 ort.env.wasm.wasmPaths = new URL("../vendor/", self.location.href).href;
 var sessions = {};
