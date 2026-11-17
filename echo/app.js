@@ -1,4 +1,4 @@
-var worker = new Worker("worker.js?v=2");
+var worker = new Worker("worker.js?v=3");
 var vids = [];                 // {name, el, dur, w, h}
 var currentModel = "panecho", busy = false;
 var modelReady = false, hasVideo = false;
@@ -31,6 +31,20 @@ function pickModel(model) {
 el("mPanecho").addEventListener("change", function () { if (this.checked) pickModel("panecho"); });
 el("mUnity").addEventListener("change", function () { if (this.checked) pickModel("unity"); });
 
+
+// Metadata arrives long before pixels. Drawing before loadeddata yields a black canvas.
+function waitForData(v) {
+  if (v.readyState >= 2) return Promise.resolve();
+  return new Promise(function (res) {
+    var done = false;
+    function fin() { if (done) return; done = true; res(); }
+    v.addEventListener("loadeddata", fin, { once: true });
+    v.addEventListener("canplay", fin, { once: true });
+    v.addEventListener("canplaythrough", fin, { once: true });
+    setTimeout(fin, 7000);
+  });
+}
+
 function seekTo(v, t) {
   return new Promise(function (res) {
     if (Math.abs(v.currentTime - t) < 1e-3) return res();
@@ -52,9 +66,21 @@ function drawPreview(item) {
   var p = el("prev");
   var side = Math.min(520, Math.max(240, p.clientWidth || 420));
   p.width = side; p.height = side;
-  p.getContext("2d").drawImage(item.el, 0, 0, side, side);
+  var ctx = p.getContext("2d");
+  ctx.drawImage(item.el, 0, 0, side, side);
   el("over").width = side; el("over").height = side;
   el("over").getContext("2d").clearRect(0, 0, side, side);
+  var d = ctx.getImageData(0, 0, side, side).data;
+  var sum = 0;
+  for (var i = 0; i < d.length; i += 4) sum += d[i] + d[i + 1] + d[i + 2];
+  var mean = sum / (side * side * 3);
+  if (mean < 1.5) {
+    // One retry: a decode that lands a frame late otherwise leaves a black preview.
+    setTimeout(function () {
+      try { ctx.drawImage(item.el, 0, 0, side, side); } catch (_) {}
+    }, 400);
+  }
+  return mean;
 }
 
 function renderFileList() {
@@ -90,7 +116,8 @@ el("file").addEventListener("change", async function (e) {
   hasVideo = vids.length > 0;
   renderFileList();
   if (vids.length) {
-    await seekTo(vids[0].el, Math.min(0.05, vids[0].dur / 2));
+    await waitForData(vids[0].el);
+    await seekTo(vids[0].el, Math.min(vids[0].dur / 2, Math.max(0.05, vids[0].dur * 0.4)));
     drawPreview(vids[0]);
   }
   setStatus(failed.length
@@ -115,6 +142,7 @@ async function runPanecho() {
   var clips = 4, per = 16, step = 1 / 30, all = [];
   for (var vi = 0; vi < vids.length; vi++) {
     var item = vids[vi];
+    await waitForData(item.el);
     for (var c = 0; c < clips; c++) {
       setStatus("Extracting cine " + (vi + 1) + " of " + vids.length + ", clip " + (c + 1) + " of " + clips + "…");
       var start = (item.dur * c) / clips;
@@ -135,6 +163,7 @@ async function runPanecho() {
 
 async function runUnity() {
   var item = vids[0];
+  await waitForData(item.el);
   var offsets = [-9, -3, -1, 0, 1, 3, 9];
   var windows = 8, step = 1 / 30, all = [];
   for (var i = 0; i < windows; i++) {
