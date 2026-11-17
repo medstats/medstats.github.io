@@ -42,8 +42,37 @@
 <h2>Results</h2>
 <table class="res" id="resTable"><thead><tr><th>Eye</th><th>Model</th><th>VCDR</th><th>HCDR</th><th>Disc WxH</th><th>Cup WxH</th><th>DR grade</th><th>Time</th><th>Note</th></tr></thead><tbody><tr><td colspan="9">No results yet.</td></tr></tbody></table>
 </div>
-<footer>Created by Anupam Kumar Singh, MD &middot; build v9</footer>
+<div class="panel">
+<h2>Technical description</h2>
+<style>details.t summary{cursor:pointer;font-weight:600;color:#1565c0;padding:6px 0}.small{font-size:12px;color:#4a6b8a}</style>
+<details class="t" open><summary>Models and preprocessing</summary>
+<table class="res">
+<tr><th>Model</th><th>Role and preprocessing</th></tr>
+<tr><td>AutoMorph ensemble</td><td>Eight-model mean for optic disc and cup. Input 1x3x512x512: circular mask, bounding-box crop, bilinear resize, divided by 255 with no ImageNet normalisation. 2.5 MB ONNX. Source rmaphoh/AutoMorph.</td></tr>
+<tr><td>SegFormer</td><td>REFUGE-trained disc/cup segmentation (background, disc, cup), pamixsun revision a0463fb. Input 1x3x512x512: square pad, bilinear resize, ImageNet normalisation. 49 MB INT8. Whole-disc mask includes cup pixels.</td></tr>
+<tr><td>DR grader</td><td>Five-fold APTOS model, senanurcetin/aptos-retinopathy-grader. Input 1x3x384x384: border auto-crop tolerance 7, square pad, INTER_AREA resize, ImageNet normalisation. Grade is the digitised mean of the five folds at thresholds 0.668, 1.132, 2.324 and 3.3. FP32 only.</td></tr>
+</table>
+<p class="small">Vessel overlay is not included: the recurrent vessel model was too slow for a responsive browser demo.</p>
+</details>
+<details class="t" open><summary>How the measurements are made</summary>
+<p>Cup and disc diameters come from the maximum vertical and horizontal extents of each mask. VCDR is cup height divided by disc height; HCDR is cup width divided by disc width. The median line across two models is shown as a consensus value, not a validated estimate.</p>
+<p class="small">Overlays are drawn on the uploaded photograph at model resolution; the preview is scaled to fit the panel.</p>
+</details>
+<details class="t" open><summary>Validation and source</summary>
+<table class="res">
+<tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Weights</td><td>huggingface.co/AnupamK/fundus-cdr-onnx, pinned commit 09a2af2</td></tr>
+<tr><td>Parity</td><td>AutoMorph max difference 1e-6 with 100 percent mask agreement; SegFormer 5e-5 with 99.99 percent agreement; DR grader 3.08e-5 with zero grade mismatches on 40 images</td></tr>
+<tr><td>Research reference</td><td>Agreement was measured against NIDEK OCT cup-to-disc ratios in 112 eligible eyes; that is method agreement, not diagnostic accuracy</td></tr>
+<tr><td>Licences</td><td>AutoMorph and SegFormer Apache/MIT per upstream; FunduSegmenter weights are non-commercial. Research use only</td></tr>
+</table>
+</details>
+<details class="t" open><summary>Optimal input</summary>
+<p>Colour fundus photograph of the posterior pole, JPEG or PNG, disc fully inside the frame. The original 3000x3000 NIDEK photographs work directly. Heavily cropped or very dark images degrade segmentation, and a failed mask is reported as a reason rather than a number.</p>
+</details>
+</div>
+<footer>Created by Anupam Kumar Singh, MD &middot; build v10</footer>
 </main>
-<script src="app.js?v=9"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>
