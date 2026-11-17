@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Echo study panel - Fundus AI Tools</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.muted{color:#4a6b8a;font-size:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+canvas.over{position:absolute;left:0;top:0;background:transparent;pointer-events:none;border-radius:8px}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><a href="../index.html" style="color:#fff;text-decoration:none">&#8592; Fundus AI Tools</a> <span class="tag">research demo</span></div></header>
+<main class="wrap">
+<div class="notice">Research use only. Not a medical device. Values are model estimates from cine loops, not clinical measurements. Agreement with a reporting system is not guaranteed.</div>
+<h1>Echo study panel</h1>
+
+<div class="panel">
+<div class="row" id="modelRow">
+<label class="chk"><input type="radio" name="model" id="mPanecho" checked> PanEcho &mdash; 40 study measures</label>
+<label class="chk"><input type="radio" name="model" id="mUnity"> Unity-GLS &mdash; LV landmarks and shortening</label>
+</div>
+<div class="row"><input type="file" id="file" accept="video/*"><span class="status" id="fileInfo"></span></div>
+<div class="row"><button id="runBtn" disabled>Run model</button><span class="status" id="status">Loading model…</span></div>
+<div class="prog"><div id="bar"></div></div>
+</div>
+
+<div class="panel">
+<div style="position:relative;max-width:520px"><canvas class="preview" id="prev"></canvas><canvas class="over" id="over"></canvas></div>
+<div class="status">The preview is square-stretched to match model input; overlays are drawn in that same frame.</div>
+</div>
+
+<div class="panel" id="panechoPanel" style="display:none">
+<h2>PanEcho estimates</h2>
+<div class="status" id="peMeta"></div>
+<table class="res" id="peTable"><thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div class="panel" id="unityPanel" style="display:none">
+<h2>Unity-GLS landmarks</h2>
+<div class="status" id="unityStats"></div>
+<table class="res" id="lmTable"><thead><tr><th>Layer</th><th>Peak</th></tr></thead><tbody></tbody></table>
+</div>
+
+<footer>Created by Anupam Kumar Singh, MD</footer>
+</main>
+<script src="app.js?v=1"></script>
+</body>
+</html>
+
