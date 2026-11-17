@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Echo study panel - Clinical AI Tools</title>
+<link rel="stylesheet" href="../fundus-app/css/style.css">
+<style>
+.muted{color:#4a6b8a;font-size:12px}
+canvas.over{position:absolute;left:0;top:0;background:transparent;pointer-events:none;border-radius:8px}
+details.tech{margin-top:6px}
+details.tech summary{cursor:pointer;font-weight:600;color:#1565c0;padding:6px 0}
+code{background:#eef5fd;padding:1px 4px;border-radius:4px;font-size:13px}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><a href="../fundus-app/index.html" style="color:#fff;text-decoration:none">&#8592; Clinical AI Tools</a> <span class="tag">research demo</span></div></header>
+<main class="wrap">
+<div class="notice">Research use only. Not a medical device. Values are model estimates from cine loops, not clinical measurements. Agreement with a reporting system is not guaranteed.</div>
+<h1>Echo study panel</h1>
+<div class="panel">
+<div class="row" id="modelRow">
+<label class="chk"><input type="radio" name="model" id="mPanecho" checked> PanEcho &mdash; 40 study measures</label>
+<label class="chk"><input type="radio" name="model" id="mUnity"> Unity-GLS &mdash; LV landmarks and shortening</label>
+</div>
+<div class="row"><input type="file" id="file" multiple></div>
+<div class="status" id="fileList"></div>
+<div class="row"><button id="runBtn" disabled>Run model</button><span class="status" id="status">Loading model…</span></div>
+<div class="prog"><div id="bar"></div></div>
+</div>
+<div class="panel">
+<div style="position:relative;max-width:520px"><canvas class="preview" id="prev"></canvas><canvas class="over" id="over"></canvas></div>
+<div class="status">The preview is square-stretched to match model input; overlays are drawn in that same frame.</div>
+</div>
+<div class="panel" id="panechoPanel" style="display:none">
+<h2>PanEcho estimates</h2>
+<div class="status" id="peMeta"></div>
+<table class="res" id="peTable"><thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody></tbody></table>
+</div>
+<div class="panel" id="unityPanel" style="display:none">
+<h2>Unity-GLS landmarks</h2>
+<div class="status" id="unityStats"></div>
+<table class="res" id="lmTable"><thead><tr><th>Layer</th><th>Peak</th></tr></thead><tbody></tbody></table>
+</div>
+<div class="panel">
+<h2>Technical description</h2>
+<details class="tech" open><summary>Optimal input</summary>
+<p>One MP4 (H.264) cine loop per view. Put the <strong>apical four-chamber</strong> loop first, because Unity-GLS uses the first file and targets apical views (A4C, A2C, A3C). At least 16 frames per clip; a two-second loop at 30 fps is a practical minimum. Single-plane grayscale B-mode works best.</p>
+<p>Do not concatenate different views into one file. PanEcho samples 16 <em>consecutive</em> frames, so a concatenated file produces clips straddling a view change, and Unity's seven context frames assume one continuous acquisition. Load each view as its own file.</p>
+<p>Avoid colour Doppler, burned-in calipers or measurements, and screen recordings with overlays or dropped frames: these change what the network sees and sit outside the released preprocessing.</p>
+</details>
+<details class="tech" open><summary>Optimal way to use it</summary>
+<p>Load the apical loop, plus any additional views as separate files. <strong>PanEcho</strong> runs four clips of 16 frames from each cine and averages clip predictions within a cine, then across cines, matching upstream study-level averaging. Two to three views is a good balance; four views means sixteen clips and a few minutes of frame extraction on a phone.</p>
+<p><strong>Unity-GLS</strong> runs eight temporal windows on the first cine using context frames at offsets &minus;9, &minus;3, &minus;1, 0, 1, 3, 9. Shortening is <code>(max &minus; min) / max</code> of the endocardial contour length across those windows.</p>
+<p>PanEcho emits all forty tasks for whatever you supply; an emitted value does not prove the task was assessable from those views. Treat single-view studies, especially PLAX-only, as limited. GLS is learned regression, not speckle tracking, and wall-motion is a study-level probability rather than a segment map.</p>
+<p>First use downloads PanEcho (168 MB) or Unity-GLS (268 MB) and caches it in the browser; later visits load from the device cache. Switching models releases the previous session.</p>
+</details>
+<details class="tech" open><summary>Models, source and validation</summary>
+<table class="res">
+<tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Weights</td><td><a href="https://huggingface.co/AnupamK/panecho-onnx" target="_blank" rel="noopener">huggingface.co/AnupamK/panecho-onnx</a>, pinned commit 07d2bb2</td></tr>
+<tr><td>PanEcho source</td><td><a href="https://github.com/CarDS-Yale/PanEcho" target="_blank" rel="noopener">CarDS-Yale/PanEcho</a> at commit 836c46e, official release checkpoint</td></tr>
+<tr><td>Unity-GLS source</td><td><a href="https://github.com/UnityImaging/unity-gls" target="_blank" rel="noopener">UnityImaging/unity-gls</a> at commit 3834c0e, HRNetV2M10</td></tr>
+<tr><td>Export</td><td>ONNX opset 17, FP32. No retraining, fine-tuning or threshold tuning</td></tr>
+<tr><td>Parity</td><td>PyTorch vs ONNX Runtime max absolute difference: PanEcho 6.19e-3, Unity-GLS 5.9e-5</td></tr>
+<tr><td>Input shapes</td><td>PanEcho 1x3x16x224x224 (BGR, centre-crop 224, ImageNet norm); Unity-GLS 1x7x608x608 (grayscale, pixel/255 - 0.5)</td></tr>
+<tr><td>Outputs</td><td>PanEcho 1x58 (40 tasks, activations in-graph); Unity-GLS 1x4x608x608 heatmaps: endocardial curve, apex, two MV hinges</td></tr>
+<tr><td>Licences</td><td>Unity-GLS MIT. PanEcho per the upstream LICENSES.md. Research use only</td></tr>
+</table>
+<p class="muted">Browser deviations from the reference pipeline: bilinear canvas resize rather than OpenCV INTER_AREA, an assumed 30 fps when the container does not report it, and a square-stretched preview. Shortening has no physical calibration.</p>
+</details>
+</div>
+<footer>Created by Anupam Kumar Singh, MD</footer>
+</main>
+<script src="app.js?v=2"></script>
+</body>
+</html>
