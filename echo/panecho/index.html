@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PanEcho study measures</title>
+<link rel="stylesheet" href="../../fundus-app/css/style.css">
+<style>.muted{color:#4a6b8a;font-size:12px}canvas.over{position:absolute;left:0;top:0;background:transparent;pointer-events:none;border-radius:8px}details.tech summary{cursor:pointer;font-weight:600;color:#1565c0;padding:6px 0}</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><a href="../index.html" style="color:#fff;text-decoration:none">&#8592; Echo AI Tools</a> <span class="tag">research demo</span></div></header>
+<main class="wrap">
+<div class="notice">Research use only. Not a medical device. Values are model estimates from 16-frame clips, not clinical measurements.</div>
+<h1>PanEcho study measures</h1>
+<div class="panel">
+<div class="row"><input type="file" id="file" multiple></div>
+<div class="status" id="fileList"></div>
+<div class="row"><button id="runBtn" disabled>Run PanEcho</button><span class="status" id="status">Loading model…</span></div>
+<div class="prog"><div id="bar"></div></div>
+</div>
+<div class="panel">
+<div style="position:relative;max-width:520px"><canvas class="preview" id="prev"></canvas><canvas class="over" id="over"></canvas></div>
+<div class="status">Preview is square-stretched to match model input.</div>
+</div>
+<div class="panel" id="panechoPanel">
+<h2>Estimates</h2>
+<div class="status" id="peMeta"></div>
+<table class="res" id="peTable"><thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody></tbody></table>
+</div>
+<div class="panel">
+<h2>Technical description</h2>
+<details open><summary>Optimal input</summary>
+<p>One MP4 (H.264) cine per view, at least 16 frames per clip (about two seconds at 30 fps). Single-plane grayscale B-mode works best. Load each view as a separate file: clips are 16 consecutive frames, so concatenating views makes clips straddle a view change.</p>
+<p>Avoid colour Doppler, burned-in calipers and screen recordings with overlays.</p>
+</details>
+<details open><summary>Optimal way to use it</summary>
+<p>Add the apical loop plus any other views. Four clips of 16 frames are taken from each cine and averaged within a cine, then across cines, matching upstream study-level averaging. Two to three views is a practical balance.</p>
+<p>All forty tasks are emitted for whatever you supply; an emitted value does not prove the task was assessable from those views. GLS is learned regression, not speckle tracking. Wall motion is a study-level probability, not a segment map.</p>
+</details>
+<details open><summary>Model and source</summary>
+<p>Weights: <a href="https://huggingface.co/AnupamK/panecho-onnx" target="_blank" rel="noopener">huggingface.co/AnupamK/panecho-onnx</a> (pinned 07d2bb2). Source: <a href="https://github.com/CarDS-Yale/PanEcho" target="_blank" rel="noopener">CarDS-Yale/PanEcho</a> at commit 836c46e. ONNX opset 17, FP32, no retraining. PyTorch vs ONNX Runtime max absolute difference 6.19e-3.</p>
+<p class="muted">Browser deviations: bilinear canvas resize rather than OpenCV INTER_AREA, assumed 30 fps when the container does not report it.</p>
+</details>
+</div>
+<footer>Created by Anupam Kumar Singh, MD</footer>
+</main>
+<script>window.ECHO_PAGE = "panecho";</script>
+<script src="../ui.js?v=4"></script>
+</body>
+</html>

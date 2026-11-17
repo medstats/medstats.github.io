@@ -1,38 +1,28 @@
-var worker = new Worker("worker.js?v=3");
-var vids = [];                 // {name, el, dur, w, h}
-var currentModel = "panecho", busy = false;
-var modelReady = false, hasVideo = false;
+// Shared UI for both echo tools. The page sets window.ECHO_PAGE to "panecho" or "unity".
+var PAGE = window.ECHO_PAGE || "panecho";
+var worker = new Worker("../worker.js?v=4");
+var vids = [];
+var busy = false, modelReady = false, hasVideo = false;
 function el(id) { return document.getElementById(id); }
-function setStatus(t) { el("status").textContent = t; }
+function setStatus(t) { var s = el("status"); if (s) s.textContent = t; }
+function updateRun() { var b = el("runBtn"); if (b) b.disabled = !(modelReady && hasVideo) || busy; }
+function finish() { busy = false; updateRun(); var bar = el("bar"); if (bar) bar.style.width = "100%"; }
 
 worker.onmessage = function (ev) {
   var m = ev.data;
   if (m.type === "status") { setStatus(m.message); return; }
-  if (m.type === "ready") { modelReady = true; setStatus("Model ready (" + m.model + "). Add cines and press Run."); updateRun(); return; }
-  if (m.type === "progress") { el("bar").style.width = Math.round(100 * m.value) + "%"; if (m.label) setStatus(m.label); return; }
+  if (m.type === "ready") { modelReady = true; setStatus("Model ready. Add a cine and press Run."); updateRun(); return; }
+  if (m.type === "progress") {
+    var bar = el("bar"); if (bar) bar.style.width = Math.round(100 * m.value) + "%";
+    if (m.label) setStatus(m.label);
+    return;
+  }
   if (m.type === "panecho_result") { renderPanecho(m); finish(); return; }
   if (m.type === "unity_result") { renderUnity(m); finish(); return; }
   if (m.type === "error") { setStatus("Error: " + m.message); finish(); return; }
 };
 worker.onerror = function (e) { setStatus("Worker error: " + e.message); finish(); };
 
-function updateRun() { el("runBtn").disabled = !(modelReady && hasVideo) || busy; }
-function finish() { busy = false; updateRun(); el("bar").style.width = "100%"; }
-
-function pickModel(model) {
-  currentModel = model;
-  el("panechoPanel").style.display = "none";
-  el("unityPanel").style.display = "none";
-  modelReady = false; updateRun();
-  setStatus("Loading " + model + " model…");
-  worker.postMessage({ type: "init", model: model });
-  return false;
-}
-el("mPanecho").addEventListener("change", function () { if (this.checked) pickModel("panecho"); });
-el("mUnity").addEventListener("change", function () { if (this.checked) pickModel("unity"); });
-
-
-// Metadata arrives long before pixels. Drawing before loadeddata yields a black canvas.
 function waitForData(v) {
   if (v.readyState >= 2) return Promise.resolve();
   return new Promise(function (res) {
@@ -44,7 +34,6 @@ function waitForData(v) {
     setTimeout(fin, 7000);
   });
 }
-
 function seekTo(v, t) {
   return new Promise(function (res) {
     if (Math.abs(v.currentTime - t) < 1e-3) return res();
@@ -64,41 +53,48 @@ function grabSquare(v, size) {
 }
 function drawPreview(item) {
   var p = el("prev");
+  if (!p) return;
   var side = Math.min(520, Math.max(240, p.clientWidth || 420));
   p.width = side; p.height = side;
   var ctx = p.getContext("2d");
   ctx.drawImage(item.el, 0, 0, side, side);
-  el("over").width = side; el("over").height = side;
-  el("over").getContext("2d").clearRect(0, 0, side, side);
+  var ov = el("over");
+  if (ov) {
+    ov.width = side; ov.height = side;
+    ov.getContext("2d").clearRect(0, 0, side, side);
+  }
   var d = ctx.getImageData(0, 0, side, side).data;
   var sum = 0;
   for (var i = 0; i < d.length; i += 4) sum += d[i] + d[i + 1] + d[i + 2];
-  var mean = sum / (side * side * 3);
-  if (mean < 1.5) {
-    // One retry: a decode that lands a frame late otherwise leaves a black preview.
-    setTimeout(function () {
-      try { ctx.drawImage(item.el, 0, 0, side, side); } catch (_) {}
-    }, 400);
+  if (sum / (side * side * 3) < 1.5) {
+    setTimeout(function () { try { ctx.drawImage(item.el, 0, 0, side, side); } catch (_) {} }, 400);
   }
-  return mean;
 }
 
 function renderFileList() {
-  if (!vids.length) { el("fileList").textContent = ""; return; }
+  var box = el("fileList");
+  if (!box) return;
+  if (!vids.length) { box.textContent = ""; return; }
   var lines = vids.map(function (v, i) {
-    return (i + 1) + ". " + v.name + " — " + v.w + "x" + v.h + ", " + v.dur.toFixed(1) + " s";
+    return (i + 1) + ". " + v.name + " &mdash; " + v.w + "x" + v.h + ", " + v.dur.toFixed(1) + " s";
   });
-  el("fileList").innerHTML = lines.join("<br>") +
-    (vids.length > 1 ? "<br><span class='muted'>PanEcho averages across all " + vids.length +
-      " cines. Unity-GLS uses the first cine, which should be the apical loop.</span>" : "");
+  var extra = "";
+  if (PAGE === "panecho" && vids.length > 1) {
+    extra = "<br><span class='muted'>Averaged across all " + vids.length + " cines.</span>";
+  }
+  if (PAGE === "unity" && vids.length > 1) {
+    extra = "<br><span class='muted'>Unity-GLS uses the first cine only; select the apical loop.</span>";
+  }
+  box.innerHTML = lines.join("<br>") + extra;
 }
 
-el("file").addEventListener("change", async function (e) {
+var fileInput = el("file");
+if (fileInput) fileInput.addEventListener("change", async function (e) {
   var files = Array.prototype.slice.call(e.target.files || []);
   if (!files.length) return;
   vids.forEach(function (v) { try { v.el.src = ""; } catch (_) {} });
   vids = [];
-  el("fileList").textContent = "Loading cines…";
+  var list = el("fileList"); if (list) list.textContent = "Loading cines…";
   var failed = [];
   for (var i = 0; i < files.length; i++) {
     var f = files[i];
@@ -126,12 +122,13 @@ el("file").addEventListener("change", async function (e) {
   updateRun();
 });
 
-el("runBtn").addEventListener("click", async function () {
+var runBtn = el("runBtn");
+if (runBtn) runBtn.addEventListener("click", async function () {
   if (!vids.length || busy) return;
-  busy = true; updateRun(); el("bar").style.width = "0%";
+  busy = true; updateRun();
+  var bar = el("bar"); if (bar) bar.style.width = "0%";
   try {
-    if (currentModel === "panecho") await runPanecho();
-    else await runUnity();
+    if (PAGE === "panecho") await runPanecho(); else await runUnity();
   } catch (err) {
     setStatus("Error: " + (err.message || err));
     busy = false; updateRun();
@@ -144,7 +141,7 @@ async function runPanecho() {
     var item = vids[vi];
     await waitForData(item.el);
     for (var c = 0; c < clips; c++) {
-      setStatus("Extracting cine " + (vi + 1) + " of " + vids.length + ", clip " + (c + 1) + " of " + clips + "…");
+      setStatus("Cine " + (vi + 1) + " of " + vids.length + ", clip " + (c + 1) + " of " + clips + "…");
       var start = (item.dur * c) / clips;
       var frames = [];
       for (var k = 0; k < per; k++) {
@@ -156,8 +153,6 @@ async function runPanecho() {
     }
   }
   setStatus("Running PanEcho on " + all.length + " clips…");
-  el("panechoPanel").style.display = "block";
-  el("unityPanel").style.display = "none";
   worker.postMessage({ type: "run_panecho", clips: all, w: 256, h: 256 });
 }
 
@@ -167,7 +162,7 @@ async function runUnity() {
   var offsets = [-9, -3, -1, 0, 1, 3, 9];
   var windows = 8, step = 1 / 30, all = [];
   for (var i = 0; i < windows; i++) {
-    setStatus("Extracting context window " + (i + 1) + " of " + windows + "…");
+    setStatus("Context window " + (i + 1) + " of " + windows + "…");
     var tc = (item.dur * i) / windows + item.dur / (windows * 2);
     var frames = [];
     for (var k = 0; k < offsets.length; k++) {
@@ -179,15 +174,16 @@ async function runUnity() {
     all.push(frames);
   }
   setStatus("Running Unity-GLS on " + windows + " windows…");
-  el("panechoPanel").style.display = "none";
-  el("unityPanel").style.display = "block";
   worker.postMessage({ type: "run_unity", windows: all, w: 608, h: 608 });
 }
 
 function fmt(v) { return (v === null || v === undefined || isNaN(v)) ? "-" : Number(v).toFixed(2); }
+
 function renderPanecho(m) {
-  var tb = el("peTable").querySelector("tbody");
-  tb.innerHTML = "";
+  var tb = el("peTable");
+  if (!tb) return;
+  var body = tb.querySelector("tbody");
+  body.innerHTML = "";
   m.rows.forEach(function (r) {
     var tr = document.createElement("tr");
     var measure = document.createElement("td"); measure.textContent = r.name;
@@ -201,15 +197,16 @@ function renderPanecho(m) {
     } else {
       val.textContent = fmt(r.values[0]);
     }
-    tr.appendChild(measure); tr.appendChild(val);
-    tb.appendChild(tr);
+    tr.appendChild(measure); tr.appendChild(val); body.appendChild(tr);
   });
-  el("peMeta").textContent = "Averaged over " + m.clips + " clips from " + vids.length +
-    " cine" + (vids.length === 1 ? "" : "s") + ". Values are model estimates; units follow the upstream task definitions.";
+  var meta = el("peMeta");
+  if (meta) meta.textContent = "Averaged over " + m.clips + " clips from " + vids.length +
+    " cine" + (vids.length === 1 ? "" : "s") + ". Model estimates only; units follow the upstream task definitions.";
 }
 
 function renderUnity(m) {
   var ov = el("over");
+  if (!ov) return;
   var ctx = ov.getContext("2d");
   ctx.clearRect(0, 0, ov.width, ov.height);
   var sc = ov.width / 608;
@@ -226,25 +223,31 @@ function renderUnity(m) {
   ctx.fillRect(0, ov.height - 20, ov.width, 20);
   ctx.fillStyle = "#fff"; ctx.font = "12px system-ui";
   ctx.fillText("pink: endocardial curve   green: apex   blue/amber: MV hinges", 8, ov.height - 6);
-  var noCurve = (m.shortening === null);
-  el("unityStats").innerHTML = noCurve
-    ? "<strong>No endocardial curve detected.</strong> Check that the first cine is an apical view. <span class='muted'>Curve threshold adapts from 0.15 to 0.05.</span>"
-    : "<strong>Shortening:</strong> " + (m.shortening * 100).toFixed(1) + "%" +
-      " &nbsp; <strong>max length:</strong> " + m.maxLen.toFixed(1) + " px" +
-      " &nbsp; <strong>min length:</strong> " + m.minLen.toFixed(1) + " px" +
-      " &nbsp; <span class='muted'>relative to the 608-px grid; no physical calibration</span>";
-  var tb = el("lmTable").querySelector("tbody");
-  tb.innerHTML = "";
-  m.layers.forEach(function (name, i) {
-    var tr = document.createElement("tr");
-    var c1 = document.createElement("td"); c1.textContent = name;
-    var p = i === 1 ? w0.apex : i === 2 ? w0.ant : i === 3 ? w0.inf : null;
-    var c2 = document.createElement("td");
-    c2.textContent = p ? ("x=" + p.x + ", y=" + p.y + " (" + p.v.toFixed(3) + ")") : (w0.curve.length + " points");
-    tr.appendChild(c1); tr.appendChild(c2); tb.appendChild(tr);
-  });
+  var stats = el("unityStats");
+  if (stats) {
+    stats.innerHTML = (m.shortening === null)
+      ? "<strong>No endocardial curve detected.</strong> Confirm the cine is an apical view."
+      : "<strong>Shortening:</strong> " + (m.shortening * 100).toFixed(1) + "%" +
+        " &nbsp; <strong>max length:</strong> " + m.maxLen.toFixed(1) + " px" +
+        " &nbsp; <strong>min length:</strong> " + m.minLen.toFixed(1) + " px" +
+        " &nbsp; <span class='muted'>608-px model grid; no physical calibration</span>";
+  }
+  var lm = el("lmTable");
+  if (lm) {
+    var body = lm.querySelector("tbody");
+    body.innerHTML = "";
+    m.layers.forEach(function (name, i) {
+      var tr = document.createElement("tr");
+      var c1 = document.createElement("td"); c1.textContent = name;
+      var p = i === 1 ? w0.apex : i === 2 ? w0.ant : i === 3 ? w0.inf : null;
+      var c2 = document.createElement("td");
+      c2.textContent = p ? ("x=" + p.x + ", y=" + p.y + " (" + p.v.toFixed(3) + ")") : (w0.curve.length + " points");
+      tr.appendChild(c1); tr.appendChild(c2); body.appendChild(tr);
+    });
+  }
 }
 
-// PanEcho is the default selection, so start loading it immediately.
-pickModel("panecho");
+modelReady = false;
+setStatus("Loading " + PAGE + " model…");
+worker.postMessage({ type: "init", model: PAGE });
 
