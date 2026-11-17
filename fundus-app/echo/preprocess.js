@@ -74,15 +74,20 @@ function unityLandmarks(data, layers, H, W) {
     return { x: bi % W, y: Math.floor(bi / W), v: best };
   }
   var apex = argmax(1), ant = argmax(2), inf = argmax(3);
-  var curve = [];
-  for (var y = 0; y < H; y++) {
-    var best = -1, bx = -1, base = 0 * H * W;
-    for (var x = 0; x < W; x++) {
-      var v = data[base + y * W + x];
-      if (v > best) { best = v; bx = x; }
+  function ridge(thr) {
+    var pts = [];
+    for (var y = 0; y < H; y++) {
+      var best = -1, bx = -1, base = 0 * H * W;
+      for (var x = 0; x < W; x++) {
+        var v = data[base + y * W + x];
+        if (v > best) { best = v; bx = x; }
+      }
+      if (bx >= 0 && best > thr) pts.push([bx, y]);
     }
-    if (bx >= 0 && best > 0.15) curve.push([bx, y]);
+    return pts;
   }
+  var curve = ridge(0.15);
+  if (curve.length < 40) { var wider = ridge(0.05); if (wider.length > curve.length) curve = wider; }
   var len = 0;
   for (var i = 1; i < curve.length; i++) {
     var dx = curve[i][0] - curve[i - 1][0], dy = curve[i][1] - curve[i - 1][1];

@@ -79,10 +79,12 @@ async function runUnity(m) {
     self.postMessage({ type: "progress", value: (i + 1) / wins.length, label: "window " + (i + 1) + " of " + wins.length });
   }
   var lens = results.map(function (r) { return r.lengthPx; }).filter(function (v) { return v > 0; });
-  var max = Math.max.apply(null, lens), min = Math.min.apply(null, lens);
+  var max = lens.length ? Math.max.apply(null, lens) : null;
+  var min = lens.length ? Math.min.apply(null, lens) : null;
+  var short = (max && max > 0) ? (max - min) / max : null;
   self.postMessage({
     type: "unity_result", windows: results, layers: UNITY_LAYERS,
-    maxLen: max, minLen: min, shortening: max > 0 ? (max - min) / max : null
+    maxLen: max, minLen: min, shortening: short
   });
 }
 

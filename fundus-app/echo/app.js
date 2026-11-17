@@ -1,5 +1,6 @@
 var worker = new Worker("worker.js?v=1");
 var vid = null, dur = 0, fps = 30, currentModel = "panecho", busy = false;
+var modelReady = false, hasVideo = false;
 var outW = 0, outH = 0;
 function el(id) { return document.getElementById(id); }
 function setStatus(t) { el("status").textContent = t; }
@@ -7,7 +8,7 @@ function setStatus(t) { el("status").textContent = t; }
 worker.onmessage = function (ev) {
   var m = ev.data;
   if (m.type === "status") { setStatus(m.message); return; }
-  if (m.type === "ready") { setStatus("Model ready (" + m.model + "). Choose a cine and press Run."); el("runBtn").disabled = false; return; }
+  if (m.type === "ready") { modelReady = true; setStatus("Model ready (" + m.model + "). Choose a cine and press Run."); updateRun(); return; }
   if (m.type === "progress") { el("bar").style.width = Math.round(100 * m.value) + "%"; if (m.label) setStatus(m.label); return; }
   if (m.type === "panecho_result") { renderPanecho(m); finish(); return; }
   if (m.type === "unity_result") { renderUnity(m); finish(); return; }
@@ -15,13 +16,14 @@ worker.onmessage = function (ev) {
 };
 worker.onerror = function (e) { setStatus("Worker error: " + e.message); finish(); };
 
-function finish() { busy = false; el("runBtn").disabled = false; el("bar").style.width = "100%"; }
+function updateRun() { el("runBtn").disabled = !(modelReady && hasVideo) || busy; }
+function finish() { busy = false; updateRun(); el("bar").style.width = "100%"; }
 
 function pickModel(model) {
   currentModel = model;
   el("panechoPanel").style.display = "none";
   el("unityPanel").style.display = "none";
-  el("runBtn").disabled = true;
+  modelReady = false; updateRun();
   setStatus("Loading " + model + " model…");
   worker.postMessage({ type: "init", model: model });
   return false;
@@ -73,8 +75,9 @@ el("file").addEventListener("change", function (e) {
     dur = vid.duration || 0;
     outW = vid.videoWidth; outH = vid.videoHeight;
     el("fileInfo").textContent = f.name + " — " + outW + "x" + outH + ", " + dur.toFixed(1) + " s";
+    hasVideo = true;
     setStatus("Cine loaded. Press Run.");
-    el("runBtn").disabled = false;
+    updateRun();
     // Metadata exists before any frame is decoded; seek once so the preview is real pixels.
     vid.addEventListener("seeked", drawPreview, { once: true });
     vid.currentTime = Math.min(0.05, Math.max(0, dur / 2));
@@ -84,13 +87,13 @@ el("file").addEventListener("change", function (e) {
 
 el("runBtn").addEventListener("click", async function () {
   if (!vid || busy) return;
-  busy = true; el("runBtn").disabled = true; el("bar").style.width = "0%";
+  busy = true; updateRun(); el("bar").style.width = "0%";
   try {
     if (currentModel === "panecho") await runPanecho();
     else await runUnity();
   } catch (err) {
     setStatus("Error: " + (err.message || err));
-    busy = false; el("runBtn").disabled = false;
+    busy = false; updateRun();
   }
 });
 
@@ -179,11 +182,13 @@ function renderUnity(m) {
   ctx.fillRect(0, ov.height - 20, ov.width, 20);
   ctx.fillStyle = "#fff"; ctx.font = "12px system-ui";
   ctx.fillText("pink: endocardial curve   green: apex   blue/amber: MV hinges", 8, ov.height - 6);
-  el("unityStats").innerHTML =
-    "<strong>Shortening:</strong> " + (m.shortening === null ? "-" : (m.shortening * 100).toFixed(1) + "%") +
-    " &nbsp; <strong>max length:</strong> " + m.maxLen.toFixed(1) + " px" +
-    " &nbsp; <strong>min length:</strong> " + m.minLen.toFixed(1) + " px" +
-    " &nbsp; <span class='muted'>relative to the 608-px model grid; no physical calibration</span>";
+  var noCurve = (m.shortening === null);
+  el("unityStats").innerHTML = noCurve
+    ? "<strong>No endocardial curve detected.</strong> Check the preview: a blank or non-apical frame yields no ridge. <span class='muted'>Curve threshold is relative to heatmap peak.</span>"
+    : "<strong>Shortening:</strong> " + (m.shortening * 100).toFixed(1) + "%" +
+      " &nbsp; <strong>max length:</strong> " + m.maxLen.toFixed(1) + " px" +
+      " &nbsp; <strong>min length:</strong> " + m.minLen.toFixed(1) + " px" +
+      " &nbsp; <span class='muted'>relative to the 608-px model grid; no physical calibration</span>";
   var tb = el("lmTable").querySelector("tbody");
   tb.innerHTML = "";
   m.layers.forEach(function (name, i) {
@@ -195,3 +200,5 @@ function renderUnity(m) {
   });
 }
 
+// PanEcho is the default selection, so start loading it immediately.
+pickModel("panecho");
