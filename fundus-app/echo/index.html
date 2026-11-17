@@ -23,7 +23,8 @@ canvas.over{position:absolute;left:0;top:0;background:transparent;pointer-events
 <label class="chk"><input type="radio" name="model" id="mPanecho" checked> PanEcho &mdash; 40 study measures</label>
 <label class="chk"><input type="radio" name="model" id="mUnity"> Unity-GLS &mdash; LV landmarks and shortening</label>
 </div>
-<div class="row"><input type="file" id="file" accept="video/*"><span class="status" id="fileInfo"></span></div>
+<div class="row"><input type="file" id="file" multiple></div>
+<div class="status" id="fileList"></div>
 <div class="row"><button id="runBtn" disabled>Run model</button><span class="status" id="status">Loading model…</span></div>
 <div class="prog"><div id="bar"></div></div>
 </div>
