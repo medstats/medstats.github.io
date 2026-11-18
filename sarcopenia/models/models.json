@@ -1,0 +1,66 @@
+{
+  "models": {
+    "pgimer": {
+      "id": "pgimer",
+      "name": "PGIMER Indian Cohort (Skeletal Muscle)",
+      "sha256": "79c2f78b4aee7798ecd9e5adb2cbdf314867fdce5e8b72bdde1c49caa0099476",
+      "bytes": 58055052,
+      "patchSize": [
+        512,
+        512
+      ],
+      "spacingMm": [
+        0.78125,
+        0.78125
+      ],
+      "normalization": {
+        "clipMin": -133.0,
+        "clipMax": 129.0,
+        "mean": 15.050668716430664,
+        "std": 75.17498779296875
+      },
+      "labels": {
+        "0": "background",
+        "1": "muscle"
+      },
+      "numClasses": 2,
+      "citation": "Gupta et al., Indian J Gastroenterol 2026 (PMID: 41553453)",
+      "parts": [
+        "models/pgimer_l3.bin"
+      ]
+    },
+    "mazurowski": {
+      "id": "mazurowski",
+      "name": "Mazurowski Lab (Muscle, SAT, VAT, IMAT)",
+      "sha256": "26a7906d50aab54b22fd1f8c849d3e34cf324e66705713d917515a3b8571d42c",
+      "bytes": 114825801,
+      "patchSize": [
+        256,
+        256
+      ],
+      "spacingMm": [
+        1.0,
+        1.0
+      ],
+      "normalization": {
+        "clipMin": -146.5,
+        "clipMax": 134.25,
+        "mean": -33.667884826660156,
+        "std": 73.5470199584961
+      },
+      "labels": {
+        "0": "background",
+        "1": "muscle",
+        "2": "sat",
+        "3": "vat",
+        "4": "muscle_fat"
+      },
+      "numClasses": 5,
+      "citation": "Mazurowski Lab 2D CT Muscle & Fat Segmentation (CC BY-NC 4.0)",
+      "parts": [
+        "models/mazurowski_l3_part0.bin",
+        "models/mazurowski_l3_part1.bin"
+      ]
+    }
+  }
+}
