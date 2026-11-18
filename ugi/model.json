@@ -1,0 +1,50 @@
+{
+  "name": "FastUGI-Net B7+XXS",
+  "version": "b7-fp32-v1",
+  "input": "image",
+  "shape": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "anatomy": [
+    "esophagus",
+    "squamocolumnar junction",
+    "fundus",
+    "gastric body - antegrade",
+    "gastric body - retroflex",
+    "angulus",
+    "antrum",
+    "duodenal bulb",
+    "descending duodenum"
+  ],
+  "disease": [
+    "normal",
+    "esophageal neoplasm",
+    "esophageal varices",
+    "GERD",
+    "gastric neoplasm",
+    "gastric polyp",
+    "gastric ulcer",
+    "gastric varices",
+    "duodenal bulb disease",
+    "descending duodenal disease"
+  ],
+  "mean": [
+    0.5187,
+    0.2813,
+    0.2154
+  ],
+  "std": [
+    0.2786,
+    0.1975,
+    0.1759
+  ],
+  "resize": "tensor bicubic antialias; separable Keys cubic a=-0.5; no clipping",
+  "checkpoint_sha256": "753ba2d2f77468fe44cba7d5359179d522ac3e7280ab25552412da9b91d49cf8",
+  "onnx_sha256": "bdbd17b1765dc1325150bf7467fbea87225f73ebb37ada70017a66a579a2adb5",
+  "model_bytes": 22680974,
+  "opset": 17,
+  "attention": "explicit matmul-softmax-matmul (fused SDPA disabled)"
+}
